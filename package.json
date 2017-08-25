@@ -1,0 +1,23 @@
+{
+  "name": "appv2",
+  "version": "1.0.0",
+  "description": "Version 2 of Flipside.",
+  "main": "server.js",
+  "author": "Flipside, Inc.",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.5.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.4",
+    "express-session": "^1.15.5",
+    "express-validator": "^3.2.1",
+    "express-vue": "^4.0.7",
+    "mandrill-api": "^1.0.45",
+    "morgan": "^1.8.2",
+    "mysql": "^2.14.1",
+    "passport-facebook": "^2.1.1",
+    "passport-local": "^1.0.0",
+    "passport-local-authenticate": "^1.2.0",
+    "path": "^0.12.7"
+  }
+}
