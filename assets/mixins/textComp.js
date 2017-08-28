@@ -1,50 +1,52 @@
 var mixin = {
   methods: {
-    popMenu: function(obj, data) {
-      data.why = false;
-      data.responseSubmitted = false;
-      data.form = 1;
-      data.lastReferenced = obj.sentenceId;
+    popMenu: function(obj, textcomp) {
+      textcomp.why = false;
+      textcomp.responseSubmitted = false;
+      textcomp.form = 1;
+      textcomp.lastReferenced = obj.sentenceId;
     },
-    popWhyMenu: function(obj, data) {
-      data.why = true;
-      data.form = 0;
-      data.lastReferenced = obj.sentenceId;
-      data.responseSubmitted = false;
+    popWhyMenu: function(obj, textcomp) {
+      textcomp.why = true;
+      textcomp.form = 0;
+      textcomp.lastReferenced = obj.sentenceId;
+      textcomp.responseSubmitted = false;
     },
-    popResponseForm: function(obj, data) {
-      data.whyResponse.input = "";
-      data.responseForm = true;
-      data.lastReferencedResponseForm = obj.sentenceId;
+    popResponseForm: function(obj, textcomp) {
+      textcomp.whyResponse.input = "";
+      textcomp.responseForm = true;
+      textcomp.lastReferencedResponseForm = obj.sentenceId;
     },
-    submitResponse: function(sentence, input, data) {
-      data.response.sentenceId = sentence.sentenceId;
-      data.response.input = input;
+    submitResponse: function(sentence, input, responseColor, textcomp) {
+      alert("hello");
+      textcomp.response.sentenceId = sentence.sentenceId;
+      textcomp.response.input = input;
       this.postResponse(sentence.sentenceId, input);
-      data.responses.push(data.response)
-      data.response = {
+      textcomp.responses.push(textcomp.response)
+      textcomp.response = {
         sentenceId: "",
         input: ""
       };
-      data.form = 0;
-      data.why = 1;
-      if (data.signedIn == false) {
-        sentence.seen = true;
+      textcomp.form = 0;
+      textcomp.why = 1;
+      if (textcomp.signedIn == false) {
+        sentence.seen = responseColor;
       }
-      sentence.seen = true;
+      sentence.seen = responseColor;
+      refreshClusterMap();
     },
-    submitWhy: function(obj, data) {
-      data.whyResponse.sentenceId = obj.sentenceId;
-      data.whyResponses.push(data.whyResponse)
-      this.postWhy(data.whyResponse.input, data.whyResponse.sentenceId);
-      data.whyResponse = {
+    submitWhy: function(obj, textcomp) {
+      textcomp.whyResponse.sentenceId = obj.sentenceId;
+      textcomp.whyResponses.push(textcomp.whyResponse)
+      this.postWhy(textcomp.whyResponse.input, textcomp.whyResponse.sentenceId);
+      textcomp.whyResponse = {
         sentenceId: "",
         input: ""
       };
-      data.form = 0;
-      data.why = 0;
-      data.responseSubmitted = 1;
-      data.responseForm = 0;
+      textcomp.form = 0;
+      textcomp.why = 0;
+      textcomp.responseSubmitted = 1;
+      textcomp.responseForm = 0;
     },
     postResponse: function(passage_id, reaction) {
       var data = {

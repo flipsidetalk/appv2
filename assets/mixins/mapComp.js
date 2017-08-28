@@ -1,35 +1,35 @@
 var mixin = {
   methods: {
-    render: function(data) {
-      if (data.xlength > data.ylength) {
-        data.multiplier = 500 / data.xlength;
+    render: function(mapcomp) {
+      if (mapcomp.xlength > mapcomp.ylength) {
+        mapcomp.multiplier = 500 / mapcomp.xlength;
       } else {
-        data.multiplier = 334 / data.ylength;
+        mapcomp.multiplier = 334 / mapcomp.ylength;
       }
-      for (var value in data.pointData) {
-        data.pointData[value].x *= data.multiplier;
-        data.pointData[value].y *= data.multiplier;
+      for (var value in mapcomp.pointData) {
+        mapcomp.pointData[value].x *= mapcomp.multiplier;
+        mapcomp.pointData[value].y *= mapcomp.multiplier;
       }
-      for (var cluster in data.shadeData) {
-        for (var s in data.shadeData[cluster].shading) {
-          var obj = data.shadeData[cluster].shading[s]
-          obj.x *= data.multiplier;
-          obj.y *= data.multiplier;
+      for (var cluster in mapcomp.shadeData) {
+        for (var s in mapcomp.shadeData[cluster].shading) {
+          var obj = mapcomp.shadeData[cluster].shading[s]
+          obj.x *= mapcomp.multiplier;
+          obj.y *= mapcomp.multiplier;
         }
       }
 
-      for (var group in data.clusterData) { //length is 4
-        for (var item in data.clusterData[group]) {
-          var object = data.clusterData[group][item]; // object of clusterData - 32 total objects
+      for (var group in mapcomp.clusterData) { //length is 4
+        for (var item in mapcomp.clusterData[group]) {
+          var object = mapcomp.clusterData[group][item]; // object of clusterData - 32 total objects
           if (object.average > 0) {
             object.decision = "agree";
           } else {
             object.decision = "disagree";
           }
-          for (var key in data.contentData) {
-            var mainGroup = data.contentData[key];
-            for (key1 in data.mainGroup) {
-              var mainobj = data.mainGroup[key1];
+          for (var key in mapcomp.contentData) {
+            var mainGroup = mapcomp.contentData[key];
+            for (key1 in mapcomp.mainGroup) {
+              var mainobj = mapcomp.mainGroup[key1];
               if (mainobj.sentenceId == object.sentenceId) {
                 object.text = mainobj.text;
               }
@@ -38,12 +38,12 @@ var mixin = {
         }
       }
 
-      var xMid = (data.extremeData.xMax + data.extremeData.xMin) / 2;
-      var yMid = (data.extremeData.yMax + data.extremeData.yMin) / 2;
+      var xMid = (mapcomp.extremeData.xMax + mapcomp.extremeData.xMin) / 2;
+      var yMid = (mapcomp.extremeData.yMax + mapcomp.extremeData.yMin) / 2;
       //Cluster Map
       var pointPlot = [];
-      for (var user in data.pointData) {
-        pointPlot.push(data.pointData[user]);
+      for (var user in mapcomp.pointData) {
+        pointPlot.push(mapcomp.pointData[user]);
       }
 
       var lineFunction = d3.line()
@@ -55,11 +55,11 @@ var mixin = {
         })
         .curve(d3.curveLinear);
 
-      for (var i = 0; i < data.shadeData.length; i++) {
+      for (var i = 0; i < mapcomp.shadeData.length; i++) {
         d3.select('.clusterMap')
           .append("path")
-          .attr("d", lineFunction(data.shadeData[i].shading))
-          .attr("id", data.shadeData[i].cluster)
+          .attr("d", lineFunction(mapcomp.shadeData[i].shading))
+          .attr("id", mapcomp.shadeData[i].cluster)
           .attr("onclick", "results.selectFromMap(this.id)")
           .attr("stroke", "none")
           .attr("class", "shadedArea")
@@ -78,10 +78,10 @@ var mixin = {
           $(this).addClass("selectedClusterModal");
         });
 
-        if (data.user !== 'undefined') {
-          var userPlot = data.pointData[data.user.id];
-          var userX = data.pointData[data.user.id].x + 375 - xMid;
-          var userY = 250 - data.pointData[data.user.id].y - yMid;
+        if (mapcomp.user !== 'undefined') {
+          var userPlot = mapcomp.pointData[mapcomp.user.id];
+          var userX = mapcomp.pointData[mapcomp.user.id].x + 375 - xMid;
+          var userY = 250 - mapcomp.pointData[mapcomp.user.id].y - yMid;
           var existingContent = $('.clusterMap').html();
           var toInsert = '<circle cx="' + userX + '" cy="' + userY + '" r="13" stroke="white" stroke-width="4" fill="#0097a7" />';
           $('.clusterMap').html(existingContent + toInsert);
