@@ -15,9 +15,12 @@
     "mandrill-api": "^1.0.45",
     "morgan": "^1.8.2",
     "mysql": "^2.14.1",
+    "mysql2": "^1.4.1",
+    "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
     "passport-local-authenticate": "^1.2.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "sequelize": "^4.7.5"
   }
 }
