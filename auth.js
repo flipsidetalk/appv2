@@ -80,7 +80,7 @@ module.exports = function(app, connection) {
     var password = req.sanitizeBody('password').escape();
     var fn = req.sanitizeBody('firstName').escape();
     var ln = req.sanitizeBody('lastName').escape();
-    var query = 'SELECT id FROM local WHERE email = ' + connection.escape(email);;
+    var query = 'SELECT id FROM local WHERE email = ' + connection.escape(email);
     connection.query(query,
       function(err, results) {
         if (err) {
