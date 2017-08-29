@@ -280,17 +280,11 @@ app.post('/emails', function(req, res) {
   var errors = req.validationErrors();
   if (errors) {
     console.log(errors);
-    // Render the form using error information
   } else {
-    var query = 'INSERT INTO `emails` (`id`, `email`, `location`) VALUES (null, "' + signup.email + '", "' + signup.location + '")';
-    connection.query(query,
-      function(err, results) {
-        if (err) {
-          app.locals.databases = err.stack;
-          console.log(err);
-        }
-        console.log("Results: " + results);
-      });
+    db.email.create({
+      email: signup.email,
+      location: signup.location
+    });
     sendWelcomeEmail("", "", signup.email);
   }
 });
