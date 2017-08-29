@@ -12,7 +12,7 @@ module.exports.init = function(sequelize, Sequelize) {
       type: Sequelize.STRING
     },
     password: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT
     },
     salt: {
       type: Sequelize.STRING
