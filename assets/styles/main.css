@@ -661,6 +661,73 @@ input:checked+label {
 }
 
 
+/* TOOLTIP
+-------------------------------------------------- */
+#tooltip {
+  position:absolute;
+  display:none;
+  border:grey solid 1px;
+  border-radius: 3px;
+  background:black;
+  padding:  5px 20px;
+  z-index: 500;
+  color: white;
+  animation: pop-upwards 180ms forwards linear;
+  transition: top 75ms ease-out,left 75ms ease-out;
+}
+#cal1{
+  position:absolute;
+  height:0px;
+  width:0px;
+  top:100px;
+  left:100px;
+  overflow:none;
+  z-index:-100;
+}
+#cal2{
+  position:absolute;
+  height:0px;
+  width:0px;
+  top:0px;
+  left:0px;
+  overflow:none;
+  z-index:-100;
+}
+.highlightMenu-arrowClip{
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  clip: rect(10px 20px 20px 0);
+  margin-left: -10px;
+}
+.highlightMenu-arrow{
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: black;
+  transform: rotate(45deg) scale(0.5);
+}
+
+.regularTextActive{
+  transition: ease-in 0.02s;
+  border-bottom: 4.2px solid rgba(0, 151, 167, 0.4);
+}
+
+.regularText{
+  -webkit-transition: ease-out 1s;
+  transition: ease-out 1s;
+  cursor: pointer;
+  padding-bottom: 0px;
+  border-bottom-color: white;
+  border-radius: 2px;
+}
+.regularText:hover{
+  border-bottom: 4.2px solid rgba(0, 151, 167, 0.4);
+  transition: ease-out 0.1s;
+  transition: ease-in 0.1s;
+}
+
+
 /* CONTENT
 -------------------------------------------------- */
 

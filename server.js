@@ -77,6 +77,13 @@ app.get('/', function(req, res) {
         date: 'August 23, 2017',
         text: articleText
       },
+      /*** TOOLTIP ATTRIBUTES ***/
+      tooldisplay: "none",
+      tooltop: "0px",
+      toolleft: "0px",
+      isHighlighted: false,
+      /*******/
+
       bottomBar: false,
       form: 0,
       responseForm: 0,
@@ -128,90 +135,90 @@ app.get('/', function(req, res) {
     head: {
       title: pageTitle,
       meta: [{
-          property: 'og:title',
-          content: pageTitle
-        },
-        {
-          name: 'twitter:title',
-          content: pageTitle
-        },
-        {
-          name: 'viewport',
-          content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
-        },
-        {
-          script: 'https://unpkg.com/vue@2.4.2/dist/vue.js'
-        },
-        {
-          script: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
-        },
-        {
-          script: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
-        },
-        {
-          script: 'https://d3js.org/d3.v4.js'
-        },
-        {
-          script: 'scripts/fb.js'
-        },
-        {
-          script: 'scripts/main.js'
-        },
-        {
-          style: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
-        },
-        {
-          style: 'https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css'
-        },
-        {
-          style: 'https://fonts.googleapis.com/css?family=Montserrat:300,400'
-        },
-        {
-          style: 'styles/main.css'
-        }
-      ]
-    }
-  };
-  // Uncomment this code (and add DB calls)
-  //
-  // async.parallel([
-  //   article: function(callback) {
-  //     callback(null, 'article');
-  //   },
-  //   totalclusterinfo: function(callback) {
-  //     callback(null, 'totalclusterinfo');
-  //   }
-  //   comments: function(callback) {
-  //     var query = 'SELECT votes.passage_id AS sentenceId, votes.reaction AS decision, whys.statement AS explanation, whys.time FROM whys INNER JOIN votes ON whys.user_id=votes.user_id AND whys.passage_id=votes.passage_id';
-  //     connection.query(query,
-  //       function(err, results) {
-  //         if (err) {
-  //           console.log(err);
-  //           callback(err, null);
-  //         }
-  //         callback(null, results);
-  //     });
-  //   }
-  // ],
-  // function(err, results) {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     data.textcomp.article = results.article;
-  //     data.mapcomp.extremeData = results.totalclusterinfo.extremes;
-  //     data.mapcomp.clusterData = results.totalclusterinfo.clusterData;
-  //     data.mapcomp.pointData = results.totalclusterinfo.pointData;
-  //     data.mapcomp.shadeData = results.totalclusterinfo.shadeData;
-  //     data.mapcomp.xlength = results.totalClusterInfo.extremes.xMax - results.totalClusterInfo.extremes.xMin;
-  //     data.mapcomp.ylength = results.totalClusterInfo.extremes.yMax - results.totalClusterInfo.extremes.yMin;
-  //     data.commentscomp.article.text = results.article.text;
-  //     data.commentscomp.commentData = results.comments.commentData;
-  //
-  //     res.renderVue('article', data, vue);
-  //   }
-  // });
+        property: 'og:title',
+        content: pageTitle
+      },
+      {
+        name: 'twitter:title',
+        content: pageTitle
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+      },
+      {
+        script: 'https://unpkg.com/vue@2.4.2/dist/vue.js'
+      },
+      {
+        script: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
+      },
+      {
+        script: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
+      },
+      {
+        script: 'https://d3js.org/d3.v4.js'
+      },
+      {
+        script: 'scripts/fb.js'
+      },
+      {
+        script: 'scripts/main.js'
+      },
+      {
+        style: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
+      },
+      {
+        style: 'https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css'
+      },
+      {
+        style: 'https://fonts.googleapis.com/css?family=Montserrat:300,400'
+      },
+      {
+        style: 'styles/main.css'
+      }
+    ]
+  }
+};
+// Uncomment this code (and add DB calls)
+//
+// async.parallel([
+//   article: function(callback) {
+//     callback(null, 'article');
+//   },
+//   totalclusterinfo: function(callback) {
+//     callback(null, 'totalclusterinfo');
+//   }
+//   comments: function(callback) {
+//     var query = 'SELECT votes.passage_id AS sentenceId, votes.reaction AS decision, whys.statement AS explanation, whys.time FROM whys INNER JOIN votes ON whys.user_id=votes.user_id AND whys.passage_id=votes.passage_id';
+//     connection.query(query,
+//       function(err, results) {
+//         if (err) {
+//           console.log(err);
+//           callback(err, null);
+//         }
+//         callback(null, results);
+//     });
+//   }
+// ],
+// function(err, results) {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     data.textcomp.article = results.article;
+//     data.mapcomp.extremeData = results.totalclusterinfo.extremes;
+//     data.mapcomp.clusterData = results.totalclusterinfo.clusterData;
+//     data.mapcomp.pointData = results.totalclusterinfo.pointData;
+//     data.mapcomp.shadeData = results.totalclusterinfo.shadeData;
+//     data.mapcomp.xlength = results.totalClusterInfo.extremes.xMax - results.totalClusterInfo.extremes.xMin;
+//     data.mapcomp.ylength = results.totalClusterInfo.extremes.yMax - results.totalClusterInfo.extremes.yMin;
+//     data.commentscomp.article.text = results.article.text;
+//     data.commentscomp.commentData = results.comments.commentData;
+//
+//     res.renderVue('article', data, vue);
+//   }
+// });
 
-  res.renderVue('article', data, vue);
+res.renderVue('article', data, vue);
 });
 
 app.post('/contact', function(req, res) {
@@ -245,107 +252,107 @@ app.post('/contact', function(req, res) {
         console.log("Results: " + results);
       });
 
-  }
-});
+    }
+  });
 
-app.post('/emails', function(req, res) {
-  res.send("POST request");
-  req.checkBody('email', 'Email must not be empty.').notEmpty();
+  app.post('/emails', function(req, res) {
+    res.send("POST request");
+    req.checkBody('email', 'Email must not be empty.').notEmpty();
 
-  req.sanitizeBody('email').escape();
-  req.sanitizeBody('location').escape();
+    req.sanitizeBody('email').escape();
+    req.sanitizeBody('location').escape();
 
-  var signup = {
-    email: req.body.email,
-    location: req.body.location
-  };
+    var signup = {
+      email: req.body.email,
+      location: req.body.location
+    };
 
-  var errors = req.validationErrors();
-  if (errors) {
-    console.log(errors);
-    // Render the form using error information
-  } else {
-    var query = 'INSERT INTO `emails` (`id`, `email`, `location`) VALUES (null, "' + signup.email + '", "' + signup.location + '")';
-    connection.query(query,
-      function(err, results) {
-        if (err) {
-          app.locals.databases = err.stack;
-          console.log(err);
-        }
-        console.log("Results: " + results);
+    var errors = req.validationErrors();
+    if (errors) {
+      console.log(errors);
+      // Render the form using error information
+    } else {
+      var query = 'INSERT INTO `emails` (`id`, `email`, `location`) VALUES (null, "' + signup.email + '", "' + signup.location + '")';
+      connection.query(query,
+        function(err, results) {
+          if (err) {
+            app.locals.databases = err.stack;
+            console.log(err);
+          }
+          console.log("Results: " + results);
+        });
+        sendWelcomeEmail("", "", signup.email);
+      }
+    });
+
+    app.post('/userStatus', function(req, res) {
+      if (req.user) {
+        res.send({
+          signedIn: true,
+          id: req.user.id
+        });
+      } else {
+        res.send({
+          signedIn: false,
+          id: null
+        });
+      }
+    });
+
+    app.post('/numVotesCast', function(req, res) {
+      var query = 'SELECT COUNT(*) FROM votes WHERE user_id=' + req.user.id;
+      connection.query(query,
+        function(err, results) {
+          if (err) {
+            console.log(err);
+          }
+          res.send(results);
+        });
       });
-    sendWelcomeEmail("", "", signup.email);
-  }
-});
 
-app.post('/userStatus', function(req, res) {
-  if (req.user) {
-    res.send({
-      signedIn: true,
-      id: req.user.id
-    });
-  } else {
-    res.send({
-      signedIn: false,
-      id: null
-    });
-  }
-});
+      app.post('/submitResponse', function(req, res) {
+        res.send("POST request");
+        var query = 'INSERT INTO `votes` (`id`, `user_id`, `passage_id`, `reaction`) VALUES ("' + req.user.id + connection.escape(req.body.passage_id).slice(1, -1) + '", ' + req.user.id + ', ' + connection.escape(req.body.passage_id) + ', ' + connection.escape(req.body.reaction) + ') ON DUPLICATE KEY UPDATE reaction = ' + connection.escape(req.body.reaction);
+        console.log(query);
+        connection.query(query,
+          function(err, results) {
+            if (err) {
+              console.log(err);
+            }
+          });
+        });
 
-app.post('/numVotesCast', function(req, res) {
-  var query = 'SELECT COUNT(*) FROM votes WHERE user_id=' + req.user.id;
-  connection.query(query,
-    function(err, results) {
-      if (err) {
-        console.log(err);
-      }
-      res.send(results);
-    });
-});
+        app.post('/submitWhy', function(req, res) {
+          res.send("POST request");
+          var query = 'INSERT INTO `whys` (`id`, `user_id`, `passage_id`, `statement`) VALUES (null, ' + req.user.id + ', ' + connection.escape(req.body.passage_id) + ', ' + connection.escape(req.body.statement) + ')';
+          console.log(query);
+          connection.query(query,
+            function(err, results) {
+              if (err) {
+                console.log(err);
+              }
+            });
+          });
 
-app.post('/submitResponse', function(req, res) {
-  res.send("POST request");
-  var query = 'INSERT INTO `votes` (`id`, `user_id`, `passage_id`, `reaction`) VALUES ("' + req.user.id + connection.escape(req.body.passage_id).slice(1, -1) + '", ' + req.user.id + ', ' + connection.escape(req.body.passage_id) + ', ' + connection.escape(req.body.reaction) + ') ON DUPLICATE KEY UPDATE reaction = ' + connection.escape(req.body.reaction);
-  console.log(query);
-  connection.query(query,
-    function(err, results) {
-      if (err) {
-        console.log(err);
-      }
-    });
-});
+          app.post('/getWhys', function(req, res) {
+            var query = 'SELECT votes.passage_id AS sentenceId, votes.reaction AS decision, whys.statement AS explanation, whys.time FROM whys INNER JOIN votes ON whys.user_id=votes.user_id AND whys.passage_id=votes.passage_id';
+            connection.query(query,
+              function(err, results) {
+                if (err) {
+                  console.log(err);
+                  res.send("error");
+                }
+                res.send(results);
+              });
+            });
 
-app.post('/submitWhy', function(req, res) {
-  res.send("POST request");
-  var query = 'INSERT INTO `whys` (`id`, `user_id`, `passage_id`, `statement`) VALUES (null, ' + req.user.id + ', ' + connection.escape(req.body.passage_id) + ', ' + connection.escape(req.body.statement) + ')';
-  console.log(query);
-  connection.query(query,
-    function(err, results) {
-      if (err) {
-        console.log(err);
-      }
-    });
-});
+            app.get('/terms', function(req, res) {
+              res.render('legal/terms/index');
+            });
 
-app.post('/getWhys', function(req, res) {
-  var query = 'SELECT votes.passage_id AS sentenceId, votes.reaction AS decision, whys.statement AS explanation, whys.time FROM whys INNER JOIN votes ON whys.user_id=votes.user_id AND whys.passage_id=votes.passage_id';
-  connection.query(query,
-    function(err, results) {
-      if (err) {
-        console.log(err);
-        res.send("error");
-      }
-      res.send(results);
-    });
-});
+            app.get('/privacy', function(req, res) {
+              res.render('legal/privacy/index');
+            });
 
-app.get('/terms', function(req, res) {
-  res.render('legal/terms/index');
-});
-
-app.get('/privacy', function(req, res) {
-  res.render('legal/privacy/index');
-});
-
-app.listen(process.env.PORT);
-console.log('Express server listening on port %d in %s mode.', process.env.PORT, app.settings.env);
+            app.listen(process.env.PORT);
+            console.log('Express server listening on port %d in %s mode.', process.env.PORT, app.settings.env);

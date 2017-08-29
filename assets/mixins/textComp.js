@@ -1,5 +1,27 @@
 var mixin = {
   methods: {
+
+    showTool: function(objectId, textcomp){
+       var sel = document.getElementById(objectId);
+       var r = sel.getBoundingClientRect();
+       var rel1= document.createRange();
+       rel1.selectNode(document.getElementById('cal1'));
+       var rel2= document.createRange();
+       rel2.selectNode(document.getElementById('cal2'));
+       var rb1 = rel1.getBoundingClientRect();
+       var rb2 = rel2.getBoundingClientRect();
+
+       r.center = (r.right+r.left)/2
+       rb2.center = (rb2.right+rb2.left)/2
+       rb1.center = (rb1.right+rb1.left)/2
+       textcomp.tooltop = (r.top - rb2.top-35)*100/(rb1.top-rb2.top) + 'px'; //this will place ele below the selection
+
+       textcomp.toolleft = (r.center - rb2.center - 105)*100/(rb1.center-rb2.center) + 'px'; //this will align the right edges together
+
+       textcomp.tooldisplay = 'block';
+       textcomp.isHighlighted = objectId;
+     },
+
     popMenu: function(obj, textcomp) {
       textcomp.why = false;
       textcomp.responseSubmitted = false;
@@ -18,7 +40,6 @@ var mixin = {
       textcomp.lastReferencedResponseForm = obj.sentenceId;
     },
     submitResponse: function(sentence, input, responseColor, textcomp) {
-      alert("hello");
       textcomp.response.sentenceId = sentence.sentenceId;
       textcomp.response.input = input;
       this.postResponse(sentence.sentenceId, input);
