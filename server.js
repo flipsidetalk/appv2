@@ -304,14 +304,9 @@ app.post('/userStatus', function(req, res) {
 });
 
 app.post('/numVotesCast', function(req, res) {
-  var query = 'SELECT COUNT(*) FROM votes WHERE user_id=' + req.user.id;
-  connection.query(query,
-    function(err, results) {
-      if (err) {
-        console.log(err);
-      }
-      res.send(results);
-    });
+  db.vote.count({where: {'userId': req.user.id}}).then(count => {
+    res.send(count + '');
+  });
 });
 
 app.post('/submitResponse', function(req, res) {
