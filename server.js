@@ -310,7 +310,7 @@ app.post('/numVotesCast', function(req, res) {
 });
 
 app.post('/submitResponse', function(req, res) {
-  res.send("POST request");
+  res.sendStatus(200);
   var query = 'INSERT INTO `votes` (`id`, `user_id`, `passage_id`, `reaction`) VALUES ("' + req.user.id + connection.escape(req.body.passage_id).slice(1, -1) + '", ' + req.user.id + ', ' + connection.escape(req.body.passage_id) + ', ' + connection.escape(req.body.reaction) + ') ON DUPLICATE KEY UPDATE reaction = ' + connection.escape(req.body.reaction);
   console.log(query);
   connection.query(query,
@@ -322,7 +322,7 @@ app.post('/submitResponse', function(req, res) {
 });
 
 app.post('/submitWhy', function(req, res) {
-  res.send("POST request");
+  res.sendStatus(200);
   var query = 'INSERT INTO `whys` (`id`, `user_id`, `passage_id`, `statement`) VALUES (null, ' + req.user.id + ', ' + connection.escape(req.body.passage_id) + ', ' + connection.escape(req.body.statement) + ')';
   console.log(query);
   connection.query(query,
