@@ -117,7 +117,7 @@ module.exports.init = function(sequelize, Sequelize) {
     endParagraph: {
       type: Sequelize.BOOLEAN
     },
-    index: {
+    order: {
       type: Sequelize.INTEGER
     }
   });
