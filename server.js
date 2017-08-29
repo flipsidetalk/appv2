@@ -10,6 +10,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const morgan = require('morgan');
 const async = require('async');
+const Sequelize = require('sequelize');
 const app = express();
 
 const vueOptions = {
@@ -34,19 +35,41 @@ try {
       'username': 'root',
       'password': 'root',
       'port': 3306,
-      'database': 'nodeexampledb'
+      'database': 'prod'
     }
   }
 }
 
 // Connect to the Amazon RDS instance
 var connection = mysql.createConnection({
-  host: dbconfig.db['host'],
-  user: dbconfig.db['username'],
-  password: dbconfig.db['password'],
-  port: dbconfig.db['port'],
-  database: dbconfig.db['database']
+  host: dbconfig.db.host,
+  user: dbconfig.db.username,
+  password: dbconfig.db.password,
+  port: dbconfig.db.port,
+  database: dbconfig.db.database
 });
+
+const sequelize = new Sequelize(dbconfig.db.database, dbconfig.db.username, dbconfig.db.password, {
+  host: dbconfig.db.host,
+  dialect: 'mysql'
+});
+
+sequelize.authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
+let db = require('./models/models.js').init(sequelize, Sequelize);
+
+sequelize.sync()
+  .then(function(err) {
+    console.log('Database successfully synced.');
+  }, function (err) {
+    console.log('An error occurred while creating the table:', err);
+  });
 
 // Logs HTTP requests
 app.use(morgan('combined'));
