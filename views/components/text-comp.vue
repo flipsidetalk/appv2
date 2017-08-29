@@ -1,11 +1,18 @@
 <template>
   <div>
+
+
+    <div v-for="(m, mindex) in textcomp.article2.text.main2">
+    </div>
+
     <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title}}</h2>
     <p class="center-heading">by {{textcomp.article.author}} of {{textcomp.article.publication}} on {{textcomp.article.date}}</p>
     <div class="u-paddingLeft90 u-paddingRight90 u-marginAuto">
-      <span v-for="(m, mindex) in textcomp.article.text.main">
+      <span v-for="(m, mindex) in textcomp.article2.text.main2">
         <span class="load-text" v-bind:class="{'highlightable':m.agreeable}">
           <span v-if="m.agreeable && !m.seen">
+
+            <!--
             <span v-on:mouseover="popMenu(m, textcomp)">
               <div v-if="!textcomp.bottomBar">
                 <transition name="slide-fade">
@@ -16,8 +23,14 @@
                   </div>
                 </transition>
               </div>
-              <mark>{{m.text}}</mark>
+              <mark v-bind:id="m.sentenceId">{{m.text}}</mark>
             </span>
+          -->
+
+          <span v-on:mouseover="showTool(m.sentenceId, textcomp)">
+            <mark v-bind:id="m.sentenceId">{{m.text}}</mark>
+          </span>
+
           </span>
           <span v-else-if="m.seen">
             <span v-on:mouseover="popWhyMenu(m, textcomp)">
@@ -107,7 +120,11 @@
     </div>
     <div id="cal1">&nbsp;</div>
     <div id="cal2">&nbsp;</div>
-    <div id="tooltip" v-bind:style="{display: textcomp.tooldisplay, top: textcomp.tooltop, left: textcomp.toolleft,}">agree disagree not sure
+    <div id="tooltip" v-bind:style="{display: textcomp.tooldisplay, top: textcomp.tooltop, left: textcomp.toolleft,}">
+      <span v-on:click="submitResponse(1, 2, textcomp)" class=" u-button u-greenBackgroundButton">AGREE</span>
+      <span v-on:click="submitResponse(-1, 3, textcomp)" class=" u-button u-redBackgroundButton">DISAGREE </span>
+      <span v-on:click="submitResponse(0, 4, textcomp)" class=" u-button">NOT SURE</span>
+      agree disagree not sure
       <div class="highlightMenu-arrowClip">
         <span class="highlightMenu-arrow"></span>
       </div>
