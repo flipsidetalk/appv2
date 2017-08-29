@@ -256,18 +256,12 @@ app.post('/contact', function(req, res) {
   var errors = req.validationErrors();
   if (errors) {
     console.log(errors);
-    // Render the form using error information
   } else {
-    var query = 'INSERT INTO `contact_us` (`id`, `name`, `email`, `message`) VALUES (null, "' + contact.name + '", "' + contact.email + '", "' + contact.message + '")';
-    connection.query(query,
-      function(err, results) {
-        if (err) {
-          app.locals.databases = err.stack;
-          console.log(err);
-        }
-        console.log("Results: " + results);
-      });
-
+    db.contactUs.create({
+      name: contact.name,
+      email: contact.email,
+      message: contact.message
+    });
   }
 });
 
