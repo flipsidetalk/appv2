@@ -107,7 +107,7 @@ module.exports.init = function(sequelize, Sequelize) {
   PublicationDate.belongsTo(Article);
   tables.publicationDate = PublicationDate;
 
-  const Sentence = sequelize.define('title', {
+  const Sentence = sequelize.define('sentence', {
     text: {
       type: Sequelize.STRING
     },
