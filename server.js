@@ -322,15 +322,12 @@ app.post('/submitResponse', function(req, res) {
 });
 
 app.post('/submitWhy', function(req, res) {
+  db.response.create({
+    userId: req.user.id,
+    passageId: eq.body.passage_id,
+    statement: req.body.statement
+  });
   res.sendStatus(200);
-  var query = 'INSERT INTO `whys` (`id`, `user_id`, `passage_id`, `statement`) VALUES (null, ' + req.user.id + ', ' + connection.escape(req.body.passage_id) + ', ' + connection.escape(req.body.statement) + ')';
-  console.log(query);
-  connection.query(query,
-    function(err, results) {
-      if (err) {
-        console.log(err);
-      }
-    });
 });
 
 app.post('/getWhys', function(req, res) {
