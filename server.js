@@ -11,6 +11,7 @@ const mysql = require('mysql');
 const morgan = require('morgan');
 const async = require('async');
 const Sequelize = require('sequelize');
+const sendWelcomeEmail = require('./email.js');
 const app = express();
 
 const vueOptions = {
