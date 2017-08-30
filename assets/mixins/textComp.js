@@ -20,8 +20,12 @@ var mixin = {
 
       textcomp.toolleft = (r.center - rb2.center - 105)*100/(rb1.center-rb2.center) + 'px'; //this will align the right edges together
 
+
+
       textcomp.tooldisplay = 'block';
       textcomp.isHighlighted = sentenceId;
+      textcomp.talktop = (r.top - rb2.top) + 'px'; //this will place ele below the selection
+
     },
 
     popMenu: function(obj, textcomp) {
@@ -53,10 +57,8 @@ var mixin = {
       };
       textcomp.form = 0;
       textcomp.why = 1;
-      console.log(JSON.stringify(textcomp.article2.text.main2[placeholderId].seen));
       textcomp.article2.text.main2[placeholderId].seen = responseColor;
-      console.log(JSON.stringify(textcomp.article2.text.main2[placeholderId].seen));
-
+      textcomp.tooldisplay = "none";
       refreshClusterMap();
     },
 

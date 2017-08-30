@@ -121,6 +121,7 @@ app.get('/', function(req, res) {
       tooltop: "0px",
       toolleft: "0px",
       isHighlighted: false,
+      talktop: "0px",
       /*******/
 
       bottomBar: false,

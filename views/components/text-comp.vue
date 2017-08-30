@@ -7,7 +7,7 @@
 
     <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title}}</h2>
     <p class="center-heading">by {{textcomp.article.author}} of {{textcomp.article.publication}} on {{textcomp.article.date}}</p>
-    <div class="u-paddingLeft90 u-paddingRight90 u-marginAuto">
+    <div class="u-marginAuto">
       <span v-for="(m, mindex) in textcomp.article2.text.main2">
         <span class="load-text" v-bind:class="{'highlightable':m.agreeable}">
           <span v-if="m.agreeable && !m.seen">
@@ -124,7 +124,6 @@
       <span v-on:click="submitResponse(1, 2, textcomp)" class=" u-button u-greenBackgroundButton">AGREE</span>
       <span v-on:click="submitResponse(-1, 3, textcomp)" class=" u-button u-redBackgroundButton">DISAGREE </span>
       <span v-on:click="submitResponse(0, 4, textcomp)" class=" u-button">NOT SURE</span>
-      agree disagree not sure
       <div class="highlightMenu-arrowClip">
         <span class="highlightMenu-arrow"></span>
       </div>

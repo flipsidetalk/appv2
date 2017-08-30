@@ -663,6 +663,11 @@ input:checked+label {
 
 /* TOOLTIP
 -------------------------------------------------- */
+#talkbox{
+    position:absolute;
+
+}
+
 #tooltip {
   position:absolute;
   display:none;
