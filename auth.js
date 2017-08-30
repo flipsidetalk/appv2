@@ -80,20 +80,15 @@ module.exports = function(app, connection, db) {
     var password = req.sanitizeBody('password').escape();
     var fn = req.sanitizeBody('firstName').escape();
     var ln = req.sanitizeBody('lastName').escape();
-    var query = 'SELECT id FROM local WHERE email = ' + connection.escape(email);
-    connection.query(query,
-      function(err, results) {
-        if (err) {
-          console.log(err);
-          return false;
-        }
-        if (results.length >= 1) {
-          res.send("acct_exists");
-        } else {
-          makeLocalAccount(email, password, fn, ln, res);
-          res.send("success");
-        }
-      });
+
+    db.local.count({where: {email: email}}).then(count => {
+      if (count >= 1) {
+        res.send("acct_exists");
+      } else {
+        makeLocalAccount(email, password, fn, ln, res);
+        res.send("success");
+      }
+    });
   });
 
   function makeLocalAccount(email, password, fn, ln, res) {
