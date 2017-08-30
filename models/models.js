@@ -165,12 +165,9 @@ module.exports.init = function(sequelize, Sequelize) {
   const Response = sequelize.define('response', {
     statement: {
       type: Sequelize.TEXT
-    },
-    userId: {
-      type: Sequelize.STRING
     }
   });
-  Response.belongsTo(Sentence);
+  Response.belongsTo(Vote);
   tables.response = Response;
 
   return tables;
