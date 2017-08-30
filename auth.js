@@ -93,13 +93,13 @@ module.exports = function(app, connection, db) {
 
   function makeLocalAccount(email, password, fn, ln, res) {
     crypto.pbkdf2(password, SALT, 25000, 256, 'sha1', function(err, derivedKey) {
-      var query = 'INSERT INTO local (id, email, firstname, lastname, password, salt) VALUES (null, "' + email + '", "' + fn + '", "' + ln + '", "' + derivedKey.toString('hex') + '", "' + SALT + '")';
-      connection.query(query,
-        function(err, results) {
-          if (err) {
-            console.log(err);
-          }
-        });
+      db.local.create({
+        email: email,
+        firstname: fn,
+        lastname: ln,
+        password: derivedKey.toString('hex'),
+        salt: SALT,
+      });
     });
     var fullname = fn + " " + ln;
     sendWelcomeEmail(fn, fullname, email);
