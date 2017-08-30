@@ -1,4 +1,4 @@
-module.exports = function(app, connection) {
+module.exports = function(app, connection, db) {
   const SALT = '5b07cd5bff16426a86cc0cb50f481dbfbdd518c762dd83aea420c3b1895852fc';
   const auth = require('passport-local-authenticate');
   const passport = require('passport');

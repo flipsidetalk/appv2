@@ -81,7 +81,7 @@ app.use(bodyParser.urlencoded({
 // Directs Node to the location of static files
 app.use(express.static(path.join(__dirname, 'assets')));
 
-require('./auth.js')(app, connection);
+require('./auth.js')(app, connection, db);
 
 // Structure of user object: { id: 14, firstname: 'Forrest', name: 'Forrest Sill' }
 
