@@ -81,7 +81,11 @@ module.exports = function(app, connection, db) {
     var fn = req.sanitizeBody('firstName').escape();
     var ln = req.sanitizeBody('lastName').escape();
 
-    db.local.count({where: {email: email}}).then(count => {
+    db.local.count({
+      where: {
+        email: email
+      }
+    }).then(count => {
       if (count >= 1) {
         res.send("acct_exists");
       } else {
