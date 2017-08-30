@@ -79,10 +79,10 @@ $(function() {
     type: 'POST',
     url: '/getVoteData',
     success: function(res) {
-      // console.log("success: " + res);
+      console.log("success: " + res);
     },
     error: function(res) {
-      // console.log("error: " + res);
+      console.log("error: " + res);
     }
   });
 });
