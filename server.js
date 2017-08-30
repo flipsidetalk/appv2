@@ -323,25 +323,31 @@ app.post('/submitResponse', function(req, res) {
 });
 
 app.post('/submitWhy', function(req, res) {
-  db.response.create({
-    userId: req.user.id,
-    sentenceId: req.body.sentenceId,
-    statement: req.body.statement
+  db.vote.findOne({
+    where: {
+      userId: req.user.id,
+      sentenceId: req.body.sentenceId
+    }
+  }).then(vote => {
+    db.response.create({
+      userId: req.user.id,
+      sentenceId: req.body.sentenceId,
+      statement: req.body.statement,
+      voteId: vote.id
+    });
+    res.sendStatus(200);
   });
-  res.sendStatus(200);
 });
 
 app.post('/getWhys', function(req, res) {
-
-  var query = 'SELECT votes.passage_id AS sentenceId, votes.reaction AS decision, whys.statement AS explanation, whys.time FROM whys INNER JOIN votes ON whys.user_id=votes.user_id AND whys.passage_id=votes.passage_id';
-  connection.query(query,
-    function(err, results) {
-      if (err) {
-        console.log(err);
-        res.send("error");
-      }
-      res.send(results);
-    });
+  db.response.findAll({
+    include: [{
+      model: db.vote,
+      required: true
+    }]
+  }).then(results => {
+    res.send(results);
+  });
 });
 
 app.get('/terms', function(req, res) {
