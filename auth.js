@@ -134,14 +134,13 @@ module.exports = function(app, connection, db) {
   }
 
   function hasFBAccount(profile, token) {
-    var query = 'SELECT COUNT(1) FROM facebook WHERE fbid = "' + profile.id + '"';
-    connection.query(query,
-      function(err, results) {
-        if (err) {
-          console.log(err);
-        }
-        if (results[0]["COUNT(1)"] == 0) makeFBAccount(profile, token);
-      });
+    db.facebook.count({
+      where: {
+        fbid: profile.id
+      }
+    }).then(count => {
+      if (count == 0) makeFBAccount(profile, token);
+    });
   }
 
   function makeFBAccount(profile, token) {
