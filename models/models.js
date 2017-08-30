@@ -78,7 +78,7 @@ module.exports.init = function(sequelize, Sequelize) {
       type: Sequelize.STRING
     }
   });
-  Title.belongsTo(Article);
+  Article.hasOne(Title);
   tables.title = Title;
 
   const Author = sequelize.define('author', {
@@ -86,7 +86,7 @@ module.exports.init = function(sequelize, Sequelize) {
       type: Sequelize.STRING
     }
   });
-  Author.belongsTo(Article);
+  Article.hasMany(Author);
   tables.author = Author;
 
   const Publication = sequelize.define('publication', {
@@ -94,7 +94,7 @@ module.exports.init = function(sequelize, Sequelize) {
       type: Sequelize.STRING
     }
   });
-  Publication.belongsTo(Article);
+  Article.hasOne(Publication);
   tables.publication = Publication;
 
   const PublicationDate = sequelize.define('publicationDate', {
@@ -102,7 +102,7 @@ module.exports.init = function(sequelize, Sequelize) {
       type: Sequelize.DATE
     }
   });
-  PublicationDate.belongsTo(Article);
+  Article.hasOne(PublicationDate);
   tables.publicationDate = PublicationDate;
 
   const Sentence = sequelize.define('sentence', {
@@ -119,7 +119,7 @@ module.exports.init = function(sequelize, Sequelize) {
       type: Sequelize.INTEGER
     }
   });
-  Sentence.belongsTo(Article);
+  Article.hasMany(Sentence);
   tables.sentence = Sentence;
 
   const Image = sequelize.define('image', {
@@ -127,7 +127,7 @@ module.exports.init = function(sequelize, Sequelize) {
       type: Sequelize.STRING
     }
   });
-  Image.belongsTo(Article);
+  Article.hasOne(Image);
   tables.image = Image;
 
   const Tag = sequelize.define('tag', {
@@ -138,7 +138,7 @@ module.exports.init = function(sequelize, Sequelize) {
       type: Sequelize.FLOAT
     }
   });
-  Tag.belongsTo(Article);
+  Article.hasMany(Tag);
   tables.tag = Tag;
 
   const OriginalText = sequelize.define('originalText', {
@@ -146,7 +146,7 @@ module.exports.init = function(sequelize, Sequelize) {
       type: Sequelize.TEXT
     }
   });
-  OriginalText.belongsTo(Article);
+  Article.hasOne(OriginalText);
   tables.originalText = OriginalText;
 
   const Vote = sequelize.define('vote', {
