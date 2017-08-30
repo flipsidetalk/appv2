@@ -81,7 +81,7 @@ module.exports.init = function(sequelize, Sequelize) {
   Title.belongsTo(Article);
   tables.title = Title;
 
-  const Author = sequelize.define('title', {
+  const Author = sequelize.define('author', {
     name: {
       type: Sequelize.STRING
     }
