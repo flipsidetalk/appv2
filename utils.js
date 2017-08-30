@@ -1,12 +1,11 @@
 module.exports.upsert = function(table, values, condition) {
-  return table
-    .findOne({
+  return table.findOne({
       where: condition
     })
     .then(function(obj) {
-      if (obj) { // update
+      if (obj) {
         return obj.update(values);
-      } else { // insert
+      } else {
         return table.create(values);
       }
     });
