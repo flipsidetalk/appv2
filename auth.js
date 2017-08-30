@@ -151,13 +151,12 @@ module.exports = function(app, connection, db) {
       email: profile.emails[0].value,
       fbid: profile.id
     }
-    var query = 'INSERT INTO facebook (id, token, name, email, fbid) VALUES (null, "' + params.token + '", "' + params.name + '", "' + params.email + '", "' + params.fbid + '")';
-    connection.query(query,
-      function(err, results) {
-        if (err) {
-          console.log(err);
-        }
-      });
+    db.facebook.create({
+      token: params.token,
+      name: params.name,
+      email: params.email,
+      fbid: params.fbid
+    });
     sendWelcomeEmail(params.firstname, params.name, params.email);
   }
 
