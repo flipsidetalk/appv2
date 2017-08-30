@@ -4,7 +4,7 @@
     <div class="metabar-top u-height65">
       <div class="u-floatLeft">
         <a class="nav-brand" href="http://www.flipsidetalk.com">
-          <img class="nav-brand-logo" src="img/logo.png" alt="Logo">
+          <img class="nav-brand-logo" src="../img/logo.png" alt="Logo">
         </a>
         <div class="u-alignMiddle u-inlineBlock">
           <span class="u-inlineBlock u-height25 u-verticalAlignMiddle u-marginRight20 u-borderRightLighter"></span>
