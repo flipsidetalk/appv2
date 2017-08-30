@@ -113,24 +113,23 @@ module.exports = function(app, connection, db) {
     crypto.pbkdf2(password, SALT, 25000, 256, 'sha1', function(err, derivedKey) {
       console.log(err)
       if (err) throw err;
-      var query = 'SELECT id, firstname, lastname FROM local WHERE email = ' + connection.escape(email) + ' AND password = "' + derivedKey.toString('hex') + '"';
-      connection.query(query,
-        function(err, results) {
-          if (err) {
-            console.log(err);
-            return cb(null, false);
-          } else {
-            if (JSON.stringify(results) == "[]") {
-              return cb(null, false);
-            }
-            var user = {
-              id: results[0].id,
-              firstname: results[0].firstname,
-              name: results[0].firstname + " " + results[0].lastname
-            };
-            return cb(null, user);
-          }
-        });
+      db.local.findOne({
+        where: {
+          email: email,
+          password: derivedKey.toString('hex')
+        },
+        attributes: ['id', 'firstname', 'lastname']
+      }).then(local => {
+        if (local === null) {
+          return cb(null, false);
+        }
+        const user = {
+          id: local.id,
+          firstname: local.firstname,
+          name: local.firstname + " " + local.lastname
+        }
+        return cb(null, user);
+      });
     });
   }
 
