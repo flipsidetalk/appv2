@@ -267,9 +267,7 @@ app.post('/contact', function(req, res) {
 });
 
 app.post('/emails', function(req, res) {
-  res.send("POST request");
   req.checkBody('email', 'Email must not be empty.').notEmpty();
-
   req.sanitizeBody('email').escape();
   req.sanitizeBody('location').escape();
 
@@ -287,6 +285,7 @@ app.post('/emails', function(req, res) {
       location: signup.location
     });
     sendWelcomeEmail("", "", signup.email);
+    res.sendStatus(200);
   }
 });
 
