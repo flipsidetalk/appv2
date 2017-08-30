@@ -168,5 +168,12 @@ module.exports.init = function(sequelize, Sequelize) {
   Response.belongsTo(Vote);
   tables.response = Response;
 
+  const Viz = sequelize.define('viz', {
+    data: {
+      type: Sequelize.TEXT
+    }
+  });
+  tables.viz = Viz;
+
   return tables;
 }
