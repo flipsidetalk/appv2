@@ -48,9 +48,9 @@ var mixin = {
       textcomp.responseSubmitted = 1;
       textcomp.responseForm = 0;
     },
-    postResponse: function(passage_id, reaction) {
+    postResponse: function(sentenceId, reaction) {
       var data = {
-        passage_id: passage_id,
+        sentenceId: passage_id,
         reaction: reaction
       }
       $.ajax({
@@ -65,9 +65,9 @@ var mixin = {
         }
       });
     },
-    postWhy: function(statement, passage_id) {
+    postWhy: function(statement, sentenceId) {
       var data = {
-        passage_id: passage_id,
+        sentenceId: sentenceId,
         statement: statement
       }
       $.ajax({
