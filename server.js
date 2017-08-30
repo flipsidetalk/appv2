@@ -322,7 +322,7 @@ app.post('/submitResponse', function(req, res) {
   res.sendStatus(200);
 });
 
-app.post('/submitResponse', function(req, res) {
+app.post('/submitWhy', function(req, res) {
   db.response.create({
     userId: req.user.id,
     sentenceId: req.body.sentenceId,
@@ -331,7 +331,8 @@ app.post('/submitResponse', function(req, res) {
   res.sendStatus(200);
 });
 
-app.post('/getResponses', function(req, res) {
+app.post('/getWhys', function(req, res) {
+
   var query = 'SELECT votes.passage_id AS sentenceId, votes.reaction AS decision, whys.statement AS explanation, whys.time FROM whys INNER JOIN votes ON whys.user_id=votes.user_id AND whys.passage_id=votes.passage_id';
   connection.query(query,
     function(err, results) {
