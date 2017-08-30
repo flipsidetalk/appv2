@@ -87,156 +87,201 @@ require('./auth.js')(app, connection, db);
 // Structure of user object: { id: 14, firstname: 'Forrest', name: 'Forrest Sill' }
 
 app.get('/', function(req, res) {
-  console.log(req.user);
-  var totalClusterInfo = {};
-  var data = {
-    pageTitle: pageTitle,
-    headercomp: {
-      user: req.user
-    },
-    textcomp: {
-      article: {
-        title: 'Would taxing robots help the people whose jobs they’ll take?',
-        author: 'Yifan Zhang',
-        publication: 'The Christian Science Monitor',
-        date: 'August 23, 2017',
-        text: articleText
-      },
-      bottomBar: false,
-      form: 0,
-      responseForm: 0,
-      lastReferenced: -1,
-      why: 0,
-      whyModel: "",
-      responseSubmitted: 0,
-      lastReferencedResponseForm: -1,
-      response: {
-        sentenceId: "",
-        input: ""
-      },
-      responses: [],
-      whyResponse: {
-        sentenceId: "",
-        input: ""
-      },
-      whyResponses: [],
-      user: req.user
-    },
-    mapcomp: {
-      // extremeData: totalClusterInfo.extremes,
-      // clusterData: totalClusterInfo.clusterData,
-      // pointData: totalClusterInfo.pointData,
-      // shadeData: totalClusterInfo.shadeData,
-      // xlength: totalClusterInfo.extremes.xMax - totalClusterInfo.extremes.xMin,
-      // ylength: totalClusterInfo.extremes.yMax - totalClusterInfo.extremes.yMin,
-      multiplier: 1,
-      groupkey: {
-        group: '',
-        opinion1: '',
-        opinion2: '',
-        opinion3: ''
-      },
-      clusterShowing: 0,
-      opinionShowing: 1,
-      user: req.user
-    },
-    commentscomp: {
-      showComment: false,
-      article: {
-        text: articleText
-      },
-      commentData: comments
-    }
-  };
+  res.send(200);
+});
 
-  const vue = {
-    head: {
-      title: pageTitle,
-      meta: [{
-          property: 'og:title',
-          content: pageTitle
+app.get('/article/:slug', function(req, res) {
+  const slug = req.params.slug;
+  db.article.count({
+      where: {
+        slug: slug
+      }
+    })
+    .then(count => {
+      console.log('Count: ' + count);
+      if (count == 0) {
+        res.status(404).send('Page not found.');
+        return;
+      }
+    var totalClusterInfo = {};
+    var data = {
+      pageTitle: pageTitle,
+      headercomp: {
+        user: req.user
+      },
+      textcomp: {
+        article: {
+          title: 'Would taxing robots help the people whose jobs they’ll take?',
+          author: 'Yifan Zhang',
+          publication: 'The Christian Science Monitor',
+          date: 'August 23, 2017',
+          text: articleText
         },
-        {
-          name: 'twitter:title',
-          content: pageTitle
+        bottomBar: false,
+        form: 0,
+        responseForm: 0,
+        lastReferenced: -1,
+        why: 0,
+        whyModel: "",
+        responseSubmitted: 0,
+        lastReferencedResponseForm: -1,
+        response: {
+          sentenceId: "",
+          input: ""
         },
-        {
-          name: 'viewport',
-          content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+        responses: [],
+        whyResponse: {
+          sentenceId: "",
+          input: ""
         },
-        {
-          script: 'https://unpkg.com/vue@2.4.2/dist/vue.js'
+        whyResponses: [],
+        user: req.user
+      },
+      mapcomp: {
+        // extremeData: totalClusterInfo.extremes,
+        // clusterData: totalClusterInfo.clusterData,
+        // pointData: totalClusterInfo.pointData,
+        // shadeData: totalClusterInfo.shadeData,
+        // xlength: totalClusterInfo.extremes.xMax - totalClusterInfo.extremes.xMin,
+        // ylength: totalClusterInfo.extremes.yMax - totalClusterInfo.extremes.yMin,
+        multiplier: 1,
+        groupkey: {
+          group: '',
+          opinion1: '',
+          opinion2: '',
+          opinion3: ''
         },
-        {
-          script: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
+        clusterShowing: 0,
+        opinionShowing: 1,
+        user: req.user
+      },
+      commentscomp: {
+        showComment: false,
+        article: {
+          text: articleText
         },
-        {
-          script: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
-        },
-        {
-          script: 'https://d3js.org/d3.v4.js'
-        },
-        {
-          script: 'scripts/fb.js'
-        },
-        {
-          script: 'scripts/main.js'
-        },
-        {
-          style: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
-        },
-        {
-          style: 'https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css'
-        },
-        {
-          style: 'https://fonts.googleapis.com/css?family=Montserrat:300,400'
-        },
-        {
-          style: 'styles/main.css'
-        }
-      ]
-    }
-  };
-  // Uncomment this code (and add DB calls)
-  //
-  // async.parallel([
-  //   article: function(callback) {
-  //     callback(null, 'article');
-  //   },
-  //   totalclusterinfo: function(callback) {
-  //     callback(null, 'totalclusterinfo');
-  //   }
-  //   comments: function(callback) {
-  //     var query = 'SELECT votes.passage_id AS sentenceId, votes.reaction AS decision, whys.statement AS explanation, whys.time FROM whys INNER JOIN votes ON whys.user_id=votes.user_id AND whys.passage_id=votes.passage_id';
-  //     connection.query(query,
-  //       function(err, results) {
-  //         if (err) {
-  //           console.log(err);
-  //           callback(err, null);
-  //         }
-  //         callback(null, results);
-  //     });
-  //   }
-  // ],
-  // function(err, results) {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     data.textcomp.article = results.article;
-  //     data.mapcomp.extremeData = results.totalclusterinfo.extremes;
-  //     data.mapcomp.clusterData = results.totalclusterinfo.clusterData;
-  //     data.mapcomp.pointData = results.totalclusterinfo.pointData;
-  //     data.mapcomp.shadeData = results.totalclusterinfo.shadeData;
-  //     data.mapcomp.xlength = results.totalClusterInfo.extremes.xMax - results.totalClusterInfo.extremes.xMin;
-  //     data.mapcomp.ylength = results.totalClusterInfo.extremes.yMax - results.totalClusterInfo.extremes.yMin;
-  //     data.commentscomp.article.text = results.article.text;
-  //     data.commentscomp.commentData = results.comments.commentData;
-  //
-  //     res.renderVue('article', data, vue);
-  //   }
-  // });
+        commentData: comments
+      }
+    };
 
-  res.renderVue('article', data, vue);
+    const vue = {
+      head: {
+        title: pageTitle,
+        meta: [{
+            property: 'og:title',
+            content: pageTitle
+          },
+          {
+            name: 'twitter:title',
+            content: pageTitle
+          },
+          {
+            name: 'viewport',
+            content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+          },
+          {
+            script: 'https://unpkg.com/vue@2.4.2/dist/vue.js'
+          },
+          {
+            script: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
+          },
+          {
+            script: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
+          },
+          {
+            script: 'https://d3js.org/d3.v4.js'
+          },
+          {
+            script: '../scripts/fb.js'
+          },
+          {
+            script: '../scripts/main.js'
+          },
+          {
+            style: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
+          },
+          {
+            style: 'https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css'
+          },
+          {
+            style: 'https://fonts.googleapis.com/css?family=Montserrat:300,400'
+          },
+          {
+            style: '../styles/main.css'
+          }
+        ]
+      }
+    };
+    async.parallel({
+      viz: function(callback) {
+        db.viz.findOne().then(viz => {
+          callback(null, JSON.parse(viz.data));
+        });
+      },
+      article: function(callback) {
+        db.article.findOne({
+          include: [{
+            model: db.title
+          }, {
+            model: db.author
+          }, {
+            model: db.publication
+          }, {
+            model: db.publicationDate
+          }, {
+            model: db.image
+          }, {
+            model: db.sentence
+          }],
+          where: {
+            slug: slug
+          },
+          attributes: {
+            exclude: ['id', 'slug']
+          }
+        }).then(article => {
+          callback(null, article.dataValues);
+        });
+      },
+      comments: function(callback) {
+        db.response.findAll({
+          include: [{
+            model: db.vote,
+            required: true
+          }]
+        }).then(comments => {
+          callback(null, JSON.stringify(comments));
+        });
+      }
+    },
+    function(err, results) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(results);
+        // data.textcomp.article = results.article;
+        // data.mapcomp.extremeData = results.viz.extremes;
+        // data.mapcomp.vizData = results.viz.clusterData;
+        // data.mapcomp.pointData = results.viz.pointData;
+        // data.mapcomp.shadeData = results.viz.shadeData;
+        // data.mapcomp.xlength = results.viz.extremes.xMax - results.viz.extremes.xMin;
+        // data.mapcomp.ylength = results.viz.extremes.yMax - results.viz.extremes.yMin;
+        // data.commentscomp.article.text = results.article.text;
+        // data.commentscomp.commentData = results.comments;
+
+        res.renderVue('article', data, vue);
+      }
+    });
+  });
+});
+
+db.response.findAll({
+  include: [{
+    model: db.vote,
+    required: true
+  }]
+}).then(comments => {
+  console.log('COMMENTS: ' + JSON.stringify(comments));
 });
 
 app.post('/contact', function(req, res) {
