@@ -314,7 +314,7 @@ app.post('/numVotesCast', function(req, res) {
   });
 });
 
-app.post('/submitResponse', function(req, res) {
+app.post('/submitVote', function(req, res) {
   utils.upsert(db.vote, {
     userId: req.user.id,
     sentenceId: req.body.sentenceId,
@@ -326,7 +326,7 @@ app.post('/submitResponse', function(req, res) {
   res.sendStatus(200);
 });
 
-app.post('/submitWhy', function(req, res) {
+app.post('/submitResponse', function(req, res) {
   db.vote.findOne({
     where: {
       userId: req.user.id,
@@ -343,7 +343,7 @@ app.post('/submitWhy', function(req, res) {
   });
 });
 
-app.post('/getWhys', function(req, res) {
+app.post('/getResponses', function(req, res) {
   db.response.findAll({
     include: [{
       model: db.vote,

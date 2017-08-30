@@ -17,7 +17,7 @@ var mixin = {
       textcomp.responseForm = true;
       textcomp.lastReferencedResponseForm = obj.sentenceId;
     },
-    submitResponse: function(sentence, input, responseColor, textcomp) {
+    submitVote: function(sentence, input, responseColor, textcomp) {
       alert("hello");
       textcomp.response.sentenceId = sentence.sentenceId;
       textcomp.response.input = input;
@@ -35,7 +35,7 @@ var mixin = {
       sentence.seen = responseColor;
       refreshClusterMap();
     },
-    submitWhy: function(obj, textcomp) {
+    submitResponse: function(obj, textcomp) {
       textcomp.whyResponse.sentenceId = obj.sentenceId;
       textcomp.whyResponses.push(textcomp.whyResponse)
       this.postWhy(textcomp.whyResponse.input, textcomp.whyResponse.sentenceId);
@@ -48,14 +48,14 @@ var mixin = {
       textcomp.responseSubmitted = 1;
       textcomp.responseForm = 0;
     },
-    postResponse: function(sentenceId, reaction) {
+    postVote: function(sentenceId, reaction) {
       var data = {
         sentenceId: sentenceId,
         reaction: reaction
       }
       $.ajax({
         type: 'POST',
-        url: '/submitResponse',
+        url: '/submitVote',
         data: data,
         success: function() {
           console.log("sendsuccess: " + data);
@@ -65,14 +65,14 @@ var mixin = {
         }
       });
     },
-    postWhy: function(statement, sentenceId) {
+    postResponse: function(statement, sentenceId) {
       var data = {
         sentenceId: sentenceId,
         statement: statement
       }
       $.ajax({
         type: 'POST',
-        url: '/submitWhy',
+        url: '/submitResponse',
         data: data,
         success: function() {
           console.log("sendsuccess: " + data);
