@@ -311,15 +311,15 @@ app.post('/numVotesCast', function(req, res) {
 });
 
 app.post('/submitResponse', function(req, res) {
+  utils.upsert(db.vote, {
+    userId: req.user.id,
+    sentenceId: req.body.sentenceId,
+    reaction: req.body.reaction
+  }, {
+    userId: req.user.id,
+    sentenceId: req.body.sentenceId
+  });
   res.sendStatus(200);
-  var query = 'INSERT INTO `votes` (`id`, `user_id`, `passage_id`, `reaction`) VALUES ("' + req.user.id + connection.escape(req.body.passage_id).slice(1, -1) + '", ' + req.user.id + ', ' + connection.escape(req.body.passage_id) + ', ' + connection.escape(req.body.reaction) + ') ON DUPLICATE KEY UPDATE reaction = ' + connection.escape(req.body.reaction);
-  console.log(query);
-  connection.query(query,
-    function(err, results) {
-      if (err) {
-        console.log(err);
-      }
-    });
 });
 
 app.post('/submitResponse', function(req, res) {
