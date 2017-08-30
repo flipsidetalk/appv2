@@ -325,7 +325,7 @@ app.post('/submitResponse', function(req, res) {
 app.post('/submitResponse', function(req, res) {
   db.response.create({
     userId: req.user.id,
-    passageId: eq.body.passage_id,
+    sentenceId: req.body.sentenceId,
     statement: req.body.statement
   });
   res.sendStatus(200);

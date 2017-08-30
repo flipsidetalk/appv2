@@ -50,7 +50,7 @@ var mixin = {
     },
     postResponse: function(sentenceId, reaction) {
       var data = {
-        sentenceId: passage_id,
+        sentenceId: sentenceId,
         reaction: reaction
       }
       $.ajax({
