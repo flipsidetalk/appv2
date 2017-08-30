@@ -7,7 +7,7 @@ module.exports.upsert = function(table, values, condition) {
       if (obj) { // update
         return obj.update(values);
       } else { // insert
-        return Model.create(values);
+        return table.create(values);
       }
     });
 }
