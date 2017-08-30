@@ -388,17 +388,6 @@ app.post('/submitResponse', function(req, res) {
   });
 });
 
-app.post('/getResponses', function(req, res) {
-  db.response.findAll({
-    include: [{
-      model: db.vote,
-      required: true
-    }]
-  }).then(results => {
-    res.send(results);
-  });
-});
-
 app.get('/terms', function(req, res) {
   res.render('legal/terms/index');
 });
