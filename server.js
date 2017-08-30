@@ -69,7 +69,7 @@ let db = require('./models/models.js').init(sequelize, Sequelize);
 sequelize.sync()
   .then(function(err) {
     console.log('Database successfully synced.');
-  }, function (err) {
+  }, function(err) {
     console.log('An error occurred while creating the table:', err);
   });
 
@@ -305,7 +305,11 @@ app.post('/userStatus', function(req, res) {
 });
 
 app.post('/numVotesCast', function(req, res) {
-  db.vote.count({where: {'userId': req.user.id}}).then(count => {
+  db.vote.count({
+    where: {
+      'userId': req.user.id
+    }
+  }).then(count => {
     res.send(count + '');
   });
 });

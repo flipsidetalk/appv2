@@ -17,8 +17,7 @@ module.exports.init = function(sequelize, Sequelize) {
     salt: {
       type: Sequelize.STRING
     }
-  },
-  {
+  }, {
     tableName: 'local'
   });
   tables.local = Local
@@ -36,8 +35,7 @@ module.exports.init = function(sequelize, Sequelize) {
     fbid: {
       type: Sequelize.STRING
     }
-  },
-  {
+  }, {
     tableName: 'facebook'
   });
   tables.facebook = Facebook;
