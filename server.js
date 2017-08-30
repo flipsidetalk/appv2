@@ -12,6 +12,7 @@ const morgan = require('morgan');
 const async = require('async');
 const Sequelize = require('sequelize');
 const sendWelcomeEmail = require('./email.js');
+const utils = require('./utils.js');
 const app = express();
 
 const vueOptions = {
