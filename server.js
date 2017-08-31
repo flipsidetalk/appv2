@@ -90,7 +90,7 @@ require('./auth.js')(app, connection, db);
 // Structure of user object: { id: 14, firstname: 'Forrest', name: 'Forrest Sill' }
 
 app.get('/', function(req, res) {
-  res.send(200);
+  res.sendStatus(200);
 });
 
 // db.article.create({
