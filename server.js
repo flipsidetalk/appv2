@@ -166,7 +166,6 @@ app.get('/article/:slug', function(req, res) {
         res.status(404).send('Page not found.');
         return;
       }
-    var totalClusterInfo = {};
     var data = {
       pageTitle: pageTitle,
       headercomp: {
@@ -201,12 +200,12 @@ app.get('/article/:slug', function(req, res) {
         user: req.user
       },
       mapcomp: {
-        // extremeData: totalClusterInfo.extremes,
-        // clusterData: totalClusterInfo.clusterData,
-        // pointData: totalClusterInfo.pointData,
-        // shadeData: totalClusterInfo.shadeData,
-        // xlength: totalClusterInfo.extremes.xMax - totalClusterInfo.extremes.xMin,
-        // ylength: totalClusterInfo.extremes.yMax - totalClusterInfo.extremes.yMin,
+        extremeData: totalClusterInfo.extremes,
+        clusterData: totalClusterInfo.clusterData,
+        pointData: totalClusterInfo.pointData,
+        shadeData: totalClusterInfo.shadeData,
+        xlength: totalClusterInfo.extremes.xMax - totalClusterInfo.extremes.xMin,
+        ylength: totalClusterInfo.extremes.yMax - totalClusterInfo.extremes.yMin,
         multiplier: 1,
         groupkey: {
           group: '',

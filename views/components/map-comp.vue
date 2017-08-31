@@ -1,7 +1,7 @@
 <template>
 <div class="col-md-5">
   <div class="clusterMapOutput">
-    <div class="d3stuff" v-on:click="render(mapcomp)">
+    <div class="d3stuff">
       <div class="weight-lighter">Opinion Map</div>
       <p class="u-lighter">People who vote similarly are grouped. Click a group to see which viewpoints they share</p>
       <svg class="clusterMap" viewBox="0 0 750 500" preserveAspectRatio="xMidYMid meet" origin="375 250" style="background-color: white;">
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import * as d3 from 'd3';
 import mixin from '../assets/mixins/mapComp.js';
 export default {
   mixins: [mixin],
