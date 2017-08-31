@@ -143,7 +143,8 @@ app.get('/', function(req, res) {
       responses: [],
       whyResponse: {
         sentenceId: "",
-        input: ""
+        input: "",
+        vote: ""
       },
       whyResponses: [],
       user: req.user
