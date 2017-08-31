@@ -338,6 +338,11 @@ app.get('/article/:slug', function(req, res) {
   });
 });
 
+/* Make call here to run python viz script
+ * First, check if numRows in votes has increased:
+ * if yes, run script and insert into viz the new data
+ */
+
 app.post('/submitLink', function(req, res) {
   const link = req.body.link;
   if (validUrl.isUri(link)) {
