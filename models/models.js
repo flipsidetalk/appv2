@@ -130,14 +130,25 @@ module.exports.init = function(sequelize, Sequelize) {
   Article.hasOne(Image);
   tables.image = Image;
 
+  const RdfType = sequelize.define('rdfType', {
+    url: {
+      type: Sequelize.STRING
+    }
+  });
+  tables.rdftype = RdfType;
+
   const Tag = sequelize.define('tag', {
-    tag: {
+    label: {
       type: Sequelize.STRING
     },
     score: {
       type: Sequelize.FLOAT
+    },
+    url: {
+      type: Sequelize.STRING
     }
   });
+  Tag.hasMany(RdfType);
   Article.hasMany(Tag);
   tables.tag = Tag;
 
