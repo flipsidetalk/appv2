@@ -21,6 +21,8 @@
     "passport-local": "^1.0.0",
     "passport-local-authenticate": "^1.2.0",
     "path": "^0.12.7",
-    "sequelize": "^4.7.5"
+    "request": "^2.81.0",
+    "sequelize": "^4.7.5",
+    "valid-url": "^1.0.9"
   }
 }
