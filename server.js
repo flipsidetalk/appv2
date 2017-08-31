@@ -401,5 +401,9 @@ app.get('/privacy', function(req, res) {
   res.render('legal/privacy/index');
 });
 
+app.get('*', function(req, res){
+  res.status(404).send('Page not found.');
+});
+
 app.listen(process.env.PORT);
 console.log('Express server listening on port %d in %s mode.', process.env.PORT, app.settings.env);
