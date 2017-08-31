@@ -15,14 +15,56 @@
       <div class="container content textcomp.article">
         <div class="section-content u-maxWidth1000">
           <div class="row white">
-            <div class="col-sm-8">
+            <div class="col-sm-7">
               <text-comp :textcomp="textcomp"></text-comp>
               <comments-comp :commentscomp="commentscomp"></comments-comp>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-5">
               <div id="talkbox" v-bind:style="{display: textcomp.tooldisplay, top: textcomp.tooltop}">
-                <h1>HEY THERE</h1>
-                <h3>this is the talk block</h3>
+                <div class="mdc-card" style="background-color: #efefef;">
+                  <section class="mdc-card__primary">
+                    <div class="talkSection quoteSection">
+                      <h4 class=" mdc-card__title mdc-card__title--large georgia lineheight123 u-paddingBottom10" style="font-size: 16px;">“One of the keys to selling tax
+                        reform is the president making the point that tax reform will unrig this economy by stripping
+                        out the special-interest deductions and carve-outs that riddle this code,” said Tim Phillips,
+                        president of Americans for Prosperity, a group founded by the billionaire industrialist Koch
+                        brothers that is spending heavily to push changes to the tax code."
+                      </h4>
+                    </div>
+                    <div class="talkSection">
+                      <div class="u-paddingBottom5">
+                        I disagree because:
+                      </div>
+                      <textarea type="text" name="" value="" class="talkInput u-sizeFullWidth"></textarea>
+                      <a class="talkButton montserratLight u-floatRight">Share</a>
+                    </div>
+                    <div class="talkSection readSection">
+                      <div class="u-paddingTop10 u-paddingBottom10">
+                        read what others think:
+                      </div>
+                      <span class="flexWrap">
+                      <span class="u-margin2">
+                        <a class="talkButton montserratLight">all</a>
+                      </span>
+                      <span class="u-margin2">
+                        <a class="talkButton montserratLight">agree</a>
+                      </span>
+                      <span class="u-margin2">
+                        <a class="talkButton montserratLight">disagree</a>
+                      </span>
+                      <span class="u-margin2">
+                        <a class="talkButton montserratLight">not sure</a>
+                      </span>
+                      <span class="u-margin2">
+                        <a class="talkButton montserratLight">MAP</a>
+                      </span>
+                      </span>
+                    </div>
+
+                  </section>
+                </div>
+
+
               </div>
             </div>
 

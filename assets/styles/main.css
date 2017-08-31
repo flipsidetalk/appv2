@@ -661,13 +661,64 @@ input:checked+label {
 }
 
 
-/* TOOLTIP
+/* TALKBOX
 -------------------------------------------------- */
 #talkbox{
-    position:absolute;
+  position: relative;
+  max-height: 700px;
+}
+
+.talkSection{
+  padding: 10px 0px
+}
+
+.quoteSection{
+  box-shadow:0px 0.6px 0px #a9a9a9;
+  padding-top:0px!important;
+}
+
+.readSection{
+  margin-top: 20px;
+}
+
+.talkInput{
+  height: 80px;
+  outline: none;
+  border: 0px;
+  padding: 9px;
+  font-size: 13px;
+  font-weight: lighter;
+}
+
+.talkButton{
+    -webkit-border-radius: 4;
+    -moz-border-radius: 4;
+    border-radius: 2.5px;
+    color: #ffffff;
+    font-size: 12px;
+    background: rgba(0, 151, 167, 0.74);
+    padding: 6px 12px 9px 12px;
+    text-decoration: none;
+}
+.u-margin2{
+  margin:0px 2px;
+}
+
+.talkButton:hover {
+  background-color: purple;
+  background-image: -webkit-linear-gradient(top, rgba(0, 151, 167, 0.96), rgba(0, 151, 167, 0.99));
+  background-image: -moz-linear-gradient(top, rgba(0, 151, 167, 0.96), rgba(0, 151, 167, 0.99));
+  background-image: -ms-linear-gradient(top, rgba(0, 151, 167, 0.96), rgba(0, 151, 167, 0.99));
+  background-image: -o-linear-gradient(top, rgba(0, 151, 167, 0.96), rgba(0, 151, 167, 0.99));
+  background-image: linear-gradient(to bottom, rgba(0, 151, 167, 0.96), rgba(0, 151, 167, 0.99));
+  text-decoration: none;
+  color: #ffffff!important;
+  transition: 2s;
 
 }
 
+/* TOOLTIP
+-------------------------------------------------- */
 #tooltip {
   position:absolute;
   display:none;
