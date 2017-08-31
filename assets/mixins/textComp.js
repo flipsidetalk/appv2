@@ -1,8 +1,13 @@
 var mixin = {
   methods: {
-    showTool: function(sentenceId, textcomp){
+
+
+
+
+    showTool: function(sentenceId, seenvalue, textcomp){
       /** setting the sentence at hand**/
       textcomp.lastReferenced = sentenceId;
+      textcomp.seen = seenvalue;
 
       var sel = document.getElementById(sentenceId);
       var r = sel.getBoundingClientRect();
@@ -19,9 +24,6 @@ var mixin = {
       textcomp.tooltop = (r.top - rb2.top-35)*100/(rb1.top-rb2.top) + 'px'; //this will place ele below the selection
 
       textcomp.toolleft = (r.center - rb2.center - 105)*100/(rb1.center-rb2.center) + 'px'; //this will align the right edges together
-
-
-
       textcomp.tooldisplay = 'block';
       textcomp.isHighlighted = sentenceId;
       textcomp.talktop = (r.top - rb2.top) + 'px'; //this will place ele below the selection
@@ -45,21 +47,27 @@ var mixin = {
       textcomp.responseForm = true;
       textcomp.lastReferencedResponseForm = obj.sentenceId;
     },
-    submitResponse: function(input, responseColor, textcomp) {
+
+    submitResponse: function(input, seenvalue, textcomp) {
       var placeholderId = textcomp.lastReferenced; //this is the sentenceID
-      textcomp.response.sentenceId = textcomp.lastReferenced;
+
+      //passing response data
+      textcomp.response.sentenceId = placeholderId;
       textcomp.response.input = input;
       this.postResponse(textcomp.lastReferenced, input);
       textcomp.responses.push(textcomp.response)
       textcomp.response = {
         sentenceId: "",
         input: ""
-      };
-      textcomp.form = 0;
-      textcomp.why = 1;
-      textcomp.article2.text.main2[placeholderId].seen = responseColor;
-      textcomp.tooldisplay = "none";
-      refreshClusterMap();
+      }; //resets response
+
+      //textcomp.article2.text.main2[placeholderId].seen = seenvalue; //changes m.seen
+      textcomp.seen = seenvalue;
+
+      //textcomp.form = 0; //
+      //textcomp.why = 1;
+      textcomp.tooldisplay = "block";
+    //  refreshClusterMap();
     },
 
 

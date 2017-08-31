@@ -102,6 +102,9 @@ app.get('/', function(req, res) {
       user: req.user
     },
     textcomp: {
+
+      seen: false,
+
       article: {
         title: 'Would taxing robots help the people whose jobs they’ll take?',
         author: 'Yifan Zhang',
