@@ -1,17 +1,7 @@
 <template>
   <div>
-
-
-    <div v-for="(m, mindex) in textcomp.article2.text.main2">
-    </div>
-
     <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title}}</h2>
     <p class="center-heading">by {{textcomp.article.author}} of {{textcomp.article.publication}} on {{textcomp.article.date}}</p>
-
-
-    <p>{{textcomp.lastReferenced}}</p>
-    <p>{{textcomp.responses}}</p>
-
     <div class="u-marginAuto">
       <span v-for="(m, mindex) in textcomp.article2.text.main2">
         <span class="load-text" v-bind:class="{'highlightable':m.agreeable}">
@@ -26,27 +16,6 @@
             </span>
           </span>
 
-          <span v-if="m.agreeable">
-            <div v-if="textcomp.responseForm && m.sentenceId == textcomp.lastReferencedResponseForm" class="u-paddingTop5 u-paddingBottom5">
-              <div class="mdc-card">
-                <section class="mdc-card__primary u-inline">
-                  <div v-if="textcomp.user !== undefined">
-                    <div class="mdc-textfield u-fontSize14 u-marginTop0" style="width:70%!important">
-                      <input type="text" class="form-control mdc-textfield__input montserrat" placeholder="Share your thoughts" v-model="textcomp.whyResponse.input">
-                    </div>
-                    <div class="u-floatRight montserratLight u-fontSize11 u-pointer u-verticalAlignMiddle" v-on:click = "submitWhy(m, textcomp)">
-                      SUBMIT
-                    </div>
-                  </div>
-                  <div v-else>
-                    <div class="u-inlineBlock"v-if="textcomp.why">
-                      <p class="montserratLight"><a href="#sign-in-modal" data-toggle="modal">Sign In</a> to share your thoughts about this idea.</p>
-                    </div>
-                  </div>
-                </section>
-              </div>
-            </div>
-          </span>
           <span v-if="m.endParagraph">
             <br><br>
           </span>
@@ -56,7 +25,6 @@
     </div>
     <div id="cal1">&nbsp;</div>
     <div id="cal2">&nbsp;</div>
-
     <!--TO DO: V-BIND BACKGROUND COLOR OR CLASS DEPENDING ON M.SEEN-->
     <div id="tooltip" v-bind:style="{display: textcomp.tooldisplay, top: textcomp.tooltop, left: textcomp.toolleft}">
       <div v-if="!textcomp.tempseen">
