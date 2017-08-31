@@ -12,6 +12,8 @@ const mysql = require('mysql');
 const morgan = require('morgan');
 const async = require('async');
 const Sequelize = require('sequelize');
+const validUrl = require('valid-url');
+const request = require('request');
 const sendWelcomeEmail = require('./email.js');
 const utils = require('./utils.js');
 const app = express();
@@ -276,13 +278,15 @@ app.get('/article/:slug', function(req, res) {
   });
 });
 
-db.response.findAll({
-  include: [{
-    model: db.vote,
-    required: true
-  }]
-}).then(comments => {
-  console.log('COMMENTS: ' + JSON.stringify(comments));
+app.post('/submitLink', function(req, res) {
+  const link = req.body.link;
+  if (validUrl.isUri(link)) {
+    utils.makeExternalRequest(request, PYTHON_SERVER_URL, { link: link }, (response) => {
+      // Function to insert article data into database
+    });
+  } else {
+    res.send('invalid_url');
+  }
 });
 
 app.post('/contact', function(req, res) {
