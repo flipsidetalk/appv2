@@ -97,7 +97,7 @@ var mixin = {
           console.log("sendsuccess: " + data);
         },
         error: function() {
-          console.log("error: " + data);
+          console.log("error: " + JSON.stringify(data));
         }
       });
     },

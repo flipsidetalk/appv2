@@ -131,7 +131,7 @@ app.get('/', function(req, res) {
       bottomBar: false,
       form: 0,
       responseForm: 0,
-      lastReferenced: -1,
+      lastReferenced: "a3s0",
       why: 0,
       whyModel: "",
       responseSubmitted: 0,

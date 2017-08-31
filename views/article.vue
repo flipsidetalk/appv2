@@ -24,11 +24,8 @@
                 <div class="mdc-card" style="background-color: #efefef;">
                   <section class="mdc-card__primary">
                     <div class="talkSection quoteSection">
-                      <h4 class=" mdc-card__title mdc-card__title--large georgia lineheight123 u-paddingBottom10" style="font-size: 16px;">“One of the keys to selling tax
-                        reform is the president making the point that tax reform will unrig this economy by stripping
-                        out the special-interest deductions and carve-outs that riddle this code,” said Tim Phillips,
-                        president of Americans for Prosperity, a group founded by the billionaire industrialist Koch
-                        brothers that is spending heavily to push changes to the tax code."
+                      <h4 class=" mdc-card__title mdc-card__title--large georgia lineheight123 u-paddingBottom10" style="font-size: 16px;">
+                        "{{textcomp.article2.text.main2[textcomp.lastReferenced].text}}"
                       </h4>
                     </div>
                     <div class="talkSection">
