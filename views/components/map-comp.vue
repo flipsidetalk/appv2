@@ -4,6 +4,12 @@
     <div class="d3stuff" v-on:click="render(mapcomp)">
       <div class="weight-lighter">Opinion Map</div>
       <p class="u-lighter">People who vote similarly are grouped. Click a group to see which viewpoints they share</p>
+
+
+      <div class="bubbleMap">
+
+      </div>
+
       <svg class="clusterMap" viewBox="0 0 750 500" preserveAspectRatio="xMidYMid meet" origin="375 250" style="background-color: white;">
           <line x1="375" y1="20" x2="375" y2="480" stroke="rgba(85, 58, 111, 0.6)" />
           <line x1="20" y1="250" x2="730" y2="250" stroke="rgba(85, 58, 111, 0.6)" />
@@ -27,6 +33,7 @@
 </template>
 
 <script>
+import * as d3 from 'd3';
 import mixin from '../assets/mixins/mapComp.js';
 export default {
   mixins: [mixin],

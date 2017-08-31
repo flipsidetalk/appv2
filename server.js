@@ -151,6 +151,24 @@ app.get('/', function(req, res) {
       // shadeData: totalClusterInfo.shadeData,
       // xlength: totalClusterInfo.extremes.xMax - totalClusterInfo.extremes.xMin,
       // ylength: totalClusterInfo.extremes.yMax - totalClusterInfo.extremes.yMin,
+
+      groupSimple:
+      [{label: "group1", size: 10},
+        {label: "group2", size: 20},
+        {label: "group3", size: 30},
+        {label: "group4", size: 40},
+        {label: "group5", size: 50},
+        {label: "group6", size: 60}],
+
+      bubbleData:
+      [{group: 1, size: 10, users: ["a", "b"], sentences:
+        [{sentenceId: "a1s1", average: .50, agree:0.33, disagree: 0.33, unsure: 0.33},
+        {sentenceId: "a1s2", average: .50, agree:0.40, disagree: 0.30, unsure: 0.30}]
+      },
+      {group: 2, size: 30, users: ["a", "b"], sentences:
+        [{sentenceId: "a1s1", average: .50, agree:0.33, disagree: 0.33, unsure: 0.33},
+        {sentenceId: "a1s2", average: 0.5, agree:0.40, disagree: 0.30, unsure: 0.30}]}],
+
       multiplier: 1,
       groupkey: {
         group: '',
