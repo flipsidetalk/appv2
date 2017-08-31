@@ -8,81 +8,16 @@
     <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title}}</h2>
     <p class="center-heading">by {{textcomp.article.author}} of {{textcomp.article.publication}} on {{textcomp.article.date}}</p>
 
+
     <p>{{textcomp.lastReferenced}}</p>
     <p>{{textcomp.responses}}</p>
 
     <div class="u-marginAuto">
       <span v-for="(m, mindex) in textcomp.article2.text.main2">
         <span class="load-text" v-bind:class="{'highlightable':m.agreeable}">
-          <span v-if="m.agreeable && !m.seen">
-            <!--
-            <span v-on:mouseover="popMenu(m, textcomp)">
-              <div v-if="!textcomp.bottomBar">
-                <transition name="slide-fade">
-                  <div v-if="textcomp.form && m.sentenceId==textcomp.lastReferenced" class="u-agreeForm">
-                    <div v-on:click="submitResponse(m, 1, 2, textcomp)" class=" u-button u-greenBackgroundButton">AGREE</div>
-                    <div v-on:click="submitResponse(m, -1, 3, textcomp)" class=" u-button u-redBackgroundButton">DISAGREE </div>
-                    <div v-on:click="submitResponse(m, 0, 4, textcomp)" class=" u-button">NOT SURE</div>
-                  </div>
-                </transition>
-              </div>
+          <span v-if="m.agreeable">
+            <span v-on:click="showTool(m.sentenceId, m.seen, textcomp)">
               <mark v-bind:id="m.sentenceId">{{m.text}}</mark>
-            </span>
-          -->
-          <span v-on:mouseover="showTool(m.sentenceId, m.seen, textcomp)">
-            <mark v-bind:id="m.sentenceId">{{m.text}}</mark>
-          </span>
-          </span>
-          <span v-else-if="m.seen">
-            <span v-on:mouseover="popWhyMenu(m, textcomp)">
-              <div v-if="!textcomp.bottomBar">
-                <transition name="slide-fade">
-                  <div v-if="textcomp.why && m.sentenceId==textcomp.lastReferenced" class="u-agreeForm">
-                    <div v-on:click="popResponseForm(m, textcomp)" class=" u-button tealBackground">CONTRIBUTE</div>
-                    <div v-on:click="m.seen=false, popMenu(m, textcomp)" class="u-fontSize11 u-button u-purpleBackground">CHANGE VOTE</div>
-                  </div>
-                </transition>
-              </div>
-              <mark>{{m.text}}</mark>
-            </span>
-          </span>
-          <span v-else-if="m.seen == 2"> <!--VOTED AGREE-->
-            <span v-on:mouseover.once="textcomp.popWhyMenu(m, textcomp)">
-              <div v-if="!textcomp.bottomBar">
-                <transition name="slide-fade">
-                  <div v-if="textcomp.why && m.sentenceId==textcomp.lastReferenced" class="u-agreeForm">
-                    <div v-on:click="popResponseForm(m, textcomp)" class=" u-button tealBackground">CONTRIBUTE</div>
-                    <div v-on:click="m.seen=false, popMenu(m, textcomp)" class="u-fontSize11 u-button u-purpleBackground">CHANGE VOTE</div>
-                  </div>
-                </transition>
-              </div>
-              <mark class="u-greenBackground" v-bind:id="m.sentenceId">{{m.text}}</mark>
-            </span>
-          </span>
-          <span v-else-if="m.seen == 3">
-            <span v-on:mouseover="popWhyMenu(m, textcomp)">
-              <div v-if="!textcomp.bottomBar">
-                <transition name="slide-fade">
-                  <div v-if="textcomp.why && m.sentenceId==textcomp.lastReferenced" class="u-agreeForm">
-                    <div v-on:click="popResponseForm(m, textcomp)" class=" u-button tealBackground">CONTRIBUTE</div>
-                    <div v-on:click="m.seen=false, popMenu(m, textcomp)" class="u-fontSize11 u-button u-purpleBackground">CHANGE VOTE</div>
-                  </div>
-                </transition>
-              </div>
-              <mark class="u-redBackground" v-bind:id="m.sentenceId">{{m.text}}</mark>
-            </span>
-          </span>
-          <span v-else-if="m.seen == 4">
-            <span v-on:mouseover="popWhyMenu(m, textcomp)">
-              <div v-if="!textcomp.bottomBar">
-                <transition name="slide-fade">
-                  <div v-if="textcomp.why && m.sentenceId==textcomp.lastReferenced" class="u-agreeForm">
-                    <div v-on:click="popResponseForm(m, textcomp)" class=" u-button tealBackground">CONTRIBUTE</div>
-                    <div v-on:click="m.seen=false, popMenu(m, textcomp)" class="u-fontSize11 u-button u-purpleBackground">CHANGE VOTE</div>
-                  </div>
-                </transition>
-              </div>
-              <mark class="u-purpleBackground" v-bind:id="m.sentenceId">{{m.text}}</mark>
             </span>
           </span>
           <span v-else>
@@ -124,15 +59,14 @@
 
     <!--TO DO: V-BIND BACKGROUND COLOR OR CLASS DEPENDING ON M.SEEN-->
     <div id="tooltip" v-bind:style="{display: textcomp.tooldisplay, top: textcomp.tooltop, left: textcomp.toolleft}">
-
-      <div v-if="!textcomp.seen">
+      <div v-if="!textcomp.tempseen">
         <span v-on:click="submitResponse(1, 2, textcomp)" class=" u-button u-greenBackgroundButton">AGREE</span>
         <span v-on:click="submitResponse(-1, 3, textcomp)" class=" u-button u-redBackgroundButton">DISAGREE </span>
         <span v-on:click="submitResponse(0, 4, textcomp)" class=" u-button">NOT SURE</span>
       </div>
       <div v-else>
-        <span v-on:click="" class="u-button tealBackground">CONTRIBUTE</span>
-        <span v-on:click="textcomp.seen=false" class="u-fontSize11 u-button u-purpleBackground">CHANGE VOTE</span>
+        <span v-on:click="textcomp.tooldisplay ='none', textcomp.talkdisplay = 'block'" class="u-button tealBackground">CONTRIBUTE</span>
+        <span v-on:click="textcomp.tempseen=false" class="u-fontSize11 u-button u-purpleBackground">CHANGE VOTE</span>
       </div>
       <div class="highlightMenu-arrowClip">
         <span class="highlightMenu-arrow"></span>

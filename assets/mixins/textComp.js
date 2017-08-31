@@ -7,7 +7,7 @@ var mixin = {
     showTool: function(sentenceId, seenvalue, textcomp){
       /** setting the sentence at hand**/
       textcomp.lastReferenced = sentenceId;
-      textcomp.seen = seenvalue;
+      textcomp.tempseen = seenvalue;
 
       var sel = document.getElementById(sentenceId);
       var r = sel.getBoundingClientRect();
@@ -27,7 +27,7 @@ var mixin = {
       textcomp.tooldisplay = 'block';
       textcomp.isHighlighted = sentenceId;
       textcomp.talktop = (r.top - rb2.top) + 'px'; //this will place ele below the selection
-
+      textcomp.talkdisplay = 'none';
     },
 
     popMenu: function(obj, textcomp) {
@@ -61,8 +61,8 @@ var mixin = {
         input: ""
       }; //resets response
 
-      //textcomp.article2.text.main2[placeholderId].seen = seenvalue; //changes m.seen
-      textcomp.seen = seenvalue;
+      textcomp.article2.text.main2[placeholderId].seen = seenvalue; //changes m.seen
+      textcomp.tempseen = seenvalue; //changes placeholder seen
 
       //textcomp.form = 0; //
       //textcomp.why = 1;

@@ -103,7 +103,7 @@ app.get('/', function(req, res) {
     },
     textcomp: {
 
-      seen: false,
+      tempseen: false,
 
       article: {
         title: 'Would taxing robots help the people whose jobs they’ll take?',
@@ -125,6 +125,7 @@ app.get('/', function(req, res) {
       toolleft: "0px",
       isHighlighted: false,
       talktop: "0px",
+      talkdisplay: "none",
       /*******/
 
       bottomBar: false,

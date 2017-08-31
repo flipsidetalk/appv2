@@ -20,7 +20,7 @@
               <comments-comp :commentscomp="commentscomp"></comments-comp>
             </div>
             <div class="col-sm-5">
-              <div id="talkbox" v-bind:style="{display: textcomp.tooldisplay, top: textcomp.tooltop}">
+              <div id="talkbox" v-bind:style="{display: textcomp.talkdisplay, top: textcomp.tooltop}">
                 <div class="mdc-card" style="background-color: #efefef;">
                   <section class="mdc-card__primary">
                     <div class="talkSection quoteSection">
@@ -35,29 +35,34 @@
                       <div class="u-paddingBottom5">
                         I disagree because:
                       </div>
-                      <textarea type="text" name="" value="" class="talkInput u-sizeFullWidth"></textarea>
-                      <a class="talkButton montserratLight u-floatRight">Share</a>
+                      <div v-if="textcomp.user !== undefined">
+                        <textarea type="text" name="" value="" class="talkInput u-sizeFullWidth"></textarea>
+                        <a class="talkButton montserratLight u-floatRight">Share</a>
+                      </div>
+                      <div v-else>
+                        <p class="montserratLight"><a href="#sign-in-modal" data-toggle="modal">Sign In</a> to share your thoughts about this idea.</p>
+                      </div>
                     </div>
                     <div class="talkSection readSection">
                       <div class="u-paddingTop10 u-paddingBottom10">
                         read what others think:
                       </div>
                       <span class="flexWrap">
-                      <span class="u-margin2">
-                        <a class="talkButton montserratLight">all</a>
-                      </span>
-                      <span class="u-margin2">
-                        <a class="talkButton montserratLight">agree</a>
-                      </span>
-                      <span class="u-margin2">
-                        <a class="talkButton montserratLight">disagree</a>
-                      </span>
-                      <span class="u-margin2">
-                        <a class="talkButton montserratLight">not sure</a>
-                      </span>
-                      <span class="u-margin2">
-                        <a class="talkButton montserratLight">MAP</a>
-                      </span>
+                        <span class="u-margin2">
+                          <a class="talkButton montserratLight">all</a>
+                        </span>
+                        <span class="u-margin2">
+                          <a class="talkButton montserratLight">agree</a>
+                        </span>
+                        <span class="u-margin2">
+                          <a class="talkButton montserratLight">disagree</a>
+                        </span>
+                        <span class="u-margin2">
+                          <a class="talkButton montserratLight">not sure</a>
+                        </span>
+                        <span class="u-margin2">
+                          <a class="talkButton montserratLight">MAP</a>
+                        </span>
                       </span>
                     </div>
 
