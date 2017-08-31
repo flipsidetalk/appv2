@@ -16,6 +16,10 @@
         <div class="section-content u-maxWidth1000">
           <div class="row white">
             <div class="col-sm-7">
+              <p>{{textcomp.lastReferenced}}</p>
+
+              <p>{{textcomp.whyResponse}}</p>
+              <p>{{textcomp.whyResponses}}</p>
               <text-comp :textcomp="textcomp"></text-comp>
               <comments-comp :commentscomp="commentscomp"></comments-comp>
             </div>
@@ -32,13 +36,13 @@
                       <div class="u-paddingBottom5">
                         I disagree because:
                       </div>
-                      <div v-if="textcomp.user !== undefined">
-                        <textarea type="text" name="" value="" class="talkInput u-sizeFullWidth"></textarea>
-                        <a class="talkButton montserratLight u-floatRight">Share</a>
-                      </div>
-                      <div v-else>
+                    <!--  <div v-if="textcomp.user !== undefined"> -->
+                        <textarea type="text" name="" value="" class="talkInput u-sizeFullWidth" v-model="textcomp.whyResponse.input"></textarea>
+                        <a class="talkButton montserratLight u-floatRight" v-on:click="submitWhy(textcomp)">Share</a>
+                    <!--  </div> -->
+                    <!--  <div v-else>
                         <p class="montserratLight"><a href="#sign-in-modal" data-toggle="modal">Sign In</a> to share your thoughts about this idea.</p>
-                      </div>
+                      </div> -->
                     </div>
                     <div class="talkSection readSection">
                       <div class="u-paddingTop10 u-paddingBottom10">
@@ -65,11 +69,9 @@
 
                   </section>
                 </div>
-
-
               </div>
-            </div>
 
+            </div>
           </div>
         </div>
       </div>
@@ -84,8 +86,10 @@
   import cardsComp from './components/cards-comp.vue';
   import textComp from './components/text-comp.vue';
   import commentsComp from './components/comments-comp.vue';
+  import mixin from '../assets/mixins/article.js';
 
   export default {
+    mixins: [mixin],
     data: function() {
       return {}
     },

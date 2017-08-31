@@ -2,7 +2,8 @@
   <div>
     <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title}}</h2>
     <p class="center-heading">by {{textcomp.article.author}} of {{textcomp.article.publication}} on {{textcomp.article.date}}</p>
-    <p>{{textcomp.lastReferenced}}</p>
+
+
     <div class="u-marginAuto">
       <span v-for="(m, mindex) in textcomp.article2.text.main2">
         <span class="load-text" v-bind:class="{'highlightable':m.agreeable}">

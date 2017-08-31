@@ -69,21 +69,6 @@ var mixin = {
       textcomp.tooldisplay = "block";
     //  refreshClusterMap();
     },
-
-
-    submitWhy: function(obj, textcomp) {
-      textcomp.whyResponse.sentenceId = obj.sentenceId;
-      textcomp.whyResponses.push(textcomp.whyResponse)
-      this.postWhy(textcomp.whyResponse.input, textcomp.whyResponse.sentenceId);
-      textcomp.whyResponse = {
-        sentenceId: "",
-        input: ""
-      };
-      textcomp.form = 0;
-      textcomp.why = 0;
-      textcomp.responseSubmitted = 1;
-      textcomp.responseForm = 0;
-    },
     postResponse: function(passage_id, reaction) {
       var data = {
         passage_id: passage_id,
