@@ -6,20 +6,16 @@
       <p class="u-lighter">People who vote similarly are grouped. Click a group to see which viewpoints they share</p>
       <div class="bubbleMap"></div>
     </div>
-    <div class="opinion-result">
-      <div v-for="(group, mindex) in mapcomp.clusterData">
-        <div v-if="mapcomp.clusterShowing == mindex">
-          <h4>Group {{group[0].cluster}}'s opinions:</h4>
-          <div v-for="(citem, cindex) in group">
-            <div v-if="cindex < 3">
-              <p class="montserratLight u-fontSize14">{{Math.abs(citem.average*100).toFixed(2)}}% of Group {{group[0].cluster}} {{citem.decision}} with the statement: <br>"{{citem.text}}"</p>
-              <hr>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
+
+  <div class="">
+
+    <span>passages:</span>
+    <span v-for="(m, mindex) in mapcomp.bubbleData[0].sentences">
+      <a href="#" class="u-paddingLeft12 u-fontSize14">{{mindex}}</a>
+    </span>
+  </div>
+
 </div>
 </template>
 

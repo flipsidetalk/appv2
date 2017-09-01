@@ -478,6 +478,13 @@ input:checked+label {
 }
 
 
+/***  BUBBLE STYLES
+*******************************************/
+.selectedBubble{
+  fill: #52aefb;
+}
+
+
 /* #########################################
 #    override the bootstrap configs     #
 ######################################### */

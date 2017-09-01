@@ -1,6 +1,7 @@
 var mixin = {
   methods: {
 
+
   },
   mounted: function() {
     //this.mapcomp.whatever
@@ -73,10 +74,6 @@ var mixin = {
       .attr("cx", function(d){return d.x})
       .attr("cy", function(d){return d.y})
     }
-
-
-
-
   }
 };
 

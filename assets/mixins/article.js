@@ -12,6 +12,7 @@ var mixin = {
       };
       textcomp.responseSubmitted = 1;
       textcomp.responseForm = 0;
+      textcomp.talkdisplay = "none";
     }
   }
 };

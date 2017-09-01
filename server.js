@@ -158,12 +158,12 @@ app.get('/', function(req, res) {
       // ylength: totalClusterInfo.extremes.yMax - totalClusterInfo.extremes.yMin,
 
       groupSimple:
-      [{label: "group1", size: 10},
-        {label: "group2", size: 20},
-        {label: "group3", size: 30},
-        {label: "group4", size: 40},
-        {label: "group5", size: 50},
-        {label: "group6", size: 60}],
+      [{label: "group1", size: 10, sentenceId: "", average: "", agree:"", disagree:"", unsure:""},
+        {label: "group2", size: 20, sentenceId: "", average: "", agree:"", disagree:"", unsure:""},
+        {label: "group3", size: 30, sentenceId: "", average: "", agree:"", disagree:"", unsure:""},
+        {label: "group4", size: 40, sentenceId: "", average: "", agree:"", disagree:"", unsure:""},
+        {label: "group5", size: 50, sentenceId: "", average: "", agree:"", disagree:"", unsure:""},
+        {label: "group6", size: 60, sentenceId: "", average: "", agree:"", disagree:"", unsure:""}],
 
       bubbleData:
       [{group: 1, size: 10, users: ["a", "b"], sentences:

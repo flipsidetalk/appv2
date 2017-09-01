@@ -65,8 +65,9 @@
                           <a class="talkButton montserratLight">MAP</a>
                         </span>
                       </span>
+                      <br><br>
                     </div>
-
+                    <p> display comments here<p>
                   </section>
                 </div>
               </div>
