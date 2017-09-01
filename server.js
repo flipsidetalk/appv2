@@ -15,6 +15,7 @@ const Sequelize = require('sequelize');
 const validateUrl = require('url-validator');
 const request = require('request');
 const makeSlug = require('slug');
+const dateFormat = require('dateformat');
 const sendWelcomeEmail = require('./email.js');
 const utils = require('./utils.js');
 const app = express();
@@ -106,175 +107,176 @@ app.get('/article/:slug', function(req, res) {
         res.status(404).send('Page not found.');
         return;
       }
-    var data = {
-      pageTitle: pageTitle,
-      headercomp: {
-        user: req.user
-      },
-      textcomp: {
-        article: {
-          title: 'Would taxing robots help the people whose jobs they’ll take?',
-          author: 'Yifan Zhang',
-          publication: 'The Christian Science Monitor',
-          publicationDate: 'August 23, 2017',
-          text: articleText
+      var data = {
+        pageTitle: pageTitle,
+        headercomp: {
+          user: req.user
         },
-        bottomBar: false,
-        form: 0,
-        responseForm: 0,
-        lastReferenced: -1,
-        why: 0,
-        whyModel: "",
-        responseSubmitted: 0,
-        lastReferencedResponseForm: -1,
-        response: {
-          sentenceId: "",
-          input: ""
+        textcomp: {
+          article: {
+            title: 'Would taxing robots help the people whose jobs they’ll take?',
+            author: 'Yifan Zhang',
+            publication: 'The Christian Science Monitor',
+            publicationDate: 'August 23, 2017',
+            text: articleText
+          },
+          bottomBar: false,
+          form: 0,
+          responseForm: 0,
+          lastReferenced: -1,
+          why: 0,
+          whyModel: "",
+          responseSubmitted: 0,
+          lastReferencedResponseForm: -1,
+          response: {
+            sentenceId: "",
+            input: ""
+          },
+          responses: [],
+          whyResponse: {
+            sentenceId: "",
+            input: ""
+          },
+          whyResponses: [],
+          user: req.user
         },
-        responses: [],
-        whyResponse: {
-          sentenceId: "",
-          input: ""
+        mapcomp: {
+          extremeData: totalClusterInfo.extremes,
+          clusterData: totalClusterInfo.clusterData,
+          pointData: totalClusterInfo.pointData,
+          shadeData: totalClusterInfo.shadeData,
+          xlength: totalClusterInfo.extremes.xMax - totalClusterInfo.extremes.xMin,
+          ylength: totalClusterInfo.extremes.yMax - totalClusterInfo.extremes.yMin,
+          multiplier: 1,
+          groupkey: {
+            group: '',
+            opinion1: '',
+            opinion2: '',
+            opinion3: ''
+          },
+          clusterShowing: 0,
+          opinionShowing: 1,
+          user: req.user
         },
-        whyResponses: [],
-        user: req.user
-      },
-      mapcomp: {
-        extremeData: totalClusterInfo.extremes,
-        clusterData: totalClusterInfo.clusterData,
-        pointData: totalClusterInfo.pointData,
-        shadeData: totalClusterInfo.shadeData,
-        xlength: totalClusterInfo.extremes.xMax - totalClusterInfo.extremes.xMin,
-        ylength: totalClusterInfo.extremes.yMax - totalClusterInfo.extremes.yMin,
-        multiplier: 1,
-        groupkey: {
-          group: '',
-          opinion1: '',
-          opinion2: '',
-          opinion3: ''
-        },
-        clusterShowing: 0,
-        opinionShowing: 1,
-        user: req.user
-      },
-      commentscomp: {
-        showComment: false,
-        article: {
-          text: articleText
-        },
-        commentData: comments
-      }
-    };
+        commentscomp: {
+          showComment: false,
+          article: {
+            text: articleText
+          },
+          commentData: comments
+        }
+      };
 
-    const vue = {
-      head: {
-        title: pageTitle,
-        meta: [{
-            property: 'og:title',
-            content: pageTitle
+      const vue = {
+        head: {
+          title: pageTitle,
+          meta: [{
+              property: 'og:title',
+              content: pageTitle
+            },
+            {
+              name: 'twitter:title',
+              content: pageTitle
+            },
+            {
+              name: 'viewport',
+              content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+            },
+            {
+              script: 'https://unpkg.com/vue@2.4.2/dist/vue.js'
+            },
+            {
+              script: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
+            },
+            {
+              script: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
+            },
+            {
+              script: 'https://d3js.org/d3.v4.js'
+            },
+            {
+              script: '../scripts/fb.js'
+            },
+            {
+              script: '../scripts/main.js'
+            },
+            {
+              style: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
+            },
+            {
+              style: 'https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css'
+            },
+            {
+              style: 'https://fonts.googleapis.com/css?family=Montserrat:300,400'
+            },
+            {
+              style: '../styles/main.css'
+            }
+          ]
+        }
+      };
+      async.parallel({
+          viz: function(callback) {
+            db.viz.findOne().then(viz => {
+              callback(null, JSON.parse(viz.data));
+            });
           },
-          {
-            name: 'twitter:title',
-            content: pageTitle
+          article: function(callback) {
+            db.article.findOne({
+              include: [{
+                model: db.title
+              }, {
+                model: db.author
+              }, {
+                model: db.publication
+              }, {
+                model: db.publicationDate
+              }, {
+                model: db.image
+              }, {
+                model: db.sentence
+              }],
+              where: {
+                slug: slug
+              },
+              attributes: {
+                exclude: ['id', 'slug']
+              }
+            }).then(article => {
+              article.dataValues.formattedDate = dateFormat(article.dataValues.publicationDate.date, "longDate");
+              callback(null, article.dataValues);
+            });
           },
-          {
-            name: 'viewport',
-            content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
-          },
-          {
-            script: 'https://unpkg.com/vue@2.4.2/dist/vue.js'
-          },
-          {
-            script: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
-          },
-          {
-            script: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
-          },
-          {
-            script: 'https://d3js.org/d3.v4.js'
-          },
-          {
-            script: '../scripts/fb.js'
-          },
-          {
-            script: '../scripts/main.js'
-          },
-          {
-            style: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
-          },
-          {
-            style: 'https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css'
-          },
-          {
-            style: 'https://fonts.googleapis.com/css?family=Montserrat:300,400'
-          },
-          {
-            style: '../styles/main.css'
+          comments: function(callback) {
+            db.response.findAll({
+              include: [{
+                model: db.vote,
+                required: true
+              }]
+            }).then(comments => {
+              callback(null, JSON.stringify(comments));
+            });
           }
-        ]
-      }
-    };
-    async.parallel({
-      viz: function(callback) {
-        db.viz.findOne().then(viz => {
-          callback(null, JSON.parse(viz.data));
-        });
-      },
-      article: function(callback) {
-        db.article.findOne({
-          include: [{
-            model: db.title
-          }, {
-            model: db.author
-          }, {
-            model: db.publication
-          }, {
-            model: db.publicationDate
-          }, {
-            model: db.image
-          }, {
-            model: db.sentence
-          }],
-          where: {
-            slug: slug
-          },
-          attributes: {
-            exclude: ['id', 'slug']
-          }
-        }).then(article => {
-          callback(null, article.dataValues);
-        });
-      },
-      comments: function(callback) {
-        db.response.findAll({
-          include: [{
-            model: db.vote,
-            required: true
-          }]
-        }).then(comments => {
-          callback(null, JSON.stringify(comments));
-        });
-      }
-    },
-    function(err, results) {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(results);
-        // data.textcomp.article = results.article;
-        // data.mapcomp.extremeData = results.viz.extremes;
-        // data.mapcomp.vizData = results.viz.clusterData;
-        // data.mapcomp.pointData = results.viz.pointData;
-        // data.mapcomp.shadeData = results.viz.shadeData;
-        // data.mapcomp.xlength = results.viz.extremes.xMax - results.viz.extremes.xMin;
-        // data.mapcomp.ylength = results.viz.extremes.yMax - results.viz.extremes.yMin;
-        // data.commentscomp.article.text = results.article.text;
-        // data.commentscomp.commentData = results.comments;
+        },
+        function(err, results) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(results);
+            data.textcomp.article = results.article;
+            // data.mapcomp.extremeData = results.viz.extremes;
+            // data.mapcomp.vizData = results.viz.clusterData;
+            // data.mapcomp.pointData = results.viz.pointData;
+            // data.mapcomp.shadeData = results.viz.shadeData;
+            // data.mapcomp.xlength = results.viz.extremes.xMax - results.viz.extremes.xMin;
+            // data.mapcomp.ylength = results.viz.extremes.yMax - results.viz.extremes.yMin;
+            // data.commentscomp.article.text = results.article.text;
+            // data.commentscomp.commentData = results.comments;
 
-        res.renderVue('article', data, vue);
-      }
+            res.renderVue('article', data, vue);
+          }
+        });
     });
-  });
 });
 
 let currentVotes = 0;
@@ -442,7 +444,7 @@ app.get('/loading', function(req, res) {
   res.send('Loading page');
 });
 
-app.get('*', function(req, res){
+app.get('*', function(req, res) {
   res.status(404).send('Page not found.');
 });
 
