@@ -67,6 +67,7 @@ try {
       'database': 'prod'
     }
   }
+}
 
 // Connect to the Amazon RDS instance
 var connection = mysql.createConnection({
@@ -160,119 +161,236 @@ app.get('/article/:slug', function(req, res) {
         return;
       }
       var data = {
-      pageTitle: pageTitle,
-      headercomp: {
-        user: req.user
-      },
-      textcomp: {
-
-        tempseen: false,
-
-        article: {
-          title: 'Would taxing robots help the people whose jobs they’ll take?',
-          author: 'Yifan Zhang',
-          publication: 'The Christian Science Monitor',
-          date: 'August 23, 2017',
-          text: articleText
+        pageTitle: pageTitle,
+        headercomp: {
+          user: req.user
         },
-        article2: {
-          title: 'Would taxing robots help the people whose jobs they’ll take?',
-          author: 'Yifan Zhang',
-          publication: 'The Christian Science Monitor',
-          date: 'August 23, 2017',
-          text: articleText2
+        textcomp: {
+
+          tempseen: false,
+
+          article: {
+            title: 'Would taxing robots help the people whose jobs they’ll take?',
+            author: 'Yifan Zhang',
+            publication: 'The Christian Science Monitor',
+            date: 'August 23, 2017',
+            text: articleText
+          },
+          article2: {
+            title: 'Would taxing robots help the people whose jobs they’ll take?',
+            author: 'Yifan Zhang',
+            publication: 'The Christian Science Monitor',
+            date: 'August 23, 2017',
+            text: articleText2
+          },
+          /*** TOOLTIP ATTRIBUTES ***/
+          tooldisplay: "none",
+          tooltop: "0px",
+          toolleft: "0px",
+          isHighlighted: false,
+          talktop: "0px",
+          talkdisplay: "none",
+          /*******/
+
+          bottomBar: false,
+          form: 0,
+          responseForm: 0,
+          lastReferenced: "a3s0",
+          why: 0,
+          whyModel: "",
+          responseSubmitted: 0,
+          lastReferencedResponseForm: -1,
+          response: {
+            sentenceId: "",
+            input: ""
+          },
+          responses: [],
+          whyResponse: {
+            sentenceId: "",
+            input: "",
+            vote: ""
+          },
+          whyResponses: [],
+          user: req.user
         },
-        /*** TOOLTIP ATTRIBUTES ***/
-        tooldisplay: "none",
-        tooltop: "0px",
-        toolleft: "0px",
-        isHighlighted: false,
-        talktop: "0px",
-        talkdisplay: "none",
-        /*******/
+        mapcomp: {
+          // extremeData: totalClusterInfo.extremes,
+          // clusterData: totalClusterInfo.clusterData,
+          // pointData: totalClusterInfo.pointData,
+          // shadeData: totalClusterInfo.shadeData,
+          // xlength: totalClusterInfo.extremes.xMax - totalClusterInfo.extremes.xMin,
+          // ylength: totalClusterInfo.extremes.yMax - totalClusterInfo.extremes.yMin,
 
-        bottomBar: false,
-        form: 0,
-        responseForm: 0,
-        lastReferenced: "a3s0",
-        why: 0,
-        whyModel: "",
-        responseSubmitted: 0,
-        lastReferencedResponseForm: -1,
-        response: {
-          sentenceId: "",
-          input: ""
+          groupInfo: {
+            label: "",
+            size: "",
+            sentenceId: "e",
+            average: "",
+            agree: "",
+            disagree: "",
+            unsure: ""
+          },
+
+          groupSimple: [{
+              label: "group1",
+              size: 10,
+              sentenceId: "a",
+              average: "",
+              agree: "",
+              disagree: "",
+              unsure: ""
+            },
+            {
+              label: "group2",
+              size: 20,
+              sentenceId: "b",
+              average: "",
+              agree: "",
+              disagree: "",
+              unsure: ""
+            },
+            {
+              label: "group3",
+              size: 30,
+              sentenceId: "c",
+              average: "",
+              agree: "",
+              disagree: "",
+              unsure: ""
+            },
+            {
+              label: "group4",
+              size: 40,
+              sentenceId: "d",
+              average: "",
+              agree: "",
+              disagree: "",
+              unsure: ""
+            },
+            {
+              label: "group5",
+              size: 50,
+              sentenceId: "e",
+              average: "",
+              agree: "",
+              disagree: "",
+              unsure: ""
+            },
+            {
+              label: "group6",
+              size: 60,
+              sentenceId: "f",
+              average: "",
+              agree: "",
+              disagree: "",
+              unsure: ""
+            }
+          ],
+
+          bubbleData: [{
+              group: 1,
+              size: 10,
+              users: ["a", "b"],
+              sentences: [{
+                  sentenceId: "a1s1",
+                  average: .50,
+                  agree: 0.33,
+                  disagree: 0.33,
+                  unsure: 0.33
+                },
+                {
+                  sentenceId: "a1s2",
+                  average: .40,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.30
+                }
+              ]
+            },
+            {
+              group: 2,
+              size: 30,
+              users: ["a", "b"],
+              sentences: [{
+                  sentenceId: "a1s1",
+                  average: .50,
+                  agree: 0.33,
+                  disagree: 0.33,
+                  unsure: 0.33
+                },
+                {
+                  sentenceId: "a1s2",
+                  average: 0.6,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.30
+                }
+              ]
+            }
+          ],
+
+          testBubbleData: [{
+              group: 1,
+              size: 10,
+              users: ["a", "b"],
+              sentences: {
+                "a1s1": {
+                  average: .50,
+                  agree: 0.33,
+                  disagree: 0.33,
+                  unsure: 0.33
+                },
+                "a1s2": {
+                  average: .50,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.30
+                }
+              }
+            },
+            {
+              group: 1,
+              size: 10,
+              users: ["a", "b"],
+              sentences: {
+                "a1s1": {
+                  average: .50,
+                  agree: 0.33,
+                  disagree: 0.33,
+                  unsure: 0.33
+                },
+                "a1s2": {
+                  average: .50,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.30
+                }
+              }
+            }
+          ],
+
+
+
+
+          multiplier: 1,
+          groupkey: {
+            group: '',
+            opinion1: '',
+            opinion2: '',
+            opinion3: ''
+          },
+          clusterShowing: 0,
+          opinionShowing: 1,
+          user: req.user
         },
-        responses: [],
-        whyResponse: {
-          sentenceId: "",
-          input: "",
-          vote: ""
-        },
-        whyResponses: [],
-        user: req.user
-      },
-      mapcomp: {
-        // extremeData: totalClusterInfo.extremes,
-        // clusterData: totalClusterInfo.clusterData,
-        // pointData: totalClusterInfo.pointData,
-        // shadeData: totalClusterInfo.shadeData,
-        // xlength: totalClusterInfo.extremes.xMax - totalClusterInfo.extremes.xMin,
-        // ylength: totalClusterInfo.extremes.yMax - totalClusterInfo.extremes.yMin,
-
-        groupInfo: {label: "", size: "", sentenceId: "e", average: "", agree:"", disagree:"", unsure:""},
-
-        groupSimple:
-        [{label: "group1", size: 10, sentenceId: "a", average: "", agree:"", disagree:"", unsure:""},
-        {label: "group2", size: 20, sentenceId: "b", average: "", agree:"", disagree:"", unsure:""},
-        {label: "group3", size: 30, sentenceId: "c", average: "", agree:"", disagree:"", unsure:""},
-        {label: "group4", size: 40, sentenceId: "d", average: "", agree:"", disagree:"", unsure:""},
-        {label: "group5", size: 50, sentenceId: "e", average: "", agree:"", disagree:"", unsure:""},
-        {label: "group6", size: 60, sentenceId: "f", average: "", agree:"", disagree:"", unsure:""}],
-
-        bubbleData:
-        [{group: 1, size: 10, users: ["a", "b"], sentences:
-        [{sentenceId: "a1s1", average: .50, agree:0.33, disagree: 0.33, unsure: 0.33},
-        {sentenceId: "a1s2", average: .40, agree:0.40, disagree: 0.30, unsure: 0.30}]
-      },
-      {group: 2, size: 30, users: ["a", "b"], sentences:
-      [{sentenceId: "a1s1", average: .50, agree:0.33, disagree: 0.33, unsure: 0.33},
-      {sentenceId: "a1s2", average: 0.6, agree:0.40, disagree: 0.30, unsure: 0.30}]}],
-
-      testBubbleData:
-      [{group: 1, size: 10, users: ["a", "b"], sentences:{
-        "a1s1":{average: .50, agree:0.33, disagree: 0.33, unsure: 0.33},
-        "a1s2":{average: .50, agree:0.40, disagree: 0.30, unsure: 0.30}
-      }
-    },
-    {group: 1, size: 10, users: ["a", "b"], sentences:{
-      "a1s1":{average: .50, agree:0.33, disagree: 0.33, unsure: 0.33},
-      "a1s2":{average: .50, agree:0.40, disagree: 0.30, unsure: 0.30}
-    }
-  }],
-
-
-
-
-  multiplier: 1,
-  groupkey: {
-    group: '',
-    opinion1: '',
-    opinion2: '',
-    opinion3: ''
-  },
-  clusterShowing: 0,
-  opinionShowing: 1,
-  user: req.user
-},
-commentscomp: {
-  showComment: false,
-  article: {
-    text: articleText
-  },
-  commentData: comments
-}
-};
+        commentscomp: {
+          showComment: false,
+          article: {
+            text: articleText
+          },
+          commentData: comments
+        }
+      };
 
       async.parallel({
           viz: function(callback) {
@@ -465,19 +583,19 @@ app.post('/emails', function(req, res) {
   }
 });
 
-    app.post('/userStatus', function(req, res) {
-      if (req.user) {
-        res.send({
-          signedIn: true,
-          id: req.user.id
-        });
-      } else {
-        res.send({
-          signedIn: false,
-          id: null
-        });
-      }
+app.post('/userStatus', function(req, res) {
+  if (req.user) {
+    res.send({
+      signedIn: true,
+      id: req.user.id
     });
+  } else {
+    res.send({
+      signedIn: false,
+      id: null
+    });
+  }
+});
 
 app.post('/numVotesCast', function(req, res) {
   db.vote.count({
@@ -489,15 +607,13 @@ app.post('/numVotesCast', function(req, res) {
   });
 });
 
+app.get('/terms', function(req, res) {
+  res.render('legal/terms/index');
+});
 
-
-            app.get('/terms', function(req, res) {
-              res.render('legal/terms/index');
-            });
-
-            app.get('/privacy', function(req, res) {
-              res.render('legal/privacy/index');
-            });
+app.get('/privacy', function(req, res) {
+  res.render('legal/privacy/index');
+});
 
 app.get('/loading', function(req, res) {
   res.send('Loading page');
