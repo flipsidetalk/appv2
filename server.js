@@ -92,7 +92,12 @@ require('./auth.js')(app, connection, db);
 // Structure of user object: { id: 14, firstname: 'Forrest', name: 'Forrest Sill' }
 
 app.get('/', function(req, res) {
-  res.sendStatus(200);
+  var data = {
+    headercomp: {
+      user: req.user
+    }
+  }
+  res.renderVue('index', data, utils.vue('Flipside'));
 });
 
 app.get('/article/:slug', function(req, res) {
