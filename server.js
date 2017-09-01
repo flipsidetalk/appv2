@@ -518,6 +518,8 @@ app.post('/submitLink', function(req, res) {
           } else {
             res.send('invalid_url');
           }
+        }, (error) => {
+          res.send('error');
         });
       }
     });

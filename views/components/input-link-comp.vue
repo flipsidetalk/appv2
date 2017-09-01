@@ -11,6 +11,9 @@
         <p id="invalid-link-msg" class="form-error">
           Please check your link and try again.
         </p>
+        <p id="error-msg" class="form-error">
+          Sorry, there was an error. Please try again.
+        </p>
         <p id="loading-msg" class="form-error">
           Loading
         </p>

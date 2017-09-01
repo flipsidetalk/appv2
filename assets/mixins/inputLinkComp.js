@@ -13,6 +13,7 @@ var mixin = {
         success: function(response) {
           console.log("sendsuccess: " + JSON.stringify(response));
           if (response == 'valid') {
+            $('.form-error').hide();
             $('#loading-msg').show();
             var response = {
               link: link,
@@ -25,6 +26,9 @@ var mixin = {
                 console.log("sendsuccess: " + JSON.stringify(response));
                 if (response.substring(0,1) == '/') {
                   window.location.href = response;
+                } else {
+                  $('.form-error').hide();
+                  $('#error-msg').show();
                 }
               },
               error: function(response) {
@@ -32,6 +36,7 @@ var mixin = {
               }
             });
           } else {
+            $('.form-error').hide();
             $('#invalid-link-msg').show();
           }
         },
