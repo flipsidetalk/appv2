@@ -167,54 +167,6 @@ app.get('/article/:slug', function(req, res) {
         }
       };
 
-      const vue = {
-        head: {
-          title: pageTitle,
-          meta: [{
-              property: 'og:title',
-              content: pageTitle
-            },
-            {
-              name: 'twitter:title',
-              content: pageTitle
-            },
-            {
-              name: 'viewport',
-              content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
-            },
-            {
-              script: 'https://unpkg.com/vue@2.4.2/dist/vue.js'
-            },
-            {
-              script: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
-            },
-            {
-              script: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
-            },
-            {
-              script: 'https://d3js.org/d3.v4.js'
-            },
-            {
-              script: '../scripts/fb.js'
-            },
-            {
-              script: '../scripts/main.js'
-            },
-            {
-              style: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
-            },
-            {
-              style: 'https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css'
-            },
-            {
-              style: 'https://fonts.googleapis.com/css?family=Montserrat:300,400'
-            },
-            {
-              style: '../styles/main.css'
-            }
-          ]
-        }
-      };
       async.parallel({
           viz: function(callback) {
             db.viz.findOne().then(viz => {
@@ -273,7 +225,7 @@ app.get('/article/:slug', function(req, res) {
             // data.commentscomp.article.text = results.article.text;
             // data.commentscomp.commentData = results.comments;
 
-            res.renderVue('article', data, vue);
+            res.renderVue('article', data, utils.vue(pageTitle));
           }
         });
     });
