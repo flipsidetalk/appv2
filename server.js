@@ -464,7 +464,8 @@ app.post('/submitResponse', function(req, res) {
 });
 
 app.post('/submitLink', function(req, res) {
-  const link = req.body.link;
+  let link = req.body.link;
+  link = link.split('?')[0];
   if (validateUrl(link)) {
     // Check if URL is already in database.
     db.article.findOne({
@@ -475,14 +476,17 @@ app.post('/submitLink', function(req, res) {
     }).then(article => {
       if (article != null) {
         // Article exists in the database, so serve that page.
-        res.redirect('/article/' + article.slug);
+        res.send('/article/' + JSON.stringify(article.slug).slice(1,-1));
       } else {
         // Article does not exist, so make a call to the article parser server
         // and show the user a loading screen.
-        res.redirect('/loading');
         utils.makeExternalRequest(request, PYTHON_SERVER_URL, link, (body) => {
           // Insert article data into database
           if (body != "invalid_url") {
+            if (!body.title) {
+              res.send('error');
+              return;
+            }
             const slug = makeSlug(body.title.title, {
               lower: true
             });
@@ -509,7 +513,7 @@ app.post('/submitLink', function(req, res) {
                 model: db.originalText
               }]
             }).then(() => {
-              res.redirect('/article/' + slug);
+              res.send('/article/' + slug);
             });
           } else {
             res.send('invalid_url');
@@ -519,6 +523,16 @@ app.post('/submitLink', function(req, res) {
     });
   } else {
     res.send('invalid_url');
+  }
+});
+
+app.post('/checkValidLink', function(req, res) {
+  let link = req.body.link;
+  link = link.split('?')[0];
+  if (validateUrl(link)) {
+    res.send('valid');
+  } else {
+    res.send('invalid');
   }
 });
 
@@ -603,8 +617,8 @@ app.get('/privacy', function(req, res) {
   res.render('legal/privacy/index');
 });
 
-app.get('/loading', function(req, res) {
-  res.send('Loading page');
+app.get('/article', function(req, res) {
+  res.redirect('/');
 });
 
 app.get('*', function(req, res) {
