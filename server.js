@@ -95,6 +95,32 @@ app.get('/', function(req, res) {
   var data = {
     headercomp: {
       user: req.user
+    },
+    recentscomp: {
+      article1: {
+        title: '',
+        publication: '',
+        publicationDate: '',
+        author: '',
+        image: '',
+        link: ''
+      },
+      article2: {
+        title: '',
+        publication: '',
+        publicationDate: '',
+        author: '',
+        image: '',
+        link: ''
+      },
+      article3: {
+        title: '',
+        publication: '',
+        publicationDate: '',
+        author: '',
+        image: '',
+        link: ''
+      }
     }
   }
   res.renderVue('index', data, utils.vue('Flipside'));
