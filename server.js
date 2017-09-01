@@ -453,6 +453,10 @@ app.get('/privacy', function(req, res) {
   res.render('legal/privacy/index');
 });
 
+app.get('/loading', function(req, res) {
+  res.send('Loading page');
+});
+
 app.get('*', function(req, res){
   res.status(404).send('Page not found.');
 });
