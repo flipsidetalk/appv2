@@ -29,7 +29,7 @@
                   <section class="mdc-card__primary">
                     <div class="talkSection quoteSection">
                       <h4 class=" mdc-card__title mdc-card__title--large georgia lineheight123 u-paddingBottom10" style="font-size: 16px;">
-                        "{{textcomp.article.text.main[textcomp.lastReferenced].text}}"
+                        "{{textcomp.article.sentences[textcomp.lastReferenced]}}"
                       </h4>
                     </div>
                     <div class="talkSection">
