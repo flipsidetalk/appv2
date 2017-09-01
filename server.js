@@ -277,11 +277,64 @@ app.get('/article/:slug', function(req, res) {
   });
 });
 
+/* Make call here to run python viz script
+ * First, check if numRows in votes has increased:
+ * if yes, run script and insert into viz the new data
+ */
+
 app.post('/submitLink', function(req, res) {
   const link = req.body.link;
-  if (validUrl.isUri(link)) {
-    utils.makeExternalRequest(request, PYTHON_SERVER_URL, { link: link }, (response) => {
-      // Function to insert article data into database
+  if (validateUrl(link)) {
+    // Check if URL is already in database.
+    db.article.findOne({
+      where: {
+        url: link
+      },
+      attributes: ['slug']
+    }).then(article => {
+      if (article != null) {
+        // Article exists in the database, so serve that page.
+        res.redirect('/article/' + article.slug);
+      } else {
+        // Article does not exist, so make a call to the article parser server
+        // and show the user a loading screen.
+        res.redirect('/loading');
+        utils.makeExternalRequest(request, PYTHON_SERVER_URL, link, (body) => {
+          // Insert article data into database
+          if (body != "invalid_url") {
+            const slug = makeSlug(body.title.title, {
+              lower: true
+            });
+            body.slug = slug;
+            db.article.create(body, {
+              include: [{
+                model: db.title
+              }, {
+                model: db.author
+              }, {
+                model: db.publication
+              }, {
+                model: db.publicationDate
+              }, {
+                model: db.image
+              }, {
+                model: db.sentence
+              }, {
+                model: db.tag,
+                include: [{
+                  model: db.rdftype
+                }]
+              }, {
+                model: db.originalText
+              }]
+            }).then(() => {
+              res.redirect('/article/' + slug);
+            });
+          } else {
+            res.send('invalid_url');
+          }
+        });
+      }
     });
   } else {
     res.send('invalid_url');
