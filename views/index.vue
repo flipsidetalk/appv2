@@ -24,7 +24,7 @@
           </header>
 
           <div v-for="(m, mindex) in thumbnailcomp">
-            <div class="u-borderBox u-size6of12 u-paddingRight10 u-xs-paddingLeft0 u-xs-paddingRight0 u-xs-size12of12 u-floatLeft">
+            <div class="u-borderBox u-size6of12 u-paddingRight20 u-xs-paddingLeft0 u-xs-paddingRight0 u-xs-size12of12 u-floatLeft">
               <div class="u-flex u-sizeFullWidth u-height260 u-sm-flexWrap u-xs-heightAuto u-borderBox u-marginBottom20 u-backgroundColorWhite u-overflowHidden u-relative u-borderRadius2 u-borderBlackLightest">
                 <div class="u-flex0 u-sizeFullHeight u-width200 u-sm-height100 u-sm-sizeFullWidth u-xs-height170 red">
                   okay here's a picture
@@ -77,82 +77,4 @@ export default {
 </script>
 
 <style lang="css">
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: absolute; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: none; /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #52aefb;
-  margin-right: 0px;
-  top: 300px;
-  max-width: 500px;
-  float: right;
-  padding: 20px;
-  border: 0;
-  width: 40%;
-}
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-.purpleBackground{
-  /*background-color: rgba(184, 139, 208); */
-  background-color: rgba(91, 59, 122, 0.80);
-}
-
-.submitForm{
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  padding-left: 70px;
-}
-
-input{
-  background: none;
-  border: 0;
-}
-
-input:focus{
-  outline: none;
-}
-
-.mainInput{
-  width: 100%;
-  height: 44px;
-  font-size: 20px;
-  border-bottom: 2px solid;
-}
-.submitButton{
-  position: absolute;
-  left: 0;
-  top: 15px;
-  background: white;
-  z-index: 500;
-  font-size: 20px;
-}
-
-.bumpDown{
-  padding-bottom: 50px;
-}
 </style>
