@@ -120,17 +120,17 @@ app.get('/', function(req, res) {
       article1: {
         title: 'This is the first title what what what',
         publication: 'The Daily New York Story That is Long',
-        publicationDate: '',
-        author: '',
+        publicationDate: 'March 1',
+        author: 'Forrest Sill',
         image: '',
         link: '',
         slug: ''
       },
       article2: {
         title: 'Second story no way',
-        publication: '',
-        publicationDate: '',
-        author: '',
+        publication: 'The New York Timezzz',
+        publicationDate: 'aug 40',
+        author: 'Sidd Sach',
         image: '',
         link: '',
         slug: ''
@@ -138,8 +138,8 @@ app.get('/', function(req, res) {
       article3: {
         title: 'THIRD THIRD THIRD THIRD',
         publication: 'The New Yorker',
-        publicationDate: '',
-        author: '',
+        publicationDate: 'Nov 15',
+        author: 'Jason jasons',
         image: '',
         link: '',
         slug: ''
@@ -169,6 +169,13 @@ app.get('/article/:slug', function(req, res) {
         textcomp: {
 
           tempseen: false,
+          article: {
+            title: 'Would taxing robots help the people whose jobs they’ll take?',
+            author: 'Yifan Zhang',
+            publication: 'The Christian Science Monitor',
+            date: 'August 23, 2017',
+            text: articleText
+          },
           /*** TOOLTIP ATTRIBUTES ***/
           tooldisplay: "none",
           tooltop: "0px",
@@ -180,7 +187,7 @@ app.get('/article/:slug', function(req, res) {
           bottomBar: false,
           form: 0,
           responseForm: 0,
-          lastReferenced: "40",
+          lastReferenced: "a3s0",
           why: 0,
           whyModel: "",
           responseSubmitted: 0,
@@ -401,15 +408,6 @@ app.get('/article/:slug', function(req, res) {
                 exclude: ['id', 'slug']
               }
             }).then(article => {
-              const sentences = article.dataValues.sentences;
-              const reformattedSentences = [];
-              for (var i in sentences) {
-                var reformattedSentence = {};
-                reformattedSentence[sentences[i].id] = sentences[i];
-                reformattedSentences.push(reformattedSentence);
-              }
-              article.dataValues.sentences = reformattedSentences;
-              console.log('DATA: ' + JSON.stringify(article.dataValues));
               article.dataValues.formattedDate = dateFormat(article.dataValues.publicationDate.date, "longDate");
               callback(null, article.dataValues);
             });
