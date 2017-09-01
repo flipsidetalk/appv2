@@ -478,6 +478,13 @@ input:checked+label {
 }
 
 
+/***  BUBBLE STYLES
+*******************************************/
+.selectedBubble{
+  fill: #52aefb;
+}
+
+
 /* #########################################
 #    override the bootstrap configs     #
 ######################################### */
@@ -658,6 +665,129 @@ input:checked+label {
 .why-slide-fade-enter {
   transform: translateX(40px);
   opacity: 0;
+}
+
+
+/* TALKBOX
+-------------------------------------------------- */
+#talkbox{
+  position: relative;
+  max-height: 700px;
+}
+
+.talkSection{
+  padding: 10px 0px
+}
+
+.quoteSection{
+  box-shadow:0px 0.6px 0px #a9a9a9;
+  padding-top:0px!important;
+}
+
+.readSection{
+  margin-top: 20px;
+}
+
+.talkInput{
+  height: 80px;
+  outline: none;
+  border: 0px;
+  padding: 9px;
+  font-size: 13px;
+  font-weight: lighter;
+}
+
+.talkButton{
+    -webkit-border-radius: 4;
+    -moz-border-radius: 4;
+    border-radius: 2.5px;
+    color: #ffffff;
+    font-size: 12px;
+    background: rgba(0, 151, 167, 0.74);
+    padding: 6px 12px 9px 12px;
+    text-decoration: none;
+}
+.u-margin2{
+  margin:0px 2px;
+}
+
+.talkButton:hover {
+  background-color: purple;
+  background-image: -webkit-linear-gradient(top, rgba(0, 151, 167, 0.96), rgba(0, 151, 167, 0.99));
+  background-image: -moz-linear-gradient(top, rgba(0, 151, 167, 0.96), rgba(0, 151, 167, 0.99));
+  background-image: -ms-linear-gradient(top, rgba(0, 151, 167, 0.96), rgba(0, 151, 167, 0.99));
+  background-image: -o-linear-gradient(top, rgba(0, 151, 167, 0.96), rgba(0, 151, 167, 0.99));
+  background-image: linear-gradient(to bottom, rgba(0, 151, 167, 0.96), rgba(0, 151, 167, 0.99));
+  text-decoration: none;
+  color: #ffffff!important;
+  transition: 2s;
+
+}
+
+/* TOOLTIP
+-------------------------------------------------- */
+#tooltip {
+  position:absolute;
+  display:none;
+  border:grey solid 1px;
+  border-radius: 3px;
+  background:black;
+  padding:  5px 20px;
+  z-index: 500;
+  color: white;
+  animation: pop-upwards 180ms forwards linear;
+  transition: top 75ms ease-out,left 75ms ease-out;
+}
+#cal1{
+  position:absolute;
+  height:0px;
+  width:0px;
+  top:100px;
+  left:100px;
+  overflow:none;
+  z-index:-100;
+}
+#cal2{
+  position:absolute;
+  height:0px;
+  width:0px;
+  top:0px;
+  left:0px;
+  overflow:none;
+  z-index:-100;
+}
+.highlightMenu-arrowClip{
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  clip: rect(10px 20px 20px 0);
+  margin-left: -10px;
+}
+.highlightMenu-arrow{
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: black;
+  transform: rotate(45deg) scale(0.5);
+}
+
+.regularTextActive{
+  transition: ease-in 0.02s;
+  border-bottom: 4.2px solid rgba(0, 151, 167, 0.4);
+}
+
+.regularText{
+  -webkit-transition: ease-out 1s;
+  transition: ease-out 1s;
+  cursor: pointer;
+  padding-bottom: 0px;
+  border-bottom-color: white;
+  border-radius: 2px;
+}
+.regularText:hover{
+  border-bottom: 4.2px solid rgba(0, 151, 167, 0.4);
+  transition: ease-out 0.1s;
+  transition: ease-in 0.1s;
 }
 
 
