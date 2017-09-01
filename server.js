@@ -281,32 +281,47 @@ var python_vis = require('./assets/python-scripts/start_python_script.js')
 
 var current_votes = 0
 
-function update_state (res) {
-  var out = undefined
+function updateVizState (res) {
+  var out;
   db.vote.findAll().then(input_data => {
     try {
-      var votes = JSON.parse(input_data)
-      if (votes.length > current_votes) {
-        current_votes = votes.length
-        python_vis(votes, (out_data) => {
+      var votes = JSON.parse(inputData);
+      if (votes.length > currentVotesLength) {
+        currentVotesLength = votes.length;
+        python_vis(votes, (outData) => {
           if (typeof(res) === 'response') {
-            res.send(out_data)
+            res.send(outData);
           }
-          db.votes.create({
-            data: out_data
-            numVotes: current_votes
-          })
-        })
+          db.vizs.create({
+            data: outData
+            numVotes: currentVotes
+          });
+        });
       }
     } catch (err) {
       console.log(err);
     } 
-  })
+  });
 }
 
-app.post('/Vote'), function(req, res) {
-  update_state(res)
-}
+app.post('/submitResponse', function(req, res) {
+  db.vote.findOne({
+    where: {
+      userId: req.user.id,
+      sentenceId: req.body.sentenceId
+    }
+  }).then(vote => {
+    db.response.create({
+      userId: req.user.id,
+      sentenceId: req.body.sentenceId,
+      statement: req.body.statement,
+      voteId: vote.id
+    }).then(() => {
+      update_state(res);
+    });
+  });
+});
+
 /* Make call here to run python viz script
  * First, check if numRows in votes has increased:
  * if yes, run script and insert into viz the new data
@@ -443,35 +458,6 @@ app.post('/numVotesCast', function(req, res) {
     }
   }).then(count => {
     res.send(count + '');
-  });
-});
-
-app.post('/submitVote', function(req, res) {
-  utils.upsert(db.vote, {
-    userId: req.user.id,
-    sentenceId: req.body.sentenceId,
-    reaction: req.body.reaction
-  }, {
-    userId: req.user.id,
-    sentenceId: req.body.sentenceId
-  });
-  res.sendStatus(200);
-});
-
-app.post('/submitResponse', function(req, res) {
-  db.vote.findOne({
-    where: {
-      userId: req.user.id,
-      sentenceId: req.body.sentenceId
-    }
-  }).then(vote => {
-    db.response.create({
-      userId: req.user.id,
-      sentenceId: req.body.sentenceId,
-      statement: req.body.statement,
-      voteId: vote.id
-    });
-    res.sendStatus(200);
   });
 });
 
