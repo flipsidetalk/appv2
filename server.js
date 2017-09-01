@@ -124,7 +124,7 @@ app.get('/', function(req, res) {
         author: 'Forrest Sill',
         image: '',
         link: '',
-        slug: ''
+        slug: 'slug-slug'
       },
       article2: {
         title: 'Second story no way',

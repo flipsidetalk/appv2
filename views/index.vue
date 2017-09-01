@@ -25,7 +25,8 @@
 
           <div v-for="(m, mindex) in thumbnailcomp">
             <div class="u-borderBox u-size6of12 u-paddingRight20 u-xs-paddingLeft0 u-xs-paddingRight0 u-xs-size12of12 u-floatLeft">
-              <div class="u-flex u-sizeFullWidth u-height260 u-sm-flexWrap u-xs-heightAuto u-borderBox u-marginBottom20 u-backgroundColorWhite u-overflowHidden u-relative u-borderRadius2 u-borderBlackLightest">
+
+              <a v-bind:href="'/article/' + m.slug" class="u-flex u-sizeFullWidth u-height260 u-sm-flexWrap u-xs-heightAuto u-borderBox u-marginBottom20 u-backgroundColorWhite u-overflowHidden u-relative u-borderRadius2 u-borderBlackLightest">
                 <div class="u-flex0 u-sizeFullHeight u-width200 u-sm-height100 u-sm-sizeFullWidth u-xs-height170 red">
                   okay here's a picture
                 </div>
@@ -44,7 +45,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
+
             </div> <!--END Thumbnail -->
           </div>
 
