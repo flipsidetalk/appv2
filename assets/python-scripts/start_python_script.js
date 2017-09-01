@@ -4,7 +4,7 @@ var fs = require('fs');
 module.exports = function(votes, done) {
   console.log("votes: " + JSON.stringify(votes));
   var spawn = require('child_process').spawn
-  var py = spawn('python3', ['public/scripts/Python_Server/ml_script.py'])
+  var py = spawn('python3', ['assets/scripts/python-scripts/ml_script.py'])
 
   var dataString = '';
   var vis_data
@@ -24,7 +24,7 @@ module.exports = function(votes, done) {
     } catch (err) {
       console.log(err);
     }
-    saveToFile(JSON.stringify(vis_data), 'public/scripts/Python_Server/data/saved_votes.json');
+    save(JSON.stringify(vis_data), done);
   });
 
   //Pipes Python's stderr to Node stdout for debugging
@@ -36,9 +36,6 @@ module.exports = function(votes, done) {
   py.stdin.end();
 }
 
-function saveToFile(data, filename) {
-  fs.writeFile(filename, data, function(err) {
-    if (err) throw err;
-    }
-  );
+function save(data, cb) {
+  cb(data);
 }
