@@ -277,6 +277,36 @@ app.get('/article/:slug', function(req, res) {
   });
 });
 
+var python_vis = require('./assets/python-scripts/start_python_script.js')
+
+var current_votes = 0
+
+function update_state (res) {
+  var out = undefined
+  db.vote.findAll().then(input_data => {
+    try {
+      var votes = JSON.parse(input_data)
+      if (votes.length > current_votes) {
+        current_votes = votes.length
+        python_vis(votes, (out_data) => {
+          if (typeof(res) === 'response') {
+            res.send(out_data)
+          }
+          db.votes.create({
+            data: out_data
+            numVotes: current_votes
+          })
+        })
+      }
+    } catch (err) {
+      console.log(err);
+    } 
+  })
+}
+
+app.post('/Vote'), function(req, res) {
+  update_state(res)
+}
 /* Make call here to run python viz script
  * First, check if numRows in votes has increased:
  * if yes, run script and insert into viz the new data
