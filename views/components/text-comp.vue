@@ -1,11 +1,11 @@
 <template>
 <div>
-  <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title}}</h2>
-  <p class="center-heading">by {{textcomp.article.author}} of {{textcomp.article.publication}} on {{textcomp.article.date}}</p>
+  <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
+  <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.publicationDate.date}}</p>
   <div class="u-paddingLeft90 u-paddingRight90 u-marginAuto">
-    <span v-for="(m, mindex) in textcomp.article.text.main">
-          <span class="load-text" v-bind:class="{'highlightable':m.agreeable}">
-            <span v-if="m.agreeable && !m.seen">
+    <span v-for="(m, mindex) in textcomp.article.sentences">
+          <span class="load-text" v-bind:class="{'highlightable':m.mainClaim}">
+            <span v-if="m.mainClaim && !m.seen">
               <span v-on:mouseover="popMenu(m, textcomp)">
                 <div v-if="!textcomp.bottomBar">
                   <transition name="slide-fade">
@@ -35,7 +35,7 @@
     <span v-else>
               {{m.text}}
             </span>
-    <span v-if="m.agreeable">
+    <span v-if="m.mainClaim">
               <div v-if="textcomp.responseForm && m.sentenceId == textcomp.lastReferencedResponseForm" class="u-paddingTop5 u-paddingBottom5">
                 <div class="mdc-card">
                   <section class="mdc-card__primary u-inline">
