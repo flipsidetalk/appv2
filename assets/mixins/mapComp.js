@@ -1,6 +1,9 @@
 var mixin = {
   methods: {
 
+    changeBubbles: function(m, mindex, mapcomp) {
+      console.log("hey there");
+    }
 
   },
   mounted: function() {
@@ -50,11 +53,11 @@ var mixin = {
     .attr("fill", "lightblue")
     .on("click", function(d){console.log(d)})
     .on("mouseover", function(d){
-      tooltip.text(d.label);
+      tooltip.text(d.label + '\n\n' + d.sentenceId);
       tooltip.style("visibility", "visible");}
     )
     .on("mousemove", function() {
-      return tooltip.style("top", (d3.event.pageY+24)+"px").style("left",(d3.event.pageX-10)+"px");
+      return tooltip.style("top", (d3.event.pageY+24)+"px").style("left",(d3.event.pageX-10)+"px").style("height",(80)+"px");
     })
     .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
     //  .text(function(d) { return d.label; });

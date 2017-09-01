@@ -9,10 +9,9 @@
   </div>
 
   <div class="">
-
-    <span>passages:</span>
+    <span class="u-fontSize25">passages:</span>
     <span v-for="(m, mindex) in mapcomp.bubbleData[0].sentences">
-      <a href="#" class="u-paddingLeft12 u-fontSize14">{{mindex}}</a>
+      <a class="u-paddingLeft12 u-fontSize25" v-on:click="changeBubbles(m, mindex, mapcomp)">{{mindex}}</a>
     </span>
   </div>
 
