@@ -116,7 +116,7 @@ app.get('/article/:slug', function(req, res) {
           title: 'Would taxing robots help the people whose jobs they’ll take?',
           author: 'Yifan Zhang',
           publication: 'The Christian Science Monitor',
-          date: 'August 23, 2017',
+          publicationDate: 'August 23, 2017',
           text: articleText
         },
         bottomBar: false,
