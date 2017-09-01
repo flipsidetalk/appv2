@@ -791,6 +791,173 @@ input:checked+label {
 }
 
 
+/* THUMBNAIL STYLES
+-------------------------------------------------- */
+
+.Byline{
+  line-height: 1.4;
+  font-size: 14px;
+  text-rendering: auto;
+}
+
+.u-paddingTop50{
+  padding-top: 50px;
+}
+
+.subHeading{
+  font-size: 12px;
+  line-height: 1.2!important;
+
+}
+.u-flex{
+  display: flex!important;
+}
+
+.u-marginBottom20{
+  margin-bottom: 20px;
+}
+
+.u-width-6-12{
+  width: 50%;
+}
+
+.u-paddingRight10{
+  padding-right: 10;
+}
+
+.u-paddingTop2{
+  padding-top: 2px;
+}
+
+.u-paddingLeft0{
+  padding-left: 0;
+}
+
+.u-flexCenter{
+  display: flex;
+  align-items: center!important;
+}
+
+.u-marginBottom25{
+  margin-bottom: 25px!important;
+}
+
+.u-borderBottomLighter{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15)!important;
+}
+
+.u-flex1{
+  flex: 1 1 auto;
+}
+
+.u-flex0{
+flex: 0 0 auto;
+}
+
+.u-flexColumn{
+  display: flex!important;
+  flex-direction: column;
+  justify-content: center!important;
+
+}
+
+.u-flexTop{
+  display: flex;
+  align-items: flex-start!important;
+}
+
+.u-justifyContentSpaceBetween{
+  justify-content: space-between!important;
+}
+
+/*******INDIVIDUAL STORY*********/
+.u-size6of12{
+  width: 50%!important;
+}
+
+.u-height260{
+  height: 260px;
+}
+
+.u-overflowHidden{
+  overflow: hidden!important;
+}
+
+.u-relative{
+  position: relative;
+}
+
+.u-borderRadius2{
+  border-radius: 2px !important;
+}
+
+.u-borderBlackLightest{
+  border: 1px solid rgba(0,0,0,.1)!important;
+}
+.u-sizeFullHeight{
+  height: 100%;
+}
+
+.u-sizeFull{
+  height: 100%;
+  width: 100%;
+}
+
+.u-width200{
+  width: 200px;
+}
+
+.u-padding20{
+  padding: 20px;
+}
+
+.u-noWrapTextEllipsis{
+  white-space: nowrap!important;
+  text-overflow: ellipsis!important;
+  overflow: hidden!important;
+}
+
+@media(max-width:767px){
+  .u-xs-flexWrap{
+    flex-wrap: wrap!important;
+  }
+  .u-xs-paddingLeft0{
+    padding-left: 0px!important;
+  }
+  .u-xs-paddingTop5{
+    padding-top: 5px!important;
+  }
+  .u-xs-paddingRight0{
+    padding-right: 0px!important;
+  }
+  .u-xs-size12of12{
+    width: 100%!important;
+  }
+  .u-xs-heightAuto{
+    height: auto!important;
+  }
+  .u-xs-height170{
+    height: 170px!important;
+  }
+}
+
+@media(max-width:991px){
+  .u-sm-height100{
+      height: 100px!important;
+  }
+  .u-sm-sizeFullWidth{
+    width: 100%!important;
+  }
+  .u-sm-flexWrap{
+    flex-wrap: wrap;
+  }
+}
+
+
+
+
+
+
 /* CONTENT
 -------------------------------------------------- */
 
