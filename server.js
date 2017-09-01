@@ -116,30 +116,33 @@ app.get('/', function(req, res) {
     headercomp: {
       user: req.user
     },
-    recentscomp: {
+    thumbnailcomp: {
       article1: {
-        title: '',
-        publication: '',
+        title: 'This is the first title what what what',
+        publication: 'The Daily New York Story That is Long',
         publicationDate: '',
         author: '',
         image: '',
-        link: ''
+        link: '',
+        slug: ''
       },
       article2: {
-        title: '',
+        title: 'Second story no way',
         publication: '',
         publicationDate: '',
         author: '',
         image: '',
-        link: ''
+        link: '',
+        slug: ''
       },
       article3: {
-        title: '',
-        publication: '',
+        title: 'THIRD THIRD THIRD THIRD',
+        publication: 'The New Yorker',
         publicationDate: '',
         author: '',
         image: '',
-        link: ''
+        link: '',
+        slug: ''
       }
     }
   }

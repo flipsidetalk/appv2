@@ -1,98 +1,60 @@
 <template>
 <div>
+
+
+
+
+
+
+
   <header-comp :headercomp="headercomp"></header-comp>
   <signin-comp></signin-comp>
   <input-link-comp></input-link-comp>
-  <h2>Modal Example</h2>
 
-            <!-- Trigger/Open The Modal -->
+  <div class="row section">
+    <div class="col-md-offset-1 col-md-10">
+    <div class="u-borderBox u-maxWidth1000 u-marginAuto u-clearfix">
+      <header class="u-borderBox u-marginBottom25 u-xs-flexWrap u-borderBottomLighter">
+        <div class="u-flex1 u-flexTop u-justifyContentSpaceBetween">
+          <span class="heading-title heading-title--lineHeightTight u-uiDisplayBold u-fontSize20 u-textColorDarker u-block u-paddingBottom20 u-xs-fontSize18 u-borderBottomNormal u-marginBottomNegative1">
+            Recently Submitted
+          </span>
+        <!--  <a href="#" class="u-flexCenter">read more</a> -->
+        </div>
+      </header>
 
+      <div v-for="(m, mindex) in thumbnailcomp">
 
-            <!-- The Modal -->
-            <div id="myModal" class="modal">
-              <!-- Modal content -->
-              <div class="modal-content">
-                <span class="close">&times;</span>
-                <p>Some text in the Modal..</p><br><br><br><br><br>
-                <p>Some text in the Modal..</p><br><br><br><br><br>
-                <p>Some text in the Modal..</p><br><br><br><br><br>
+      </div>
+
+      <div class="u-borderBox u-size6of12 u-paddingRight10 u-xs-paddingLeft0 u-xs-paddingRight0 u-xs-size12of12 u-floatLeft">
+        <div class="u-flex u-sizeFullWidth u-height260 u-sm-flexWrap u-xs-heightAuto u-borderBox u-marginBottom20 u-backgroundColorWhite u-overflowHidden u-relative u-borderRadius2 u-borderBlackLightest">
+          <div class="u-flex0 u-sizeFullHeight u-width200 u-sm-height100 u-sm-sizeFullWidth u-xs-height170 red">
+            okay here's a picture
+          </div>
+          <div class="u-padding20">
+            <div class="u-flex0 u-sizeFullWidth">
+              <h4>Trump this and that ... again! No way! Not again !!</h4>
+            </div>
+            <div class="u-flex u-paddingTop10 u-flex0">
+              <div class="u-flex1 u-noWrapTextEllipsis u-xs-paddingTop5">
+                <div class="byLine u-paddingLeft0 u-noWrapWithEllipsis">
+                  The New York Times
+                </div>
+                <div class="subHeading u-noWrapWithEllipsis u-paddingTop2">
+                  August 21 &middot; Jason Li
+                </div>
               </div>
             </div>
-
-
-            blue blue blockquote
-
-            <button id="myBtn">Open Modal</button>
-
-
-            <script>
-            // Get the modal
-            var modal = document.getElementById('myModal');
-
-            // Get the button that opens the modal
-            var btn = document.getElementById("myBtn");
-
-            // Get the <span> element that closes the modal
-            var span = document.getElementsByClassName("close")[0];
-
-            // When the user clicks the button, open the modal
-            btn.onclick = function() {
-              modal.style.display = "block";
-            }
-
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
-              modal.style.display = "none";
-            }
-
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-              if (event.target == modal) {
-                modal.style.display = "none";
-              }
-            }
-            </script>
+          </div>
+        </div>
+      </div> <!--END Thumbnail -->
 
 
 
-
-            <div class="row">
-              <div class="u-borderBox u-maxWidth1000 u-marginAuto u-clearfix">
-                <header class="u-borderBox u-marginBottom25 u-xs-flexWrap u-borderBottomLighter">
-                  <div class="u-flex1 u-flexTop u-justifyContentSpaceBetween">
-                    <span class="heading-title heading-title--lineHeightTight u-uiDisplayBold u-fontSize20 u-textColorDarker u-block u-paddingBottom20 u-xs-fontSize18 u-borderBottomNormal u-marginBottomNegative1">
-                      Weekly Feature
-                    </span>
-                    <a href="#" class="u-flexCenter">read more</a>
-                  </div>
-                </header>
-                <div class="u-borderBox u-size6of12 u-paddingRight10 u-xs-paddingLeft0 u-xs-paddingRight0 u-xs-size12of12 u-floatLeft">
-                  <div class="u-flex u-sizeFullWidth u-height260 u-sm-flexWrap u-xs-heightAuto u-borderBox u-marginBottom20 u-backgroundColorWhite u-overflowHidden u-relative u-borderRadius2 u-borderBlackLightest">
-                    <div class="u-flex0 u-sizeFullHeight u-width200 u-sm-height100 u-sm-sizeFullWidth u-xs-height170 red">
-                      okay here's a picture
-                    </div>
-                    <div class="u-padding20">
-                      <div class="u-flex0 u-sizeFullWidth">
-                        <h4>Trump this and that ... again! No way! Not again !!</h4>
-                      </div>
-                      <div class="u-flex u-paddingTop10 u-flex0">
-                        <div class="u-flex0 u-paddingRight10">
-                          <a href="#">logo</a>
-                        </div>
-                        <div class="u-flex1 u-noWrapTextEllipsis u-xs-paddingTop5">
-                          <div class="byLine u-paddingLeft0 u-noWrapWithEllipsis">
-                            The New York Times
-                          </div>
-                          <div class="subHeading u-noWrapWithEllipsis u-paddingTop2">
-                            August 21 &middot; Jason Li
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> <!--END Thumbnail -->
-              </div>
-            </div>
+    </div>
+  </div>
+  </div>
 </div>
 </template>
 
