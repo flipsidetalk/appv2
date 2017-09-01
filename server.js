@@ -357,10 +357,6 @@ app.get('/article/:slug', function(req, res) {
               }
             }
           ],
-
-
-
-
           multiplier: 1,
           groupkey: {
             group: '',

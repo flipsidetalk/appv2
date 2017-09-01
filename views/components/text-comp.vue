@@ -1,17 +1,17 @@
 <template>
   <div>
     <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title}}</h2>
-    <p class="center-heading">by {{textcomp.article.author}} of {{textcomp.article.publication}} on {{textcomp.article.date}}</p>
+    <p class="center-heading">by {{textcomp.article.author}} of {{textcomp.article.publication}} on {{textcomp.article.formattedDate}}</p>
     <div class="u-marginAuto">
       <span v-for="(m, mindex) in textcomp.article.text.main">
         <span class="load-text" v-bind:class="{'highlightable':m.agreeable}">
           <span v-if="m.agreeable">
-            <span v-on:click="showTool(m.sentenceId, m.seen, textcomp)">
-              <mark v-bind:id="m.sentenceId">{{m.text}}</mark>
+            <span v-on:click="showTool(mindex, m.seen, textcomp)">
+              <mark v-bind:id="mindex">{{m.text}}</mark>
             </span>
           </span>
           <span v-else>
-            <span class="regularText" v-bind:id="m.sentenceId" v-on:click="showTool(m.sentenceId, m.seen, textcomp)" v-bind:class="{regularTextActive: textcomp.isHighlighted==m.sentenceId}">
+            <span class="regularText" v-bind:id="mindex" v-on:click="showTool(mindex, m.seen, textcomp)" v-bind:class="{regularTextActive: textcomp.isHighlighted==mindex}">
               {{m.text}}
             </span>
           </span>
