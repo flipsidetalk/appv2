@@ -11,8 +11,10 @@
   <div class="">
     <span class="u-fontSize25">passages:</span>
     <span v-for="(m, mindex) in mapcomp.bubbleData[0].sentences">
-      <a class="u-paddingLeft12 u-fontSize25" v-on:click="changeBubbles(m, mindex, mapcomp)">{{mindex}}</a>
+      {{m.sentenceId}}
+      <a :id="m.sentenceId" class="u-paddingLeft12 u-fontSize25" v-on:click="changeBubbles(m.sentenceId, mapcomp)">{{mindex}}</a>
     </span>
+    <span>{{mapcomp.groupSimple}}</span>
   </div>
 
 </div>

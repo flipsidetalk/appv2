@@ -1,10 +1,40 @@
 var mixin = {
   methods: {
 
-    changeBubbles: function(m, mindex, mapcomp) {
-      console.log("hey there");
-    }
+    changeBubbles: function(inputSentenceId, mapcomp) {
+      //m = object that is the sentence dictionary
+      //mindex = index of sentence dict within the list of sentences
+      //sentenceId = sentenceId
 
+      console.log(inputSentenceId);
+      mapcomp.groupSimple = [];
+      for (var index in mapcomp.bubbleData) { //for every bubble group
+        var groupObj = mapcomp.bubbleData[index]
+        mapcomp.groupInfo.label = groupObj.group;
+        mapcomp.groupInfo.size = groupObj.size;
+        mapcomp.groupInfo.sentenceId = inputSentenceId;
+
+      for (var passages in groupObj.sentences){
+          var passageObj = groupObj.sentences[passages];
+          if (passageObj.sentenceId == inputSentenceId){
+            mapcomp.groupInfo.average = passageObj.average;
+            mapcomp.groupInfo.agree = passageObj.agree;
+            mapcomp.groupInfo.disagree = passageObj.disagree;
+            mapcomp.groupInfo.unsure = passageObj.unsure;
+          }
+        }
+        mapcomp.groupSimple.push(mapcomp.groupInfo)
+        mapcomp.groupInfo = {
+          label: "",
+          size: "",
+          sentenceId: "",
+          average: "",
+          agree:"",
+          disagree:"",
+          unsure:""
+        };
+      }
+    }
   },
   mounted: function() {
     //this.mapcomp.whatever
