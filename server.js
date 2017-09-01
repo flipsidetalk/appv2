@@ -403,6 +403,7 @@ app.get('/article/:slug', function(req, res) {
               for (var i in sentences) {
                 var reformattedSentence = {};
                 reformattedSentence[sentences[i].id] = sentences[i];
+                reformattedSentence[sentences[i].id].seen = false;
                 reformattedSentences.push(reformattedSentence);
               }
               article.dataValues.sentences = reformattedSentences;
