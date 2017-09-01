@@ -8,6 +8,8 @@
   "dependencies": {
     "async": "^2.5.0",
     "body-parser": "^1.17.2",
+    "d3": "^4.10.0",
+    "dateformat": "^2.0.0",
     "express": "^4.15.4",
     "express-session": "^1.15.5",
     "express-validator": "^3.2.1",
@@ -21,6 +23,9 @@
     "passport-local": "^1.0.0",
     "passport-local-authenticate": "^1.2.0",
     "path": "^0.12.7",
-    "sequelize": "^4.7.5"
+    "request": "^2.81.0",
+    "sequelize": "^4.7.5",
+    "slug": "^0.9.1",
+    "url-validator": "^2.0.3"
   }
 }

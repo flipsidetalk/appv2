@@ -47,7 +47,6 @@ var mixin = {
       textcomp.responseForm = true;
       textcomp.lastReferencedResponseForm = obj.sentenceId;
     },
-
     submitResponse: function(input, seenvalue, textcomp) {
       var placeholderId = textcomp.lastReferenced; //this is the sentenceID
 
@@ -69,14 +68,14 @@ var mixin = {
       textcomp.tooldisplay = "block";
     //  refreshClusterMap();
     },
-    postResponse: function(passage_id, reaction) {
+    postVote: function(sentenceId, reaction) {
       var data = {
-        passage_id: passage_id,
+        sentenceId: sentenceId,
         reaction: reaction
       }
       $.ajax({
         type: 'POST',
-        url: '/submitResponse',
+        url: '/submitVote',
         data: data,
         success: function() {
           console.log("sendsuccess: " + data);
@@ -86,14 +85,14 @@ var mixin = {
         }
       });
     },
-    postWhy: function(statement, passage_id) {
+    postResponse: function(statement, sentenceId) {
       var data = {
-        passage_id: passage_id,
+        sentenceId: sentenceId,
         statement: statement
       }
       $.ajax({
         type: 'POST',
-        url: '/submitWhy',
+        url: '/submitResponse',
         data: data,
         success: function() {
           console.log("sendsuccess: " + data);

@@ -5,7 +5,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header" align="center">
-          <img src="img/logo-no-text.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
+          <img src="../img/logo-no-text.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
           <h2>Flipside</h2>
           <h3 class="weight-lighter">Sign up to interact with and learn about different perspectives</h3>
         </div>
@@ -33,7 +33,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header" align="center">
-          <img src="img/logo-no-text.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
+          <img src="../img/logo-no-text.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
           <h2>Flipside</h2>
           <h3 class="weight-lighter">Sign up to interact and learn about different perspectives</h3>
           <h3 class="weight-lighter">or <a id="switch-email-login" class="underline">sign in if you already have an account</a>.</h3>
@@ -87,7 +87,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header" align="center">
-          <img src="img/logo-no-text.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
+          <img src="../img/logo-no-text.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
           <h2>Flipside</h2>
           <h3 class="weight-lighter">Sign in to interact and learn about different perspectives</h3>
         </div>

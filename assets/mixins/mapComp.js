@@ -34,8 +34,7 @@ var mixin = {
           unsure:""
         };
       }
-
-      
+    } 
     }
   },
   mounted: function() {
@@ -110,6 +109,6 @@ var mixin = {
       .attr("cy", function(d){return d.y})
     }
   }
-};
+}
 
 module.exports = mixin;
