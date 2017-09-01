@@ -24,3 +24,27 @@ module.exports.makeExternalRequest = function(request, url, data, success) {
     }
   });
 }
+
+module.exports.updateVizState = function(db, res, currentVotes) {
+  var pythonVis = require('./assets/python-scripts/start_python_script.js');
+  var out;
+  db.vote.findAll().then(inputData => {
+    try {
+      var votes = JSON.parse(inputData);
+      if (votes.length > currentVotesLength) {
+        currentVotesLength = votes.length;
+        pythonVis(votes, (outData) => {
+          if (typeof(res) === 'response') {
+            res.send(outData);
+          }
+          db.vizs.create({
+            data: outData,
+            numVotes: currentVotes
+          });
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+}

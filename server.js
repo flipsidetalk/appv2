@@ -277,33 +277,7 @@ app.get('/article/:slug', function(req, res) {
   });
 });
 
-var python_vis = require('./assets/python-scripts/start_python_script.js')
-
-var current_votes = 0
-
-function updateVizState (res) {
-  var out;
-  db.vote.findAll().then(input_data => {
-    try {
-      var votes = JSON.parse(inputData);
-      if (votes.length > currentVotesLength) {
-        currentVotesLength = votes.length;
-        python_vis(votes, (outData) => {
-          if (typeof(res) === 'response') {
-            res.send(outData);
-          }
-          db.vizs.create({
-            data: outData
-            numVotes: currentVotes
-          });
-        });
-      }
-    } catch (err) {
-      console.log(err);
-    } 
-  });
-}
-
+let currentVotes = 0;
 app.post('/submitResponse', function(req, res) {
   db.vote.findOne({
     where: {
@@ -317,7 +291,7 @@ app.post('/submitResponse', function(req, res) {
       statement: req.body.statement,
       voteId: vote.id
     }).then(() => {
-      update_state(res);
+      utils.updateVizState(db, res, currentVotes);
     });
   });
 });
