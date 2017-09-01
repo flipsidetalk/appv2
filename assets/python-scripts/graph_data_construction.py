@@ -234,40 +234,35 @@ class Spectrum:
                         data["clusterData"].append(relevant_positions)
                 return data
             else:
-                data = {"clusterData" : [], "pointData" : {}, "shadeData":[]}
+                data = dict()
                 index_by_ind = {v[0]:k for k,v in self.users.items()}
-                user_ids = [index_by_ind[ind] for ind in self.users_to_graph]
-                xs, ys = self.out_points[:,0], self.out_points[:,1]
-                x_min, x_max, y_min, y_max = min(xs), max(xs), min(ys), max(ys)
-                data['extremes'] = {"xMin": float(x_min), "xMax": float(x_max), "yMin": float(y_min), "yMax": float(y_max)}
+                if self.users_to_graph is not None:
+                    user_ids = [index_by_ind[ind] for ind in self.users_to_graph]
                 #Adding group placeholder for people who aren't considered yet
-
-                for iden, x, y, group in zip(user_ids, xs, ys, list(self.groups)):
-
-                    data["pointData"][iden] = {"x":float(x), "y":float(y), "cluster":int(group)}
-
                 for i in range(self.k):
-                    group_data = []
-                    for iden, x, y, group in zip(user_ids, xs, ys, list(self.groups)):
+                    data[i] = dict()
+                    users = []
+                    for iden, group in zip(user_ids, list(self.groups)):
                         if group == i:
-                            group_data.append({"iden":iden, "x":x, "y":y, "group":int(group)})
-
-                    points = [(el["x"],el["y"]) for el in group_data]
-                    perimeter_points = GrahamScan([(el["x"],el["y"]) for el in group_data])
-                    path = [{"x":x,"y":y} for x, y in zip(perimeter_points[:,0], perimeter_points[:,1])]
-                    path.append(path[0])
-                    data["shadeData"].append({"cluster":int(i), "shading": path})
+                            users.append(iden)
+                    data[i]['users'] = users
                     if self.relevant_questions is not None:
                         relevant_positions = []
                         for question in self.relevant_questions[i]:
                             claim_data = dict()
                             claim_data['sentenceId'] = question
-                            claim_data['cluster'] = int(i)
                             claim_data['average'] = self.average_answer(i, question)
-                            claim_data['phrase'] = self.get_agreement_phrase(i,question)
-                            claim_data['proportions'] = self.get_proportions(i, question)
-                            relevant_positions.append(claim_data)
-                        data["clusterData"].append(relevant_positions)
+                            proportions = self.get_proportions(i, question)
+                            proportions is not None
+                            for answer, direction in zip(range(-1,0,1), ['disagree', 'not sure', 'agree']):
+                                if answer in proportions.keys():
+                                    claim_data[direction] = proportions[answer]
+                                else:
+                                    claim_data[direction] = None
+                                relevant_positions.append(claim_data)
+                        print('DATA_INDEX:{}'.format(i))
+                        print(data.keys())
+                        data[i]['sentences'] = relevant_positions
                 return data
         else:
             return {}
@@ -281,16 +276,17 @@ class Spectrum:
                 if self.groups[index] == i:
                     vote = self.data[user_ind, question_ind]
                     votes.append(vote)
+        
+        group_answers = {}
+        
         if len(votes) >= self.min_votes:
             votes = np.array(votes)
             total = 0
-            group_answers = {}
             for i in [-1,0,1]:
                 num_votes = np.where(votes == i)[0].shape[0]
                 group_answers[i] = num_votes / len(votes)
-            return group_answers
-        else:
-            return None
+        
+        return group_answers
 
     def get_agreement_phrase(self, i, question):
         value = self.average_answer(i, question)
