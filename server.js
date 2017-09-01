@@ -14,7 +14,7 @@ const async = require('async');
 const Sequelize = require('sequelize');
 const validateUrl = require('url-validator');
 const request = require('request');
-const slug = require('slug');
+const makeSlug = require('slug');
 const sendWelcomeEmail = require('./email.js');
 const utils = require('./utils.js');
 const app = express();
@@ -94,66 +94,6 @@ app.get('/', function(req, res) {
   res.sendStatus(200);
 });
 
-// db.article.create({
-//   originalText: {
-//     text: 'Article text'
-//   },
-//   title: {
-//     title: 'article title'
-//   },
-//   url: 'http://url.com',
-//   slug: 'slug',
-//   sentences: [{
-//     endParagraph: false,
-//     text: 'One sentence',
-//     mainClaim: false,
-//     order: 1
-//   }],
-//   tags: [{
-//     score: 0.07,
-//     label: 'label for tag',
-//     url: 'http://tag.com',
-//     rdfTypes: [{
-//       url: 'http://rdftypeurl.com'
-//     }]
-//   }],
-//   publication: {
-//     name: 'publication name'
-//   },
-//   publicationDate: {
-//     date: '2017-08-30 01:18:55'
-//   },
-//   authors: [{
-//     name: 'Author Name'
-//   }],
-//   image: {
-//     link: 'img url'
-//   }
-// }, {
-//   include: [{
-//     model: db.title
-//   }, {
-//     model: db.author
-//   }, {
-//     model: db.publication
-//   }, {
-//     model: db.publicationDate
-//   }, {
-//     model: db.image
-//   }, {
-//     model: db.sentence
-//   }, {
-//     model: db.tag,
-//     include: [{
-//       model: db.rdftype
-//     }]
-//   }, {
-//     model: db.originalText
-//   }]
-// }).then(() => {
-//   console.log('DONE');
-// });
-
 app.get('/article/:slug', function(req, res) {
   const slug = req.params.slug;
   db.article.count({
@@ -162,7 +102,6 @@ app.get('/article/:slug', function(req, res) {
       }
     })
     .then(count => {
-      console.log('Count: ' + count);
       if (count == 0) {
         res.status(404).send('Page not found.');
         return;
@@ -177,7 +116,7 @@ app.get('/article/:slug', function(req, res) {
           title: 'Would taxing robots help the people whose jobs they’ll take?',
           author: 'Yifan Zhang',
           publication: 'The Christian Science Monitor',
-          date: 'August 23, 2017',
+          publicationDate: 'August 23, 2017',
           text: articleText
         },
         bottomBar: false,
@@ -338,7 +277,6 @@ app.get('/article/:slug', function(req, res) {
   });
 });
 
-
 var python_vis = require('./assets/python-scripts/start_python_script.js')
 
 var current_votes = 0
@@ -391,9 +329,57 @@ app.post('/submitResponse', function(req, res) {
 
 app.post('/submitLink', function(req, res) {
   const link = req.body.link;
-  if (validUrl.isUri(link)) {
-    utils.makeExternalRequest(request, PYTHON_SERVER_URL, { link: link }, (response) => {
-      // Function to insert article data into database
+  if (validateUrl(link)) {
+    // Check if URL is already in database.
+    db.article.findOne({
+      where: {
+        url: link
+      },
+      attributes: ['slug']
+    }).then(article => {
+      if (article != null) {
+        // Article exists in the database, so serve that page.
+        res.redirect('/article/' + article.slug);
+      } else {
+        // Article does not exist, so make a call to the article parser server
+        // and show the user a loading screen.
+        res.redirect('/loading');
+        utils.makeExternalRequest(request, PYTHON_SERVER_URL, link, (body) => {
+          // Insert article data into database
+          if (body != "invalid_url") {
+            const slug = makeSlug(body.title.title, {
+              lower: true
+            });
+            body.slug = slug;
+            db.article.create(body, {
+              include: [{
+                model: db.title
+              }, {
+                model: db.author
+              }, {
+                model: db.publication
+              }, {
+                model: db.publicationDate
+              }, {
+                model: db.image
+              }, {
+                model: db.sentence
+              }, {
+                model: db.tag,
+                include: [{
+                  model: db.rdftype
+                }]
+              }, {
+                model: db.originalText
+              }]
+            }).then(() => {
+              res.redirect('/article/' + slug);
+            });
+          } else {
+            res.send('invalid_url');
+          }
+        });
+      }
     });
   } else {
     res.send('invalid_url');
@@ -481,6 +467,10 @@ app.get('/terms', function(req, res) {
 
 app.get('/privacy', function(req, res) {
   res.render('legal/privacy/index');
+});
+
+app.get('/loading', function(req, res) {
+  res.send('Loading page');
 });
 
 app.get('*', function(req, res){
