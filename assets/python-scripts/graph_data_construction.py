@@ -246,6 +246,7 @@ class Spectrum:
                         if group == i:
                             users.append(iden)
                     data[i]['users'] = users
+                    data[i]['size'] = len(users)
                     if self.relevant_questions is not None:
                         relevant_positions = []
                         for question in self.relevant_questions[i]:
