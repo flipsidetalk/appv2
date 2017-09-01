@@ -94,66 +94,6 @@ app.get('/', function(req, res) {
   res.sendStatus(200);
 });
 
-// db.article.create({
-//   originalText: {
-//     text: 'Article text'
-//   },
-//   title: {
-//     title: 'article title'
-//   },
-//   url: 'http://url.com',
-//   slug: 'slug',
-//   sentences: [{
-//     endParagraph: false,
-//     text: 'One sentence',
-//     mainClaim: false,
-//     order: 1
-//   }],
-//   tags: [{
-//     score: 0.07,
-//     label: 'label for tag',
-//     url: 'http://tag.com',
-//     rdfTypes: [{
-//       url: 'http://rdftypeurl.com'
-//     }]
-//   }],
-//   publication: {
-//     name: 'publication name'
-//   },
-//   publicationDate: {
-//     date: '2017-08-30 01:18:55'
-//   },
-//   authors: [{
-//     name: 'Author Name'
-//   }],
-//   image: {
-//     link: 'img url'
-//   }
-// }, {
-//   include: [{
-//     model: db.title
-//   }, {
-//     model: db.author
-//   }, {
-//     model: db.publication
-//   }, {
-//     model: db.publicationDate
-//   }, {
-//     model: db.image
-//   }, {
-//     model: db.sentence
-//   }, {
-//     model: db.tag,
-//     include: [{
-//       model: db.rdftype
-//     }]
-//   }, {
-//     model: db.originalText
-//   }]
-// }).then(() => {
-//   console.log('DONE');
-// });
-
 app.get('/article/:slug', function(req, res) {
   const slug = req.params.slug;
   db.article.count({
@@ -162,7 +102,6 @@ app.get('/article/:slug', function(req, res) {
       }
     })
     .then(count => {
-      console.log('Count: ' + count);
       if (count == 0) {
         res.status(404).send('Page not found.');
         return;
