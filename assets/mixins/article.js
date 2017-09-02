@@ -2,7 +2,7 @@ var mixin = {
   methods: {
     submitWhy: function(textcomp) {
       textcomp.whyResponse.sentenceId = textcomp.lastReferenced;
-      textcomp.whyResponse.vote = textcomp.article.sentences[0][textcomp.lastReferenced].seen;
+      textcomp.whyResponse.vote = textcomp.article.sentences[textcomp.lastReferenced].seen;
       textcomp.whyResponses.push(textcomp.whyResponse)
       //this.postWhy(textcomp.whyResponse.input, textcomp.whyResponse.sentenceId);
       textcomp.whyResponse = {

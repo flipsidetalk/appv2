@@ -1,5 +1,5 @@
 <template>
-<div class="col-md-5">
+<div class="col-md-6">
   <div class="clusterMapOutput">
     <div class="d3stuff">
       <div class="weight-lighter">Opinion Map</div>

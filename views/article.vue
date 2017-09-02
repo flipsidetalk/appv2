@@ -4,9 +4,10 @@
     <signin-comp></signin-comp>
     <div class="container content article-top">
       <div class="section-content u-maxWidth1200 u-paddingRight20 u-paddingLeft20">
-        <intro-comp></intro-comp>
         <div class="row">
           <map-comp :mapcomp="mapcomp"></map-comp>
+          <intro-comp></intro-comp>
+
         </div>
       </div>
     </div>
@@ -22,6 +23,7 @@
               <text-comp :textcomp="textcomp"></text-comp>
               <comments-comp :commentscomp="commentscomp"></comments-comp>
             </div>
+
             <div class="col-sm-5">
               <div id="talkbox" v-bind:style="{display: textcomp.talkdisplay, top: textcomp.tooltop}">
                 <div class="mdc-card" style="background-color: #efefef;">

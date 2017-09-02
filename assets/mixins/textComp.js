@@ -1,9 +1,5 @@
 var mixin = {
   methods: {
-
-
-
-
     showTool: function(sentenceId, seenvalue, textcomp){
       /** setting the sentence at hand**/
       textcomp.lastReferenced = sentenceId;
@@ -28,24 +24,6 @@ var mixin = {
       textcomp.isHighlighted = sentenceId;
       textcomp.talktop = (r.top - rb2.top) + 'px'; //this will place ele below the selection
       textcomp.talkdisplay = 'none';
-    },
-
-    popMenu: function(obj, textcomp) {
-      textcomp.why = false;
-      textcomp.responseSubmitted = false;
-      textcomp.form = 1;
-      textcomp.lastReferenced = obj.sentenceId;
-    },
-    popWhyMenu: function(obj, textcomp) {
-      textcomp.why = true;
-      textcomp.form = 0;
-      textcomp.lastReferenced = obj.sentenceId;
-      textcomp.responseSubmitted = false;
-    },
-    popResponseForm: function(obj, textcomp) {
-      textcomp.whyResponse.input = "";
-      textcomp.responseForm = true;
-      textcomp.lastReferencedResponseForm = obj.sentenceId;
     },
     submitResponse: function(input, seenvalue, textcomp) {
       var placeholderId = textcomp.lastReferenced; //this is the sentenceID

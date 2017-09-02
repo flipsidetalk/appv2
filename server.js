@@ -189,14 +189,14 @@ app.get('/article/:slug', function(req, res) {
           talktop: "0px",
           talkdisplay: "none",
           /*******/
-          bottomBar: false,
-          form: 0,
-          responseForm: 0,
+        //  bottomBar: false,
+        //  form: 0,
+        //  responseForm: 0,
           lastReferenced: "a3s0",
-          why: 0,
-          whyModel: "",
-          responseSubmitted: 0,
-          lastReferencedResponseForm: -1,
+        //  why: 0,
+        //  whyModel: "",
+        //  responseSubmitted: 0,
+        //  lastReferencedResponseForm: -1,
           response: {
             sentenceId: "",
             input: ""
@@ -365,7 +365,7 @@ app.get('/article/:slug', function(req, res) {
               }
             }
           ],
-          multiplier: 1,
+        //  multiplier: 1,
           groupkey: {
             group: '',
             opinion1: '',

@@ -960,56 +960,9 @@ flex: 0 0 auto;
   }
 }
 
-
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: absolute; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: none; /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #52aefb;
-  margin-right: 0px;
-  top: 300px;
-  max-width: 500px;
-  float: right;
-  padding: 20px;
-  border: 0;
-  width: 40%;
-}
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
 .purpleBackground{
   /*background-color: rgba(184, 139, 208); */
   background-color: rgba(91, 59, 122, 0.80);
-}
-
-.submitForm{
-  position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  padding-left: 70px;
 }
 
 input{
