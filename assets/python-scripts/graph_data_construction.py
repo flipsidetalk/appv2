@@ -29,12 +29,14 @@ QUESTION_IDS = ['a1s21','a1s23','a1s30','a1s31','a1s34','a1s46','a1s55','a2s12',
 class Spectrum:
     def __init__(self, graph_low_votes = False, reducer = 'mds', cluster = 'kmeans', 
         choosing_function = 'strong', norm_threshold = 100, defval = 0, impute_factor = True, 
-        min_users = 6, min_votes = 5, num_opinions = 5, max_users = 1000):
+        min_users = 6, min_votes = 5, num_opinions = 5, max_users = 1000, n_components = 2):
 
         self.impute_factor = impute_factor
         self.min_votes = min_votes
         self.graph_low_votes = graph_low_votes
 
+
+        self.n_components = n_components
         if min_users:
             self.min_users = min_users
         else:
@@ -261,8 +263,6 @@ class Spectrum:
                                 else:
                                     claim_data[direction] = None
                                 relevant_positions.append(claim_data)
-                        print('DATA_INDEX:{}'.format(i))
-                        print(data.keys())
                         data[i]['sentences'] = relevant_positions
                 return data
         else:
@@ -374,13 +374,15 @@ class Spectrum:
 
 
     def dimension_reduction(self):
-        new_data = self.impute(self.data[self.users_to_graph])
+        new_data = self.data[self.users_to_graph]
+        if self.impute_factor:
+            new_data = self.impute(new_data)
         if self.dimension_reducer == PCA:
-            self.dimension_reducer = self.dimension_reducer(n_components = 2, metric = False)
+            self.dimension_reducer = self.dimension_reducer(n_components = self.n_components, metric = False)
             self.considered_points = self.dimension_reducer.fit_transform(new_data)
             self.out_points = self.dimension_reducer.transform(self.impute(self.data[:self.n_users]))
         elif self.dimension_reducer == MDS:
-            self.dimension_reducer = self.dimension_reducer(n_components = 2, dissimilarity = 'precomputed', metric = False, n_init = 20, random_state = 0)
+            self.dimension_reducer = self.dimension_reducer(n_components = self.n_components, dissimilarity = 'precomputed', metric = False, n_init = 20, random_state = 0)
             self.considered_points = self.dimension_reducer.fit_transform(self.dissimilarity(new_data))
             
             #MDS cannot perform feature transformation on new data, so cannot graph people who don't have enough votes
