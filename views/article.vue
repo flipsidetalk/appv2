@@ -30,19 +30,21 @@
                     <div class="talkSection quoteSection">
                       <h4 class=" mdc-card__title mdc-card__title--large georgia lineheight123 u-paddingBottom10" style="font-size: 16px;">
                         "{{textcomp.article.sentences[textcomp.lastReferenced]}}"
+                        "USER: {{textcomp.user != undefined}}"
                       </h4>
                     </div>
                     <div class="talkSection">
                       <div class="u-paddingBottom5">
                         I disagree because:
                       </div>
-                    <!--  <div v-if="textcomp.user !== undefined"> -->
+
+                    <div v-if="textcomp.user != undefined">
                         <textarea type="text" name="" value="" class="talkInput u-sizeFullWidth" v-model="textcomp.whyResponse.input"></textarea>
                         <a class="talkButton montserratLight u-floatRight" v-on:click="submitWhy(textcomp)">Share</a>
-                    <!--  </div> -->
-                    <!--  <div v-else>
+                    </div>
+                    <div v-else>
                         <p class="montserratLight"><a href="#sign-in-modal" data-toggle="modal">Sign In</a> to share your thoughts about this idea.</p>
-                      </div> -->
+                    </div>
                     </div>
                     <div class="talkSection readSection">
                       <div class="u-paddingTop10 u-paddingBottom10">

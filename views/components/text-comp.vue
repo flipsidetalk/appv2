@@ -4,21 +4,19 @@
     <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
     <div class="u-marginAuto">
       <span v-for="(m, mindex) in textcomp.article.sentences">
-        <span v-for="(value, key) in m">
-          <span class="load-text" v-bind:class="{'highlightable':value.mainClaim}">
-            <span v-if="value.mainClain">
-              <span v-on:click="showTool(key, value.seen, textcomp)">
-                <mark v-bind:id="key">{{value.text}}</mark>
+          <span class="load-text" v-bind:class="{'highlightable':m.mainClaim}">
+            <span v-if="m.mainClain">
+              <span v-on:click="showTool(mindex, m.seen, textcomp)">
+                <mark v-bind:id="mindex">{{m.text}}</mark>
               </span>
             </span>
             <span v-else>
-              <span class="regularText" v-bind:id="key" v-on:click="showTool(key, value.seen, textcomp)" v-bind:class="{regularTextActive: textcomp.isHighlighted==key}">
-                {{value.text}}
+              <span class="regularText" v-bind:id="mindex" v-on:click="showTool(mindex, m.seen, textcomp)" v-bind:class="{regularTextActive: textcomp.isHighlighted==mindex}">
+                {{m.text}}
               </span>
-            </span>
           </span>
 
-          <span v-if="value.endParagraph">
+          <span v-if="m.endParagraph">
             <br><br>
           </span>
         </span>

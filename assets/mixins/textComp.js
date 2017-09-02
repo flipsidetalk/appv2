@@ -53,13 +53,12 @@ var mixin = {
       //passing response data
       textcomp.response.sentenceId = placeholderId;
       textcomp.response.input = input;
-      this.postResponse(textcomp.lastReferenced, input);
+      this.postVote(textcomp.lastReferenced, input);
       textcomp.responses.push(textcomp.response)
       textcomp.response = {
         sentenceId: "",
         input: ""
       }; //resets response
-
       textcomp.article.sentences[placeholderId].seen = seenvalue; //changes m.seen
       textcomp.tempseen = seenvalue; //changes placeholder seen
 

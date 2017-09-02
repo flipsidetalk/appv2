@@ -414,15 +414,15 @@ app.get('/article/:slug', function(req, res) {
               }
             }).then(article => {
               const sentences = article.dataValues.sentences;
-              const reformattedSentences = [];
+              const reformattedSentences = {};
               for (var i in sentences) {
                 var reformattedSentence = {};
-                reformattedSentence[sentences[i].id] = sentences[i];
-                reformattedSentence[sentences[i].id].seen = false;
-                reformattedSentences.push(reformattedSentence);
+                reformattedSentences[sentences[i].id] = sentences[i];
+                reformattedSentences[sentences[i].id].seen = 0;
+                // reformattedSentences.push(reformattedSentence);
               }
               article.dataValues.sentences = reformattedSentences;
-              console.log('DATA: ' + JSON.stringify(article.dataValues));
+              console.log('DATA: ' + JSON.stringify(article.dataValues.sentences['269']));
               article.dataValues.formattedDate = dateFormat(article.dataValues.publicationDate.date, "longDate");
               callback(null, article.dataValues);
             });
@@ -442,7 +442,6 @@ app.get('/article/:slug', function(req, res) {
           if (err) {
             console.log(err);
           } else {
-            console.log(results);
             data.textcomp.article = results.article;
             // data.mapcomp.extremeData = results.viz.extremes;
             // data.mapcomp.vizData = results.viz.clusterData;
