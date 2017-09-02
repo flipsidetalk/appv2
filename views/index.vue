@@ -1,12 +1,5 @@
 <template>
   <div>
-
-
-
-
-
-
-
     <header-comp :headercomp="headercomp"></header-comp>
     <signin-comp></signin-comp>
     <input-link-comp></input-link-comp>
