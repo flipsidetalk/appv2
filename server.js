@@ -174,6 +174,13 @@ app.get('/article/:slug', function(req, res) {
         textcomp: {
 
           tempseen: false,
+          article: {
+            title: 'Would taxing robots help the people whose jobs they’ll take?',
+            author: 'Yifan Zhang',
+            publication: 'The Christian Science Monitor',
+            date: 'August 23, 2017',
+            text: articleText
+          },
           /*** TOOLTIP ATTRIBUTES ***/
           tooldisplay: "none",
           tooltop: "0px",
@@ -185,7 +192,7 @@ app.get('/article/:slug', function(req, res) {
           bottomBar: false,
           form: 0,
           responseForm: 0,
-          lastReferenced: "40",
+          lastReferenced: "a3s0",
           why: 0,
           whyModel: "",
           responseSubmitted: 0,
@@ -406,16 +413,6 @@ app.get('/article/:slug', function(req, res) {
                 exclude: ['id', 'slug']
               }
             }).then(article => {
-              const sentences = article.dataValues.sentences;
-              const reformattedSentences = [];
-              for (var i in sentences) {
-                var reformattedSentence = {};
-                reformattedSentence[sentences[i].id] = sentences[i];
-                reformattedSentence[sentences[i].id].seen = false;
-                reformattedSentences.push(reformattedSentence);
-              }
-              article.dataValues.sentences = reformattedSentences;
-              console.log('DATA: ' + JSON.stringify(article.dataValues));
               article.dataValues.formattedDate = dateFormat(article.dataValues.publicationDate.date, "longDate");
               callback(null, article.dataValues);
             });
