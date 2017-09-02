@@ -793,6 +793,13 @@ input:checked+label {
 
 /* THUMBNAIL STYLES
 -------------------------------------------------- */
+.thumbImage{
+  background-position: 50% 50%!important;
+  display: block;
+  background-size: cover;
+  height: 100%;
+
+}
 
 .Byline{
   line-height: 1.4;

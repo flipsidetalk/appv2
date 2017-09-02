@@ -27,8 +27,8 @@
             <div class="u-borderBox u-size6of12 u-paddingRight20 u-xs-paddingLeft0 u-xs-paddingRight0 u-xs-size12of12 u-floatLeft">
 
               <a v-bind:href="'/article/' + m.slug" class="u-flex u-sizeFullWidth u-height260 u-sm-flexWrap u-xs-heightAuto u-borderBox u-marginBottom20 u-backgroundColorWhite u-overflowHidden u-relative u-borderRadius2 u-borderBlackLightest">
-                <div class="u-flex0 u-sizeFullHeight u-width200 u-sm-height100 u-sm-sizeFullWidth u-xs-height170 red">
-                  okay here's a picture
+                <div class="u-flex0 u-sizeFullHeight u-width200 u-sm-height100 u-sm-sizeFullWidth u-xs-height170">
+                  <a v-bind:href="'/article/' + m.slug" v-bind:style="'background-image: url(' + m.image+ ')'" class="thumbImage"></a>
                 </div>
                 <div class="u-padding20">
                   <div class="u-flex0 u-sizeFullWidth">

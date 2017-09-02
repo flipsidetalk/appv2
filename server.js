@@ -122,7 +122,7 @@ app.get('/', function(req, res) {
         publication: 'The Daily New York Story That is Long',
         publicationDate: 'March 1',
         author: 'Forrest Sill',
-        image: '',
+        image: 'https://beebom-redkapmedia.netdna-ssl.com/wp-content/uploads/2016/01/Reverse-Image-Search-Engines-Apps-And-Its-Uses-2016.jpg',
         link: '',
         slug: 'slug-slug'
       },
@@ -131,7 +131,7 @@ app.get('/', function(req, res) {
         publication: 'The New York Timezzz',
         publicationDate: 'aug 40',
         author: 'Sidd Sach',
-        image: '',
+        image: 'https://i.ytimg.com/vi/opKg3fyqWt4/hqdefault.jpg',
         link: '',
         slug: ''
       },
@@ -140,7 +140,7 @@ app.get('/', function(req, res) {
         publication: 'The New Yorker',
         publicationDate: 'Nov 15',
         author: 'Jason jasons',
-        image: '',
+        image: 'https://i.ytimg.com/vi/U2fKcFbfXzU/maxresdefault.jpg',
         link: '',
         slug: ''
       }
