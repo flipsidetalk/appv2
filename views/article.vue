@@ -7,7 +7,6 @@
         <intro-comp></intro-comp>
         <div class="row">
           <map-comp :mapcomp="mapcomp"></map-comp>
-          <cards-comp></cards-comp>
         </div>
       </div>
     </div>
