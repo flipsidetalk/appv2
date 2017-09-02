@@ -413,6 +413,16 @@ app.get('/article/:slug', function(req, res) {
                 exclude: ['id', 'slug']
               }
             }).then(article => {
+              const sentences = article.dataValues.sentences;
+              const reformattedSentences = [];
+              for (var i in sentences) {
+                var reformattedSentence = {};
+                reformattedSentence[sentences[i].id] = sentences[i];
+                reformattedSentence[sentences[i].id].seen = false;
+                reformattedSentences.push(reformattedSentence);
+              }
+              article.dataValues.sentences = reformattedSentences;
+              console.log('DATA: ' + JSON.stringify(article.dataValues));
               article.dataValues.formattedDate = dateFormat(article.dataValues.publicationDate.date, "longDate");
               callback(null, article.dataValues);
             });
