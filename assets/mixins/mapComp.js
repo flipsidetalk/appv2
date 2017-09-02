@@ -5,8 +5,6 @@ var mixin = {
       //m = object that is the sentence dictionary
       //mindex = index of sentence dict within the list of sentences
       //sentenceId = sentenceId
-
-      console.log(inputSentenceId);
       mapcomp.groupSimple = [];
       for (var index in mapcomp.bubbleData) { //for every bubble group
         var groupObj = mapcomp.bubbleData[index]

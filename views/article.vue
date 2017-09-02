@@ -7,7 +7,6 @@
         <div class="row">
           <map-comp :mapcomp="mapcomp"></map-comp>
           <intro-comp></intro-comp>
-
         </div>
       </div>
     </div>
@@ -71,6 +70,15 @@
                       <br><br>
                     </div>
                     <p> display comments here<p>
+
+
+                    <div v-for="comment in commentscomp.commentData">
+                      <div v-if="textcomp.lastReferenced == comment.sentenceId">
+                        <div class="u-paddingBottom10 u-borderBottomLighter">
+                          <p>{{comment.vote.reaction}} -- {{comment.statement}}</p>
+                        </div>
+                      </div>
+                    </div>
                   </section>
                 </div>
               </div>

@@ -340,45 +340,6 @@ app.get('/article/:slug', function(req, res) {
             }
           ],
 
-          testBubbleData: [{
-              group: 1,
-              size: 10,
-              users: ["a", "b"],
-              sentences: {
-                "a1s1": {
-                  average: .50,
-                  agree: 0.33,
-                  disagree: 0.33,
-                  unsure: 0.33
-                },
-                "a1s2": {
-                  average: .50,
-                  agree: 0.40,
-                  disagree: 0.30,
-                  unsure: 0.30
-                }
-              }
-            },
-            {
-              group: 1,
-              size: 10,
-              users: ["a", "b"],
-              sentences: {
-                "a1s1": {
-                  average: .50,
-                  agree: 0.33,
-                  disagree: 0.33,
-                  unsure: 0.33
-                },
-                "a1s2": {
-                  average: .50,
-                  agree: 0.40,
-                  disagree: 0.30,
-                  unsure: 0.30
-                }
-              }
-            }
-          ],
         //  multiplier: 1,
           groupkey: {
             group: '',
