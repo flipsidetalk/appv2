@@ -72,8 +72,8 @@
                     <p> display comments here<p>
 
 
-                    <div v-for="comment in commentscomp.commentData">
-                      <div v-if="textcomp.lastReferenced == comment.sentenceId">
+                    <div v-for="(comment, cindex) in commentscomp.commentData">
+                      <div v-if="textcomp.lastReferenced == comment.vote.sentenceId">
                         <div class="u-paddingBottom10 u-borderBottomLighter">
                           <p>{{comment.vote.reaction}} -- {{comment.statement}}</p>
                         </div>

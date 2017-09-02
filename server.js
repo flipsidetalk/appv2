@@ -407,7 +407,8 @@ app.get('/article/:slug', function(req, res) {
                 required: true
               }]
             }).then(comments => {
-              callback(null, JSON.stringify(comments));
+              console.log('COMMENTS: ' + JSON.stringify(comments))
+              callback(null, comments);
             });
           }
         },
