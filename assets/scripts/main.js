@@ -74,17 +74,6 @@ $(function() {
       $('#valid-email-signin').show();
     }
   });
-
-  $.ajax({
-    type: 'POST',
-    url: '/getVoteData',
-    success: function(res) {
-      console.log("success: " + res);
-    },
-    error: function(res) {
-      console.log("error: " + res);
-    }
-  });
 });
 
 var loc = {};
