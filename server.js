@@ -443,6 +443,7 @@ app.get('/article/:slug', function(req, res) {
             console.log(err);
           } else {
             data.textcomp.article = results.article;
+            data.commentscomp.article = results.article;
             // data.mapcomp.extremeData = results.viz.extremes;
             // data.mapcomp.vizData = results.viz.clusterData;
             // data.mapcomp.pointData = results.viz.pointData;

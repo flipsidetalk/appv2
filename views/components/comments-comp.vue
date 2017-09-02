@@ -1,5 +1,5 @@
 <template>
-<div class="commentSection u-paddingLeft90 u-paddingRight90 u-marginAuto u-paddingBottom100">
+<div>
   <div v-if="!commentscomp.showComment">
     <button class="mdc-button mdc-button--raised tealBackground" v-on:click="commentscomp.showComment = 1">
         <h5 class="u-pointer white-text montserratLight">Show Responses</h5>
