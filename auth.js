@@ -60,7 +60,7 @@ module.exports = function(app, connection, db) {
 
   app.get('/auth/facebook/callback',
     passport.authenticate('facebook', {
-      successRedirect: '/interactive',
+      successRedirect: '/',
       failureRedirect: '/'
     }),
     function(req, res) {
