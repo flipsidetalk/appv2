@@ -615,6 +615,19 @@ app.post('/userStatus', function(req, res) {
   }
 });
 
+app.post('/submitVote', function(req, res) {
+  let user = req.user ? req.user.id : 'NULL';
+  utils.upsert(db.vote, {
+    userId: user,
+    sentenceId: req.body.sentenceId,
+    reaction: req.body.reaction
+  }, {
+    userId: user,
+    sentenceId: req.body.sentenceId
+  });
+  res.sendStatus(200);
+});
+
 app.post('/numVotesCast', function(req, res) {
   db.vote.count({
     where: {
