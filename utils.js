@@ -11,7 +11,7 @@ module.exports.upsert = function(table, values, condition) {
     });
 }
 
-module.exports.makeExternalRequest = function(request, url, data, success) {
+module.exports.makeExternalRequest = function(request, url, data, success, err) {
   request({
       url: url,
       method: 'POST',
@@ -21,6 +21,8 @@ module.exports.makeExternalRequest = function(request, url, data, success) {
     console.log('Response: ' + response);
     if (!error) {
       success(body);
+    } else  {
+      err(error);
     }
   });
 }

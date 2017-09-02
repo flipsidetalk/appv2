@@ -60,7 +60,7 @@ var mixin = {
         input: ""
       }; //resets response
 
-      textcomp.article.text.main[placeholderId].seen = seenvalue; //changes m.seen
+      textcomp.article.sentences[placeholderId].seen = seenvalue; //changes m.seen
       textcomp.tempseen = seenvalue; //changes placeholder seen
 
       //textcomp.form = 0; //
