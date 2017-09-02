@@ -433,10 +433,8 @@ app.get('/article/:slug', function(req, res) {
                 var reformattedSentence = {};
                 reformattedSentences[sentences[i].id] = sentences[i];
                 reformattedSentences[sentences[i].id].seen = 0;
-                // reformattedSentences.push(reformattedSentence);
               }
               article.dataValues.sentences = reformattedSentences;
-              console.log('DATA: ' + JSON.stringify(article.dataValues.sentences['269']));
               article.dataValues.formattedDate = dateFormat(article.dataValues.publicationDate.date, "longDate");
               callback(null, article.dataValues);
             });
@@ -458,14 +456,7 @@ app.get('/article/:slug', function(req, res) {
           } else {
             data.textcomp.article = results.article;
             data.commentscomp.article = results.article;
-            // data.mapcomp.extremeData = results.viz.extremes;
-            // data.mapcomp.vizData = results.viz.clusterData;
-            // data.mapcomp.pointData = results.viz.pointData;
-            // data.mapcomp.shadeData = results.viz.shadeData;
-            // data.mapcomp.xlength = results.viz.extremes.xMax - results.viz.extremes.xMin;
-            // data.mapcomp.ylength = results.viz.extremes.yMax - results.viz.extremes.yMin;
-            // data.commentscomp.article.text = results.article.text;
-            // data.commentscomp.commentData = results.comments;
+            data.commentscomp.commentData = results.comments;
 
             res.renderVue('article', data, utils.vue(pageTitle));
           }
