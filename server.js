@@ -511,30 +511,40 @@ app.post('/submitLink', function(req, res) {
               lower: true
             });
             body.slug = slug;
-            db.article.create(body, {
-              include: [{
-                model: db.title
-              }, {
-                model: db.author
-              }, {
-                model: db.publication
-              }, {
-                model: db.publicationDate
-              }, {
-                model: db.image
-              }, {
-                model: db.sentence
-              }, {
-                model: db.tag,
-                include: [{
-                  model: db.rdftype
-                }]
-              }, {
-                model: db.originalText
-              }]
-            }).then(() => {
-              res.send('/article/' + slug);
-            });
+            db.article.findOne({
+              where: {
+                url: link
+              }
+              }).then(result => {
+                if (result == null) {
+                  db.article.create(body, {
+                    include: [{
+                      model: db.title
+                    }, {
+                      model: db.author
+                    }, {
+                      model: db.publication
+                    }, {
+                      model: db.publicationDate
+                    }, {
+                      model: db.image
+                    }, {
+                      model: db.sentence
+                    }, {
+                      model: db.tag,
+                      include: [{
+                        model: db.rdftype
+                      }]
+                    }, {
+                      model: db.originalText
+                    }]
+                  }).then(() => {
+                    res.send('/article/' + slug);
+                  });
+                } else {
+                  res.send('/article/' + slug);
+                }
+              });
           } else {
             res.send('invalid_url');
           }
