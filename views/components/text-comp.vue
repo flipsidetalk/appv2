@@ -5,7 +5,7 @@
     <div class="u-marginAuto">
       <span v-for="(m, mindex) in textcomp.article.sentences">
           <span class="load-text" v-bind:class="{'highlightable':m.mainClaim}">
-            <span v-if="m.mainClain">
+            <span v-if="m.mainClaim">
               <span v-on:click="showTool(mindex, m.seen, textcomp)">
                 <mark v-bind:id="mindex">{{m.text}}</mark>
               </span>
