@@ -112,41 +112,46 @@ require('./auth.js')(app, connection, db);
 // Structure of user object: { id: 14, firstname: 'Forrest', name: 'Forrest Sill' }
 
 app.get('/', function(req, res) {
-  var data = {
-    headercomp: {
-      user: req.user
+  db.article.findAll({
+    include: [{
+      model: db.title
+    }, {
+      model: db.author
+    }, {
+      model: db.publication
+    }, {
+      model: db.publicationDate
+    }, {
+      model: db.image
+    }],
+    limit : 6,
+    attributes: {
+      exclude: ['id', 'url', 'updatedAt']
     },
-    thumbnailcomp: {
-      article1: {
-        title: 'This is the first title what what what',
-        publication: 'The Daily New York Story That is Long',
-        publicationDate: '',
-        author: '',
-        image: '',
-        link: '',
-        slug: ''
-      },
-      article2: {
-        title: 'Second story no way',
-        publication: '',
-        publicationDate: '',
-        author: '',
-        image: '',
-        link: '',
-        slug: ''
-      },
-      article3: {
-        title: 'THIRD THIRD THIRD THIRD',
-        publication: 'The New Yorker',
-        publicationDate: '',
-        author: '',
-        image: '',
-        link: '',
-        slug: ''
-      }
+    order: [
+      ['createdAt', 'DESC']
+    ]
+  }).then(articles => {
+    let formattedArticles = {};
+    for (var i = 0; i < articles.length; i++) {
+      let formattedArticle = {};
+      formattedArticle.title = articles[i].title.title;
+      formattedArticle.slug = articles[i].slug;
+      formattedArticle.author = articles[i].authors[0].name;
+      formattedArticle.publication = articles[i].publication.name;
+      formattedArticle.publicationDate = dateFormat(articles[i].publicationDate.date, "longDate");
+      formattedArticle.image = articles[i].image.link;
+      formattedArticles['article' + (i + 1)] = formattedArticle;
     }
-  }
-  res.renderVue('index', data, utils.vue('Flipside'));
+    console.log('FEATURES: ' + JSON.stringify(formattedArticles));
+    var data = {
+      headercomp: {
+        user: req.user
+      },
+      thumbnailcomp: formattedArticles
+      }
+    res.renderVue('index', data, utils.vue('Flipside — A new side of news.'));
+  });
 });
 
 app.get('/article/:slug', function(req, res) {
