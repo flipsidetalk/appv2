@@ -594,7 +594,7 @@ app.post('/userStatus', function(req, res) {
 });
 
 app.post('/submitVote', function(req, res) {
-  let user = req.user ? req.user.id : 'NULL';
+  let user = req.user ? req.user.id : req.sessionID;
   utils.upsert(db.vote, {
     userId: user,
     sentenceId: req.body.sentenceId,
