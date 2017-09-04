@@ -96,6 +96,7 @@ module.exports = function(app, connection, db) {
   });
 
   function makeLocalAccount(email, password, fn, ln, res) {
+    // Password hashing function
     crypto.pbkdf2(password, SALT, 25000, 256, 'sha1', function(err, derivedKey) {
       db.local.create({
         email: email,
@@ -164,6 +165,7 @@ module.exports = function(app, connection, db) {
     res.send('wrong_password');
   });
 
+  // Logout endpoint
   app.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
