@@ -50,6 +50,7 @@ const validateUrl = require('url-validator');
 const request = require('request');
 const makeSlug = require('slug');
 const dateFormat = require('dateformat');
+const url = require('url');
 const sendWelcomeEmail = require('./email.js');
 const utils = require('./utils.js');
 const app = express();

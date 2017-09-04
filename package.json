@@ -26,6 +26,7 @@
     "request": "^2.81.0",
     "sequelize": "^4.7.5",
     "slug": "^0.9.1",
+    "url": "^0.11.0",
     "url-validator": "^2.0.3"
   }
 }
