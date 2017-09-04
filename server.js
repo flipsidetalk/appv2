@@ -72,11 +72,11 @@ try {
 } catch (err) {
   dbconfig = {
     db: {
-      'host': 'localhost',
-      'username': 'root',
-      'password': 'root',
+      'host': 'test.chsdfl7vaehp.us-east-1.rds.amazonaws.com',
+      'username': 'testuser',
+      'password': 'testUser',
       'port': 3306,
-      'database': 'prod'
+      'database': 'test'
     }
   }
 }
