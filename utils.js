@@ -51,7 +51,7 @@ module.exports.updateVizState = function(db, res, currentVotes) {
   });
 }
 
-module.exports.vue = function (pageTitle) {
+module.exports.vue = function(pageTitle) {
   return {
     head: {
       title: pageTitle,
@@ -66,6 +66,11 @@ module.exports.vue = function (pageTitle) {
         {
           name: 'viewport',
           content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+        },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          href: 'favicon.ico'
         },
         {
           script: 'https://unpkg.com/vue@2.4.2/dist/vue.js'
