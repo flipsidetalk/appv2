@@ -448,6 +448,11 @@ app.post('/submitResponse', function(req, res) {
 app.post('/submitLink', function(req, res) {
   let link = req.body.link;
   link = link.split('?')[0];
+  // Check if the user submitted a flipsidetalk.com link.
+  if (url.parse(link).hostname.includes('flipsidetalk.com')) {
+    res.send('to:' + link);
+    return;
+  }
   if (validateUrl(link)) {
     // Check if URL is already in database.
     db.article.findOne({
