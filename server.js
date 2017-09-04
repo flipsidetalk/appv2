@@ -51,6 +51,7 @@ const request = require('request');
 const makeSlug = require('slug');
 const dateFormat = require('dateformat');
 const url = require('url');
+const rateLimit = require('express-rate-limit');
 const sendWelcomeEmail = require('./email.js');
 const utils = require('./utils.js');
 const app = express();
@@ -121,6 +122,17 @@ app.use(bodyParser.urlencoded({
 }));
 // Directs Node to the location of static files
 app.use(express.static(path.join(__dirname, 'assets')));
+
+app.enable('trust proxy');
+const apiLimiter = new rateLimit({
+  windowMs: 15*60*1000, // 15 minutes
+  max: 100,
+  delayMs: 0 // No delaying
+});
+app.use('/submitLink', apiLimiter);
+app.use('/auth/facebook', apiLimiter);
+app.use('/localSignup', apiLimiter);
+app.use('/localSignin', apiLimiter);
 
 require('./auth.js')(app, connection, db);
 
