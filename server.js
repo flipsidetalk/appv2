@@ -1,24 +1,3 @@
-  var articleText = {"main": {
-    "a3s0": {"agreeable": false, "endParagraph": false, "sentenceId": "a3s0", "text": "Automation may soon affect even industries and jobs we thought were immune, so what should countries do to prepare for those left jobless and behind? ", "seen": false},
-    "a3s1": {"agreeable": false, "endParagraph": false, "sentenceId": "a3s1", "text": "Bill Gates recently offered a simple solution: Tax the use of robots.", "seen": false},
-    "a3s2": {"agreeable": false, "endParagraph": true, "sentenceId": "a3s2", "text": "He argues that such a tax would both \u201ctemporarily slow down the spread of automation\u201d and fund social safety net programs for those who lose their jobs to technology.", "seen": false},
-    "a3s3": {"agreeable": false, "endParagraph": false, "sentenceId": "a3s3", "text": "Gates is not the only one to suggest the idea. ", "seen": false},
-    "a3s4": {"agreeable": false, "endParagraph": false, "sentenceId": "a3s4", "text": "French presidential candidate Benoit Hamon of the Socialist Party recently proposed a universal basic income partially funded by a robot tax. ", "seen": false},
-    "a3s5": {"agreeable": false, "endParagraph": true, "sentenceId": "a3s5", "text": "The European parliament also just voted down a proposal to fund support for workers who lost their jobs due to \u201crobotics and AI\u201d through a robot tax.", "seen": false},
-    "a3s6": {"agreeable": true, "endParagraph": false, "sentenceId": "a3s6", "text": "While it is of vital public policy interest to support technology-displaced workers, the premise of a tax on the use of robots raises several thorny issues.", "seen": false},
-    "a3s7": {"agreeable": true, "endParagraph": true, "sentenceId": "a3s7", "text": "One is the difficulty of specifying which kinds of robotic automation should be taxed, and more generally, what counts as a robot.", "seen": false},
-    "a3s8": {"agreeable": false, "endParagraph": false, "sentenceId": "a3s8", "text": "What distinguishes a machine we now accept as integral to economic productivity from a robot whose activity we would wish to tax? ", "seen": false},
-    "a3s9": {"agreeable": false, "endParagraph": false, "sentenceId": "a3s9", "text": "Washing machines, for example, certainly put many launderers out of work, but they also helped make it possible for millions of women to join the paid workforce.", "seen": false},
-    "a3s10": {"agreeable": true, "endParagraph": false, "sentenceId": "a3s10", "text": "A robot tax, as Gates proposed, may end up being a tax on innovation and would force Congress and the IRS to make the perhaps impossible distinction between labor-saving machines and labor-enhancing ones. \u00a0", "seen": false},
-    "a3s11": {"agreeable": false, "endParagraph": false, "sentenceId": "a3s11", "text": "Taxing robots would also fundamentally change the way the United States currently taxes business investment. ", "seen": false},
-    "a3s12": {"agreeable": true, "endParagraph": true, "sentenceId": "a3s12", "text": "Instead of treating equipment as a depreciating asset for which a firm takes a deduction in computing its taxable income, Gates would single out a subset of these investments for a new tax.", "seen": false},
-    "a3s13": {"agreeable": false, "endParagraph": false, "sentenceId": "a3s13", "text": "There is also debate among economists over whether robots and automation significantly impacts employment. ", "seen": false},
-    "a3s14": {"agreeable": false, "endParagraph": true, "sentenceId": "a3s14", "text": "While a report by researchers at Oxford University estimated 54 percent of jobs in the EU are at risk of \u201ccomputerization,\u201d another report by the Organization for Economic Cooperation and Development last year estimated only 9 percent of jobs in 21 OECD countries are automatable.", "seen": false},
-    "a3s15": {"agreeable": true, "endParagraph": false, "sentenceId": "a3s15", "text": "And although automation certainly has it losers \u2013 the American steel industry lost 75 percent of its work force between 1962 and 2005 \u2013 the creation of new types of jobs and industries may mean that overall employment is not significantly affected.", "seen": false},
-    "a3s16": {"agreeable": false, "endParagraph": true, "sentenceId": "a3s16", "text": "A recent paper from Georg Graetz of Uppsala University found that industrial robots had no significant effect on overall employment, meaning the total number of hours worked by people in a country stayed around the same even when the use of those devices increased.", "seen": false},
-    "a3s17": {"agreeable": false, "endParagraph": false, "sentenceId": "a3s17", "text": "For those left permanently behind by the technological revolution, these facts will understandably be of little comfort. ", "seen": false},
-    "a3s18": {"agreeable": false, "endParagraph": true, "sentenceId": "a3s18", "text": "Taxing robots and other technical advances, however, will not make the human consequences of automation and robotics go away.", "seen": false}
-  }};
 var totalClusterInfo = {"clusterData":[[{"average":0.5,"cluster":0,"sentenceId":"a4s55","phrase":"in moderate agreement"},{"average":-0.3333333333333333,"cluster":0,"sentenceId":"a4s32","phrase":"in moderate disagreement"},{"average":0.5,"cluster":0,"sentenceId":"a1s55","phrase":"in moderate agreement"},{"average":0.8333333333333334,"cluster":0,"sentenceId":"a1s21","phrase":"in strong agreement"},{"average":-0.6666666666666666,"cluster":0,"sentenceId":"a3s15","phrase":"in moderate disagreement"}],[{"average":0,"cluster":1,"sentenceId":"a4s55","phrase":"neutral"},{"average":0,"cluster":1,"sentenceId":"a4s41","phrase":"neutral"},{"average":0,"cluster":1,"sentenceId":"a4s40","phrase":"neutral"},{"average":-0.3333333333333333,"cluster":1,"sentenceId":"a4s27","phrase":"in moderate disagreement"},{"average":0,"cluster":1,"sentenceId":"a4s25","phrase":"neutral"}],[{"average":-0.5,"cluster":2,"sentenceId":"a4s40","phrase":"in moderate disagreement"},{"average":0,"cluster":2,"sentenceId":"a4s27","phrase":"neutral"},{"average":0.25,"cluster":2,"sentenceId":"a4s25","phrase":"in weak agreement"},{"average":0.5,"cluster":2,"sentenceId":"a2s45","phrase":"in moderate agreement"},{"average":0.75,"cluster":2,"sentenceId":"a1s55","phrase":"in strong agreement"}],[{"average":0.25,"cluster":3,"sentenceId":"a4s32","phrase":"in weak agreement"},{"average":0.5,"cluster":3,"sentenceId":"a1s46","phrase":"in moderate agreement"},{"average":0,"cluster":3,"sentenceId":"a1s34","phrase":"neutral"},{"average":-0.25,"cluster":3,"sentenceId":"a1s30","phrase":"in weak disagreement"},{"average":0,"cluster":3,"sentenceId":"a2s18","phrase":"neutral"}]],"extremes":{"yMin":-0.5012789990723624,"xMax":0.5867170129561489,"yMax":0.6841756039985455,"xMin":-0.5220715562703917},"shadeData":[{"cluster":0,"shading":[{"y":-0.1441421105282525,"x":-0.5220715562703917},{"y":-0.3697823555483827,"x":-0.3766614228917927},{"y":-0.3953096049895108,"x":-0.12005938615550224},{"y":-0.2500216908572623,"x":-0.19442428732302652},{"y":0.045556306514005454,"x":-0.3882689819854707},{"y":-0.1441421105282525,"x":-0.5220715562703917}]},{"cluster":1,"shading":[{"y":0.22887569035367122,"x":0.24799967672484496},{"y":0.2593934194553389,"x":0.5867170129561489},{"y":0.33226473195538775,"x":0.3354831091704648},{"y":0.22887569035367122,"x":0.24799967672484496}]},{"cluster":2,"shading":[{"y":0.6841756039985455,"x":-0.3103266877591186},{"y":0.32988976884712085,"x":-0.28141153088113113},{"y":0.2665928548468992,"x":0.035207394017766964},{"y":0.4638843614074746,"x":0.04934027944001254},{"y":0.6841756039985455,"x":-0.3103266877591186}]},{"cluster":3,"shading":[{"y":-0.5012789990723624,"x":0.10166015405304253},{"y":-0.2212672948474511,"x":0.4808719541213589},{"y":-0.09383151087806305,"x":0.3355301552296104},{"y":-0.5012789990723624,"x":0.10166015405304253}]}],"pointData":{"31":{"y":0.2665928548468992,"cluster":2,"x":0.035207394017766964},"34":{"y":0.33226473195538775,"cluster":1,"x":0.3354831091704648},"37":{"y":0.32988976884712085,"cluster":2,"x":-0.28141153088113113},"38":{"y":-0.3953096049895108,"cluster":0,"x":-0.12005938615550224},"39":{"y":-0.2212672948474511,"cluster":3,"x":0.4808719541213589},"40":{"y":-0.5012789990723624,"cluster":3,"x":0.10166015405304253},"41":{"y":0.22887569035367122,"cluster":1,"x":0.24799967672484496},"42":{"y":-0.1441421105282525,"cluster":0,"x":-0.5220715562703917},"43":{"y":0.045556306514005454,"cluster":0,"x":-0.3882689819854707},"44":{"y":-0.3697823555483827,"cluster":0,"x":-0.3766614228917927},"45":{"y":-0.2500216908572623,"cluster":0,"x":-0.19442428732302652},"46":{"y":-0.3658393553041467,"cluster":3,"x":0.2738754177444379},"47":{"y":0.6841756039985455,"cluster":2,"x":-0.3103266877591186},"50":{"y":0.4638843614074746,"cluster":2,"x":0.04934027944001254},"51":{"y":0.2593934194553389,"cluster":1,"x":0.5867170129561489},"10213370026154390":{"y":-0.05534779385182953,"cluster":0,"x":-0.3286277542054012},"10209787576116056":{"y":-0.09383151087806305,"cluster":3,"x":0.3355301552296104}}};
 var comments = [{
   "id": 1,
@@ -35,7 +14,6 @@ var comments = [{
     "sentenceId": 342
   }
 }];
-var pageTitle = 'Flipside — Would taxing robots help the people whose jobs they’ll take?';
 
 const PYTHON_SERVER_URL = 'http://34.233.217.223:8080';
 const path = require('path');
@@ -194,20 +172,11 @@ app.get('/article/:slug', function(req, res) {
         return;
       }
       var data = {
-        pageTitle: pageTitle,
         headercomp: {
           user: req.user
         },
         textcomp: {
-
           tempseen: false,
-          article: {
-            title: 'Would taxing robots help the people whose jobs they’ll take?',
-            author: 'Yifan Zhang',
-            publication: 'The Christian Science Monitor',
-            date: 'August 23, 2017',
-            text: articleText
-          },
           /*** TOOLTIP ATTRIBUTES ***/
           tooldisplay: "none",
           tooltop: "0px",
@@ -365,11 +334,7 @@ app.get('/article/:slug', function(req, res) {
           user: req.user
         },
         commentscomp: {
-          showComment: false,
-          article: {
-            text: articleText
-          },
-          commentData: comments
+          showComment: false
         }
       };
 
@@ -432,8 +397,8 @@ app.get('/article/:slug', function(req, res) {
             data.textcomp.article = results.article;
             data.commentscomp.article = results.article;
             data.commentscomp.commentData = results.comments;
-
-            res.renderVue('article', data, utils.vue(pageTitle));
+            data.pageTitle = 'Flipside - ' + results.article.title.title;
+            res.renderVue('article', data, utils.vue(data.pageTitle));
           }
         });
     });
