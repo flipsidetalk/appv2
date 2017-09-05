@@ -29,7 +29,7 @@ QUESTION_IDS = ['a1s21','a1s23','a1s30','a1s31','a1s34','a1s46','a1s55','a2s12',
 class Spectrum:
     def __init__(self, graph_low_votes = False, reducer = 'mds', cluster = 'kmeans', 
         choosing_function = 'strong', norm_threshold = 100, defval = 0, impute_factor = True, 
-        min_users = 6, min_votes = 5, num_opinions = 5, max_users = 1000, n_components = 2):
+        min_users = 6, min_votes = 3, num_opinions = 5, max_users = 1000, n_components = 2):
 
         self.impute_factor = impute_factor
         self.min_votes = min_votes
@@ -254,10 +254,9 @@ class Spectrum:
                         for question in self.relevant_questions[i]:
                             claim_data = dict()
                             claim_data['sentenceId'] = question
-                            claim_data['average'] = self.average_answer(i, question)
-                            proportions = self.get_proportions(i, question)
-                            proportions is not None
-                            for answer, direction in zip(range(-1,0,1), ['disagree', 'not sure', 'agree']):
+                            avg, proportions = self.get_numbers(i, question)
+                            claim_data['average'] = avg
+                            for answer, direction in zip([-1,0,1], ['disagree', 'not sure', 'agree']):
                                 if answer in proportions.keys():
                                     claim_data[direction] = proportions[answer]
                                 else:
@@ -268,7 +267,7 @@ class Spectrum:
         else:
             return {}
 
-    def get_proportions(self, i, question):
+    def get_numbers(self, i, question):
         votes = []
         question_ind = np.where(self.question_ids == question)[0][0]
         for user_ind in self.votes_to_consider[question_ind]:
@@ -279,15 +278,17 @@ class Spectrum:
                     votes.append(vote)
         
         group_answers = {}
-        
+        avg = None
         if len(votes) >= self.min_votes:
+            avg = np.mean(votes)
             votes = np.array(votes)
             total = 0
             for i in [-1,0,1]:
                 num_votes = np.where(votes == i)[0].shape[0]
-                group_answers[i] = num_votes / len(votes)
+                if i == 1:
+                    group_answers[i] = num_votes / len(votes)
         
-        return group_answers
+        return avg,  group_answers
 
     def get_agreement_phrase(self, i, question):
         value = self.average_answer(i, question)
@@ -311,13 +312,6 @@ class Spectrum:
             return opinion
         else:
             return 'in ' + degree + ' ' + opinion
-
-    def average_answer(self, group, question_id):
-        if self.groups is not None:
-            data = self.data[self.users_to_graph]
-            return data[np.where(self.groups == group)][:,np.where(self.question_ids == question_id)[0][0]].mean(axis = 0)
-        else:
-            print('need more data')
 
     def get_points(self):
         if self.out_points is not None:
