@@ -61,23 +61,6 @@ var mixin = {
           console.log("error: " + JSON.stringify(data));
         }
       });
-    },
-    postResponse: function(statement, sentenceId) {
-      var data = {
-        sentenceId: sentenceId,
-        statement: statement
-      }
-      $.ajax({
-        type: 'POST',
-        url: '/submitResponse',
-        data: data,
-        success: function() {
-          console.log("sendsuccess: " + data);
-        },
-        error: function() {
-          console.log("error: " + data);
-        }
-      });
     }
   },
   mounted: function(){

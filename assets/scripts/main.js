@@ -153,7 +153,7 @@ function signIn() {
     data: data,
     success: function(res) {
       if (res === "success") {
-        window.location.href = "/";
+        location.reload();
       } else if (res === "wrong_password") {
         $('#incorrect-password').show();
       }

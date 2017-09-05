@@ -26,6 +26,8 @@ var mixin = {
                 console.log("sendsuccess: " + JSON.stringify(response));
                 if (response.substring(0,1) == '/') {
                   window.location.href = response;
+                } else if (response.substring(0,3) == 'to:') {
+                  window.location.href = response.substring(3);
                 } else {
                   $('.form-error').hide();
                   $('#error-msg').show();
