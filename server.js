@@ -358,8 +358,11 @@ app.get('/article/:slug', function(req, res) {
        */
       async.parallel({
           viz: function(callback) {
-            db.viz.findOne().then(viz => {
-              callback(null, JSON.parse(viz.data));
+            db.viz.findAll({
+              limit: 1,
+              order: [[ 'createdAt', 'DESC' ]]
+            }).then(viz => {
+              callback(null, viz);
             });
           },
           article: function(callback) {
