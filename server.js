@@ -483,6 +483,7 @@ app.post('/submitLink', function(req, res) {
               lower: true
             });
             body.slug = slug;
+            body.url = link;
             // Check that the article wasn't submitted again before it was
             // inserted the first time.
             db.article.findOne({
