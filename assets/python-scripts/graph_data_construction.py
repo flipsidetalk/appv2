@@ -241,11 +241,13 @@ class Spectrum:
                 if self.users_to_graph is not None:
                     user_ids = [index_by_ind[ind] for ind in self.users_to_graph]
                 #Adding group placeholder for people who aren't considered yet
-                for i in range(self.k):
+                for i in range(-1, self.k):
                     data[i] = dict()
                     users = []
                     for iden, group in zip(user_ids, list(self.groups)):
                         if group == i:
+                            users.append(iden)
+                        elif i == -1:
                             users.append(iden)
                     data[i]['users'] = users
                     data[i]['size'] = len(users)
@@ -273,7 +275,7 @@ class Spectrum:
         for user_ind in self.votes_to_consider[question_ind]:
             if user_ind in self.users_to_graph:
                 index = np.where(np.array(self.users_to_graph) == user_ind)[0][0]
-                if self.groups[index] == i:
+                if self.groups[index] == i or i == -1:
                     vote = self.data[user_ind, question_ind]
                     votes.append(vote)
         
@@ -283,10 +285,9 @@ class Spectrum:
             avg = np.mean(votes)
             votes = np.array(votes)
             total = 0
-            for i in [-1,0,1]:
-                num_votes = np.where(votes == i)[0].shape[0]
-                if i == 1:
-                    group_answers[i] = num_votes / len(votes)
+            for answer in [-1,0,1]:
+                num_votes = np.where(votes == answer)[0].shape[0]
+                group_answers[answer] = num_votes / len(votes)
         
         return avg,  group_answers
 
@@ -442,6 +443,7 @@ class Spectrum:
 
     def differentiate_claims(self, group_averages, question_std):
         relevant_questions = dict()
+        relevant_questions = []
         for group in range(self.k):
             sum_squared_differences = np.zeros(len(self.question_ids))
             for other_group in range(self.k):
@@ -455,6 +457,8 @@ class Spectrum:
             threshold = sorted(sum_squared_differences)[-(self.num_opinions)]
             important_questions = np.where(sum_squared_differences >= threshold)[0][:self.num_opinions]
             relevant_questions[group] = list(self.question_ids[important_questions])
+            relevant_questions[-1] += relevant_questions
+        relevant_questions[-1] = list(set(relevant_questions[-1]))
         return relevant_questions
 
     def strongest_claims(self, group_averages, question_std):
@@ -468,7 +472,7 @@ class Spectrum:
 
         question_candidates = dict()
         strongest_claims = dict()
-
+        strongest_claims[-1] = []
         for avg, question_ind, group in all_opinions:
             if question_ind not in question_candidates:
                 question_candidates[question_ind] = 1
@@ -482,6 +486,10 @@ class Spectrum:
                         strongest_claims[group].append(self.question_ids[question_ind])
                 else:
                     strongest_claims[group] = [self.question_ids[question_ind]]
+
+        for i in range(self.k): 
+             strongest_claims[-1] += strongest_claims[i]
+        strongest_claims[-1] = list(set(strongest_claims[-1]))
         return strongest_claims
 
     def find_relevant_claims(self):
