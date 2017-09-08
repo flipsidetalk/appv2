@@ -31,6 +31,19 @@
 
           <div class="commentBlock disagreeBlock">
             <h3 class="white-text commentHeader">59% IN DISAGREEMENT</h3>
+            <div class="commentSection">
+              <div class="commentName">
+                <b class="commentText">bobby</b>
+              </div>
+              <div class="commentContent">
+                <p class="commentText">There is just…something about a mother tongue. I am not fluent in the obscure European language my mother spoke to me as a baby, but when I hear it to this day I “feel” like my senses become engaged in ways that no other language can do. Bright primal smells and colors come to mind and then linger. I can’t help but think that this is what they were trying to evoke my resurrecting the Hebrew tongue.</p>
+              </div>
+            </div>
+            <div class="rowReverse">
+              <div class="seeMoreButton">
+                see more comments
+              </div>
+            </div>
           </div>
 
         </div>

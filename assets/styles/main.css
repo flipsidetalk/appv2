@@ -762,6 +762,7 @@ input:checked+label {
 }
 .commentText{
   font-size: 16px;
+  font-weight: lighter;
 }
 .talkButton{
     -webkit-border-radius: 4;
