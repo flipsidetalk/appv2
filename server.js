@@ -201,16 +201,9 @@ app.get('/article/:slug', function(req, res) {
           isHighlighted: false,
           talktop: "0px",
           talkdisplay: "none",
-          toolcolor: 'black',
-          /*******/
-        //  bottomBar: false,
-        //  form: 0,
-        //  responseForm: 0,
+          toolcolor: '#2b2b2b',
+
           lastReferenced: "a3s0",
-        //  why: 0,
-        //  whyModel: "",
-        //  responseSubmitted: 0,
-        //  lastReferencedResponseForm: -1,
           response: {
             sentenceId: "",
             input: ""
@@ -225,13 +218,6 @@ app.get('/article/:slug', function(req, res) {
           user: req.user
         },
         mapcomp: {
-          // extremeData: totalClusterInfo.extremes,
-          // clusterData: totalClusterInfo.clusterData,
-          // pointData: totalClusterInfo.pointData,
-          // shadeData: totalClusterInfo.shadeData,
-          // xlength: totalClusterInfo.extremes.xMax - totalClusterInfo.extremes.xMin,
-          // ylength: totalClusterInfo.extremes.yMax - totalClusterInfo.extremes.yMin,
-
           groupInfo: {
             label: "",
             size: "",

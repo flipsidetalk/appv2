@@ -26,7 +26,7 @@ var mixin = {
       if (!textcomp.tempseen) {
         textcomp.tooldisplay = 'block';
         textcomp.talkdisplay = 'none';
-        textcomp.toolcolor = 'black';
+        textcomp.toolcolor = '#2b2b2b';
       }
       else {
         if (seenvalue == 2) {

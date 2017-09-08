@@ -1,10 +1,12 @@
 <template>
   <div>
-    <div class="modal talkModal" id="talkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-content talkDialogue">
-            <div class="close">&times;</div><br>
+    <div class="modal fade talkModal" id="talkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-content talkDialogue">
+        <div class="close">&times;</div><br>
         <div class="content-section">
-          <h3 class="quoteSection">this here is the quote and the main argument as well this is all there is to argue about</h3>
+          <h3 class="quoteSection">
+            {{textcomp.article.sentences[textcomp.lastReferenced]}}
+          </h3>
           <textarea type="text" placeholder="What do you think?" name="" value="" class="talkInput u-sizeFullWidth" v-model="textcomp.whyResponse.input" style="background-color: white;"></textarea>
           <p class="talkButton montserratLight u-floatRight" v-on:click="submitWhy(textcomp)">Share</p>
           <br> <br><br><br>
@@ -32,7 +34,7 @@
           </div>
 
         </div>
-        </div>
+      </div>
     </div>
 
     <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
@@ -61,20 +63,20 @@
     <div id="cal1">&nbsp;</div>
     <div id="cal2">&nbsp;</div>
     <!--TO DO: V-BIND BACKGROUND COLOR OR CLASS DEPENDING ON M.SEEN-->
-    <div id="tooltip" v-bind:style="{display: textcomp.tooldisplay, top: textcomp.tooltop, left: textcomp.toolleft, background: textcomp.toolcolor}">
-      <span v-on:click="submitResponse(1, 2, textcomp)" v-on:mouseover="textcomp.toolcolor = 'rgba(69, 196, 173, 1)'" class="u-button">AGREE</span>
-      <span v-on:click="submitResponse(-1, 3, textcomp)" v-on:mouseover="textcomp.toolcolor = 'rgba(235, 112, 107, 1)'" class="u-button">DISAGREE</span>
-      <span v-on:click="submitResponse(0, 4, textcomp)" v-on:mouseover="textcomp.toolcolor = 'rgba(131, 101, 158, 1)'" class="u-button">NOT SURE</span>
+    <div id="tooltip" v-bind:style="{display: textcomp.tooldisplay, top: textcomp.tooltop, left: textcomp.toolleft}">
+      <span v-on:click="submitResponse(1, 2, textcomp)" class="u-button">agree</span>
+      <span v-on:click="submitResponse(-1, 3, textcomp)" class="u-button">disagree</span>
+      <span v-on:click="submitResponse(0, 4, textcomp)" class="u-button">unsure</span>
       <div class="highlightMenu-arrowClip">
-        <span class="highlightMenu-arrow" v-bind:style="{background: textcomp.toolcolor}"></span>
+        <span class="highlightMenu-arrow"></span>
       </div>
     </div> <!--end tooltip -->
 
-    <div id="tooltip" v-bind:style="{display: textcomp.talkdisplay, top: textcomp.tooltop, left: textcomp.toolleft, background: textcomp.toolcolor}">
-      <span href="#talkModal" data-toggle="modal" class="u-button tealBackground">CONTRIBUTE</span>
-      <span v-on:click="textcomp.talkdisplay = 'none', textcomp.tooldisplay = 'block'" class="u-fontSize11 u-button u-purpleBackground">CHANGE VOTE</span>
+    <div id="tooltip" v-bind:style="{display: textcomp.talkdisplay, top: textcomp.tooltop, left: textcomp.toolleft}">
+      <span href="#talkModal" data-toggle="modal" class="u-button u-border">contribute</span>
+      <span v-on:click="textcomp.talkdisplay = 'none', textcomp.tooldisplay = 'block'" class="u-fontSize11 u-button">change vote</span>
       <div class="highlightMenu-arrowClip">
-        <span class="highlightMenu-arrow" v-bind:style="{background: textcomp.toolcolor}"></span>
+        <span class="highlightMenu-arrow"></span>
       </div>
     </div>
 

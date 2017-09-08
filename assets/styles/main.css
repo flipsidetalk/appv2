@@ -381,10 +381,8 @@ label {
 .u-button {
   cursor: pointer;
   color: #ffffff;
-  padding: 3px 10px;
-  font-size: 13px;
-  border: solid 1px;
-  border-radius: 0.7em;
+  padding: 3px 8px;
+  font-size: 14.5px;
   /* background-color: rgba(131, 101, 158, 0.9); */
   font-family: 'Montserrat', sans-serif!important;
   font-weight: lighter!important;
@@ -872,11 +870,12 @@ input:checked+label {
   position:absolute;
   display:none;
   border:grey solid 1px;
-  border-radius: 0.8em;
-  padding:  10px 7px;
+  border-radius: 0.4em;
+  padding:  8px 7px;
   z-index: 500;
   color: white;
   transition: all 0.2s;
+  background-color: #2b2b2b;
 }
 #cal1{
   position:absolute;
@@ -908,6 +907,7 @@ input:checked+label {
   width: 20px;
   height: 20px;
   transform: rotate(45deg) scale(0.5);
+  background-color: #2b2b2b;
 }
 
 .regularTextActive{
@@ -1035,6 +1035,11 @@ input:checked+label {
 
 .u-borderRadius2{
   border-radius: 2px !important;
+}
+
+.u-border{
+  border: 1.5px solid;
+  border-radius: 0.7em;
 }
 
 .u-borderBlackLightest{
