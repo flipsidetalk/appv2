@@ -18,18 +18,29 @@ var mixin = {
       r.center = (r.right+r.left)/2
       rb2.center = (rb2.right+rb2.left)/2
       rb1.center = (rb1.right+rb1.left)/2
-      textcomp.tooltop = (r.top - rb2.top-35)*100/(rb1.top-rb2.top) + 'px'; //this will place ele below the selection
-      textcomp.toolleft = (r.center - rb2.center - 105)*100/(rb1.center-rb2.center) + 'px'; //this will align the right edges together
+      textcomp.tooltop = (r.top - rb2.top-42)*100/(rb1.top-rb2.top) + 'px'; //this will place ele below the selection
+      textcomp.toolleft = (r.center - rb2.center - 130)*100/(rb1.center-rb2.center) + 'px'; //this will align the right edges together
       textcomp.isHighlighted = sentenceId;
       textcomp.talktop = (r.top - rb2.top) + 'px'; //this will place ele below the selection
 
       if (!textcomp.tempseen) {
         textcomp.tooldisplay = 'block';
         textcomp.talkdisplay = 'none';
+        textcomp.toolcolor = 'black';
       }
       else {
+        if (seenvalue == 2) {
+          textcomp.toolcolor = 'green';
+        }
+        else if (seenvalue == 3) {
+          textcomp.toolcolor = 'red';
+        }
+        else {
+          textcomp.toolcolor = 'purple';
+        }
         textcomp.talkdisplay = 'block';
         textcomp.tooldisplay = 'none';
+
       }
 
     },

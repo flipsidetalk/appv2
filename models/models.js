@@ -183,9 +183,9 @@ module.exports.init = function(sequelize, Sequelize) {
     data: {
       type: Sequelize.TEXT
     }
-    numVotes: {
-      type: Sequelize.INTEGER
-    }
+  //  numVotes: {
+  //    type: Sequelize.INTEGER
+  //  }
   });
   tables.viz = Viz;
 

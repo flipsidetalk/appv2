@@ -381,14 +381,13 @@ label {
 .u-button {
   cursor: pointer;
   color: #ffffff;
-  padding: 3px 5px;
+  padding: 3px 10px;
   font-size: 13px;
-  border: solid;
-  border-radius: 999em;
-  background-color: rgba(131, 101, 158, 0.9);
+  border: solid 1px;
+  border-radius: 0.7em;
+  /* background-color: rgba(131, 101, 158, 0.9); */
   font-family: 'Montserrat', sans-serif!important;
   font-weight: lighter!important;
-  margin-right: 15px;
 }
 
 .montserrat {
@@ -667,6 +666,11 @@ input:checked+label {
 
 /* TALKBOX
 -------------------------------------------------- */
+.talkModal .modal-backdrop {
+   background-color: red;
+}
+
+
 .talkBox{
   position: fixed;
   top: 0;
@@ -700,11 +704,118 @@ input:checked+label {
     flex-wrap: wrap;
 }
 
+
+.modal-dialog{
+  width: 750px;
+  margin-right: 0px;
+  min-height: 500px;
+}
+
+.modal-content{
+  padding: 20px;
+}
+.content-section{
+  padding: 20px;
+}
+
+.commentBlock{
+  border-radius: 0.5em;
+  margin-top: 20px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+.agreeBlock{
+  background-color: rgba(104, 207, 174, 1);
+  color: white;
+}
+.disagreeBlock{
+  background-color: rgba(235, 115, 115, 0.9);
+  color: white;
+}
+.commentHeader{
+  padding: 10px;
+  font-weight: bolder;
+}
+
+.quoteSection{
+  box-shadow:0px 2px 0px #a9a9a9;
+  padding-top:0px!important;
+  padding-bottom: 20px;
+}
+
+.commentSection{
+  padding: 0 20px;
+  color: white;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+}
+.rowReverse{
+  display: flex;
+  flex-direction: row-reverse;
+  padding-top: 20px;
+}
+.commentName{
+  padding-right: 10px;
+}
+.commentContent{
+  padding-left: 10px;
+}
+.commentText{
+  font-size: 16px;
+}
+.talkButton{
+    -webkit-border-radius: 4;
+    -moz-border-radius: 4;
+    border-radius: 7px;
+    color: #ffffff;
+    font-size: 16px;
+    background: rgba(0, 151, 167, 0.74);
+    padding: 6px 12px 9px 12px;
+    text-decoration: none;
+}
+
+.seeMoreButton{
+  -webkit-border-radius: 7;
+  -moz-border-radius: 7;
+  border-radius: 7px;
+  color: #ffffff;
+  font-size: 16px;
+  background: #6cccae;
+  padding: 5px 10px 5px 10px;
+  border: solid #ffffff 2px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.seeMoreButton:hover {
+  background: #5cad91;
+  text-decoration: none;
+}
+
+@media(max-width:991px){
+  .modal{
+    width: 95%;
+  }
+  .modal-content{
+    width: 95%!important;
+  }
+}
+
+@media(max-width:768px){
+  .content-section{
+    padding: 0px;
+  }
+  .commentText{
+    font-size: 15px;
+    line-height: 1.4em;
+  }
+}
+
 .talkContent{
   border: none;
 }
-
-
 
 .talkSection{
   padding: 10px 0px
@@ -761,13 +872,11 @@ input:checked+label {
   position:absolute;
   display:none;
   border:grey solid 1px;
-  border-radius: 3px;
-  background:black;
-  padding:  5px 20px;
+  border-radius: 0.8em;
+  padding:  10px 7px;
   z-index: 500;
   color: white;
-  animation: pop-upwards 180ms forwards linear;
-  transition: top 75ms ease-out,left 75ms ease-out;
+  transition: all 0.2s;
 }
 #cal1{
   position:absolute;
@@ -798,7 +907,6 @@ input:checked+label {
   display: block;
   width: 20px;
   height: 20px;
-  background-color: black;
   transform: rotate(45deg) scale(0.5);
 }
 

@@ -192,6 +192,7 @@ app.get('/article/:slug', function(req, res) {
           user: req.user
         },
         textcomp: {
+
           tempseen: false,
           /*** TOOLTIP ATTRIBUTES ***/
           tooldisplay: "none",
@@ -200,6 +201,7 @@ app.get('/article/:slug', function(req, res) {
           isHighlighted: false,
           talktop: "0px",
           talkdisplay: "none",
+          toolcolor: 'black',
           /*******/
         //  bottomBar: false,
         //  form: 0,
