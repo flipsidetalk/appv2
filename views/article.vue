@@ -15,9 +15,9 @@
         <div class="section-content u-maxWidth1200">
           <div class="row white">
             <div class="col-sm-offset-2 col-sm-8">
-              <!--<p>{{textcomp.lastReferenced}}</p>
+              <p>{{textcomp.lastReferenced}}</p>
               <p>{{textcomp.whyResponse}}</p>
-              <p>{{textcomp.whyResponses}}</p> -->
+              <p>{{textcomp.whyResponses}}</p>
               <text-comp :textcomp="textcomp"></text-comp>
               <comments-comp :commentscomp="commentscomp"></comments-comp>
             </div>
