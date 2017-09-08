@@ -68,10 +68,6 @@ mark:hover {
   background-color: rgba(184, 139, 208, 0.4);
 }
 
-.u-button {
-  margin-right: 15px;
-}
-
 .u-purpleBackground {
   background-color: rgba(131, 101, 158, 0.6)!important;
 }
@@ -386,12 +382,13 @@ label {
   cursor: pointer;
   color: #ffffff;
   padding: 3px 5px;
-  font-size: 10px;
+  font-size: 13px;
   border: solid;
   border-radius: 999em;
   background-color: rgba(131, 101, 158, 0.9);
   font-family: 'Montserrat', sans-serif!important;
   font-weight: lighter!important;
+  margin-right: 15px;
 }
 
 .montserrat {
@@ -670,10 +667,44 @@ input:checked+label {
 
 /* TALKBOX
 -------------------------------------------------- */
-#talkbox{
-  position: relative;
-  max-height: 700px;
+.talkBox{
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1050;
+  overflow: hidden;
+  outline: 0;
+  -webkit-overflow-scrolling: touch;
 }
+.talkModal{
+  background-color: rgba(255,255,255, 0.7)!important;
+}
+
+.talkDialogue{
+  background-color: white;
+    bottom: 0;
+    border-radius: 0.2em;
+    border: 0px;
+    opacity: 1;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    pointer-events: initial;
+    position: fixed;
+    right: 0;
+    width: 70rem;
+    top: 0;
+    z-index: 102;
+    display: block;
+    flex-wrap: wrap;
+}
+
+.talkContent{
+  border: none;
+}
+
+
 
 .talkSection{
   padding: 10px 0px
@@ -698,14 +729,14 @@ input:checked+label {
 }
 
 .talkButton{
-    -webkit-border-radius: 4;
-    -moz-border-radius: 4;
-    border-radius: 2.5px;
-    color: #ffffff;
-    font-size: 12px;
-    background: rgba(0, 151, 167, 0.74);
-    padding: 6px 12px 9px 12px;
-    text-decoration: none;
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 2.5px;
+  color: #ffffff;
+  font-size: 12px;
+  background: rgba(0, 151, 167, 0.74);
+  padding: 6px 12px 9px 12px;
+  text-decoration: none;
 }
 .u-margin2{
   margin:0px 2px;
@@ -858,7 +889,7 @@ input:checked+label {
 }
 
 .u-flex0{
-flex: 0 0 auto;
+  flex: 0 0 auto;
 }
 
 .u-flexColumn{
@@ -950,7 +981,7 @@ flex: 0 0 auto;
 
 @media(max-width:991px){
   .u-sm-height100{
-      height: 100px!important;
+    height: 100px!important;
   }
   .u-sm-sizeFullWidth{
     width: 100%!important;
@@ -1499,52 +1530,52 @@ footer {
 
 @media(min-width:1200px) {}
 
-@media(max-width:767px) {
-  .topic {
-    font-size: 18px;
-    padding-top: 5px;
+  @media(max-width:767px) {
+    .topic {
+      font-size: 18px;
+      padding-top: 5px;
+    }
+    .nav-brand-logo {
+      height: 20px;
+    }
+    .u-height65 {
+      height: 40px;
+    }
+    .u-paddingRight90 {
+      padding-right: 10px;
+    }
+    .u-paddingLeft90 {
+      padding-left: 10px;
+    }
+    .u-height40 {
+      height: 37px;
+    }
+    .load-text {
+      font-size: 16px;
+    }
+    .buttonset {
+      margin: 15px 5px 5px 10px;
+      font-size: 12px;
+    }
+    .u-width50 {
+      width: 100%;
+    }
   }
-  .nav-brand-logo {
-    height: 20px;
-  }
-  .u-height65 {
-    height: 40px;
-  }
-  .u-paddingRight90 {
-    padding-right: 10px;
-  }
-  .u-paddingLeft90 {
-    padding-left: 10px;
-  }
-  .u-height40 {
-    height: 37px;
-  }
-  .load-text {
-    font-size: 16px;
-  }
-  .buttonset {
-    margin: 15px 5px 5px 10px;
-    font-size: 12px;
-  }
-  .u-width50 {
-    width: 100%;
-  }
-}
 
-@media (max-width:992px) {
-  .chart-fixed {
-    position: relative;
+  @media (max-width:992px) {
+    .chart-fixed {
+      position: relative;
+    }
   }
-}
 
 
-/* CONTACT
+  /* CONTACT
   -------------------------------------------------- */
 
-.contact-form {
-  background-color: #587A95
-}
+  .contact-form {
+    background-color: #587A95
+  }
 
-.contact-content {
-  height: auto;
-}
+  .contact-content {
+    height: auto;
+  }

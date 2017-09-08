@@ -31,7 +31,7 @@ var mixin = {
         }
       });
     }
-  }
+  },
 };
 
 module.exports = mixin;
