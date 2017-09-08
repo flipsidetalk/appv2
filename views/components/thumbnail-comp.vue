@@ -2,7 +2,7 @@
   <div>
     <div class="row section">
       <div class="col-md-offset-1 col-md-10">
-        <div class="u-borderBox u-maxWidth1000 u-marginAuto u-clearfix">
+        <div class="u-borderBox u-maxWidth1200 u-marginAuto u-clearfix">
           <header class="u-borderBox u-marginBottom25 u-xs-flexWrap u-borderBottomLighter">
             <div class="u-flex1 u-flexTop u-justifyContentSpaceBetween">
               <span class="heading-title heading-title--lineHeightTight u-uiDisplayBold u-fontSize20 u-textColorDarker u-block u-paddingBottom20 u-xs-fontSize18 u-borderBottomNormal u-marginBottomNegative1">

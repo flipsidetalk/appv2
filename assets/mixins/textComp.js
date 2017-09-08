@@ -83,15 +83,13 @@ var mixin = {
   },
   mounted: function(){
     window.addEventListener('mousedown', function (textcomp) {
-      console.log(
-        "hello"
-      );
       textcomp.tooldisplay = 'none';
-      textcomp.isHighlighted = false;
+      console.log(
+        "AYE"
+      );
     });
 
     var modal = document.getElementById('talkModal');
-
     // Get the button that opens the modal
     var btn = document.getElementById("myBtn");
 

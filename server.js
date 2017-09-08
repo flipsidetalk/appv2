@@ -202,6 +202,7 @@ app.get('/article/:slug', function(req, res) {
           talktop: "0px",
           talkdisplay: "none",
           toolcolor: '#2b2b2b',
+          hasvotes: false,
 
           lastReferenced: "a3s0",
           response: {
@@ -215,7 +216,70 @@ app.get('/article/:slug', function(req, res) {
             vote: ""
           },
           whyResponses: [],
-          user: req.user
+          user: req.user,
+
+
+          bubbleData: [{
+              group: -1,
+              size: 10,
+              users: ["a", "b"],
+              sentences: [{
+                  sentenceId: "660",
+                  average: .50,
+                  agree: 0.33,
+                  disagree: 0.33,
+                  unsure: 0.33
+                },
+                {
+                  sentenceId: "a1s2",
+                  average: .40,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.30
+                }
+              ]
+            },
+            {
+              group: 1,
+              size: 10,
+              users: ["a", "b"],
+              sentences: [{
+                  sentenceId: "a1s1",
+                  average: .50,
+                  agree: 0.33,
+                  disagree: 0.33,
+                  unsure: 0.33
+                },
+                {
+                  sentenceId: "a1s2",
+                  average: .40,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.30
+                }
+              ]
+            },
+            {
+              group: 2,
+              size: 30,
+              users: ["a", "b"],
+              sentences: [{
+                  sentenceId: "a1s1",
+                  average: .50,
+                  agree: 0.33,
+                  disagree: 0.33,
+                  unsure: 0.33
+                },
+                {
+                  sentenceId: "a1s2",
+                  average: 0.6,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.30
+                }
+              ]
+            }
+          ],
         },
         mapcomp: {
           groupInfo: {
@@ -285,6 +349,26 @@ app.get('/article/:slug', function(req, res) {
           ],
 
           bubbleData: [{
+              group: -1,
+              size: 10,
+              users: ["a", "b"],
+              sentences: [{
+                  sentenceId: "a1s1",
+                  average: .50,
+                  agree: 0.33,
+                  disagree: 0.33,
+                  unsure: 0.33
+                },
+                {
+                  sentenceId: "a1s2",
+                  average: .40,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.30
+                }
+              ]
+            },
+            {
               group: 1,
               size: 10,
               users: ["a", "b"],
@@ -338,7 +422,8 @@ app.get('/article/:slug', function(req, res) {
           user: req.user
         },
         commentscomp: {
-          showComment: false
+          showComment: false,
+          hey: "hello"
         }
       };
       /* Get viz, article, and comment data in parallel,

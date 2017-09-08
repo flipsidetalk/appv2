@@ -12,7 +12,7 @@
     </div>
     <div id="root">
       <div class="container content textcomp.article">
-        <div class="section-content u-maxWidth1000">
+        <div class="section-content u-maxWidth1200">
           <div class="row white">
             <div class="col-sm-offset-2 col-sm-8">
               <!--<p>{{textcomp.lastReferenced}}</p>

@@ -5,7 +5,7 @@
 
     <div class="row section section-first-text">
       <div class="col-md-offset-1 col-md-8 u-paddingTop50">
-        <div class="u-maxWidth1000 u-marginAuto">
+        <div class="u-maxWidth1200 u-marginAuto">
           <div class="bumpDown">
             <h1>Aiya !!</h1>
             <h2 class="u-lighter">We can't seem to find the page you're looking for.</h2>

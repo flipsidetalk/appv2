@@ -1,7 +1,7 @@
 <template>
   <div class="row section section-first-text">
     <div class="col-md-offset-1 col-md-8 u-paddingTop50">
-      <div class="u-maxWidth1000 u-marginAuto">
+      <div class="u-maxWidth1200 u-marginAuto">
         <div class="bumpDown">
           <h1>Flipside</h1>
           <h2 class="u-lighter">Share stories for better discourse</h2>
