@@ -1,10 +1,24 @@
 var mixin = {
   methods: {
 
+    getBubble: function(id, mapcomp){
+    },
+
+    getRGB: function(averageValue, mapcomp){
+
+      if (averageValue >= 0) { //this means agree
+        return "rgba()"
+      }
+    },
+
     changeBubbles: function(inputSentenceId, mapcomp) {
       //m = object that is the sentence dictionary
       //mindex = index of sentence dict within the list of sentences
       //sentenceId = sentenceId
+      var a = 0.3;
+      var testgroup = document.getElementById('group1');
+      testgroup.style.fill = "rgba(82, 174, 251, 0.4)";
+
       mapcomp.groupSimple = [];
       for (var index in mapcomp.bubbleData) { //for every bubble group
         var groupObj = mapcomp.bubbleData[index]
@@ -35,65 +49,64 @@ var mixin = {
     }
   },
   mounted: function() {
-    var diameter = 500; //max size of the bubbles
+    var diameter = 400; //max size of the bubbles
     var color = d3.scaleOrdinal(d3.schemeCategory20c);
 
     var groupSize = this.mapcomp.groupSimple;
     //var bubble = d3.layout.pack().sort(null).size([diameter, diameter]).padding(1.5);
 
     var svg = d3.select(".bubbleMap")
-      .append("svg")
-      .attr("width", diameter)
-      .attr("height", diameter)
-      .attr("class", "bubble")
-      .append("g")
-      .attr("transform", "translate(0,0)");
+    .append("svg")
+    .attr("width", diameter)
+    .attr("height", diameter)
+    .attr("class", "bubble")
+    .append("g")
+    .attr("transform", "translate(0,0)");
 
 
     var tooltip = d3.select("body")
-      .append("div")
-      .style("position", "absolute")
-      .style("z-index", "10")
-      .style("visibility", "hidden")
-      .style("color", "white")
-      .style("padding", "8px")
-      .style("background-color", "rgba(0, 0, 0, 0.75)")
-      .style("border-radius", "6px")
-      .style("font", "15px sans-serif")
-      .text("tooltip");
+    .append("div")
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("visibility", "hidden")
+    .style("color", "white")
+    .style("padding", "8px")
+    .style("background-color", "rgba(0, 0, 0, 0.75)")
+    .style("border-radius", "6px")
+    .style("font", "15px sans-serif")
+    .text("tooltip");
 
-    var radiusScale = d3.scaleSqrt().domain([10, 60]).range([50, 90]);
+    var radiusScale = d3.scaleSqrt().domain([10, 60]).range([30, 75]);
+    var a = this.mapcomp;
 
     var simulation = d3.forceSimulation()
-      .force("x", d3.forceX(diameter / 2).strength(0.05))
-      .force("y", d3.forceY(diameter / 2).strength(0.05))
-      .force("collide", d3.forceCollide(function(d) {
-        return radiusScale(d.size + 1);
-      }));
+    .force("x", d3.forceX(diameter / 2).strength(0.05))
+    .force("y", d3.forceY(diameter / 2).strength(0.05))
+    .force("collide", d3.forceCollide(function(d) {
+      return radiusScale(d.size + 1);
+    }));
 
     var circles = svg.selectAll("circle")
-      .data(groupSize)
-      .enter().append("circle")
-      .attr("id", function(d) {
-        return d.label;
-      })
-      .attr("r", function(d) {
-        return radiusScale(d.size)
-      })
-      .attr("fill", "lightblue")
-      .on("click", function(d) {
-        console.log(d)
-      })
-      .on("mouseover", function(d) {
-        tooltip.text(d.label + '\n\n' + d.sentenceId);
-        tooltip.style("visibility", "visible");
-      })
-      .on("mousemove", function() {
-        return tooltip.style("top", (d3.event.pageY + 24) + "px").style("left", (d3.event.pageX - 10) + "px").style("height", (80) + "px");
-      })
-      .on("mouseout", function() {
-        return tooltip.style("visibility", "hidden");
-      });
+    .data(groupSize)
+    .enter().append("circle")
+    .attr("id", function(d) {
+      return d.label;
+    })
+    .attr("r", function(d) {
+      return radiusScale(d.size)
+    })
+    .attr("class", "aBubble")
+    .attr("fill", "lightblue")
+    .on("mouseover", function(d) {
+      tooltip.text(d.label + '\n\n' + d.sentenceId);
+      tooltip.style("visibility", "visible");
+    })
+    .on("mousemove", function() {
+      return tooltip.style("top", (d3.event.pageY + 24) + "px").style("left", (d3.event.pageX - 10) + "px").style("height", (80) + "px");
+    })
+    .on("mouseout", function() {
+      return tooltip.style("visibility", "hidden");
+    });
     //  .text(function(d) { return d.label; });
 
     /*  .attr("dy", ".3em")
@@ -104,16 +117,16 @@ var mixin = {
     */
 
     simulation.nodes(groupSize)
-      .on("tick", ticked)
+    .on("tick", ticked)
 
     function ticked() {
       circles
-        .attr("cx", function(d) {
-          return d.x
-        })
-        .attr("cy", function(d) {
-          return d.y
-        })
+      .attr("cx", function(d) {
+        return d.x
+      })
+      .attr("cy", function(d) {
+        return d.y
+      })
     }
   }
 }

@@ -1,4 +1,5 @@
 <template>
+<div>
 <div class="col-md-6">
   <div class="clusterMapOutput">
     <div class="d3stuff">
@@ -7,7 +8,7 @@
       <div class="bubbleMap"></div>
     </div>
   </div>
-
+  {{mapcomp.thisBubble}}
   <div class="">
     <span class="u-fontSize25">passages:</span>
     <span v-for="(m, mindex) in mapcomp.bubbleData[0].sentences">
@@ -16,6 +17,7 @@
     <span>{{mapcomp.groupSimple}}</span>
   </div>
 
+</div>
 </div>
 </template>
 
@@ -27,7 +29,7 @@ export default {
   data: function() {
     return ['mapcomp']
   },
-  props: ['mapcomp']
+  props: ['mapcomp'],
 }
 </script>
 

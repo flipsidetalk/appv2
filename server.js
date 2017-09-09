@@ -192,7 +192,6 @@ app.get('/article/:slug', function(req, res) {
           user: req.user
         },
         textcomp: {
-
           tempseen: false,
           /*** TOOLTIP ATTRIBUTES ***/
           tooldisplay: "none",
@@ -217,71 +216,9 @@ app.get('/article/:slug', function(req, res) {
           },
           whyResponses: [],
           user: req.user,
-
-
-          bubbleData: [{
-              group: -1,
-              size: 10,
-              users: ["a", "b"],
-              sentences: [{
-                  sentenceId: "660",
-                  average: .50,
-                  agree: 0.33,
-                  disagree: 0.33,
-                  unsure: 0.33
-                },
-                {
-                  sentenceId: "a1s2",
-                  average: .40,
-                  agree: 0.40,
-                  disagree: 0.30,
-                  unsure: 0.30
-                }
-              ]
-            },
-            {
-              group: 1,
-              size: 10,
-              users: ["a", "b"],
-              sentences: [{
-                  sentenceId: "a1s1",
-                  average: .50,
-                  agree: 0.33,
-                  disagree: 0.33,
-                  unsure: 0.33
-                },
-                {
-                  sentenceId: "a1s2",
-                  average: .40,
-                  agree: 0.40,
-                  disagree: 0.30,
-                  unsure: 0.30
-                }
-              ]
-            },
-            {
-              group: 2,
-              size: 30,
-              users: ["a", "b"],
-              sentences: [{
-                  sentenceId: "a1s1",
-                  average: .50,
-                  agree: 0.33,
-                  disagree: 0.33,
-                  unsure: 0.33
-                },
-                {
-                  sentenceId: "a1s2",
-                  average: 0.6,
-                  agree: 0.40,
-                  disagree: 0.30,
-                  unsure: 0.30
-                }
-              ]
-            }
-          ],
         },
         mapcomp: {
+          thisBubble: "brown",
           groupInfo: {
             label: "",
             size: "",
@@ -347,20 +284,27 @@ app.get('/article/:slug', function(req, res) {
               unsure: ""
             }
           ],
-
+          claimIds: [],
           bubbleData: [{
               group: -1,
               size: 10,
               users: ["a", "b"],
               sentences: [{
-                  sentenceId: "a1s1",
+                  sentenceId: "905",
                   average: .50,
                   agree: 0.33,
                   disagree: 0.33,
                   unsure: 0.33
                 },
                 {
-                  sentenceId: "a1s2",
+                  sentenceId: "902",
+                  average: .40,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.30
+                },
+                {
+                  sentenceId: "okay",
                   average: .40,
                   agree: 0.40,
                   disagree: 0.30,
@@ -373,7 +317,89 @@ app.get('/article/:slug', function(req, res) {
               size: 10,
               users: ["a", "b"],
               sentences: [{
-                  sentenceId: "a1s1",
+                  sentenceId: "hey",
+                  average: .50,
+                  agree: 0.33,
+                  disagree: 0.33,
+                  unsure: 0.33
+                },
+                {
+                  sentenceId: "there",
+                  average: .40,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.30
+                },
+                {
+                  sentenceId: "yo",
+                  average: .40,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.30
+                }
+              ]
+            },
+            {
+              group: 2,
+              size: 10,
+              users: ["a", "b"],
+              sentences: [{
+                  sentenceId: "hello",
+                  average: .50,
+                  agree: 0.33,
+                  disagree: 0.33,
+                  unsure: 0.33
+                },
+                {
+                  sentenceId: "hi",
+                  average: .40,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.30
+                },
+                {
+                  sentenceId: "now",
+                  average: .40,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.30
+                }
+
+              ]
+            },
+            {
+              group: 3,
+              size: 10,
+              users: ["a", "b"],
+              sentences: [{
+                  sentenceId: "what",
+                  average: .50,
+                  agree: 0.33,
+                  disagree: 0.33,
+                  unsure: 0.33
+                },
+                {
+                  sentenceId: "now",
+                  average: .40,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.30
+                },
+                {
+                  sentenceId: "ok",
+                  average: .40,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.30
+                }
+              ]
+            },
+            {
+              group: 4,
+              size: 10,
+              users: ["a", "b"],
+              sentences: [{
+                  sentenceId: "905",
                   average: .50,
                   agree: 0.33,
                   disagree: 0.33,
@@ -389,11 +415,11 @@ app.get('/article/:slug', function(req, res) {
               ]
             },
             {
-              group: 2,
+              group: 5,
               size: 30,
               users: ["a", "b"],
               sentences: [{
-                  sentenceId: "a1s1",
+                  sentenceId: "905",
                   average: .50,
                   agree: 0.33,
                   disagree: 0.33,
