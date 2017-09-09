@@ -19,6 +19,8 @@
                 </span>
               </span>
               <h4></h4>
+              <p>{{mapcomp.displayClaim}}</p>
+
             </span>
           </div>
 

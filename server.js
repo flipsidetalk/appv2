@@ -284,27 +284,33 @@ app.get('/article/:slug', function(req, res) {
               unsure: ""
             }
           ],
-          claimIds: [],
+          displayClaim: [],
+          eachClaim: {
+            sentenceId: "",
+            text: "",
+            agreeable: "",
+            percent: "",
+          },
           bubbleData: [{
               group: -1,
               size: 10,
               users: ["a", "b"],
               sentences: [{
-                  sentenceId: "905",
+                  sentenceId: 856,
                   average: .50,
                   agree: 0.33,
                   disagree: 0.33,
                   unsure: 0.33
                 },
                 {
-                  sentenceId: "902",
+                  sentenceId: 857,
                   average: .40,
                   agree: 0.40,
                   disagree: 0.30,
                   unsure: 0.30
                 },
                 {
-                  sentenceId: "okay",
+                  sentenceId: 858,
                   average: .40,
                   agree: 0.40,
                   disagree: 0.30,
@@ -317,21 +323,21 @@ app.get('/article/:slug', function(req, res) {
               size: 10,
               users: ["a", "b"],
               sentences: [{
-                  sentenceId: "hey",
+                  sentenceId: 856,
                   average: .50,
                   agree: 0.33,
                   disagree: 0.33,
                   unsure: 0.33
                 },
                 {
-                  sentenceId: "there",
+                  sentenceId: 857,
                   average: .40,
                   agree: 0.40,
                   disagree: 0.30,
                   unsure: 0.30
                 },
                 {
-                  sentenceId: "yo",
+                  sentenceId: 858,
                   average: .40,
                   agree: 0.40,
                   disagree: 0.30,
@@ -344,21 +350,21 @@ app.get('/article/:slug', function(req, res) {
               size: 10,
               users: ["a", "b"],
               sentences: [{
-                  sentenceId: "hello",
+                  sentenceId: 860,
                   average: .50,
                   agree: 0.33,
                   disagree: 0.33,
                   unsure: 0.33
                 },
                 {
-                  sentenceId: "hi",
+                  sentenceId: 863,
                   average: .40,
                   agree: 0.40,
                   disagree: 0.30,
                   unsure: 0.30
                 },
                 {
-                  sentenceId: "now",
+                  sentenceId: 867,
                   average: .40,
                   agree: 0.40,
                   disagree: 0.30,
@@ -372,21 +378,21 @@ app.get('/article/:slug', function(req, res) {
               size: 10,
               users: ["a", "b"],
               sentences: [{
-                  sentenceId: "what",
+                  sentenceId: 860,
                   average: .50,
                   agree: 0.33,
                   disagree: 0.33,
                   unsure: 0.33
                 },
                 {
-                  sentenceId: "now",
+                  sentenceId: 862,
                   average: .40,
                   agree: 0.40,
                   disagree: 0.30,
                   unsure: 0.30
                 },
                 {
-                  sentenceId: "ok",
+                  sentenceId: 858,
                   average: .40,
                   agree: 0.40,
                   disagree: 0.30,
