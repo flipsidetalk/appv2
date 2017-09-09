@@ -256,8 +256,10 @@ class Spectrum:
                         for question in self.relevant_questions[i]:
                             claim_data = dict()
                             claim_data['sentenceId'] = question
-                            avg, proportions = self.get_numbers(i, question)
+                            avg,controversiality, num_votes,proportions = self.get_numbers(i, question)
                             claim_data['average'] = avg
+                            claim_data['controversiality'] = controversiality
+                            claim_data['num_votes'] = num_votes
                             for answer, direction in zip([-1,0,1], ['disagree', 'not sure', 'agree']):
                                 if answer in proportions.keys():
                                     claim_data[direction] = proportions[answer]
@@ -281,7 +283,10 @@ class Spectrum:
         
         group_answers = {}
         avg = None
-        if len(votes) >= self.min_votes:
+        controversiality = None
+        num_votes = len(votes)
+        if num_votes >= self.min_votes:
+            controversiality = np.std(votes) / np.sqrt(num_votes)
             avg = np.mean(votes)
             votes = np.array(votes)
             total = 0
@@ -289,7 +294,7 @@ class Spectrum:
                 num_votes = np.where(votes == answer)[0].shape[0]
                 group_answers[answer] = num_votes / len(votes)
         
-        return avg,  group_answers
+        return avg,controversiality,  num_votes, group_answers
 
     def get_agreement_phrase(self, i, question):
         value = self.average_answer(i, question)
