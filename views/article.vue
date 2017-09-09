@@ -12,15 +12,45 @@
             <span class="">
               {{mapcomp.claimIds}}
               <h4 class="">the ideas within our bubbles:</h4>
-              <span type="button" class="keyButtons u-lighter purpleBackground" name="keybutton">all of us</span>
+              <span type="button" class="keyButtons u-lighter purpleBackground" name="keybutton" v-on:click="fetchEveryone(textcomp, mapcomp)">everyone</span>
               <span v-for="m in mapcomp.bubbleData">
-                <span v-if="m.group != -1">
+                <span v-if="m.group != 'everyone'">
                   <span type="button" class="keyButtons u-lighter u-fontSize20 purpleBackground" name="keybutton" v-bind:id="m.group" v-on:click="fetchClaims(m.group, textcomp, mapcomp)">{{m.group}}</span>
                 </span>
               </span>
               <h4></h4>
-              <p>{{mapcomp.displayClaim}}</p>
+              <p>{{mapcomp.arrayClaim}}</p>
 
+              <div class="everyone" v-bind:style="{display: mapcomp.displayEveryone}">
+                This is for everyone!
+
+
+              {{mapcomp.arrayEveryone[mapcomp.displayCounter]}}
+              <br>
+              Counter: {{mapcomp.displayCounter}}
+                <button type="button" name="button" v-on:click="fetchNextClaim(mapcomp)"></button>
+
+
+
+              </div>
+
+              <div v-bind:style="{display: mapcomp.displayIndividual}">
+                <div v-for="m in mapcomp.arrayClaim">
+                  <div v-bind:class="m.agreeable" class="commentBlock">
+                    <div class="commentHeader">
+                      <div v-if="m.agreeable == 'agreeBlock'" class="u-lighter">
+                        {{m.percent*100}}% in AGREEMENT
+                      </div>
+                      <div v-else class="u-lighter">
+                        {{m.percent*100}}% in DISAGREEMENT
+                      </div>
+                    </div>
+                    <div class="commentSection">
+                      <h5 class="u-lighter">{{m.text}}</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </span>
           </div>
 
