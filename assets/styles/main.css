@@ -875,7 +875,10 @@ input:checked+label {
   text-decoration: none;
   color: #ffffff!important;
   transition: 2s;
+}
 
+.transition2{
+  transition: 2s;
 }
 
 /* TOOLTIP

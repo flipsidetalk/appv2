@@ -19,19 +19,30 @@
                 </span>
               </span>
               <h4></h4>
-              <p>{{mapcomp.arrayClaim}}</p>
-
               <div class="everyone" v-bind:style="{display: mapcomp.displayEveryone}">
-                This is for everyone!
-
-
-              {{mapcomp.arrayEveryone[mapcomp.displayCounter]}}
-              <br>
-              Counter: {{mapcomp.displayCounter}}
-                <button type="button" name="button" v-on:click="fetchNextClaim(mapcomp)"></button>
-
-
-
+                <div v-for="(m, mindex) in mapcomp.arrayEveryone">
+                  <div v-if="mapcomp.displayCounter == mindex">
+                      <div class="commentHeader">
+                        <h4 class="u-lighter">{{m.text}}</h4>
+                      </div>
+                      <div class="commentBlock agreeBlock .transition2" v-bind:style="{width: m.agree*100 + '%'}">
+                        <div class="commentHeader">
+                          <h4 class="u-lighter">{{m.agree*100}}% agree</h4>
+                        </div>
+                      </div>
+                      <div class="commentBlock disagreeBlock .transition2" v-bind:style="{width: m.disagree*100 + '%'}">
+                        <div class="commentHeader">
+                          <h4 class="u-lighter">{{m.disagree*100}}% disagree</h4>
+                        </div>
+                      </div>
+                      <div class="commentBlock purpleBackground .transition2" v-bind:style="{width: m.unsure*100 + '%'}">
+                        <div class="commentHeader">
+                          <h4 class="u-lighter">{{m.unsure*100}}% unsure</h4>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <button type="button" name="button" class="keyButtons u-lighter u-fontSize20 u-floatRight" v-on:click="fetchNextClaim(mapcomp)">Next -></button>
               </div>
 
               <div v-bind:style="{display: mapcomp.displayIndividual}">
