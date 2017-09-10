@@ -188,7 +188,7 @@ class Spectrum:
     output = {"clusterData": clusterData, "pointData":pointData, "shadeData": shadeData}
     '''
     def get_visualization_data(self):
-        if self.groups is not None:
+            '''
             if self.graph_low_votes:
                 data = {"clusterData" : [], "pointData" : {}, "shadeData":[]}
                 index_by_ind = {v[0]:k for k,v in self.users.items()}
@@ -235,13 +235,18 @@ class Spectrum:
                         relevant_positions = [{"sentenceId":question,"cluster":int(i), "average":self.average_answer(i, question), "phrase": self.get_agreement_phrase(i,question)} for question in self.relevant_questions[i]]
                         data["clusterData"].append(relevant_positions)
                 return data
-            else:
+                '''
+            if len(self.votes_to_consider) != 0:
                 data = []
                 index_by_ind = {v[0]:k for k,v in self.users.items()}
                 if self.users_to_graph is not None:
                     user_ids = [index_by_ind[ind] for ind in self.users_to_graph]
                 #Adding group placeholder for people who aren't considered yet
+                clusters = self.groups is not None
                 for i in range(-1, self.k):
+                    if not clusters:
+                        if i > -1:
+                            return data
                     group = dict()
                     group['group'] = i
                     users = []
@@ -272,9 +277,8 @@ class Spectrum:
                     data.append(group)
                     del group
                 return data
-        else:
-            return {}
-
+            else:
+                return []
 
     def range_normalize(self, minimum, maximum, newmin, newmax, value):
         if value == 0:
