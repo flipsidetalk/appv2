@@ -95,7 +95,7 @@ var mixin = {
       return radiusScale(d.size)
     })
     .attr("class", "aBubble")
-    .attr("fill", "lightblue")
+    .attr("fill", "rgba(173, 173, 173, 0.5)")
     .on("mouseover", function(d) {
       tooltip.text("group " + d.group);
       tooltip.style("visibility", "visible");
@@ -106,6 +106,14 @@ var mixin = {
     .on("mouseout", function() {
       return tooltip.style("visibility", "hidden");
     });
+
+/*
+    $(".aBubble").on("click", function() {
+        $(".aBubble").removeClass("borderClass");
+        var content_id = $(this).attr('id');
+        $(this).addClass("borderClass");
+      });
+*/
     //  .text(function(d) { return d.group; });
 
     /*  .attr("dy", ".3em")

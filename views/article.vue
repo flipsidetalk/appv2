@@ -22,7 +22,9 @@
               <div class="everyone" v-bind:style="{display: mapcomp.displayEveryone}">
                 <div v-for="(m, mindex) in mapcomp.arrayEveryone">
                   <div v-if="mapcomp.displayCounter == mindex">
+                      tempsentenceId: {{mapcomp.tempsentenceId}}
                       <div class="commentHeader">
+                        actualId: {{m.sentenceId}}
                         <h4 class="u-lighter">{{m.text}}</h4>
                       </div>
                       <div class="commentBlock agreeBlock .transition2" v-bind:style="{width: m.agree*100 + '%'}">
@@ -42,7 +44,7 @@
                       </div>
                   </div>
                 </div>
-                <button type="button" name="button" class="keyButtons u-lighter u-fontSize20 u-floatRight" v-on:click="fetchNextClaim(mapcomp)">Next -></button>
+                <button type="button" name="button" class="keyButtons u-lighter u-fontSize20 u-floatRight" v-on:click="fetchNextClaim(mapcomp), colorBubbles(mapcomp)">Next -></button>
               </div>
 
               <div v-bind:style="{display: mapcomp.displayIndividual}">

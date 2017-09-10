@@ -218,8 +218,7 @@ app.get('/article/:slug', function(req, res) {
           user: req.user,
         },
         mapcomp: {
-          isActive: "",
-          thisBubble: "brown",
+          tempsentenceId: "",
           groupInfo: {
             label: "",
             size: "",
@@ -285,10 +284,17 @@ app.get('/article/:slug', function(req, res) {
               unsure: ""
             }
           ],
+
+          bubbleShades: [],
+          bubbleShade: {
+            group: '',
+            fill: ''
+          },
+
+
           displayCounter: 0,
           displayEveryone: 'block',
           displayIndividual: 'none',
-
           arrayEveryone: [],
           eachEveryone: {
             sentenceId: '',
@@ -345,21 +351,28 @@ app.get('/article/:slug', function(req, res) {
               users: ["a", "b"],
               sentences: [{
                   sentenceId: 856,
-                  average: .50,
+                  average: -.50,
                   agree: 0.33,
-                  disagree: 0.33,
-                  unsure: 0.33
+                  disagree: 0.50,
+                  unsure: 0.17
                 },
                 {
                   sentenceId: 857,
-                  average: -.40,
+                  average: .39,
                   agree: 0.40,
                   disagree: 0.30,
-                  unsure: 0.30
+                  unsure: 0.20
                 },
                 {
                   sentenceId: 858,
-                  average: .40,
+                  average: -.74,
+                  agree: 0.47,
+                  disagree: 0.31,
+                  unsure: 0.80
+                },
+                {
+                  sentenceId: 858,
+                  average: .39,
                   agree: 0.40,
                   disagree: 0.30,
                   unsure: 0.30
@@ -371,27 +384,33 @@ app.get('/article/:slug', function(req, res) {
               size: 30,
               users: ["a", "b"],
               sentences: [{
-                  sentenceId: 860,
-                  average: .50,
+                  sentenceId: 856,
+                  average: .74,
                   agree: 0.33,
-                  disagree: 0.33,
-                  unsure: 0.33
+                  disagree: 0.50,
+                  unsure: 0.17
                 },
                 {
-                  sentenceId: 863,
-                  average: .40,
+                  sentenceId: 857,
+                  average: -.39,
                   agree: 0.40,
                   disagree: 0.30,
-                  unsure: 0.30
+                  unsure: 0.20
                 },
                 {
-                  sentenceId: 867,
+                  sentenceId: 858,
                   average: .40,
+                  agree: 0.47,
+                  disagree: 0.31,
+                  unsure: 0.80
+                },
+                {
+                  sentenceId: 858,
+                  average: -.40,
                   agree: 0.40,
                   disagree: 0.30,
                   unsure: 0.30
                 }
-
               ]
             },
             {
@@ -399,22 +418,29 @@ app.get('/article/:slug', function(req, res) {
               size: 40,
               users: ["a", "b"],
               sentences: [{
-                  sentenceId: 860,
+                  sentenceId: 856,
                   average: .50,
                   agree: 0.33,
-                  disagree: 0.33,
-                  unsure: 0.33
+                  disagree: 0.50,
+                  unsure: 0.17
                 },
                 {
-                  sentenceId: 862,
+                  sentenceId: 857,
                   average: .40,
                   agree: 0.40,
                   disagree: 0.30,
-                  unsure: 0.30
+                  unsure: 0.20
                 },
                 {
                   sentenceId: 858,
-                  average: .40,
+                  average: .39,
+                  agree: 0.47,
+                  disagree: 0.31,
+                  unsure: 0.80
+                },
+                {
+                  sentenceId: 858,
+                  average: -.40,
                   agree: 0.40,
                   disagree: 0.30,
                   unsure: 0.30
@@ -426,15 +452,29 @@ app.get('/article/:slug', function(req, res) {
               size: 50,
               users: ["a", "b"],
               sentences: [{
-                  sentenceId: "905",
-                  average: .50,
+                  sentenceId: 856,
+                  average: .74,
                   agree: 0.33,
-                  disagree: 0.33,
-                  unsure: 0.33
+                  disagree: 0.50,
+                  unsure: 0.17
                 },
                 {
-                  sentenceId: "a1s2",
-                  average: .40,
+                  sentenceId: 857,
+                  average: -.40,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.20
+                },
+                {
+                  sentenceId: 858,
+                  average: .39,
+                  agree: 0.47,
+                  disagree: 0.31,
+                  unsure: 0.80
+                },
+                {
+                  sentenceId: 858,
+                  average: .74,
                   agree: 0.40,
                   disagree: 0.30,
                   unsure: 0.30
@@ -446,15 +486,29 @@ app.get('/article/:slug', function(req, res) {
               size: 60,
               users: ["a", "b"],
               sentences: [{
-                  sentenceId: "905",
-                  average: .50,
+                  sentenceId: 856,
+                  average: .70,
                   agree: 0.33,
-                  disagree: 0.33,
-                  unsure: 0.33
+                  disagree: 0.50,
+                  unsure: 0.17
                 },
                 {
-                  sentenceId: "a1s2",
-                  average: 0.6,
+                  sentenceId: 857,
+                  average: .30,
+                  agree: 0.40,
+                  disagree: 0.30,
+                  unsure: 0.20
+                },
+                {
+                  sentenceId: 858,
+                  average: .90,
+                  agree: 0.47,
+                  disagree: 0.31,
+                  unsure: 0.80
+                },
+                {
+                  sentenceId: 858,
+                  average: .80,
                   agree: 0.40,
                   disagree: 0.30,
                   unsure: 0.30

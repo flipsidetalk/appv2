@@ -63,6 +63,7 @@ var mixin = {
           }
         }
       }
+      mapcomp.tempsentenceId = mapcomp.arrayEveryone[mapcomp.displayCounter].sentenceId;
     },
 
     fetchNextClaim: function(mapcomp){
@@ -70,11 +71,48 @@ var mixin = {
       if (mapcomp.displayCounter >= mapcomp.arrayEveryone.length-1) {
         mapcomp.displayCounter = 0;
       }
+
+      mapcomp.tempsentenceId = mapcomp.arrayEveryone[mapcomp.displayCounter].sentenceId;
     },
     borderBubble: function(groupId, mapcomp){
 
       $(".aBubble").removeClass("borderClass");
       $('#'+groupId).addClass("borderClass");
+    },
+
+    colorBubbles: function(mapcomp){
+      var sentenceShowing = mapcomp.tempsentenceId;
+      for (var m of mapcomp.bubbleData) {
+        if (m.group != -1) {
+          for (var s of m.sentences) {
+            if (s.sentenceId == sentenceShowing) {
+              mapcomp.bubbleShade.group = m.group;
+              var opacity = Math.abs(s.average)
+              if (s.average > 0) {
+                //fill should be green
+                mapcomp.bubbleShade.fill = 'rgba(104, 207, 174,'+ opacity + ')'
+              }
+              else {
+                //fill should be red
+                mapcomp.bubbleShade.fill = 'rgba(235, 115, 115,'+ opacity + ')'
+              }
+              mapcomp.bubbleShades.push(mapcomp.bubbleShade);
+              mapcomp.bubbleShade = {
+                group: '',
+                fill: ''
+              };
+            }
+          }
+        }
+      }
+
+      console.log(mapcomp.bubbleShades);
+      for (m of mapcomp.bubbleShades) {
+        var bubbleId = m.group;
+        var bubbleFill = m.fill;
+        $('#'+bubbleId).attr("fill", bubbleFill);
+      }
+
     }
   }
 };
