@@ -70,7 +70,7 @@ module.exports.vue = function(pageTitle) {
         {
           rel: 'icon',
           type: 'image/png',
-          href: 'favicon.ico'
+          href: '/favicon.ico'
         },
         {
           script: 'https://unpkg.com/vue@2.4.2/dist/vue.js'

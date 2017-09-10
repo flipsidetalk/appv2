@@ -103,12 +103,15 @@ sequelize.sync()
 
 // Logs HTTP requests
 app.use(morgan('combined'));
-// Necessary for Express to parse the body of POST requests
+// Enables Express to parse the body of POST requests
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 // Directs Node to the location of static files
 app.use(express.static(path.join(__dirname, 'assets')));
+// Serves favicon
+app.use('/favicon.ico', express.static('favicon.ico'));
+
 
 /* Set up rate limiting
  */
