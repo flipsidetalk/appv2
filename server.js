@@ -310,7 +310,7 @@ app.get('/article/:slug', function(req, res) {
             agreeable: "",
             percent: "",
           },
-
+          thisBubble: "test test",
           bubbleData: [{
               group: -1,
               size: 10,
@@ -406,7 +406,7 @@ app.get('/article/:slug', function(req, res) {
                 },
                 {
                   sentenceId: 858,
-                  average: -.40,
+                  average: .40,
                   agree: 0.40,
                   disagree: 0.30,
                   unsure: 0.30
@@ -440,7 +440,7 @@ app.get('/article/:slug', function(req, res) {
                 },
                 {
                   sentenceId: 858,
-                  average: -.40,
+                  average: .40,
                   agree: 0.40,
                   disagree: 0.30,
                   unsure: 0.30
@@ -460,7 +460,7 @@ app.get('/article/:slug', function(req, res) {
                 },
                 {
                   sentenceId: 857,
-                  average: -.40,
+                  average: .40,
                   agree: 0.40,
                   disagree: 0.30,
                   unsure: 0.20

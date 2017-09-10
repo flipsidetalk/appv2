@@ -52,7 +52,7 @@ var mixin = {
     var diameter = 400; //max size of the bubbles
     var color = d3.scaleOrdinal(d3.schemeCategory20c);
 
-    var bubbleData = this.mapcomp.bubbleData;
+    var bubbleData = this.mapcomp.bubbleData.slice(1);
     //var bubble = d3.layout.pack().sort(null).size([diameter, diameter]).padding(1.5);
 
     var svg = d3.select(".bubbleMap")
@@ -106,22 +106,6 @@ var mixin = {
     .on("mouseout", function() {
       return tooltip.style("visibility", "hidden");
     });
-
-/*
-    $(".aBubble").on("click", function() {
-        $(".aBubble").removeClass("borderClass");
-        var content_id = $(this).attr('id');
-        $(this).addClass("borderClass");
-      });
-*/
-    //  .text(function(d) { return d.group; });
-
-    /*  .attr("dy", ".3em")
-    .style("text-anchor", "middle")
-    .style("pointer-events", "none")
-    .style("z-index", "500!important")
-    .text(function(d) { return d.group; });
-    */
 
     simulation.nodes(bubbleData)
     .on("tick", ticked)

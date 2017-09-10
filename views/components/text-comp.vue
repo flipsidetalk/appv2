@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{textcomp.tooldisplay}}
     <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
     <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
     <div class="u-marginAuto">
@@ -7,7 +8,7 @@
         <span class="load-text" v-bind:class="{'highlightable':m.mainClaim}">
           <span v-if="m.mainClaim">
             <span v-on:click="showTool(mindex, m.seen, textcomp)">
-              <mark v-bind:id="mindex">{{m.text}}</mark>
+              <mark class="highlightedText" v-bind:id="mindex">{{m.text}}</mark>
             </span>
           </span>
           <span v-else>

@@ -716,13 +716,6 @@ input:checked+label {
     flex-wrap: wrap;
 }
 
-
-.modal-dialog{
-  width: 750px;
-  margin-right: 0px;
-  min-height: 500px;
-}
-
 .modal-content{
   padding: 20px;
 }

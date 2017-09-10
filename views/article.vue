@@ -4,9 +4,8 @@
     <signin-comp></signin-comp>
     <div class="container content article-top">
       <div class="section-content u-maxWidth1200 u-paddingRight20 u-paddingLeft20">
-        <div class="row">
+        <div class="row" v-if="mapcomp.bubbleData.length > 2">
           <map-comp :mapcomp="mapcomp"></map-comp>
-
           <!--this is keycomp -->
           <div class="col-md-6">
             <span class="">
@@ -144,8 +143,6 @@
               </div>
             </div>
           </div>
-
-
         </div>
       </div>
     </div> <!--END MODAL-->

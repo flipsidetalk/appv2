@@ -105,8 +105,6 @@ var mixin = {
           }
         }
       }
-
-      console.log(mapcomp.bubbleShades);
       for (m of mapcomp.bubbleShades) {
         var bubbleId = m.group;
         var bubbleFill = m.fill;
@@ -114,7 +112,26 @@ var mixin = {
       }
 
     }
+  },
+  mounted: function(){
+    //    $(document).mousedown(function (e)
+    // {
+    //    $('#tooltip').hide();
+    //    console.log("tip should be hiding")
+    // });
+
+    var textcomp = this.textcomp;
+    $(document).mousedown(function(evt){
+      console.log(evt.target.className);
+      if((evt.target.className != "regularText") || (evt.target.className != "highlightedText")){
+        textcomp.tooldisplay = 'none';
+
+        //$("#tooltip").hide();
+      }
+
+    });
   }
+
 };
 
 module.exports = mixin;

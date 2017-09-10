@@ -2,6 +2,8 @@ var mixin = {
   methods: {
     showTool: function(sentenceId, seenvalue, textcomp){
       /** setting the sentence at hand**/
+      //$("#tooltip").show();
+
       textcomp.lastReferenced = sentenceId;
       textcomp.tempseen = seenvalue;
 
