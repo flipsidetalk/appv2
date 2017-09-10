@@ -3,7 +3,7 @@
     <header-comp :headercomp="headercomp"></header-comp>
     <signin-comp></signin-comp>
     <div class="container content article-top">
-      <div class="section-content u-maxWidth1200 u-paddingRight20 u-paddingLeft20">
+      <div class="section-content u-maxWidth1000 u-paddingRight20 u-paddingLeft20">
         <div class="row" v-if="mapcomp.bubbleData.length > 2">
           <map-comp :mapcomp="mapcomp"></map-comp>
           <!--this is keycomp -->
@@ -71,7 +71,7 @@
     </div>
     <div id="root">
       <div class="container content textcomp.article">
-        <div class="section-content u-maxWidth1200">
+        <div class="section-content u-maxWidth1000">
           <div class="row white">
             <div class="col-sm-offset-2 col-sm-8">
               <p>{{textcomp.lastReferenced}}</p>
