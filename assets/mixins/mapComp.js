@@ -52,7 +52,7 @@ var mixin = {
     var diameter = 400; //max size of the bubbles
     var color = d3.scaleOrdinal(d3.schemeCategory20c);
 
-    var groupSize = this.mapcomp.groupSimple;
+    var bubbleData = this.mapcomp.bubbleData;
     //var bubble = d3.layout.pack().sort(null).size([diameter, diameter]).padding(1.5);
 
     var svg = d3.select(".bubbleMap")
@@ -77,7 +77,6 @@ var mixin = {
     .text("tooltip");
 
     var radiusScale = d3.scaleSqrt().domain([10, 60]).range([30, 75]);
-    var a = this.mapcomp;
 
     var simulation = d3.forceSimulation()
     .force("x", d3.forceX(diameter / 2).strength(0.05))
@@ -87,10 +86,10 @@ var mixin = {
     }));
 
     var circles = svg.selectAll("circle")
-    .data(groupSize)
+    .data(bubbleData)
     .enter().append("circle")
     .attr("id", function(d) {
-      return d.label;
+      return d.group;
     })
     .attr("r", function(d) {
       return radiusScale(d.size)
@@ -98,25 +97,25 @@ var mixin = {
     .attr("class", "aBubble")
     .attr("fill", "lightblue")
     .on("mouseover", function(d) {
-      tooltip.text(d.label + '\n\n' + d.sentenceId);
+      tooltip.text("group " + d.group);
       tooltip.style("visibility", "visible");
     })
     .on("mousemove", function() {
-      return tooltip.style("top", (d3.event.pageY + 24) + "px").style("left", (d3.event.pageX - 10) + "px").style("height", (80) + "px");
+      return tooltip.style("top", (d3.event.pageY + 24) + "px").style("left", (d3.event.pageX - 10) + "px");
     })
     .on("mouseout", function() {
       return tooltip.style("visibility", "hidden");
     });
-    //  .text(function(d) { return d.label; });
+    //  .text(function(d) { return d.group; });
 
     /*  .attr("dy", ".3em")
     .style("text-anchor", "middle")
     .style("pointer-events", "none")
     .style("z-index", "500!important")
-    .text(function(d) { return d.label; });
+    .text(function(d) { return d.group; });
     */
 
-    simulation.nodes(groupSize)
+    simulation.nodes(bubbleData)
     .on("tick", ticked)
 
     function ticked() {

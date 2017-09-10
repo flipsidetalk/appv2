@@ -487,8 +487,9 @@ input:checked+label {
 
 /***  BUBBLE STYLES
 *******************************************/
-.selectedBubble{
+.borderClass{
   fill: #52aefb;
+  border: 2px solid;
 }
 
 

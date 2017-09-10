@@ -218,6 +218,7 @@ app.get('/article/:slug', function(req, res) {
           user: req.user,
         },
         mapcomp: {
+          isActive: "",
           thisBubble: "brown",
           groupInfo: {
             label: "",
@@ -312,22 +313,22 @@ app.get('/article/:slug', function(req, res) {
                   sentenceId: 856,
                   average: .50,
                   agree: 0.33,
-                  disagree: 0.33,
-                  unsure: 0.33
+                  disagree: 0.50,
+                  unsure: 0.17
                 },
                 {
                   sentenceId: 857,
                   average: .40,
                   agree: 0.40,
                   disagree: 0.30,
-                  unsure: 0.30
+                  unsure: 0.20
                 },
                 {
                   sentenceId: 858,
                   average: .40,
-                  agree: 0.40,
-                  disagree: 0.30,
-                  unsure: 0.30
+                  agree: 0.47,
+                  disagree: 0.31,
+                  unsure: 0.80
                 },
                 {
                   sentenceId: 858,
@@ -340,7 +341,7 @@ app.get('/article/:slug', function(req, res) {
             },
             {
               group: 1,
-              size: 10,
+              size: 20,
               users: ["a", "b"],
               sentences: [{
                   sentenceId: 856,
@@ -367,7 +368,7 @@ app.get('/article/:slug', function(req, res) {
             },
             {
               group: 2,
-              size: 10,
+              size: 30,
               users: ["a", "b"],
               sentences: [{
                   sentenceId: 860,
@@ -395,7 +396,7 @@ app.get('/article/:slug', function(req, res) {
             },
             {
               group: 3,
-              size: 10,
+              size: 40,
               users: ["a", "b"],
               sentences: [{
                   sentenceId: 860,
@@ -422,7 +423,7 @@ app.get('/article/:slug', function(req, res) {
             },
             {
               group: 4,
-              size: 10,
+              size: 50,
               users: ["a", "b"],
               sentences: [{
                   sentenceId: "905",
@@ -442,7 +443,7 @@ app.get('/article/:slug', function(req, res) {
             },
             {
               group: 5,
-              size: 30,
+              size: 60,
               users: ["a", "b"],
               sentences: [{
                   sentenceId: "905",

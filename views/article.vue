@@ -14,8 +14,8 @@
               <h4 class="">the ideas within our bubbles:</h4>
               <span type="button" class="keyButtons u-lighter purpleBackground" name="keybutton" v-on:click="fetchEveryone(textcomp, mapcomp)">everyone</span>
               <span v-for="m in mapcomp.bubbleData">
-                <span v-if="m.group != 'everyone'">
-                  <span type="button" class="keyButtons u-lighter u-fontSize20 purpleBackground" name="keybutton" v-bind:id="m.group" v-on:click="fetchClaims(m.group, textcomp, mapcomp)">{{m.group}}</span>
+                <span v-if="m.group != -1">
+                  <span type="button" class="keyButtons u-lighter u-fontSize20 purpleBackground" name="keybutton" v-bind:id="m.group" v-on:click="fetchClaims(m.group, textcomp, mapcomp), borderBubble(m.group, textcomp, mapcomp)">{{m.group}}</span>
                 </span>
               </span>
               <h4></h4>

@@ -62,14 +62,6 @@ var mixin = {
             };
           }
         }
-      /*  else {
-          for (s of m.sentences) {
-            if (s.sentenceId = ) {
-
-            }
-
-          }
-        } */
       }
     },
 
@@ -78,6 +70,11 @@ var mixin = {
       if (mapcomp.displayCounter >= mapcomp.arrayEveryone.length-1) {
         mapcomp.displayCounter = 0;
       }
+    },
+    borderBubble: function(groupId, mapcomp){
+
+      $(".aBubble").removeClass("borderClass");
+      $('#'+groupId).addClass("borderClass");
     }
   }
 };
