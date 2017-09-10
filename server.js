@@ -18,7 +18,7 @@ var comments = [{
 }];
 /* Constants and import statements
  */
-const PYTHON_SERVER_URL = 'http://34.201.41.69:8080';
+const PYTHON_SERVER_URL = 'http://34.233.217.223:8080';
 const path = require('path');
 const express = require('express');
 const expressVue = require('express-vue');
