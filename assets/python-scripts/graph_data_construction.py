@@ -236,21 +236,22 @@ class Spectrum:
                         data["clusterData"].append(relevant_positions)
                 return data
             else:
-                data = dict()
+                data = []
                 index_by_ind = {v[0]:k for k,v in self.users.items()}
                 if self.users_to_graph is not None:
                     user_ids = [index_by_ind[ind] for ind in self.users_to_graph]
                 #Adding group placeholder for people who aren't considered yet
                 for i in range(-1, self.k):
-                    data[i] = dict()
+                    group = dict()
+                    group['group'] = i
                     users = []
-                    for iden, group in zip(user_ids, list(self.groups)):
-                        if group == i:
+                    for iden, g in zip(user_ids, list(self.groups)):
+                        if g == i:
                             users.append(iden)
                         elif i == -1:
                             users.append(iden)
-                    data[i]['users'] = users
-                    data[i]['size'] = len(users)
+                    group['users'] = users
+                    group['size'] = len(users)
                     if self.relevant_questions is not None:
                         relevant_positions = []
                         for question in self.relevant_questions[i]:
@@ -258,6 +259,7 @@ class Spectrum:
                             claim_data['sentenceId'] = question
                             avg,controversiality, num_votes,proportions = self.get_numbers(i, question)
                             claim_data['average'] = avg
+                            claim_data['shadeColor'] = self.range_normalize(0, 1, 0.3, 0.1, avg)
                             claim_data['controversiality'] = controversiality
                             claim_data['num_votes'] = num_votes
                             for answer, direction in zip([-1,0,1], ['disagree', 'not sure', 'agree']):
@@ -266,10 +268,28 @@ class Spectrum:
                                 else:
                                     claim_data[direction] = None
                                 relevant_positions.append(claim_data)
-                        data[i]['sentences'] = relevant_positions
+                        group['sentences'] = relevant_positions
+                    data.append(group)
+                    del group
                 return data
         else:
             return {}
+
+
+    def range_normalize(self, minimum, maximum, newmin, newmax, value):
+        if value == 0:
+            return 0
+        elif value is not None:
+            sign = value > 0
+            factor = newmax - newmin
+            denom = maximum - minimum
+            out = (factor * ((value - minimum) / denom)) + newmin
+            if sign:
+                return out
+            else:
+                return -out
+        else:
+            return None
 
     def get_numbers(self, i, question):
         votes = []
