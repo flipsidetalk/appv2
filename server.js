@@ -598,6 +598,7 @@ app.get('/article/:slug', function(req, res) {
             data.textcomp.article = results.article;
             data.commentscomp.article = results.article;
             data.commentscomp.commentData = results.comments;
+            // data.mapcomp.bubbleData = results.viz;
             data.pageTitle = 'Flipside - ' + results.article.title.title;
             res.renderVue('article', data, utils.vue(data.pageTitle));
           }

@@ -112,10 +112,7 @@ var mixin = {
     }
   },
   mounted: function(){
-    window.addEventListener('mousedown', function (textcomp) {
-      textcomp.tooldisplay = 'none';
-      console.log("AYE");
-    });
+
   }
 };
 

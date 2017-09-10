@@ -1140,7 +1140,6 @@ input:focus{
   left: 0;
   top: 15px;
   background: white;
-  z-index: 500;
   font-size: 20px;
 }
 

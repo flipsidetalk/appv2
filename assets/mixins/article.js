@@ -113,23 +113,20 @@ var mixin = {
 
     }
   },
-  mounted: function(){
-    //    $(document).mousedown(function (e)
-    // {
-    //    $('#tooltip').hide();
-    //    console.log("tip should be hiding")
-    // });
-
+  mounted: function() {
     var textcomp = this.textcomp;
-    $(document).mousedown(function(evt){
-      console.log(evt.target.className);
+    var mapcomp = this.mapcomp;
+    var fetchClaims = this.fetchClaims;
+    var borderBubble = this.borderBubble;
+    $(document).mouseup(function(e) {
+      if ($(e.target).is('circle')) {
+        fetchClaims(e.target.id, textcomp, mapcomp);
+        borderBubble(e.target.id, mapcomp);
+      }
       if((evt.target.className != "regularText") || (evt.target.className != "highlightedText")){
         textcomp.tooldisplay = 'none';
-
-        //$("#tooltip").hide();
       }
-
-    });
+   });
   }
 
 };
