@@ -123,7 +123,7 @@ var mixin = {
         fetchClaims(e.target.id, textcomp, mapcomp);
         borderBubble(e.target.id, mapcomp);
       }
-      if((evt.target.className != "regularText") || (evt.target.className != "highlightedText")){
+      if((e.target.className != "regularText") || (e.target.className != "highlightedText")){
         textcomp.tooldisplay = 'none';
       }
    });
