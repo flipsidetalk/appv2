@@ -91,7 +91,13 @@
         <div class="close">&times;</div><br>
         <div class="content-section">
           <h4 class="quoteSection">
-            {{textcomp.article.sentences[textcomp.lastReferenced]}}
+            <div v-for="(m, mindex) in textcomp.article.sentences">
+
+              <div v-if="mindex == textcomp.lastReferenced">
+              {{m.text}}
+              </div>
+            </div>
+            <!--{{textcomp.article.sentences[textcomp.lastReferenced]}} -->
           </h4>
           <h5>I <b>AGREE</b> because ... </h5>
           <textarea type="text" placeholder="" name="" value="" class="talkInput u-sizeFullWidth" v-model="textcomp.whyResponse.input" style="background-color: white;"></textarea>
