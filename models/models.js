@@ -191,6 +191,7 @@ module.exports.init = function(sequelize, Sequelize) {
       type: Sequelize.INTEGER
     }
   });
+  Viz.belongsTo(Article);
   tables.viz = Viz;
 
   return tables;

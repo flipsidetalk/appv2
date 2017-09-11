@@ -27,7 +27,7 @@ module.exports.makeExternalRequest = function(request, url, data, success, err) 
   });
 }
 
-module.exports.updateVizState = function(db, res, numCurrentVotes) {
+module.exports.updateVizState = function(db, res, numCurrentVotes, articleId) {
   var pythonVis = require('./assets/python-scripts/start_python_script.js');
   var out;
   db.vote.findAll().then(inputData => {
@@ -43,7 +43,8 @@ module.exports.updateVizState = function(db, res, numCurrentVotes) {
           }
           db.viz.create({
             data: outData,
-            numVotes: numCurrentVotes
+            numVotes: numCurrentVotes,
+            articleId: articleId
           });
         });
       }

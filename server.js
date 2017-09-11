@@ -626,19 +626,26 @@ app.get('/article/:slug', function(req, res) {
  */
 let numCurrentVotes = 0;
 app.post('/submitResponse', function(req, res) {
-  db.vote.findOne({
+  db.sentence.findOne({
     where: {
-      userId: req.user.id,
-      sentenceId: req.body.sentenceId
-    }
-  }).then(vote => {
-    db.response.create({
-      userId: req.user.id,
-      sentenceId: req.body.sentenceId,
-      statement: req.body.statement,
-      voteId: vote.id
-    }).then(() => {
-      utils.updateVizState(db, res, numCurrentVotes);
+      id: req.body.sentenceId
+    },
+    attributes: ['articleId']
+  }).then(articleId => {
+    db.vote.findOne({
+      where: {
+        userId: req.user.id,
+        sentenceId: req.body.sentenceId
+      }
+    }).then(vote => {
+      db.response.create({
+        userId: req.user.id,
+        sentenceId: req.body.sentenceId,
+        statement: req.body.statement,
+        voteId: vote.id
+      }).then(() => {
+        utils.updateVizState(db, res, numCurrentVotes, articleId);
+      });
     });
   });
 });
