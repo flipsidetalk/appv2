@@ -29,12 +29,14 @@ QUESTION_IDS = ['a1s21','a1s23','a1s30','a1s31','a1s34','a1s46','a1s55','a2s12',
 class Spectrum:
     def __init__(self, graph_low_votes = False, reducer = 'mds', cluster = 'kmeans', 
         choosing_function = 'strong', norm_threshold = 100, defval = 0, impute_factor = True, 
-        min_users = 6, min_votes = 5, num_opinions = 5, max_users = 1000):
+        min_users = 6, min_votes = 3, num_opinions = 5, max_users = 1000, n_components = 2):
 
         self.impute_factor = impute_factor
         self.min_votes = min_votes
         self.graph_low_votes = graph_low_votes
 
+
+        self.n_components = n_components
         if min_users:
             self.min_users = min_users
         else:
@@ -186,7 +188,7 @@ class Spectrum:
     output = {"clusterData": clusterData, "pointData":pointData, "shadeData": shadeData}
     '''
     def get_visualization_data(self):
-        if self.groups is not None:
+            '''
             if self.graph_low_votes:
                 data = {"clusterData" : [], "pointData" : {}, "shadeData":[]}
                 index_by_ind = {v[0]:k for k,v in self.users.items()}
@@ -233,8 +235,9 @@ class Spectrum:
                         relevant_positions = [{"sentenceId":question,"cluster":int(i), "average":self.average_answer(i, question), "phrase": self.get_agreement_phrase(i,question)} for question in self.relevant_questions[i]]
                         data["clusterData"].append(relevant_positions)
                 return data
-            else:
-                data = {"clusterData" : [], "pointData" : {}, "shadeData":[]}
+                '''
+            if len(self.votes_to_consider) != 0:
+                data = []
                 index_by_ind = {v[0]:k for k,v in self.users.items()}
                 user_ids = [index_by_ind[ind] for ind in self.users_to_graph]
                 xs, ys = self.out_points[:,0], self.out_points[:,1]
@@ -242,55 +245,84 @@ class Spectrum:
                 data['extremes'] = {"xMin": float(x_min), "xMax": float(x_max), "yMin": float(y_min), "yMax": float(y_max)}
                 #Adding group placeholder for people who aren't considered yet
 
-                for iden, x, y, group in zip(user_ids, xs, ys, list(self.groups)):
+                clusters = self.groups is not None
+                for i in range(-1, self.k):
+                    if not clusters:
+                        if i > -1:
+                            return data
+                    group = dict()
+                    group['group'] = i
+                    users = []
+                    for iden, g in zip(user_ids, list(self.groups)):
+                        if g == i:
+                            users.append(iden)
+                        elif i == -1:
+                            users.append(iden)
+                    group['users'] = users
+                    group['size'] = len(users)
 
-                    data["pointData"][iden] = {"x":float(x), "y":float(y), "cluster":int(group)}
-
-                for i in range(self.k):
-                    group_data = []
-                    for iden, x, y, group in zip(user_ids, xs, ys, list(self.groups)):
-                        if group == i:
-                            group_data.append({"iden":iden, "x":x, "y":y, "group":int(group)})
-
-                    points = [(el["x"],el["y"]) for el in group_data]
-                    perimeter_points = GrahamScan([(el["x"],el["y"]) for el in group_data])
-                    path = [{"x":x,"y":y} for x, y in zip(perimeter_points[:,0], perimeter_points[:,1])]
-                    path.append(path[0])
-                    data["shadeData"].append({"cluster":int(i), "shading": path})
                     if self.relevant_questions is not None:
                         relevant_positions = []
                         for question in self.relevant_questions[i]:
                             claim_data = dict()
                             claim_data['sentenceId'] = question
-                            claim_data['cluster'] = int(i)
-                            claim_data['average'] = self.average_answer(i, question)
-                            #claim_data['phrase'] = self.get_agreement_phrase(i,question)
-                            claim_data['proportions'] = self.get_proportions(i, question)
-                            relevant_positions.append(claim_data)
-                        data["clusterData"].append(relevant_positions)
+                            avg,controversiality, num_votes,proportions = self.get_numbers(i, question)
+                            claim_data['average'] = avg
+                            claim_data['shadeColor'] = self.range_normalize(0, 1, 0.3, 0.1, avg)
+                            claim_data['controversiality'] = controversiality
+                            claim_data['num_votes'] = num_votes
+                            for answer, direction in zip([-1,0,1], ['disagree', 'not sure', 'agree']):
+                                if answer in proportions.keys():
+                                    claim_data[direction] = proportions[answer]
+                                else:
+                                    claim_data[direction] = None
+                                relevant_positions.append(claim_data)
+                        group['sentences'] = relevant_positions
+                    data.append(group)
+                    del group
                 return data
-        else:
-            return {}
+            else:
+                return []
 
-    def get_proportions(self, i, question):
+    def range_normalize(self, minimum, maximum, newmin, newmax, value):
+        if value == 0:
+            return 0
+        elif value is not None:
+            sign = value > 0
+            factor = newmax - newmin
+            denom = maximum - minimum
+            out = (factor * ((value - minimum) / denom)) + newmin
+            if sign:
+                return out
+            else:
+                return -out
+        else:
+            return None
+
+    def get_numbers(self, i, question):
         votes = []
         question_ind = np.where(self.question_ids == question)[0][0]
         for user_ind in self.votes_to_consider[question_ind]:
             if user_ind in self.users_to_graph:
                 index = np.where(np.array(self.users_to_graph) == user_ind)[0][0]
-                if self.groups[index] == i:
+                if self.groups[index] == i or i == -1:
                     vote = self.data[user_ind, question_ind]
                     votes.append(vote)
-        if len(votes) >= self.min_votes:
+
+        group_answers = {}
+        avg = None
+        controversiality = None
+        num_votes = len(votes)
+        if num_votes >= self.min_votes:
+            controversiality = np.std(votes) / np.sqrt(num_votes)
+            avg = np.mean(votes)
             votes = np.array(votes)
             total = 0
-            group_answers = {}
-            for i in [-1,0,1]:
-                num_votes = np.where(votes == i)[0].shape[0]
-                group_answers[i] = num_votes / len(votes)
-            return group_answers
-        else:
-            return None
+            for answer in [-1,0,1]:
+                num_votes = np.where(votes == answer)[0].shape[0]
+                group_answers[answer] = num_votes / len(votes)
+        
+        return avg,controversiality,  num_votes, group_answers
 
     def get_agreement_phrase(self, i, question):
         value = self.average_answer(i, question)
@@ -314,20 +346,6 @@ class Spectrum:
             return opinion
         else:
             return 'in ' + degree + ' ' + opinion
-
-    def average_answer(self, group, question_id):
-        if self.groups is not None:
-            data = self.data[self.users_to_graph]
-            answers = []
-            q_ind = np.where(self.question_ids == question_id)[0][0]
-            for u in self.votes_to_consider[q_ind]:
-                if u in self.users_to_graph:
-                    user_ind = np.where(np.array(self.users_to_graph) == u)[0][0]
-                    if self.groups[user_ind] == group:
-                        answers.append(data[user_ind, q_ind])
-            return np.mean(answers)
-        else:
-            print('need more data')
 
     def get_points(self):
         if self.out_points is not None:
@@ -384,13 +402,15 @@ class Spectrum:
 
 
     def dimension_reduction(self):
-        new_data = self.impute(self.data[self.users_to_graph])
+        new_data = self.data[self.users_to_graph]
+        if self.impute_factor:
+            new_data = self.impute(new_data)
         if self.dimension_reducer == PCA:
-            self.dimension_reducer = self.dimension_reducer(n_components = 2, metric = False)
+            self.dimension_reducer = self.dimension_reducer(n_components = self.n_components, metric = False)
             self.considered_points = self.dimension_reducer.fit_transform(new_data)
             self.out_points = self.dimension_reducer.transform(self.impute(self.data[:self.n_users]))
         elif self.dimension_reducer == MDS:
-            self.dimension_reducer = self.dimension_reducer(n_components = 2, dissimilarity = 'precomputed', metric = False, n_init = 20, random_state = 0)
+            self.dimension_reducer = self.dimension_reducer(n_components = self.n_components, dissimilarity = 'precomputed', metric = False, n_init = 20, random_state = 0)
             self.considered_points = self.dimension_reducer.fit_transform(self.dissimilarity(new_data))
             
             #MDS cannot perform feature transformation on new data, so cannot graph people who don't have enough votes
@@ -456,6 +476,7 @@ class Spectrum:
 
     def differentiate_claims(self, group_averages, question_std):
         relevant_questions = dict()
+        relevant_questions = []
         for group in range(self.k):
             sum_squared_differences = np.zeros(len(self.question_ids))
             for other_group in range(self.k):
@@ -469,6 +490,8 @@ class Spectrum:
             threshold = sorted(sum_squared_differences)[-(self.num_opinions)]
             important_questions = np.where(sum_squared_differences >= threshold)[0][:self.num_opinions]
             relevant_questions[group] = list(self.question_ids[important_questions])
+            relevant_questions[-1] += relevant_questions
+        relevant_questions[-1] = list(set(relevant_questions[-1]))
         return relevant_questions
 
     def strongest_claims(self, group_averages, question_std):
@@ -482,7 +505,7 @@ class Spectrum:
 
         question_candidates = dict()
         strongest_claims = dict()
-
+        strongest_claims[-1] = []
         for avg, question_ind, group in all_opinions:
             if question_ind not in question_candidates:
                 question_candidates[question_ind] = 1
@@ -496,6 +519,10 @@ class Spectrum:
                         strongest_claims[group].append(self.question_ids[question_ind])
                 else:
                     strongest_claims[group] = [self.question_ids[question_ind]]
+
+        for i in range(self.k): 
+             strongest_claims[-1] += strongest_claims[i]
+        strongest_claims[-1] = list(set(strongest_claims[-1]))
         return strongest_claims
 
     def find_relevant_claims(self):
