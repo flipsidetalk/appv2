@@ -37,6 +37,7 @@ module.exports.updateVizState = function(db, res, numCurrentVotes) {
       if (votes.length > numCurrentVotes) {
         numCurrentVotes = votes.length;
         pythonVis(votes, (outData) => {
+          console.log("outData: " + outData);
           if (typeof(res) === 'response') {
             res.send(outData);
           }
