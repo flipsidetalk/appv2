@@ -33,7 +33,7 @@ module.exports.updateVizState = function(db, res, currentVotes) {
   db.vote.findAll().then(inputData => {
     try {
       console.log(inputData);
-      var votes = JSON.parse(inputData);
+      var votes = inputData;
       if (votes.length > currentVotesLength) {
         currentVotesLength = votes.length;
         pythonVis(votes, (outData) => {
