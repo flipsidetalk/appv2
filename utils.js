@@ -41,7 +41,7 @@ module.exports.updateVizState = function(db, res, numCurrentVotes) {
           if (typeof(res) === 'response') {
             res.send(outData);
           }
-          db.vizs.create({
+          db.viz.create({
             data: outData,
             numVotes: numCurrentVotes
           });
