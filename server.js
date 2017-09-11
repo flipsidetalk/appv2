@@ -195,6 +195,27 @@ app.get('/article/:slug', function(req, res) {
           user: req.user
         },
         textcomp: {
+
+          //commentData
+          showAgreeComments: false,
+          showDisagreeComments: false,
+
+          commentData: [
+
+          ],
+
+          displayAgreeComments: [],
+          displayDisagreeComments: [],
+          displayUnsureComments: [],
+
+          eachDisplayComment:{
+            agreeable: '',
+            text: ''
+          },
+
+
+
+
           tempseen: false,
           /*** TOOLTIP ATTRIBUTES ***/
           tooldisplay: "none",
@@ -206,7 +227,7 @@ app.get('/article/:slug', function(req, res) {
           toolcolor: '#2b2b2b',
           hasvotes: false,
 
-          lastReferenced: "a3s0",
+          lastReferenced: 660,
           response: {
             sentenceId: "",
             input: ""

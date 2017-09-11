@@ -109,8 +109,41 @@ var mixin = {
           console.log("error: " + data);
         }
       });
+    },
+    fetchComments: function(textcomp){
+      var placeholderId = textcomp.lastReferenced;
+
+      textcomp.displayAgreeComments = [];
+      textcomp.displayDisagreeComments = [];
+      textcomp.displayUnsureComments = [];
+
+      for (var comment of commentData) {
+        if (comment.vote.sentenceId == placeholderId) {
+          //append it to object
+          textcomp.eachDisplayComment.agreeable = comment.vote.reaction;
+          textcomp.eachDisplayComment.text = comment.statement;
+          textcomp.eachDisplayComment.username = comment.firstname;
+
+          if (comment.vote.reaction == -1) {
+            textcomp.displayDisagreeComments.push(textcomp.eachDisplayComment);
+          }
+          else if (comment.vote.reaction == 1) {
+            textcomp.displayAgreeComments.push(textcomp.eachDisplayComment);
+          }
+          else {
+            textcomp.displayUnsureComments.push(textcomp.eachDisplayComment);
+          }
+          textcomp.eachDisplayComment = {
+            agreeable: '',
+            text: '',
+          };
+        }
+      }
+
     }
   },
+
+
   mounted: function(){
 
   }

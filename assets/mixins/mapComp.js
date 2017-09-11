@@ -1,16 +1,6 @@
 var mixin = {
   methods: {
 
-    getBubble: function(id, mapcomp){
-    },
-
-    getRGB: function(averageValue, mapcomp){
-
-      if (averageValue >= 0) { //this means agree
-        return "rgba()"
-      }
-    },
-
     changeBubbles: function(inputSentenceId, mapcomp) {
       //m = object that is the sentence dictionary
       //mindex = index of sentence dict within the list of sentences
