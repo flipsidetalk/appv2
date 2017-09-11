@@ -45,7 +45,7 @@ var mixin = {
       mapcomp.arrayEveryone = [];
 
       for (var m of mapcomp.bubbleData) {
-        if (m.group == -1) {
+        if (m.group == 0) {
           for (var s of m.sentences) {
             var tempId = s.sentenceId
             mapcomp.eachEveryone.sentenceId = tempId;
@@ -77,14 +77,24 @@ var mixin = {
     },
     addBorder: function(groupId, mapcomp){
 
-      $(".aBubble").removeClass("borderClass");
-      $('#'+groupId).addClass("borderClass");
+    //  $(".aBubble").removeClass("borderClass");
+    //  $('#'+groupId).addClass("borderClass");
+    $(".aBubble").removeAttr('stroke');
+    $(".aBubble").removeAttr('stroke');
+
+    $('#'+groupId).attr('stroke', 'rgba(91, 59, 122, 0.7)');
+    $('#'+groupId).attr('stroke-width', '5px');
+
+    //$('#'+groupId).attr('fill', 'url(#group'+groupId+')');
+
+    console.log(groupId);
+
     },
 
     colorBubbles: function(mapcomp){
       var sentenceShowing = mapcomp.tempsentenceId;
       for (var m of mapcomp.bubbleData) {
-        if (m.group != -1) {
+        if (m.group != 0) {
           for (var s of m.sentences) {
             if (s.sentenceId == sentenceShowing) {
               mapcomp.bubbleShade.group = m.group;
@@ -112,6 +122,34 @@ var mixin = {
         $('#'+bubbleId).attr("fill", bubbleFill);
       }
 
+    },
+    submitWhy: function(textcomp) {
+      textcomp.whyResponse.sentenceId = textcomp.lastReferenced;
+      textcomp.whyResponse.vote = textcomp.article.sentences[textcomp.lastReferenced].seen;
+      textcomp.whyResponses.push(textcomp.whyResponse)
+      this.postResponse(textcomp.whyResponse.input, textcomp.whyResponse.sentenceId);
+      textcomp.whyResponse = {
+        sentenceId: "",
+        input: "",
+        vote: ""
+      };
+    },
+    postResponse: function(statement, sentenceId) {
+      var data = {
+        sentenceId: sentenceId,
+        statement: statement
+      }
+      $.ajax({
+        type: 'POST',
+        url: '/submitResponse',
+        data: data,
+        success: function() {
+          console.log("sendsuccess: " + data);
+        },
+        error: function() {
+          console.log("error: " + data);
+        }
+      });
     }
   },
   mounted: function() {

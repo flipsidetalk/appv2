@@ -27,21 +27,22 @@ module.exports.makeExternalRequest = function(request, url, data, success, err) 
   });
 }
 
-module.exports.updateVizState = function(db, res, currentVotes) {
+module.exports.updateVizState = function(db, res, numCurrentVotes) {
   var pythonVis = require('./assets/python-scripts/start_python_script.js');
   var out;
   db.vote.findAll().then(inputData => {
     try {
-      var votes = JSON.parse(inputData);
-      if (votes.length > currentVotesLength) {
-        currentVotesLength = votes.length;
+      console.log(inputData);
+      var votes = inputData;
+      if (votes.length > numCurrentVotes) {
+        numCurrentVotes = votes.length;
         pythonVis(votes, (outData) => {
           if (typeof(res) === 'response') {
             res.send(outData);
           }
           db.vizs.create({
             data: outData,
-            numVotes: currentVotes
+            numVotes: numCurrentVotes
           });
         });
       }
