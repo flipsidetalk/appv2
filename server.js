@@ -592,9 +592,8 @@ app.get('/article/:slug', function(req, res) {
               }
             }).then(article => {
               const sentences = article.dataValues.sentences;
-              const reformattedSentences = {};
+              let reformattedSentences = {};
               for (var i in sentences) {
-                var reformattedSentence = {};
                 reformattedSentences[sentences[i].id] = sentences[i];
                 reformattedSentences[sentences[i].id].seen = 0;
               }
