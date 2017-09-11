@@ -624,7 +624,7 @@ app.get('/article/:slug', function(req, res) {
 /* currentVotes is the number of votes in the database the last time
  * the viz was rendered. If it hasn't increased, don't re-render.
  */
-let currentVotes = 0;
+let numCurrentVotes = 0;
 app.post('/submitResponse', function(req, res) {
   db.vote.findOne({
     where: {
@@ -638,7 +638,7 @@ app.post('/submitResponse', function(req, res) {
       statement: req.body.statement,
       voteId: vote.id
     }).then(() => {
-      utils.updateVizState(db, res, currentVotes);
+      utils.updateVizState(db, res, numCurrentVotes);
     });
   });
 });
