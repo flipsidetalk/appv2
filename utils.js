@@ -32,6 +32,7 @@ module.exports.updateVizState = function(db, res, currentVotes) {
   var out;
   db.vote.findAll().then(inputData => {
     try {
+      console.log(inputData);
       var votes = JSON.parse(inputData);
       if (votes.length > currentVotesLength) {
         currentVotesLength = votes.length;
