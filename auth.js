@@ -155,6 +155,7 @@ module.exports = function(app, connection, db) {
     db.facebook.create({
       token: params.token,
       name: params.name,
+      firstname: params.name,
       email: params.email,
       fbid: params.fbid
     });

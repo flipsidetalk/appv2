@@ -32,6 +32,9 @@ module.exports.init = function(sequelize, Sequelize) {
     name: {
       type: Sequelize.STRING
     },
+    firstname: {
+      type: Sequelize.STRING
+    },
     fbid: {
       type: Sequelize.STRING
     }
