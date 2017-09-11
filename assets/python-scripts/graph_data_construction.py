@@ -243,7 +243,10 @@ class Spectrum:
                 #Adding group placeholder for people who aren't considered yet
 
                 clusters = self.groups is not None
-                for i in range(-1, self.k):
+                r = 0
+                if self.k is not None:
+                    r = self.k
+                for i in range(-1, r):
                     if not clusters:
                         if i > -1:
                             return data
