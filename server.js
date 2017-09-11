@@ -599,9 +599,9 @@ app.get('/article/:slug', function(req, res) {
               .then(comments => {
                 comments = comments[0];
                 for (var i in comments) {
+                  comments[i].firstname = comments[i].lcfn ? comments[i].lcfn : comments[i].fbfn;
                   comments[i].lcfn = undefined;
                   comments[i].fbfn = undefined;
-                  comments[i].firstname = comments[i].lcfn ? comments[i].lcfn : comments[i].fbfn
                 }
                 callback(null, comments);
               });
