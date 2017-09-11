@@ -488,8 +488,8 @@ input:checked+label {
 /***  BUBBLE STYLES
 *******************************************/
 .borderClass{
-  fill: #52aefb;
-  border: 2px solid;
+  stroke: #52aefb;
+  stroke-width: 5px;
 }
 
 
@@ -679,7 +679,7 @@ input:checked+label {
 /* TALKBOX
 -------------------------------------------------- */
 .talkModal .modal-backdrop {
-   background-color: red;
+  background-color: red;
 }
 
 
@@ -700,20 +700,20 @@ input:checked+label {
 
 .talkDialogue{
   background-color: white;
-    bottom: 0;
-    border-radius: 0.2em;
-    border: 0px;
-    opacity: 1;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    pointer-events: initial;
-    position: fixed;
-    right: 0;
-    width: 70rem;
-    top: 0;
-    z-index: 102;
-    display: block;
-    flex-wrap: wrap;
+  bottom: 0;
+  border-radius: 0.2em;
+  border: 0px;
+  opacity: 1;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  pointer-events: initial;
+  position: fixed;
+  right: 0;
+  width: 70rem;
+  top: 0;
+  z-index: 102;
+  display: block;
+  flex-wrap: wrap;
 }
 
 .modal-content{
@@ -728,6 +728,7 @@ input:checked+label {
   margin-top: 20px;
   padding-right: 10px;
   padding-bottom: 10px;
+  min-height: 70px;
 }
 .agreeBlock{
   background-color: rgba(104, 207, 174, 1);
@@ -772,14 +773,14 @@ input:checked+label {
   font-weight: lighter;
 }
 .talkButton{
-    -webkit-border-radius: 4;
-    -moz-border-radius: 4;
-    border-radius: 7px;
-    color: #ffffff;
-    font-size: 16px;
-    background: rgba(0, 151, 167, 0.74);
-    padding: 6px 12px 9px 12px;
-    text-decoration: none;
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 7px;
+  color: #ffffff;
+  font-size: 16px;
+  background: rgba(0, 151, 167, 0.74);
+  padding: 6px 12px 9px 12px;
+  text-decoration: none;
 }
 
 .seeMoreButton{
@@ -787,12 +788,13 @@ input:checked+label {
   -moz-border-radius: 7;
   border-radius: 7px;
   color: #ffffff;
-  font-size: 16px;
+  font-size: 14px;
   background: #6cccae;
-  padding: 5px 10px 5px 10px;
+  padding: 5px 20px 5px 10px;
   border: solid #ffffff 2px;
   text-decoration: none;
   cursor: pointer;
+  margin-top: 13px;
 }
 
 .seeMoreButton:hover {

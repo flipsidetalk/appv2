@@ -1,6 +1,8 @@
 <template>
   <div>
-    <header-comp :headercomp="headercomp"></header-comp>
+
+
+    <header-comp :headercomp="headercomp"></header-comp> <!--takes component headercomp, passes headercomp data, could also pass data for other comps-->
     <signin-comp></signin-comp>
     <div class="container content article-top">
       <div class="section-content u-maxWidth1000 u-paddingRight20 u-paddingLeft20">
@@ -14,33 +16,33 @@
               <span type="button" class="keyButtons u-lighter purpleBackground" name="keybutton" v-on:click="fetchEveryone(textcomp, mapcomp)">everyone</span>
               <span v-for="m in mapcomp.bubbleData">
                 <span v-if="m.group != -1">
-                  <span type="button" class="keyButtons u-lighter u-fontSize20 purpleBackground" name="keybutton" v-bind:id="m.group" v-on:click="fetchClaims(m.group, textcomp, mapcomp), borderBubble(m.group, textcomp, mapcomp)">{{m.group}}</span>
+                  <span type="button" class="keyButtons u-lighter u-fontSize20 purpleBackground" name="keybutton" v-bind:id="m.group" v-on:click="fetchClaims(m.group, textcomp, mapcomp), addBorder(m.group, textcomp, mapcomp)">{{m.group}}</span>
                 </span>
               </span>
               <h4></h4>
               <div class="everyone" v-bind:style="{display: mapcomp.displayEveryone}">
                 <div v-for="(m, mindex) in mapcomp.arrayEveryone">
                   <div v-if="mapcomp.displayCounter == mindex">
-                      tempsentenceId: {{mapcomp.tempsentenceId}}
+                    tempsentenceId: {{mapcomp.tempsentenceId}}
+                    <div class="commentHeader">
+                      actualId: {{m.sentenceId}}
+                      <h4 class="u-lighter">{{m.text}}</h4>
+                    </div>
+                    <div class="commentBlock agreeBlock .transition2" v-bind:style="{width: m.agree*100 + '%'}">
                       <div class="commentHeader">
-                        actualId: {{m.sentenceId}}
-                        <h4 class="u-lighter">{{m.text}}</h4>
+                        <h4 class="u-lighter">{{m.agree*100}}% agree</h4>
                       </div>
-                      <div class="commentBlock agreeBlock .transition2" v-bind:style="{width: m.agree*100 + '%'}">
-                        <div class="commentHeader">
-                          <h4 class="u-lighter">{{m.agree*100}}% agree</h4>
-                        </div>
+                    </div>
+                    <div class="commentBlock disagreeBlock .transition2" v-bind:style="{width: m.disagree*100 + '%'}">
+                      <div class="commentHeader">
+                        <h4 class="u-lighter">{{m.disagree*100}}% disagree</h4>
                       </div>
-                      <div class="commentBlock disagreeBlock .transition2" v-bind:style="{width: m.disagree*100 + '%'}">
-                        <div class="commentHeader">
-                          <h4 class="u-lighter">{{m.disagree*100}}% disagree</h4>
-                        </div>
+                    </div>
+                    <div class="commentBlock purpleBackground .transition2" v-bind:style="{width: m.unsure*100 + '%'}">
+                      <div class="commentHeader">
+                        <h4 class="u-lighter">{{m.unsure*100}}% unsure</h4>
                       </div>
-                      <div class="commentBlock purpleBackground .transition2" v-bind:style="{width: m.unsure*100 + '%'}">
-                        <div class="commentHeader">
-                          <h4 class="u-lighter">{{m.unsure*100}}% unsure</h4>
-                        </div>
-                      </div>
+                    </div>
                   </div>
                 </div>
                 <button type="button" name="button" class="keyButtons u-lighter u-fontSize20 u-floatRight" v-on:click="fetchNextClaim(mapcomp), colorBubbles(mapcomp)">Next -></button>
@@ -93,7 +95,7 @@
             <div v-for="(m, mindex) in textcomp.article.sentences">
 
               <div v-if="mindex == textcomp.lastReferenced">
-              {{m.text}}
+                {{m.text}}
               </div>
             </div>
             <!--{{textcomp.article.sentences[textcomp.lastReferenced]}} -->
@@ -108,34 +110,80 @@
               <div v-for="s in m.sentences">
                 <div v-if="s.sentenceId == textcomp.lastReferenced">
                   <div class="commentBlock agreeBlock">
-                    <h3 class="white-text commentHeader">{{s.agree*100}}% IN AGREEMENT</h3>
-                    <div class="commentSection">
-                      <div class="commentName">
-                        <b class="commentText">john</b>
-                      </div>
-                      <div class="commentContent">
-                        <p class="commentText">There is just…something about a mother tongue. I am not fluent in the obscure European language my mother spoke to me as a baby, but when I hear it to this day I “feel” like my senses become engaged in ways that no other language can do. Bright primal smells and colors come to mind and then linger. I can’t help but think that this is what they were trying to evoke my resurrecting the Hebrew tongue.</p>
+                    <div class="u-sizeFullWidth u-inlineBlock">
+                      <h4 class="white-text commentHeader u-inlineBlock">{{s.agree*100}}% IN AGREEMENT</h4>
+                      <div class="seeMoreButton u-floatRight u-inlineBlock" v-on:click="textcomp.showAgreeComments = !textcomp.showAgreeComments">
+                        <div v-if="textcomp.showAgreeComments">
+                          read less
+                        </div>
+                        <div v-else>
+                          read more
+                        </div>
                       </div>
                     </div>
-                    <div class="rowReverse">
-                      <div class="seeMoreButton">
-                        see more comments
+                    <div v-if="!textcomp.showAgreeComments">
+                      <div v-for="(commentObj, mindex) in textcomp.displayAgreeComments">
+                        <div v-if="mindex < 2">
+                          <div class="commentSection">
+                            <div class="commentName">
+                              <b class="commentText">{{commentObj.username}}</b>
+                            </div>
+                            <div class="commentContent">
+                              <p class="commentText">{{commentObj.text}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div v-else>
+                      <div v-for="commentObj in textcomp.displayAgreeComments">
+                          <div class="commentSection">
+                            <div class="commentName">
+                              <b class="commentText">{{commentObj.username}}</b>
+                            </div>
+                            <div class="commentContent">
+                              <p class="commentText">{{commentObj.text}}</p>
+                            </div>
+                          </div>
                       </div>
                     </div>
                   </div>
                   <div class="commentBlock disagreeBlock">
-                    <h3 class="white-text commentHeader">{{s.disagree*100}}% IN DISAGREEMENT</h3>
-                    <div class="commentSection">
-                      <div class="commentName">
-                        <b class="commentText">bobby</b>
-                      </div>
-                      <div class="commentContent">
-                        <p class="commentText">There is just…something about a mother tongue. I am not fluent in the obscure European language my mother spoke to me as a baby, but when I hear it to this day I “feel” like my senses become engaged in ways that no other language can do. Bright primal smells and colors come to mind and then linger. I can’t help but think that this is what they were trying to evoke my resurrecting the Hebrew tongue.</p>
+                    <div class="u-sizeFullWidth u-inlineBlock">
+                      <h4 class="white-text commentHeader u-inlineBlock">{{s.disagree*100}}% IN DISAGREEMENT</h4>
+                      <div class="seeMoreButton u-floatRight u-inlineBlock" v-on:click="textcomp.showDisagreeComments = !textcomp.showDisagreeComments">
+                        <div v-if="textcomp.showDisagreeComments">
+                          read less
+                        </div>
+                        <div v-else>
+                          read more
+                        </div>
                       </div>
                     </div>
-                    <div class="rowReverse">
-                      <div class="seeMoreButton">
-                        see more comments
+                    <div v-if="!textcomp.showDisagreeComments">
+                      <div v-for="(commentObj, mindex) in textcomp.displayDisagreeComments">
+                        <div v-if="mindex < 2">
+                          <div class="commentSection">
+                            <div class="commentName">
+                              <b class="commentText">{{commentObj.username}}</b>
+                            </div>
+                            <div class="commentContent">
+                              <p class="commentText">{{commentObj.text}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div v-else>
+                      <div v-for="commentObj in textcomp.displayDisagreeComments">
+                          <div class="commentSection">
+                            <div class="commentName">
+                              <b class="commentText">{{commentObj.username}}</b>
+                            </div>
+                            <div class="commentContent">
+                              <p class="commentText">{{commentObj.text}}</p>
+                            </div>
+                          </div>
                       </div>
                     </div>
                   </div>
@@ -150,7 +198,7 @@
 </template>
 
 <script>
-import headerComp from './components/header-comp.vue';
+import headerComp from './components/header-comp.vue'; //gets the components
 import signinComp from './components/signin-comp.vue';
 import introComp from './components/intro-comp.vue';
 import mapComp from './components/map-comp.vue';
@@ -160,7 +208,7 @@ import commentsComp from './components/comments-comp.vue';
 import mixin from '../assets/mixins/article.js';
 
 export default {
-  mixins: [mixin],
+  mixins: [mixin], //mixin from article.js, variable named mixin above
   data: function() {
     return {}
   },

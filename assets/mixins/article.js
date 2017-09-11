@@ -1,5 +1,6 @@
 var mixin = {
   methods: {
+
     fetchClaims: function(groupId, textcomp, mapcomp){
       mapcomp.displayEveryone = 'none';
       mapcomp.displayIndividual = 'block';
@@ -74,7 +75,7 @@ var mixin = {
 
       mapcomp.tempsentenceId = mapcomp.arrayEveryone[mapcomp.displayCounter].sentenceId;
     },
-    borderBubble: function(groupId, mapcomp){
+    addBorder: function(groupId, mapcomp){
 
       $(".aBubble").removeClass("borderClass");
       $('#'+groupId).addClass("borderClass");
@@ -117,14 +118,15 @@ var mixin = {
     var textcomp = this.textcomp;
     var mapcomp = this.mapcomp;
     var fetchClaims = this.fetchClaims;
-    var borderBubble = this.borderBubble;
+    var addBorder = this.addBorder;
     $(document).mouseup(function(e) {
       if ($(e.target).is('circle')) {
         fetchClaims(e.target.id, textcomp, mapcomp);
-        borderBubble(e.target.id, mapcomp);
+        addBorder(e.target.id, mapcomp);
       }
-      if((e.target.className != "regularText") || (e.target.className != "highlightedText")){
+      if((e.target.className != "regularText") || (e.target.className != "highlightedText") || (e.target.id != "highlightedText")){
         textcomp.tooldisplay = 'none';
+        textcomp.talkdisplay = 'none';
       }
    });
   }

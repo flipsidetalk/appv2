@@ -37,7 +37,7 @@
     </div> <!--end tooltip -->
 
     <div id="tooltip" v-bind:style="{display: textcomp.talkdisplay, top: textcomp.tooltop, left: textcomp.toolleft}">
-      <span href="#talkModal" data-toggle="modal" class="u-button u-border">contribute</span>
+      <span href="#talkModal" data-toggle="modal" class="u-button u-border" v-on:click="fetchComments(textcomp)">contribute</span>
       <span v-on:click="textcomp.talkdisplay = 'none', textcomp.tooldisplay = 'block'" class="u-fontSize11 u-button">change vote</span>
       <div class="highlightMenu-arrowClip">
         <span class="highlightMenu-arrow"></span>
@@ -54,7 +54,8 @@ export default {
   data: function() {
     return {}
   },
-  props: ['textcomp']
+  props: ['textcomp'] //list assigning variable names from article.vue, article.vue knows to pass it via server.js
+
 }
 </script>
 
