@@ -253,7 +253,7 @@ class Spectrum:
                     group = dict()
                     group['group'] = i + 1
                     users = []
-                    gs = [None] * user_ids
+                    gs = [None] * len(user_ids)
                     if self.groups is not None:
                         gs = list(self.groups)
                     for iden, g in zip(user_ids, gs):
