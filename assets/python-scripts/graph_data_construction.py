@@ -124,7 +124,7 @@ class Spectrum:
 #Input: list of 3-tuples of form (user_id, question_id, vote)
     def add_votes(self, input_votes, process = True):
         enough_votes = False
-        votes = [(el['user_id'], el['passage_id'], el['reaction']) for el in input_votes]
+        votes = [(el['userId'], el['sentenceId'], el['reaction']) for el in input_votes]
         for user_id, question_id, vote in votes:
             try:
                 assert (vote == 1 or vote == 0 or vote == -1)
