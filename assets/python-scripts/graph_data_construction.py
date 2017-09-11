@@ -240,9 +240,6 @@ class Spectrum:
                 data = []
                 index_by_ind = {v[0]:k for k,v in self.users.items()}
                 user_ids = [index_by_ind[ind] for ind in self.users_to_graph]
-                xs, ys = self.out_points[:,0], self.out_points[:,1]
-                x_min, x_max, y_min, y_max = min(xs), max(xs), min(ys), max(ys)
-                data['extremes'] = {"xMin": float(x_min), "xMax": float(x_max), "yMin": float(y_min), "yMax": float(y_max)}
                 #Adding group placeholder for people who aren't considered yet
 
                 clusters = self.groups is not None
@@ -251,7 +248,7 @@ class Spectrum:
                         if i > -1:
                             return data
                     group = dict()
-                    group['group'] = i
+                    group['group'] = i + 1
                     users = []
                     for iden, g in zip(user_ids, list(self.groups)):
                         if g == i:
