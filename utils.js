@@ -41,6 +41,7 @@ module.exports.updateVizState = function(db, res, numCurrentVotes, articleId) {
           if (typeof(res) === 'response') {
             res.send(outData);
           }
+          console.log('INSERTING');
           db.viz.create({
             data: outData,
             numVotes: numCurrentVotes,
