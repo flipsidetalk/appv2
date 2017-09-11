@@ -253,10 +253,11 @@ class Spectrum:
                     group = dict()
                     group['group'] = i + 1
                     users = []
-                    for iden, g in zip(user_ids, list(self.groups)):
-                        if g == i:
-                            users.append(iden)
-                        elif i == -1:
+                    gs = [None] * user_ids
+                    if self.groups is not None:
+                        gs = list(self.groups)
+                    for iden, g in zip(user_ids, gs):
+                        if g == i or i == -1:
                             users.append(iden)
                     group['users'] = users
                     group['size'] = len(users)
