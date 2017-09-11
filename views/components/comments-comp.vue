@@ -1,5 +1,5 @@
 <template>
-<div class="commentSection u-paddingLeft90 u-paddingRight90 u-marginAuto u-paddingBottom100">
+<div>
   <div v-if="!commentscomp.showComment">
     <button class="mdc-button mdc-button--raised tealBackground" v-on:click="commentscomp.showComment = 1">
         <h5 class="u-pointer white-text montserratLight">Show Responses</h5>
@@ -12,8 +12,8 @@
   </div>
   <br>
   <div v-if="commentscomp.showComment">
-    <div v-for="(m, mindex) in commentscomp.article.text.main">
-      <div v-if="m.agreeable">
+    <div v-for="(m, mindex) in commentscomp.article.sentences">
+      <div v-if="m.mainClaim">
         <div class="mdc-card u-purpleBackground">
           <section class="mdc-card__primary">
             <h1 class="mdc-card__title mdc-card__title--large montserrat white-text lineheight123" style="font-size: 15px;">"{{m.text}}"</h1>

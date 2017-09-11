@@ -32,6 +32,9 @@ module.exports.init = function(sequelize, Sequelize) {
     name: {
       type: Sequelize.STRING
     },
+    firstname: {
+      type: Sequelize.STRING
+    },
     fbid: {
       type: Sequelize.STRING
     }
@@ -177,12 +180,16 @@ module.exports.init = function(sequelize, Sequelize) {
     }
   });
   Response.belongsTo(Vote);
+  Response.belongsTo(Sentence);
   tables.response = Response;
 
   const Viz = sequelize.define('viz', {
     data: {
       type: Sequelize.TEXT
     }
+  //  numVotes: {
+  //    type: Sequelize.INTEGER
+  //  }
   });
   tables.viz = Viz;
 

@@ -74,17 +74,6 @@ $(function() {
       $('#valid-email-signin').show();
     }
   });
-
-  $.ajax({
-    type: 'POST',
-    url: '/getVoteData',
-    success: function(res) {
-      console.log("success: " + res);
-    },
-    error: function(res) {
-      console.log("error: " + res);
-    }
-  });
 });
 
 var loc = {};
@@ -164,7 +153,7 @@ function signIn() {
     data: data,
     success: function(res) {
       if (res === "success") {
-        window.location.href = "/";
+        location.reload();
       } else if (res === "wrong_password") {
         $('#incorrect-password').show();
       }

@@ -239,9 +239,12 @@ class Spectrum:
             if len(self.votes_to_consider) != 0:
                 data = []
                 index_by_ind = {v[0]:k for k,v in self.users.items()}
-                if self.users_to_graph is not None:
-                    user_ids = [index_by_ind[ind] for ind in self.users_to_graph]
+                user_ids = [index_by_ind[ind] for ind in self.users_to_graph]
+                xs, ys = self.out_points[:,0], self.out_points[:,1]
+                x_min, x_max, y_min, y_max = min(xs), max(xs), min(ys), max(ys)
+                data['extremes'] = {"xMin": float(x_min), "xMax": float(x_max), "yMin": float(y_min), "yMax": float(y_max)}
                 #Adding group placeholder for people who aren't considered yet
+
                 clusters = self.groups is not None
                 for i in range(-1, self.k):
                     if not clusters:
@@ -257,6 +260,7 @@ class Spectrum:
                             users.append(iden)
                     group['users'] = users
                     group['size'] = len(users)
+
                     if self.relevant_questions is not None:
                         relevant_positions = []
                         for question in self.relevant_questions[i]:
@@ -304,7 +308,7 @@ class Spectrum:
                 if self.groups[index] == i or i == -1:
                     vote = self.data[user_ind, question_ind]
                     votes.append(vote)
-        
+
         group_answers = {}
         avg = None
         controversiality = None

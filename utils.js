@@ -11,7 +11,7 @@ module.exports.upsert = function(table, values, condition) {
     });
 }
 
-module.exports.makeExternalRequest = function(request, url, data, success) {
+module.exports.makeExternalRequest = function(request, url, data, success, err) {
   request({
       url: url,
       method: 'POST',
@@ -21,6 +21,88 @@ module.exports.makeExternalRequest = function(request, url, data, success) {
     console.log('Response: ' + response);
     if (!error) {
       success(body);
+    } else  {
+      err(error);
     }
   });
 }
+
+module.exports.updateVizState = function(db, res, currentVotes) {
+  var pythonVis = require('./assets/python-scripts/start_python_script.js');
+  var out;
+  db.vote.findAll().then(inputData => {
+    try {
+      var votes = JSON.parse(inputData);
+      if (votes.length > currentVotesLength) {
+        currentVotesLength = votes.length;
+        pythonVis(votes, (outData) => {
+          if (typeof(res) === 'response') {
+            res.send(outData);
+          }
+          db.vizs.create({
+            data: outData,
+            numVotes: currentVotes
+          });
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  });
+}
+
+module.exports.vue = function(pageTitle) {
+  return {
+    head: {
+      title: pageTitle,
+      meta: [{
+          property: 'og:title',
+          content: pageTitle
+        },
+        {
+          name: 'twitter:title',
+          content: pageTitle
+        },
+        {
+          name: 'viewport',
+          content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'
+        },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          href: '/favicon.ico'
+        },
+        {
+          script: 'https://unpkg.com/vue@2.4.2/dist/vue.js'
+        },
+        {
+          script: 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js'
+        },
+        {
+          script: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
+        },
+        {
+          script: 'https://d3js.org/d3.v4.js'
+        },
+        {
+          script: '../scripts/fb.js'
+        },
+        {
+          script: '../scripts/main.js'
+        },
+        {
+          style: 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
+        },
+        {
+          style: 'https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css'
+        },
+        {
+          style: 'https://fonts.googleapis.com/css?family=Montserrat:300,400'
+        },
+        {
+          style: '../styles/main.css'
+        }
+      ]
+    }
+  }
+};
