@@ -488,7 +488,7 @@ input:checked+label {
 /***  BUBBLE STYLES
 *******************************************/
 .borderClass{
-  stroke: #52aefb;
+  stroke: rgba(91, 59, 122, 0.71);
   stroke-width: 5px;
 }
 

@@ -43,10 +43,8 @@ var mixin = {
     var color = d3.scaleOrdinal(d3.schemeCategory20c);
 
     var bubbleData = this.mapcomp.bubbleData.slice(1);
-    //var bubble = d3.layout.pack().sort(null).size([diameter, diameter]).padding(1.5);
 
     var svg = d3.select(".bubbleMap")
-    .append("svg")
     .attr("width", diameter)
     .attr("height", diameter)
     .attr("class", "bubble")
@@ -66,13 +64,13 @@ var mixin = {
     .style("font", "15px sans-serif")
     .text("tooltip");
 
-    var radiusScale = d3.scaleSqrt().domain([10, 60]).range([30, 75]);
+    var radiusScale = d3.scaleSqrt().domain([1, 60]).range([30, 75]);
 
     var simulation = d3.forceSimulation()
     .force("x", d3.forceX(diameter / 2).strength(0.05))
     .force("y", d3.forceY(diameter / 2).strength(0.05))
     .force("collide", d3.forceCollide(function(d) {
-      return radiusScale(d.size + 1);
+      return radiusScale(d.size + 5);
     }));
 
     var circles = svg.selectAll("circle")
@@ -85,9 +83,9 @@ var mixin = {
       return radiusScale(d.size)
     })
     .attr("class", "aBubble")
-    .attr("fill", "rgba(173, 173, 173, 0.5)")
+    .attr("fill", "rgba(91, 59, 122, 0.41)")
     .on("mouseover", function(d) {
-      tooltip.text("group " + d.group);
+      tooltip.text("group " + d.group + '\n' + d.size + "people");
       tooltip.style("visibility", "visible");
     })
     .on("mousemove", function() {
@@ -95,7 +93,8 @@ var mixin = {
     })
     .on("mouseout", function() {
       return tooltip.style("visibility", "hidden");
-    });
+    })
+  ;
 
     simulation.nodes(bubbleData)
     .on("tick", ticked)

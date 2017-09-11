@@ -300,7 +300,6 @@ app.get('/article/:slug', function(req, res) {
             fill: ''
           },
 
-
           displayCounter: 0,
           displayEveryone: 'block',
           displayIndividual: 'none',
