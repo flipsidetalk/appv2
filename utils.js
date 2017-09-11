@@ -48,6 +48,7 @@ module.exports.updateVizState = function(db, res, numCurrentVotes) {
       }
     } catch (err) {
       console.log(err);
+      res.send(509);
     }
   });
 }
