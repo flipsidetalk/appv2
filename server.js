@@ -604,14 +604,23 @@ app.get('/article/:slug', function(req, res) {
             });
           },
           comments: function(callback) {
-            db.response.findAll({
-              include: [{
-                model: db.vote,
-                required: true
-              }]
-            }).then(comments => {
-              console.log('COMMENTS: ' + JSON.stringify(comments))
-              callback(null, comments);
+            db.article.findOne({
+              where: {
+                slug: slug
+              },
+              attributes: ['id']
+            }).then(response => {
+              const id = response.dataValues.id;
+              sequelize.query('SELECT `response`.`id`, `response`.`statement`, `response`.`sentenceId`, `local`.`firstname` AS `lcfn`, `vote`.`reaction` AS `reaction`, `facebook`.`firstname` AS `fbfn` FROM `responses` AS `response` INNER JOIN `sentences` AS `sentence` ON `response`.`sentenceId` = `sentence`.`id` AND `sentence`.`articleId` = ' + id + ' INNER JOIN `votes` AS `vote` ON `response`.`voteId` = `vote`.`id` LEFT JOIN `local` ON `vote`.`userId` = `local`.`id` LEFT JOIN `facebook` ON `vote`.`userId` = `facebook`.`id`')
+              .then(comments => {
+                comments = comments[0];
+                for (var i in comments) {
+                  comments[i].lcfn = undefined;
+                  comments[i].fbfn = undefined;
+                  comments[i].firstname = comments[i].lcfn ? comments[i].lcfn : comments[i].fbfn
+                }
+                callback(null, comments);
+              });
             });
           }
         },
@@ -620,8 +629,7 @@ app.get('/article/:slug', function(req, res) {
             console.log(err);
           } else {
             data.textcomp.article = results.article;
-            data.commentscomp.article = results.article;
-            data.commentscomp.commentData = results.comments;
+            data.textcomp.commentData = results.comments;
             // data.mapcomp.bubbleData = results.viz;
             data.pageTitle = 'Flipside - ' + results.article.title.title;
             res.renderVue('article', data, utils.vue(data.pageTitle));

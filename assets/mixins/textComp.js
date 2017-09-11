@@ -116,18 +116,17 @@ var mixin = {
       textcomp.displayAgreeComments = [];
       textcomp.displayDisagreeComments = [];
       textcomp.displayUnsureComments = [];
-
-      for (var comment of commentData) {
-        if (comment.vote.sentenceId == placeholderId) {
+      for (var comment of textcomp.commentData) {
+        if (comment.sentenceId == placeholderId) {
           //append it to object
-          textcomp.eachDisplayComment.agreeable = comment.vote.reaction;
+          textcomp.eachDisplayComment.agreeable = comment.reaction;
           textcomp.eachDisplayComment.text = comment.statement;
           textcomp.eachDisplayComment.username = comment.firstname;
 
-          if (comment.vote.reaction == -1) {
+          if (comment.reaction == -1) {
             textcomp.displayDisagreeComments.push(textcomp.eachDisplayComment);
           }
-          else if (comment.vote.reaction == 1) {
+          else if (comment.reaction == 1) {
             textcomp.displayAgreeComments.push(textcomp.eachDisplayComment);
           }
           else {
