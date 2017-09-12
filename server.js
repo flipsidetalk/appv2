@@ -420,6 +420,7 @@ app.get('/article/:slug', function(req, res) {
           } else {
             data.textcomp.article = results.article;
             data.textcomp.commentData = results.comments;
+            console.log("COMMENTS: " + JSON.stringify(results.comments));
             if (results.viz && results.viz[0]) {
               data.mapcomp.bubbleData = JSON.parse(results.viz[0].data);
             }
