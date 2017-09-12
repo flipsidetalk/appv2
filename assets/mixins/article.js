@@ -63,6 +63,11 @@ var mixin = {
     },
 
     fetchEveryone: function(textcomp, mapcomp){
+
+      console.log('\n\n\n\n\n');
+      console.log(mapcomp.bubbleData);
+      console.log('\n\n\n\n\n');
+
       mapcomp.displayEveryone = 'block';
       mapcomp.displayIndividual = 'none';
       mapcomp.arrayEveryone = [];

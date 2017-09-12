@@ -1,6 +1,8 @@
 <template>
   <div>
     {{textcomp.tooldisplay}}
+
+    commentDatA: {{textcomp.commentData}}
     <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
     <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
     <div class="u-marginAuto">
