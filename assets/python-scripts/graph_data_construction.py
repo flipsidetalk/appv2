@@ -278,7 +278,7 @@ class Spectrum:
                             claim_data['shadeColor'] = self.range_normalize(0, 1, 0.3, 0.1, avg)
                             claim_data['controversiality'] = controversiality
                             claim_data['num_votes'] = num_votes
-                            for answer, direction in zip([-1,0,1], ['disagree', 'not sure', 'agree']):
+                            for answer, direction in zip([-1,0,1], ['disagree', 'unsure', 'agree']):
                                 if answer in proportions.keys():
                                     if proportions[answer] is not None:
                                         proportions[answer] = float(proportions[answer])
