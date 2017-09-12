@@ -440,7 +440,8 @@ app.post('/submitResponse', function(req, res) {
       id: req.body.sentenceId
     },
     attributes: ['articleId']
-  }).then(articleId => {
+  }).then(data => {
+    const articleId = data.dataValues.articleId;
     db.vote.findOne({
       where: {
         userId: req.user.id,
