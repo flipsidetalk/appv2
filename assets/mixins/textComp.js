@@ -88,6 +88,9 @@ var mixin = {
       textcomp.displayAgreeComments = [];
       textcomp.displayDisagreeComments = [];
       textcomp.displayUnsureComments = [];
+
+      console.log('commentData:' + JSON.stringify(textcomp.commentData));
+
       for (var comment of textcomp.commentData) {
         if (comment.sentenceId == placeholderId) {
           //append it to object

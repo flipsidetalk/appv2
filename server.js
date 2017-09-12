@@ -625,6 +625,20 @@ app.post('/userStatus', function(req, res) {
 });
 
 // Post vote
+// app.post('/submitVote', function(req, res) {
+//   let user = req.user ? req.user.id : req.sessionID;
+//   utils.upsert(db.vote, {
+//     userId: user,
+//     sentenceId: req.body.sentenceId,
+//     reaction: req.body.reaction
+//   }, {
+//     userId: user,
+//     sentenceId: req.body.sentenceId
+//   });
+//   res.sendStatus(200);
+// });
+
+// Post vote
 app.post('/submitVote', function(req, res) {
   let user = req.user ? req.user.id : req.sessionID;
   utils.upsert(db.vote, {
@@ -634,9 +648,20 @@ app.post('/submitVote', function(req, res) {
   }, {
     userId: user,
     sentenceId: req.body.sentenceId
+  }).then(() => {
+    db.sentence.findOne({
+      where: {
+        id: req.body.sentenceId
+      },
+      attributes: ['articleId']
+    }).then(data => {
+      const articleId = data.dataValues.articleId
+      utils.updateVizState(db, res, numCurrentVotes, articleId, sequelize);
+    })
   });
   res.sendStatus(200);
 });
+
 
 // Get number of votes cast by current user
 app.post('/numVotesCast', function(req, res) {
