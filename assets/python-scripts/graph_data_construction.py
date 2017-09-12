@@ -268,13 +268,21 @@ class Spectrum:
                             claim_data = dict()
                             claim_data['sentenceId'] = question
                             avg,controversiality, num_votes,proportions = self.get_numbers(i, question)
-                            claim_data['average'] = float(avg)
-                            claim_data['shadeColor'] = self.range_normalize(0, 1, 0.3, 0.1, float(avg))
-                            claim_data['controversiality'] = float(controversiality)
-                            claim_data['num_votes'] = float(num_votes)
+                            if avg is not None:
+                                avg = float(avg)
+                            if controversiality is not None:
+                                controversiality = float(controversiality)
+                            if num_votes is not None:
+                                num_votes = float(num_votes)
+                            claim_data['average'] = avg
+                            claim_data['shadeColor'] = self.range_normalize(0, 1, 0.3, 0.1, avg)
+                            claim_data['controversiality'] = controversiality
+                            claim_data['num_votes'] = num_votes
                             for answer, direction in zip([-1,0,1], ['disagree', 'not sure', 'agree']):
                                 if answer in proportions.keys():
-                                    claim_data[direction] = float(proportions[answer])
+                                    if proportions[answer] is not None:
+                                        proportions[answer] = float(proportions[answer])
+                                    claim_data[direction] = proportions[answer]
                                 else:
                                     claim_data[direction] = None
                                 relevant_positions.append(claim_data)
