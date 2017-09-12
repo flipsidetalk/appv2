@@ -39,74 +39,80 @@ var mixin = {
     }
   },
   mounted: function() {
-    var diameter = 400; //max size of the bubbles
-    var color = d3.scaleOrdinal(d3.schemeCategory20c);
+    console.log(this.mapcomp.bubbleData);
 
-    var bubbleData = this.mapcomp.bubbleData.slice(1);
+    if (this.mapcomp.bubbleData.length > 2) {
 
-    var svg = d3.select(".bubbleMap")
-    .attr("width", diameter)
-    .attr("height", diameter)
-    .attr("class", "bubble")
-    .append("g")
-    .attr("transform", "translate(0,0)");
+      var diameter = 400; //max size of the bubbles
+      var color = d3.scaleOrdinal(d3.schemeCategory20c);
+
+      var bubbleData = this.mapcomp.bubbleData.slice(1);
+
+      var svg = d3.select(".bubbleMap")
+      .attr("width", diameter)
+      .attr("height", diameter)
+      .attr("class", "bubble")
+      .append("g")
+      .attr("transform", "translate(0,0)");
 
 
-    var tooltip = d3.select("body")
-    .append("div")
-    .style("position", "absolute")
-    .style("z-index", "10")
-    .style("visibility", "hidden")
-    .style("color", "white")
-    .style("padding", "8px")
-    .style("background-color", "rgba(0, 0, 0, 0.75)")
-    .style("border-radius", "6px")
-    .style("font", "15px sans-serif")
-    .text("tooltip");
+      var tooltip = d3.select("body")
+      .append("div")
+      .style("position", "absolute")
+      .style("z-index", "10")
+      .style("visibility", "hidden")
+      .style("color", "white")
+      .style("padding", "8px")
+      .style("background-color", "rgba(0, 0, 0, 0.75)")
+      .style("border-radius", "6px")
+      .style("font", "15px sans-serif")
+      .text("tooltip");
 
-    var radiusScale = d3.scaleSqrt().domain([1, 60]).range([30, 75]);
+      var radiusScale = d3.scaleSqrt().domain([1, 60]).range([30, 75]);
 
-    var simulation = d3.forceSimulation()
-    .force("x", d3.forceX(diameter / 2).strength(0.05))
-    .force("y", d3.forceY(diameter / 2).strength(0.05))
-    .force("collide", d3.forceCollide(function(d) {
-      return radiusScale(d.size + 5);
-    }));
+      var simulation = d3.forceSimulation()
+      .force("x", d3.forceX(diameter / 2).strength(0.05))
+      .force("y", d3.forceY(diameter / 2).strength(0.05))
+      .force("collide", d3.forceCollide(function(d) {
+        return radiusScale(d.size + 5);
+      }));
 
-    var circles = svg.selectAll("circle")
-    .data(bubbleData)
-    .enter().append("circle")
-    .attr("id", function(d) {
-      return d.group;
-    })
-    .attr("r", function(d) {
-      return radiusScale(d.size)
-    })
-    .attr("class", "aBubble")
-    .attr("fill", "rgba(91, 59, 122, 0.41)")
-    .on("mouseover", function(d) {
-      tooltip.text("group " + d.group + '\n' + d.size + "people");
-      tooltip.style("visibility", "visible");
-    })
-    .on("mousemove", function() {
-      return tooltip.style("top", (d3.event.pageY + 24) + "px").style("left", (d3.event.pageX - 10) + "px");
-    })
-    .on("mouseout", function() {
-      return tooltip.style("visibility", "hidden");
-    })
-  ;
-
-    simulation.nodes(bubbleData)
-    .on("tick", ticked)
-
-    function ticked() {
-      circles
-      .attr("cx", function(d) {
-        return d.x
+      var circles = svg.selectAll("circle")
+      .data(bubbleData)
+      .enter().append("circle")
+      .attr("id", function(d) {
+        return d.group;
       })
-      .attr("cy", function(d) {
-        return d.y
+      .attr("r", function(d) {
+        return radiusScale(d.size)
       })
+      .attr("class", "aBubble")
+      .attr("fill", "rgba(91, 59, 122, 0.41)")
+      .on("mouseover", function(d) {
+        tooltip.text("group " + d.group + '\n' + d.size + "people");
+        tooltip.style("visibility", "visible");
+      })
+      .on("mousemove", function() {
+        return tooltip.style("top", (d3.event.pageY + 24) + "px").style("left", (d3.event.pageX - 10) + "px");
+      })
+      .on("mouseout", function() {
+        return tooltip.style("visibility", "hidden");
+      })
+      ;
+
+      simulation.nodes(bubbleData)
+      .on("tick", ticked)
+
+      function ticked() {
+        circles
+        .attr("cx", function(d) {
+          return d.x
+        })
+        .attr("cy", function(d) {
+          return d.y
+        })
+      }
+
     }
   }
 }
