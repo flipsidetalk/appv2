@@ -546,11 +546,21 @@ app.get('/article/:slug', function(req, res) {
        */
       async.parallel({
           viz: function(callback) {
-            db.viz.findAll({
-              limit: 1,
-              order: [[ 'createdAt', 'DESC' ]]
-            }).then(viz => {
-              callback(null, viz);
+            db.article.findOne({
+              where: {
+                slug: slug
+              },
+              attributes: ['articleId']
+            }).then(articleId => {
+              db.viz.findAll({
+                limit: 1,
+                order: [[ 'createdAt', 'DESC' ]],
+                where: {
+                  articleId: articleId
+                }
+              }).then(viz => {
+                callback(null, viz);
+              });
             });
           },
           article: function(callback) {
@@ -613,7 +623,7 @@ app.get('/article/:slug', function(req, res) {
           } else {
             data.textcomp.article = results.article;
             data.textcomp.commentData = results.comments;
-            // data.mapcomp.bubbleData = results.viz;
+            data.mapcomp.bubbleData = results.viz;
             data.pageTitle = 'Flipside - ' + results.article.title.title;
             res.renderVue('article', data, utils.vue(data.pageTitle));
           }
