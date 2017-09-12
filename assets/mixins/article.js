@@ -6,25 +6,22 @@ var mixin = {
       mapcomp.displayIndividual = 'block';
       //identify the id's for the sentences
       mapcomp.arrayClaim = [];
-      console.log(textcomp.article.sentences[856].text)
+
       for (var m of mapcomp.bubbleData) {
         if (groupId == m.group) {
-          for (var s = 0; s < 2; s++) {
-            var tempId = m.sentences[s].sentenceId
-
-            mapcomp.eachClaim.sentenceId = m.sentences[s].sentenceId;
+          if (m.sentences.length < 2) {
+            var sentenceObject = m.sentences[0];
+            var tempId = m.sentences[0].sentenceId;
+            mapcomp.eachClaim.sentenceId = sentenceObject.sentenceId;
             mapcomp.eachClaim.text = JSON.stringify(textcomp.article.sentences[tempId].text);
-            if (m.sentences[s].average > 0 ) {
-              //value is positive
+            if (sentenceObject.average > 0) {
               mapcomp.eachClaim.agreeable = 'agreeBlock';
-              mapcomp.eachClaim.percent = m.sentences[s].agree;
+              mapcomp.eachClaim.percent = sentenceObject.agree;
             }
             else {
               mapcomp.eachClaim.agreeable = 'disagreeBlock';
-              mapcomp.eachClaim.percent = m.sentences[s].disagree;
-
+              mapcomp.eachClaim.percent = sentenceObject.disagree;
             }
-
             mapcomp.arrayClaim.push(mapcomp.eachClaim);
             mapcomp.eachClaim = {
               sentenceId: "",
@@ -32,6 +29,32 @@ var mixin = {
               agreeable: "",
               percent: "",
             };
+          }
+          else {
+            for (var s = 0; s < 2; s++) {
+              var tempId = m.sentences[s].sentenceId
+
+              mapcomp.eachClaim.sentenceId = m.sentences[s].sentenceId;
+              mapcomp.eachClaim.text = JSON.stringify(textcomp.article.sentences[tempId].text);
+              if (m.sentences[s].average > 0 ) {
+                //value is positive
+                mapcomp.eachClaim.agreeable = 'agreeBlock';
+                mapcomp.eachClaim.percent = m.sentences[s].agree;
+              }
+              else {
+                mapcomp.eachClaim.agreeable = 'disagreeBlock';
+                mapcomp.eachClaim.percent = m.sentences[s].disagree;
+
+              }
+
+              mapcomp.arrayClaim.push(mapcomp.eachClaim);
+              mapcomp.eachClaim = {
+                sentenceId: "",
+                text: "",
+                agreeable: "",
+                percent: "",
+              };
+            }
           }
         }
       }
@@ -77,17 +100,17 @@ var mixin = {
     },
     addBorder: function(groupId, mapcomp){
 
-    //  $(".aBubble").removeClass("borderClass");
-    //  $('#'+groupId).addClass("borderClass");
-    $(".aBubble").removeAttr('stroke');
-    $(".aBubble").removeAttr('stroke');
+      //  $(".aBubble").removeClass("borderClass");
+      //  $('#'+groupId).addClass("borderClass");
+      $(".aBubble").removeAttr('stroke');
+      $(".aBubble").removeAttr('stroke');
 
-    $('#'+groupId).attr('stroke', 'rgba(91, 59, 122, 0.7)');
-    $('#'+groupId).attr('stroke-width', '5px');
+      $('#'+groupId).attr('stroke', 'rgba(91, 59, 122, 0.7)');
+      $('#'+groupId).attr('stroke-width', '5px');
 
-    //$('#'+groupId).attr('fill', 'url(#group'+groupId+')');
+      //$('#'+groupId).attr('fill', 'url(#group'+groupId+')');
 
-    console.log(groupId);
+      console.log(groupId);
 
     },
 
@@ -166,7 +189,7 @@ var mixin = {
         textcomp.tooldisplay = 'none';
         textcomp.talkdisplay = 'none';
       }
-   });
+    });
   }
 
 };
