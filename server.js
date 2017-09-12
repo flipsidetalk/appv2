@@ -346,13 +346,14 @@ app.get('/article/:slug', function(req, res) {
               where: {
                 slug: slug
               },
-              attributes: ['articleId']
-            }).then(articleId => {
+              attributes: ['id']
+            }).then(data => {
+              const id = data.dataValues.id;
               db.viz.findAll({
                 limit: 1,
                 order: [[ 'createdAt', 'DESC' ]],
                 where: {
-                  articleId: articleId
+                  articleId: id
                 }
               }).then(viz => {
                 callback(null, viz);
