@@ -6,9 +6,10 @@
           <h1>Flipside</h1>
           <h2 class="u-lighter">Share stories for better discourse</h2>
         </div>
+
         <form class="submitForm center-heading bumpDown" v-on:submit="checkValidLink($event)">
-          <label for="" class="submitButton">URL:</label>
-          <input class="mainInput" id="link-input" type="text" name="" value="" placeholder="https://www.nytimes.com/opinion" autocomplete="off">
+          <input class="mainInput u-lighter" id="link-input" type="text" name="" value="" placeholder="submit an article :  https://www.nytimes.com/opinion" autocomplete="off">
+
           <p id="invalid-link-msg" class="form-error">
             Please check your link and try again.
           </p>
