@@ -455,7 +455,7 @@ app.post('/submitResponse', function(req, res) {
         statement: req.body.statement,
         voteId: vote.id
       }).then(() => {
-        utils.updateVizState(db, res, numCurrentVotes, articleId);
+        utils.updateVizState(db, res, numCurrentVotes, articleId, sequelize);
       });
     });
   });

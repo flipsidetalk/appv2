@@ -27,10 +27,11 @@ module.exports.makeExternalRequest = function(request, url, data, success, err) 
   });
 }
 
-module.exports.updateVizState = function(db, res, numCurrentVotes, articleId) {
+module.exports.updateVizState = function(db, res, numCurrentVotes, articleId, sequelize) {
   var pythonVis = require('./assets/python-scripts/start_python_script.js');
   var out;
-  db.vote.findAll().then(inputData => {
+  sequelize.query('SELECT * FROM test.votes INNER JOIN test.sentences on votes.sentenceId = sentences.id INNER JOIN test.articles ON sentences.articleId = articles.id WHERE articleId = ' + articleId)
+  .then(inputData => {
     try {
       console.log("InputData: " + inputData);
       var votes = inputData;
