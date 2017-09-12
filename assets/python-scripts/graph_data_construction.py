@@ -266,7 +266,7 @@ class Spectrum:
                         relevant_positions = []
                         for question in self.relevant_questions[i]:
                             claim_data = dict()
-                            claim_data['sentenceId'] = question
+                            claim_data['sentenceId'] = str(question)
                             avg,controversiality, num_votes,proportions = self.get_numbers(i, question)
                             if avg is not None:
                                 avg = float(avg)
