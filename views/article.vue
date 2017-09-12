@@ -11,7 +11,6 @@
           <!--this is keycomp -->
           <div class="col-md-6">
             <span class="">
-              {{mapcomp.claimIds}}
               <h4 class="">the ideas within our bubbles:</h4>
               <span type="button" class="keyButtons u-lighter purpleBackground" name="keybutton" v-on:click="fetchEveryone(textcomp, mapcomp)">everyone</span>
               <span v-for="m in mapcomp.bubbleData">
@@ -106,7 +105,7 @@
           <br> <br><br><br>
 
           <div v-for="m in mapcomp.bubbleData">
-            <div v-if="m.group == -1">
+            <div v-if="m.group == 0">
               <div v-for="s in m.sentences">
                 <div v-if="s.sentenceId == textcomp.lastReferenced">
                   <div class="commentBlock agreeBlock">
