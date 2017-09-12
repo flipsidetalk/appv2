@@ -33,12 +33,15 @@ module.exports.updateVizState = function(db, res, numCurrentVotes, articleId, se
   sequelize.query('SELECT * FROM test.votes INNER JOIN test.sentences on votes.sentenceId = sentences.id INNER JOIN test.articles ON sentences.articleId = articles.id WHERE articleId = ' + articleId)
   .then(inputData => {
     try {
+      console.log('\n\n\n\n\n\n\n\n')
       console.log("InputData: " + inputData);
+      console.log('\n\n\n\n\n\n\n\n')
       var votes = inputData;
       if (votes.length > numCurrentVotes) {
         numCurrentVotes = votes.length;
+        console.log('\n\n\n\n\n\n\n\n')
         pythonVis(votes, (outData) => {
-          console.log("outData: " + outData);
+          console.log("outData: " + JSON.stringify(outData));
           if (typeof(res) === 'response') {
             res.send(outData);
           }

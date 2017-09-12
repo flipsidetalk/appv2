@@ -7,7 +7,7 @@ import sys, json, numpy
 
 def read_inp():
 	raw_inp = sys.stdin.readlines()
-	inp = json.loads(raw_inp[0])
+	inp = json.loads(raw_inp[0])[0]
 	return inp
 
 def main():

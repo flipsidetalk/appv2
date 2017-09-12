@@ -2,7 +2,9 @@
 var fs = require('fs');
 
 module.exports = function(votes, done) {
+  console.log('\n\n\n\n')
   console.log("votes: " + JSON.stringify(votes));
+  console.log('\n\n\n\n\n\n')
   var spawn = require('child_process').spawn
   var py = spawn('python3', ['assets/python-scripts/ml_script.py'])
 
