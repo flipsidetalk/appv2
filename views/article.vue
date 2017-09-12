@@ -27,17 +27,17 @@
                       actualId: {{m.sentenceId}}
                       <h4 class="u-lighter">{{m.text}}</h4>
                     </div>
-                    <div class="commentBlock agreeBlock .transition2" v-bind:style="{width: m.agree*100 + '%'}">
+                    <div class="commentBlock agreeBlock .transition2" v-bind:style="{width: 50+m.agree*50 + '%'}">
                       <div class="commentHeader">
                         <h4 class="u-lighter">{{m.agree*100}}% agree</h4>
                       </div>
                     </div>
-                    <div class="commentBlock disagreeBlock .transition2" v-bind:style="{width: m.disagree*100 + '%'}">
+                    <div class="commentBlock disagreeBlock .transition2" v-bind:style="{width: 50+m.disagree*50 + '%'}">
                       <div class="commentHeader">
                         <h4 class="u-lighter">{{m.disagree*100}}% disagree</h4>
                       </div>
                     </div>
-                    <div class="commentBlock purpleBackground .transition2" v-bind:style="{width: m.unsure*100 + '%'}">
+                    <div class="commentBlock purpleBackground .transition2" v-bind:style="{width: 50+m.unsure*50 + '%'}">
                       <div class="commentHeader">
                         <h4 class="u-lighter">{{m.unsure*100}}% unsure</h4>
                       </div>
