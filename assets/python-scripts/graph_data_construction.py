@@ -323,13 +323,13 @@ class Spectrum:
         controversiality = None
         num_votes = len(votes)
         if num_votes >= self.min_votes:
-            controversiality = np.std(votes) / np.sqrt(num_votes)
-            avg = np.mean(votes)
+            controversiality = float(np.std(votes) / np.sqrt(num_votes))
+            avg = float(np.mean(votes))
             votes = np.array(votes)
             total = 0
             for answer in [-1,0,1]:
-                num_votes = np.where(votes == answer)[0].shape[0]
-                group_answers[answer] = num_votes / len(votes)
+                num_votes = float(np.where(votes == answer)[0].shape[0])
+                group_answers[answer] = float(num_votes / len(votes))
         
         return avg,controversiality,  num_votes, group_answers
 
