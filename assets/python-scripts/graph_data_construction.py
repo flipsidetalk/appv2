@@ -262,31 +262,32 @@ class Spectrum:
                     group['users'] = users
                     group['size'] = len(users)
 
-                    if self.relevant_questions is not None:
-                        relevant_positions = []
-                        for question in self.relevant_questions[i]:
-                            claim_data = dict()
-                            claim_data['sentenceId'] = str(question)
-                            avg,controversiality, num_votes,proportions = self.get_numbers(i, question)
-                            if avg is not None:
-                                avg = float(avg)
-                            if controversiality is not None:
-                                controversiality = float(controversiality)
-                            if num_votes is not None:
-                                num_votes = float(num_votes)
-                            claim_data['average'] = avg
-                            claim_data['shadeColor'] = self.range_normalize(0, 1, 0.3, 0.1, avg)
-                            claim_data['controversiality'] = controversiality
-                            claim_data['num_votes'] = num_votes
-                            for answer, direction in zip([-1,0,1], ['disagree', 'unsure', 'agree']):
-                                if answer in proportions.keys():
-                                    if proportions[answer] is not None:
-                                        proportions[answer] = float(proportions[answer])
-                                    claim_data[direction] = proportions[answer]
-                                else:
-                                    claim_data[direction] = None
-                                relevant_positions.append(claim_data)
-                        group['sentences'] = relevant_positions
+                    if self.relevant_questions is None:
+                        self.relevant_questions = {-1: set(self.question_ids)}
+                    relevant_positions = []
+                    for question in self.relevant_questions[i]:
+                        claim_data = dict()
+                        claim_data['sentenceId'] = str(question)
+                        avg,controversiality, num_votes,proportions = self.get_numbers(i, question)
+                        if avg is not None:
+                            avg = float(avg)
+                        if controversiality is not None:
+                            controversiality = float(controversiality)
+                        if num_votes is not None:
+                            num_votes = float(num_votes)
+                        claim_data['average'] = avg
+                        claim_data['shadeColor'] = self.range_normalize(0, 1, 0.3, 0.1, avg)
+                        claim_data['controversiality'] = controversiality
+                        claim_data['num_votes'] = num_votes
+                        for answer, direction in zip([-1,0,1], ['disagree', 'unsure', 'agree']):
+                            if answer in proportions.keys():
+                                if proportions[answer] is not None:
+                                    proportions[answer] = float(proportions[answer])
+                                claim_data[direction] = proportions[answer]
+                            else:
+                                claim_data[direction] = None
+                        relevant_positions.append(claim_data)
+                    group['sentences'] = relevant_positions
                     data.append(group)
                     del group
                 return data
