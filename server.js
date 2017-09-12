@@ -320,7 +320,7 @@ app.get('/article/:slug', function(req, res) {
           },
           thisBubble: "test test",
           bubbleData: [{
-              group: -1,
+              group: 0,
               size: 10,
               users: ["a", "b"],
               sentences: [{

@@ -28,9 +28,18 @@
     <div id="cal2">&nbsp;</div>
     <!--TO DO: V-BIND BACKGROUND COLOR OR CLASS DEPENDING ON M.SEEN-->
     <div id="tooltip" v-bind:style="{display: textcomp.tooldisplay, top: textcomp.tooltop, left: textcomp.toolleft}">
-      <span v-on:click="submitResponse(1, 2, textcomp)" class="u-button">agree</span>
-      <span v-on:click="submitResponse(-1, 3, textcomp)" class="u-button">disagree</span>
-      <span v-on:click="submitResponse(0, 4, textcomp)" class="u-button">unsure</span>
+
+      <span v-if="textcomp.user == undefined">
+        <span href="#sign-in-modal" data-toggle="modal" class="u-button">agree</span>
+        <span href="#sign-in-modal" data-toggle="modal" class="u-button">disagree</span>
+        <span href="#sign-in-modal" data-toggle="modal" class="u-button">unsure</span>
+
+      </span>
+      <span v-else>
+        <span v-on:click="submitResponse(1, 2, textcomp)" class="u-button">agree</span>
+        <span v-on:click="submitResponse(-1, 3, textcomp)" class="u-button">disagree</span>
+        <span v-on:click="submitResponse(0, 4, textcomp)" class="u-button">unsure</span>
+      </span>
       <div class="highlightMenu-arrowClip">
         <span class="highlightMenu-arrow"></span>
       </div>
