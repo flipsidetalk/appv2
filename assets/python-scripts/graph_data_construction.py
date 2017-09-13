@@ -517,18 +517,20 @@ class Spectrum:
         strongest_claims = dict()
         strongest_claims[-1] = []
         for avg, question_ind, group in all_opinions:
-            if question_ind not in question_candidates:
+            '''
+            if question_ind not in question_candidates.keys():
                 question_candidates[question_ind] = 1
             else:
                 question_candidates[question_ind] += 1
-            if question_candidates[question_ind] <= self.k//2:
-                if group in strongest_claims.keys():
-                    if len(strongest_claims[group]) >= self.num_opinions:
-                        pass
-                    else:
-                        strongest_claims[group].append(self.question_ids[question_ind])
+            if question_candidates[question_ind] <= self.k // 2:
+            '''
+            if group in strongest_claims.keys():
+                if len(strongest_claims[group]) >= self.num_opinions:
+                    pass
                 else:
-                    strongest_claims[group] = [self.question_ids[question_ind]]
+                    strongest_claims[group].append(self.question_ids[question_ind])
+            else:
+                strongest_claims[group] = [self.question_ids[question_ind]]
 
         for i in range(self.k): 
              strongest_claims[-1] += strongest_claims[i]
