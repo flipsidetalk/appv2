@@ -115,7 +115,7 @@ var mixin = {
 
       //$('#'+groupId).attr('fill', 'url(#group'+groupId+')');
 
-      console.log(groupId);
+      //console.log(groupId);
 
     },
 
@@ -154,8 +154,13 @@ var mixin = {
     submitWhy: function(textcomp) {
       textcomp.whyResponse.sentenceId = textcomp.lastReferenced;
       textcomp.whyResponse.vote = textcomp.article.sentences[textcomp.lastReferenced].seen;
-      textcomp.whyResponses.push(textcomp.whyResponse)
+      textcomp.whyResponses.push(textcomp.whyResponse);
+      textcomp.lastUserResponse = textcomp.whyResponse.input;
+      textcomp.lastUserVote = textcomp.whyResponse.vote;
       this.postResponse(textcomp.whyResponse.input, textcomp.whyResponse.sentenceId);
+
+
+      console.log(textcomp.lastUserResponse);
       textcomp.whyResponse = {
         sentenceId: "",
         input: "",

@@ -8,6 +8,9 @@
     disagreeComment: {{textcomp.displayDisagreeComments}}
     <br><br><br>
     agreeComments: {{textcomp.displayAgreeComments}}
+    <br><br><br>
+    lastReferenced: {{textcomp.lastReferenced}}
+
 
 
     <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
@@ -55,7 +58,7 @@
     </div> <!--end tooltip -->
 
     <div id="tooltip" v-bind:style="{display: textcomp.talkdisplay, top: textcomp.tooltop, left: textcomp.toolleft}">
-      <span href="#talkModal" data-toggle="modal" class="u-button u-border" v-on:click="fetchComments(textcomp)">contribute</span>
+      <span href="#talkModal" data-toggle="modal" class="u-button u-border" v-on:click="fetchComments(textcomp), textcomp.showUserResponse ='none'">contribute</span>
       <span v-on:click="textcomp.talkdisplay = 'none', textcomp.tooldisplay = 'block'" class="u-fontSize11 u-button">change vote</span>
       <div class="highlightMenu-arrowClip">
         <span class="highlightMenu-arrow"></span>

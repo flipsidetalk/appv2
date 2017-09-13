@@ -185,6 +185,10 @@ app.get('/article/:slug', function(req, res) {
           showAgreeComments: false,
           showDisagreeComments: false,
 
+          lastUserResponse: '',
+          showUserResponse: 'block',
+          lastUserVote: '',
+
           commentData: [
 
           ],

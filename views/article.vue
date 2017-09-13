@@ -99,15 +99,168 @@
             </div>
             <!--{{textcomp.article.sentences[textcomp.lastReferenced]}} -->
           </h4>
-          <h5>I <b>AGREE</b> because ... </h5>
+
+          <!-- <div v-if="textcomp.article.sentences[textcomp.lastReferenced].seen == 2">
+            <h5>I <b>AGREE</b> because ... </h5>
+          </div>
+          <div v-else-if="textcomp.article.sentences[textcomp.lastReferenced].seen == 3">
+            <h5>I <b>DISAGREE</b> because ... </h5>
+          </div>
+          <div v-else="textcomp.article.sentences[textcomp.lastReferenced].seen == 4">
+            <h5>I am <b>UNSURE</b> because ... </h5>
+          </div> -->
+
+
+          <h5>I think ...<b></b> </h5>
           <textarea type="text" placeholder="" name="" value="" class="talkInput u-sizeFullWidth" v-model="textcomp.whyResponse.input" style="background-color: white;"></textarea>
-          <p class="talkButton montserratLight u-floatRight" v-on:click="submitWhy(textcomp)">Share</p>
+          <p class="talkButton montserratLight u-floatRight" v-on:click="submitWhy(textcomp), textcomp.showUserResponse = 'block'">Share</p>
           <br> <br><br><br>
 
+          <div v-bind:style="{display: textcomp.showUserResponse}">
+            <div v-if="textcomp.lastUserVote == 2">
+              <div class="commentBlock agreeBlock">
+                <h4 class="white-text commentHeader u-inlineBlock">thanks for responding!</h4>
+                <div class="commentSection">
+                  <div class="commentContent">
+                    <p class="commentText">{{textcomp.lastUserResponse}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-else-if="textcomp.lastUserVote == 3">
+              <div class="commentBlock disagreeBlock">
+                <h4 class="white-text commentHeader u-inlineBlock">thanks for responding!</h4>
+                <div class="commentContent">
+                  <p class="commentText">{{textcomp.lastUserResponse}}</p>
+                </div>
+              </div>
+            </div>
+            <div v-else="textcomp.lastUserVote == 4">
+              <div class="commentBlock agreeBlock">
+                <h4 class="white-text commentHeader u-inlineBlock">thanks for responding!</h4>
+                <div class="commentContent">
+                  <p class="commentText">{{textcomp.lastUserResponse}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+
+          <div class="commentBlock agreeBlock">
+            <div class="u-sizeFullWidth u-inlineBlock">
+              <h4 class="white-text commentHeader u-inlineBlock">
+                <span v-for="m in mapcomp.bubbleData">
+                <span v-if="m.group == 0">
+                  <span v-for="s in m.sentences">
+                    <span v-if="s.sentenceId == textcomp.lastReferenced">
+                      {{s.agree*100}}%
+                    </span>
+                  </span>
+                </span>
+              </span>
+              <span>IN AGREEMENT</span>
+            </h4>
+              <div class="seeMoreButton u-floatRight u-inlineBlock" v-on:click="textcomp.showAgreeComments = !textcomp.showAgreeComments">
+                <div v-if="textcomp.showAgreeComments">
+                  read less
+                </div>
+                <div v-else>
+                  read more
+                </div>
+              </div>
+            </div>
+            <div v-if="!textcomp.showAgreeComments">
+              <div v-for="(commentObj, mindex) in textcomp.displayAgreeComments">
+                <div v-if="mindex < 2">
+                  <div class="commentSection">
+                    <div class="commentName">
+                      <b class="commentText">{{commentObj.username}}</b>
+                    </div>
+                    <div class="commentContent">
+                      <p class="commentText">{{commentObj.text}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-else>
+              <div v-for="commentObj in textcomp.displayAgreeComments">
+                  <div class="commentSection">
+                    <div class="commentName">
+                      <b class="commentText">{{commentObj.username}}</b>
+                    </div>
+                    <div class="commentContent">
+                      <p class="commentText">{{commentObj.text}}</p>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="commentBlock disagreeBlock">
+            <div class="u-sizeFullWidth u-inlineBlock">
+              <h4 class="white-text commentHeader u-inlineBlock">
+                <span v-for="m in mapcomp.bubbleData">
+                  <span v-if="m.group == 0">
+                    <span v-for="s in m.sentences">
+                      <span v-if="s.sentenceId == textcomp.lastReferenced">
+                        {{s.disagree*100}}%
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <span>IN DISAGREEMENT</span>
+              </h4>
+              <div class="seeMoreButton u-floatRight u-inlineBlock" v-on:click="textcomp.showDisagreeComments = !textcomp.showDisagreeComments">
+                <div v-if="textcomp.showDisagreeComments">
+                  read less
+                </div>
+                <div v-else>
+                  read more
+                </div>
+              </div>
+            </div>
+            <div v-if="!textcomp.showDisagreeComments">
+              <div v-for="(commentObj, mindex) in textcomp.displayDisagreeComments">
+                <div v-if="mindex < 2">
+                  <div class="commentSection">
+                    <div class="commentName">
+                      <b class="commentText">{{commentObj.username}}</b>
+                    </div>
+                    <div class="commentContent">
+                      <p class="commentText">{{commentObj.text}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-else>
+              <div v-for="commentObj in textcomp.displayDisagreeComments">
+                  <div class="commentSection">
+                    <div class="commentName">
+                      <b class="commentText">{{commentObj.username}}</b>
+                    </div>
+                    <div class="commentContent">
+                      <p class="commentText">{{commentObj.text}}</p>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+<!--
           <div v-for="m in mapcomp.bubbleData">
             <div v-if="m.group == 0">
               <div v-for="s in m.sentences">
+                {{s.sentenceId}} {{textcomp.lastReferenced}}
+                <br>
                 <div v-if="s.sentenceId == textcomp.lastReferenced">
+                  <p>THERES A MATCH</p>
+
                   <div class="commentBlock agreeBlock">
                     <div class="u-sizeFullWidth u-inlineBlock">
                       <h4 class="white-text commentHeader u-inlineBlock">{{s.agree*100}}% IN AGREEMENT</h4>
@@ -189,7 +342,9 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> --><!--END LOOP-->
+
+
         </div>
       </div>
     </div> <!--END MODAL-->

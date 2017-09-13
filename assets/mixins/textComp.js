@@ -85,11 +85,13 @@ var mixin = {
     fetchComments: function(textcomp){
       var placeholderId = textcomp.lastReferenced;
 
+      console.log(placeholderId);
+
       textcomp.displayAgreeComments = [];
       textcomp.displayDisagreeComments = [];
       textcomp.displayUnsureComments = [];
 
-      console.log('commentData:' + JSON.stringify(textcomp.commentData));
+      //console.log('commentData:' + JSON.stringify(textcomp.commentData));
 
       for (var comment of textcomp.commentData) {
         if (comment.sentenceId == placeholderId) {
@@ -113,6 +115,10 @@ var mixin = {
           };
         }
       }
+
+      console.log("agree comments" + JSON.stringify(textcomp.displayAgreeComments));
+      console.log("disagree comments" + JSON.stringify(textcomp.displayDisagreeComments));
+
 
     }
   },
