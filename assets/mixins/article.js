@@ -64,10 +64,6 @@ var mixin = {
 
     fetchEveryone: function(textcomp, mapcomp){
 
-      console.log('\n\n\n\n\n');
-      console.log(mapcomp.bubbleData);
-      console.log('\n\n\n\n\n');
-
       mapcomp.displayEveryone = 'block';
       mapcomp.displayIndividual = 'none';
       mapcomp.arrayEveryone = [];
@@ -103,6 +99,7 @@ var mixin = {
 
       mapcomp.tempsentenceId = mapcomp.arrayEveryone[mapcomp.displayCounter].sentenceId;
     },
+
     addBorder: function(groupId, mapcomp){
 
       //  $(".aBubble").removeClass("borderClass");
@@ -129,12 +126,20 @@ var mixin = {
               var opacity = Math.abs(s.average)
               if (s.average > 0) {
                 //fill should be green
-                mapcomp.bubbleShade.fill = 'rgba(104, 207, 174,'+ opacity + ')'
+                mapcomp.bubbleShade.fill = 'rgba(104, 207, 174,'+ opacity + ')';
+              }
+              else if (s.average < 0) {
+                //fill should be red
+                mapcomp.bubbleShade.fill = 'rgba(235, 115, 115,'+ opacity + ')';
               }
               else {
-                //fill should be red
-                mapcomp.bubbleShade.fill = 'rgba(235, 115, 115,'+ opacity + ')'
-              }
+                mapcomp.bubbleShade.fill = 'rgba(220, 220, 220, 1)'
+              } //else if (s.average == 0) {
+              //
+              //   mapcomp.bubbleShade.fill = 'blue';
+              //
+              // }
+
               mapcomp.bubbleShades.push(mapcomp.bubbleShade);
               mapcomp.bubbleShade = {
                 group: '',

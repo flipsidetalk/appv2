@@ -12,7 +12,7 @@
           <div class="col-md-6">
             <span class="">
               <h4 class="">the ideas within our bubbles:</h4>
-              <span type="button" class="keyButtons u-lighter purpleBackground" name="keybutton" v-on:click="fetchEveryone(textcomp, mapcomp)">everyone</span>
+              <span type="button" class="keyButtons u-lighter purpleBackground" name="keybutton" v-on:click="fetchEveryone(textcomp, mapcomp), colorBubbles(mapcomp)">everyone</span>
               <span v-for="m in mapcomp.bubbleData">
                 <span v-if="m.group != 0">
                   <span type="button" class="keyButtons u-lighter u-fontSize20 purpleBackground" name="keybutton" v-bind:id="m.group" v-on:click="fetchClaims(m.group, textcomp, mapcomp), addBorder(m.group, textcomp, mapcomp)">{{m.group}}</span>
@@ -246,104 +246,6 @@
               </div>
             </div>
           </div>
-
-
-
-
-
-<!--
-          <div v-for="m in mapcomp.bubbleData">
-            <div v-if="m.group == 0">
-              <div v-for="s in m.sentences">
-                {{s.sentenceId}} {{textcomp.lastReferenced}}
-                <br>
-                <div v-if="s.sentenceId == textcomp.lastReferenced">
-                  <p>THERES A MATCH</p>
-
-                  <div class="commentBlock agreeBlock">
-                    <div class="u-sizeFullWidth u-inlineBlock">
-                      <h4 class="white-text commentHeader u-inlineBlock">{{s.agree*100}}% IN AGREEMENT</h4>
-                      <div class="seeMoreButton u-floatRight u-inlineBlock" v-on:click="textcomp.showAgreeComments = !textcomp.showAgreeComments">
-                        <div v-if="textcomp.showAgreeComments">
-                          read less
-                        </div>
-                        <div v-else>
-                          read more
-                        </div>
-                      </div>
-                    </div>
-                    <div v-if="!textcomp.showAgreeComments">
-                      <div v-for="(commentObj, mindex) in textcomp.displayAgreeComments">
-                        <div v-if="mindex < 2">
-                          <div class="commentSection">
-                            <div class="commentName">
-                              <b class="commentText">{{commentObj.username}}</b>
-                            </div>
-                            <div class="commentContent">
-                              <p class="commentText">{{commentObj.text}}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div v-else>
-                      <div v-for="commentObj in textcomp.displayAgreeComments">
-                          <div class="commentSection">
-                            <div class="commentName">
-                              <b class="commentText">{{commentObj.username}}</b>
-                            </div>
-                            <div class="commentContent">
-                              <p class="commentText">{{commentObj.text}}</p>
-                            </div>
-                          </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="commentBlock disagreeBlock">
-                    <div class="u-sizeFullWidth u-inlineBlock">
-                      <h4 class="white-text commentHeader u-inlineBlock">{{s.disagree*100}}% IN DISAGREEMENT</h4>
-                      <div class="seeMoreButton u-floatRight u-inlineBlock" v-on:click="textcomp.showDisagreeComments = !textcomp.showDisagreeComments">
-                        <div v-if="textcomp.showDisagreeComments">
-                          read less
-                        </div>
-                        <div v-else>
-                          read more
-                        </div>
-                      </div>
-                    </div>
-                    <div v-if="!textcomp.showDisagreeComments">
-                      <div v-for="(commentObj, mindex) in textcomp.displayDisagreeComments">
-                        <div v-if="mindex < 2">
-                          <div class="commentSection">
-                            <div class="commentName">
-                              <b class="commentText">{{commentObj.username}}</b>
-                            </div>
-                            <div class="commentContent">
-                              <p class="commentText">{{commentObj.text}}</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div v-else>
-                      <div v-for="commentObj in textcomp.displayDisagreeComments">
-                          <div class="commentSection">
-                            <div class="commentName">
-                              <b class="commentText">{{commentObj.username}}</b>
-                            </div>
-                            <div class="commentContent">
-                              <p class="commentText">{{commentObj.text}}</p>
-                            </div>
-                          </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> --><!--END LOOP-->
-
-
         </div>
       </div>
     </div> <!--END MODAL-->
