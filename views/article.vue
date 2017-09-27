@@ -29,17 +29,17 @@
                     </div>
                     <div class="commentBlock agreeBlock .transition2" v-bind:style="{width: 50+m.agree*50 + '%'}">
                       <div class="commentHeader">
-                        <h4 class="u-lighter">{{m.agree*100}}% agree</h4>
+                        <h4 class="u-lighter">{{(m.agree*100).toFixed(2)}}% agree</h4>
                       </div>
                     </div>
                     <div class="commentBlock disagreeBlock .transition2" v-bind:style="{width: 50+m.disagree*50 + '%'}">
                       <div class="commentHeader">
-                        <h4 class="u-lighter">{{m.disagree*100}}% disagree</h4>
+                        <h4 class="u-lighter">{{(m.disagree*100).toFixed(2)}}% disagree</h4>
                       </div>
                     </div>
                     <div class="commentBlock purpleBackground .transition2" v-bind:style="{width: 50+m.unsure*50 + '%'}">
                       <div class="commentHeader">
-                        <h4 class="u-lighter">{{m.unsure*100}}% unsure</h4>
+                        <h4 class="u-lighter">{{(m.unsure*100).toFixed(2)}}% unsure</h4>
                       </div>
                     </div>
                   </div>
@@ -52,10 +52,10 @@
                   <div v-bind:class="m.agreeable" class="commentBlock">
                     <div class="commentHeader">
                       <div v-if="m.agreeable == 'agreeBlock'" class="u-lighter">
-                        {{m.percent*100}}% in AGREEMENT
+                        {{(m.percent*100).toFixed(2)}}% in agreement
                       </div>
                       <div v-else class="u-lighter">
-                        {{m.percent*100}}% in DISAGREEMENT
+                        {{(m.percent*100).toFixed(2)}}% in disagreement
                       </div>
                     </div>
                     <div class="commentSection">
@@ -66,7 +66,6 @@
               </div>
             </span>
           </div>
-
         </div>
       </div>
     </div>
@@ -153,12 +152,12 @@
                 <span v-if="m.group == 0">
                   <span v-for="s in m.sentences">
                     <span v-if="s.sentenceId == textcomp.lastReferenced">
-                      {{s.agree*100}}%
+                      {{(s.agree*100).toFixed(2)}}%
                     </span>
                   </span>
                 </span>
               </span>
-              <span>IN AGREEMENT</span>
+              <span>in agreement</span>
             </h4>
               <div class="seeMoreButton u-floatRight u-inlineBlock" v-on:click="textcomp.showAgreeComments = !textcomp.showAgreeComments">
                 <div v-if="textcomp.showAgreeComments">
@@ -204,12 +203,12 @@
                   <span v-if="m.group == 0">
                     <span v-for="s in m.sentences">
                       <span v-if="s.sentenceId == textcomp.lastReferenced">
-                        {{s.disagree*100}}%
+                        {{(s.disagree*100).toFixed(2)}}%
                       </span>
                     </span>
                   </span>
                 </span>
-                <span>IN DISAGREEMENT</span>
+                <span>in agreement</span>
               </h4>
               <div class="seeMoreButton u-floatRight u-inlineBlock" v-on:click="textcomp.showDisagreeComments = !textcomp.showDisagreeComments">
                 <div v-if="textcomp.showDisagreeComments">
