@@ -181,6 +181,8 @@ app.get('/article/:slug', function(req, res) {
         },
         textcomp: {
 
+          hasUserVoted: false,
+
           //commentData
           showAgreeComments: false,
           showDisagreeComments: false,
@@ -343,6 +345,14 @@ app.get('/article/:slug', function(req, res) {
        * then render the page.
        */
       async.parallel({
+          hasUserVoted: function(callback) {
+            db.votes.count({
+              where: {
+                userId: req.user
+              }
+            }).then(numVotes => {
+              callback(null, numVotes > 0)
+            })
           viz: function(callback) {
             db.article.findOne({
               where: {
@@ -420,6 +430,7 @@ app.get('/article/:slug', function(req, res) {
           if (err) {
             console.log(err);
           } else {
+            data.textcomp.hasUserVoted = results.hasUserVoted;
             data.textcomp.article = results.article;
             data.textcomp.commentData = results.comments;
             console.log("COMMENTS: " + JSON.stringify(results.comments));
