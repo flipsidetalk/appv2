@@ -206,6 +206,10 @@ app.get('/article/:slug', function(req, res) {
 
           tempseen: false,
           /*** TOOLTIP ATTRIBUTES ***/
+
+          helpdisplay: "none",
+          helptop: "0px",
+          helpleft: "0px",          
           tooldisplay: "none",
           tooltop: "0px",
           toolleft: "0px",

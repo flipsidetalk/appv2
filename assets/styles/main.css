@@ -953,6 +953,12 @@ input:checked+label {
   overflow:none;
   z-index:-100;
 }
+
+.helpTool{
+  font-size: 15px;
+  font-weight: lighter;
+}
+
 .highlightMenu-arrowClip{
   position: absolute;
   bottom: -10px;
