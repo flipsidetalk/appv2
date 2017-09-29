@@ -65,9 +65,11 @@ class Spectrum:
         self.n_users = 0
         self.users_to_graph = list()
         self.votes_to_consider = dict()
+        self.raw_votes = dict()
         self.normalize = False
 
-        self.question_ids = np.array([])
+        self.question_ids = []
+        self.question_votes = dict()
 
         self.k = None
         self.considered_points = None
@@ -126,34 +128,34 @@ class Spectrum:
         enough_votes = False
         votes = [(el['userId'], el['sentenceId'], el['reaction']) for el in input_votes]
         for user_id, question_id, vote in votes:
-            try:
-                assert (vote == 1 or vote == 0 or vote == -1)
-                if user_id not in self.users.keys():
-                    #Dictionary key = user_id, Value = [user_index, number of votes they've made]
-                        self.users[user_id] = [self.n_users, set([(user_id, question_id)])]
-                        self.n_users += 1
-                else:
-                    self.users[user_id][1].add((user_id, question_id))
-                    if len(self.users[user_id][1]) >= self.min_votes:
-                        #add index of user if they've added enough votes
-                        if self.users[user_id][0] not in self.users_to_graph:
-                            self.users_to_graph.append(self.users[user_id][0])
-                        enough_votes = True
+#            try:
+            assert (vote == 1 or vote == 0 or vote == -1)
+            if user_id not in self.users.keys():
+                #Dictionary key = user_id, Value = [user_index, number of votes they've made]
+                    self.users[user_id] = [self.n_users, set([(user_id, question_id)])]
+                    self.n_users += 1
+            else:
+                self.users[user_id][1].add((user_id, question_id))
+                if len(self.users[user_id][1]) >= self.min_votes:
+                    #add index of user if they've added enough votes
+                    if self.users[user_id][0] not in self.users_to_graph:
+                        self.users_to_graph.append(self.users[user_id][0])
+                    enough_votes = True
 
-                #try:
-                if question_id not in list(self.question_ids):
-                    self.add_question(question_id)
+            if question_id not in self.raw_votes.keys():
+                self.raw_votes[question_id] = [(user_id, vote)]
+            else:
+                self.raw_votes[question_id].append((user_id, vote))
+            self.add_question(question_id)
 
-                question_ind = np.where(self.question_ids == question_id)[0][0]
-                user_ind = self.users[user_id][0]
-
-                self.data[user_ind][question_ind] = vote
-                if question_ind not in self.votes_to_consider.keys(): 
-                    self.votes_to_consider[question_ind] = set([user_ind])
-                else:
-                    self.votes_to_consider[question_ind].add(user_ind)
-            except:
-                sys.stderr.write('\n\nERROR PROCESSING REACTION: {}\n\n'.format((user_id, question_id, vote)))
+            user_ind = self.users[user_id][0]
+            self.add_vote(user_ind, question_id, vote)
+            if question_id not in self.votes_to_consider.keys(): 
+                self.votes_to_consider[question_id] = set([user_ind])
+            else:
+                self.votes_to_consider[question_id].add(user_ind)
+            #except:
+             #   sys.stderr.write('\n\nERROR PROCESSING REACTION: {}\n\n'.format((user_id, question_id, vote)))
         
         enough_users = (len(self.users_to_graph) >= self.min_users)
         enough_questions = len(self.question_ids) >= self.num_opinions
@@ -161,15 +163,25 @@ class Spectrum:
             self.process()
 
 
-    def add_question(self, question_id):
+    def add_vote(self, user_ind, question_id, vote):
+        question_ind = self.get_question_index(question_id) 
+        if question_ind is not None:
+            self.data[user_ind][question_ind] = vote
 
-        ids = list(self.question_ids)
-        ids.append(question_id)
-        self.question_ids = np.array(ids)
-        if len(self.question_ids) >= self.data.shape[1]:
-            new = np.zeros((self.max_users, len(self.question_ids) + 20))
-            new[:self.data.shape[0], :self.data.shape[1]] = self.data
-            self.data = new
+
+    def add_question(self, question_id):
+        if question_id not in self.question_ids:
+            if len(self.raw_votes[question_id]) >= self.min_votes:
+                self.question_ids.append(question_id)
+                for user_id, vote in self.raw_votes[question_id]:
+
+                    user_ind = self.users[user_id][0]
+                    self.add_vote(user_ind, question_id, vote)
+
+                if len(self.question_ids) >= self.data.shape[1]:
+                    new = np.zeros((self.max_users, len(self.question_ids) + 20))
+                    new[:self.data.shape[0], :self.data.shape[1]] = self.data
+                    self.data = new
 
 
 
@@ -177,6 +189,7 @@ class Spectrum:
 
     output of following form
     var clusterData= [
+
       {cluster: "A", opinions: [{sentenceId:"s1q1", decision: "agree", average: 100}, {sentenceId:"s1q1", decision: "agree", average: 100}]}
     ];
     //111 and 112 represent userIds
@@ -309,29 +322,41 @@ class Spectrum:
         else:
             return None
 
+    def get_question_index(self, question_id):
+        questions = np.array(self.question_ids)
+        if question_id in questions:
+            index = np.where(self.question_ids == question_id)[0][0]
+            return index
+        else:
+            return None
+
     def get_numbers(self, i, question):
         votes = []
-        question_ind = np.where(self.question_ids == question)[0][0]
-        for user_ind in self.votes_to_consider[question_ind]:
+        for user_ind in self.votes_to_consider[question]:
             if user_ind in self.users_to_graph:
                 index = np.where(np.array(self.users_to_graph) == user_ind)[0][0]
+                question_ind = self.get_question_index(question)
                 if self.groups[index] == i or i == -1:
                     vote = self.data[user_ind, question_ind]
                     votes.append(vote)
 
+        if i == -1:
+            print('\n\nQUESTION: {}'.format(question))
+            print(votes)
         group_answers = {}
         avg = None
         controversiality = None
         num_votes = len(votes)
         if num_votes >= self.min_votes:
+            
             controversiality = float(np.std(votes) / np.sqrt(num_votes))
             avg = float(np.mean(votes))
             votes = np.array(votes)
             total = 0
             for answer in [-1,0,1]:
-                num_votes = float(np.where(votes == answer)[0].shape[0])
-                group_answers[answer] = float(num_votes / len(votes))
-        
+                n_votes = float(np.where(votes == answer)[0].shape[0])
+                group_answers[answer] = float(n_votes / len(votes))
+
         return avg,controversiality,  num_votes, group_answers
 
     def get_agreement_phrase(self, i, question):
@@ -475,8 +500,9 @@ class Spectrum:
         for c in range(self.k):
             group_indices = np.where(self.groups == c)[0]
             averages = []
-            for q_ind in range(len(self.question_ids)):
-                user_inds = list(set(group_indices).intersection(self.votes_to_consider[q_ind]))
+            for q_id in self.question_ids:
+                user_inds = list(set(group_indices).intersection(self.votes_to_consider[q_id]))
+                q_ind = self.get_question_index(q_id)
                 if user_inds:
                     averages.append(np.mean(self.data[user_inds, q_ind]))
                 else:
