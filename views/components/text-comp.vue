@@ -4,7 +4,7 @@
 
     commentDatA: {{textcomp.commentData}}
 
-<br><br><br>
+    <br><br><br>
     disagreeComment: {{textcomp.displayDisagreeComments}}
     <br><br><br>
     agreeComments: {{textcomp.displayAgreeComments}}
@@ -42,44 +42,57 @@
     <div id="tooltip" v-bind:style="{display: textcomp.tooldisplay, top: textcomp.tooltop, left: textcomp.toolleft}">
 
       <span v-if="textcomp.user == undefined">
-        <span href="#sign-in-modal" data-toggle="modal" class="u-button">agree</span>
-        <span href="#sign-in-modal" data-toggle="modal" class="u-button">disagree</span>
-        <span href="#sign-in-modal" data-toggle="modal" class="u-button">unsure</span>
+        <span href="#sign-in-modal" data-toggle="modal">
+          <i class="fa fa-smile-o u-iconem" aria-hidden="true"></i>
+          <span class="u-agreeButtons u-verticalAlignTop u-inlineBlock"><span class="u-agreeButton">agree</span></span>
+        </span>
 
+        <span href="#sign-in-modal" data-toggle="modal">
+          <i class="fa fa-frown-o u-iconem" aria-hidden="true"></i>
+          <span class="u-agreeButtons u-verticalAlignTop u-inlineBlock"><span class="u-agreeButton">disagree</span></span>
+        </span>
+
+        <span href="#sign-in-modal" data-toggle="modal">
+          <i class="fa fa-meh-o u-iconem" aria-hidden="true"></i>
+          <span class="u-agreeButtons u-verticalAlignTop u-inlineBlock u-lastAgreeButton"><span class="u-agreeButton">unsure</span></span>
+        </span>
       </span>
+
+
       <span v-else>
-        <span v-on:click="submitResponse(1, 2, textcomp)" class="u-button">agree</span>
-        <span v-on:click="submitResponse(-1, 3, textcomp)" class="u-button">disagree</span>
-        <span v-on:click="submitResponse(0, 4, textcomp)" class="u-button">unsure</span>
-      </span>
-      <div class="highlightMenu-arrowClip">
-        <span class="highlightMenu-arrow"></span>
-      </div>
-    </div> <!--end tooltip -->
+        <span v-on:click="submitResponse(1, 2, textcomp)" class="u-button">        <i class="fa fa-meh-o fa-2x" aria-hidden="true"></i>
+          agree</span>
+          <span v-on:click="submitResponse(-1, 3, textcomp)" class="u-button"></span>
+          <span v-on:click="submitResponse(0, 4, textcomp)" class="u-button">unsure</span>
+        </span>
+        <div class="highlightMenu-arrowClip">
+          <span class="highlightMenu-arrow"></span>
+        </div>
+      </div> <!--end tooltip -->
 
-    <div id="tooltip" v-bind:style="{display: textcomp.talkdisplay, top: textcomp.tooltop, left: textcomp.toolleft}">
-      <span href="#talkModal" data-toggle="modal" class="u-button u-border" v-on:click="fetchComments(textcomp), textcomp.showUserResponse ='none'">contribute</span>
-      <span v-on:click="textcomp.talkdisplay = 'none', textcomp.tooldisplay = 'block'" class="u-fontSize11 u-button">change vote</span>
-      <div class="highlightMenu-arrowClip">
-        <span class="highlightMenu-arrow"></span>
+      <div id="tooltip" v-bind:style="{display: textcomp.talkdisplay, top: textcomp.tooltop, left: textcomp.toolleft}">
+        <span href="#talkModal" data-toggle="modal" class="u-button u-border" v-on:click="fetchComments(textcomp), textcomp.showUserResponse ='none'">contribute</span>
+        <span v-on:click="textcomp.talkdisplay = 'none', textcomp.tooldisplay = 'block'" class="u-fontSize11 u-button">change vote</span>
+        <div class="highlightMenu-arrowClip">
+          <span class="highlightMenu-arrow"></span>
+        </div>
       </div>
+
     </div>
+  </template>
 
-  </div>
-</template>
+  <script>
+  import mixin from '../assets/mixins/textComp.js';
+  export default {
+    mixins: [mixin],
+    data: function() {
+      return {}
+    },
+    props: ['textcomp'] //list assigning variable names from article.vue, article.vue knows to pass it via server.js
 
-<script>
-import mixin from '../assets/mixins/textComp.js';
-export default {
-  mixins: [mixin],
-  data: function() {
-    return {}
-  },
-  props: ['textcomp'] //list assigning variable names from article.vue, article.vue knows to pass it via server.js
+  }
+  </script>
 
-}
-</script>
+  <style lang="css">
 
-<style lang="css">
-
-</style>
+  </style>

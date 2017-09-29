@@ -106,6 +106,9 @@ module.exports.vue = function(pageTitle) {
           style: 'https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css'
         },
         {
+          style: 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
+        },
+        {
           style: 'https://fonts.googleapis.com/css?family=Montserrat:300,400'
         },
         {

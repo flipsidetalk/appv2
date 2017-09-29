@@ -12,10 +12,10 @@
           <div class="col-md-6">
             <span class="">
               <h4 class="">the ideas within our bubbles:</h4>
-              <span type="button" class="keyButtons u-lighter purpleBackground" name="keybutton" v-on:click="fetchEveryone(textcomp, mapcomp), colorBubbles(mapcomp)">everyone</span>
+              <span type="button" class="keyButtons u-lighter purpleBackground u-inlineBlock" name="keybutton" v-on:click="fetchEveryone(textcomp, mapcomp), colorBubbles(mapcomp)">everyone</span>
               <span v-for="m in mapcomp.bubbleData">
                 <span v-if="m.group != 0">
-                  <span type="button" class="keyButtons u-lighter u-fontSize20 purpleBackground" name="keybutton" v-bind:id="m.group" v-on:click="fetchClaims(m.group, textcomp, mapcomp), addBorder(m.group, textcomp, mapcomp)">{{m.group}}</span>
+                  <span type="button" class="keyButtons u-lighter purpleBackground u-inlineBlock" name="keybutton" v-bind:id="m.group" v-on:click="fetchClaims(m.group, textcomp, mapcomp), addBorder(m.group, textcomp, mapcomp)">{{m.group}}</span>
                 </span>
               </span>
               <h4></h4>
@@ -37,14 +37,14 @@
                         <h4 class="u-lighter">{{(m.disagree*100).toFixed(2)}}% disagree</h4>
                       </div>
                     </div>
-                    <div class="commentBlock purpleBackground .transition2" v-bind:style="{width: 50+m.unsure*50 + '%'}">
+                    <!-- <div class="commentBlock purpleBackground .transition2" v-bind:style="{width: 50+m.unsure*50 + '%'}">
                       <div class="commentHeader">
                         <h4 class="u-lighter">{{(m.unsure*100).toFixed(2)}}% unsure</h4>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
-                <button type="button" name="button" class="keyButtons u-lighter u-fontSize20 u-floatRight" v-on:click="fetchNextClaim(mapcomp), colorBubbles(mapcomp)">Next -></button>
+                <button type="button" name="button" class="keyButtons u-lighter u-fontSize20 u-floatRight u-inlineBlock u-marginTop10" v-on:click="fetchNextClaim(mapcomp), colorBubbles(mapcomp)">Next -></button>
               </div>
 
               <div v-bind:style="{display: mapcomp.displayIndividual}">
@@ -99,7 +99,7 @@
             <!--{{textcomp.article.sentences[textcomp.lastReferenced]}} -->
           </h4>
 
-          <!-- <div v-if="textcomp.article.sentences[textcomp.lastReferenced].seen == 2">
+           <!-- <div v-if="textcomp.article.sentences[textcomp.lastReferenced]seen == 2">
             <h5>I <b>AGREE</b> because ... </h5>
           </div>
           <div v-else-if="textcomp.article.sentences[textcomp.lastReferenced].seen == 3">
@@ -108,6 +108,8 @@
           <div v-else="textcomp.article.sentences[textcomp.lastReferenced].seen == 4">
             <h5>I am <b>UNSURE</b> because ... </h5>
           </div> -->
+
+          {{textcomp.article.sentences[textcomp.lastReferenced]}}
 
 
           <h5>I think ...<b></b> </h5>
@@ -164,7 +166,7 @@
                   read less
                 </div>
                 <div v-else>
-                  read more
+                  read more  ({{textcomp.displayAgreeComments.length}})
                 </div>
               </div>
             </div>
@@ -208,14 +210,14 @@
                     </span>
                   </span>
                 </span>
-                <span>in agreement</span>
+                <span>in disagreement</span>
               </h4>
               <div class="seeMoreButton u-floatRight u-inlineBlock" v-on:click="textcomp.showDisagreeComments = !textcomp.showDisagreeComments">
                 <div v-if="textcomp.showDisagreeComments">
                   read less
                 </div>
                 <div v-else>
-                  read more
+                  read more ({{textcomp.displayDisagreeComments.length}})
                 </div>
               </div>
             </div>

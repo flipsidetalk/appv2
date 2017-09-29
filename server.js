@@ -202,9 +202,6 @@ app.get('/article/:slug', function(req, res) {
             text: ''
           },
 
-
-
-
           tempseen: false,
           /*** TOOLTIP ATTRIBUTES ***/
           tooldisplay: "none",
@@ -230,6 +227,7 @@ app.get('/article/:slug', function(req, res) {
           whyResponses: [],
           user: req.user,
         },
+
         mapcomp: {
           tempsentenceId: "",
           groupInfo: {

@@ -87,6 +87,7 @@ var mixin = {
 
       console.log(placeholderId);
 
+      textcomp.whyResponse.input = "";
       textcomp.displayAgreeComments = [];
       textcomp.displayDisagreeComments = [];
       textcomp.displayUnsureComments = [];
