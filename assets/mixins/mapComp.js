@@ -41,9 +41,6 @@ var mixin = {
   mounted: function() {
     if (this.mapcomp.bubbleData.length > 2) {
 
-
-
-
       var diameter = 400; //max size of the bubbles
       var color = d3.scaleOrdinal(d3.schemeCategory20c);
 
