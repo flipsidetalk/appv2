@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{textcomp.tooldisplay}}
+    <!-- {{textcomp.tooldisplay}}
 
     commentDatA: {{textcomp.commentData}}
 
@@ -10,11 +10,8 @@
     agreeComments: {{textcomp.displayAgreeComments}}
     <br><br><br>
     lastReferenced: {{textcomp.lastReferenced}}
+ -->
 
-
-
-    <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
-    <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
     <div class="u-marginAuto">
       <span v-for="(m, mindex) in textcomp.article.sentences">
         <span class="load-text" v-bind:class="{'highlightable':m.mainClaim}">
