@@ -60,39 +60,53 @@
 
 
       <span v-else>
-        <span v-on:click="submitResponse(1, 2, textcomp)" class="u-button">        <i class="fa fa-meh-o fa-2x" aria-hidden="true"></i>
-          agree</span>
-          <span v-on:click="submitResponse(-1, 3, textcomp)" class="u-button"></span>
-          <span v-on:click="submitResponse(0, 4, textcomp)" class="u-button">unsure</span>
+        <span v-on:click="submitResponse(1, 2, textcomp)">
+          <i class="fa fa-smile-o u-iconem" aria-hidden="true"></i>
+          <span class="u-agreeButtons u-verticalAlignTop u-inlineBlock">
+            <span class="u-agreeButton">agree</span>
+          </span>
         </span>
-        <div class="highlightMenu-arrowClip">
-          <span class="highlightMenu-arrow"></span>
-        </div>
-      </div> <!--end tooltip -->
-
-      <div id="tooltip" v-bind:style="{display: textcomp.talkdisplay, top: textcomp.tooltop, left: textcomp.toolleft}">
-        <span href="#talkModal" data-toggle="modal" class="u-button u-border" v-on:click="fetchComments(textcomp), textcomp.showUserResponse ='none'">contribute</span>
-        <span v-on:click="textcomp.talkdisplay = 'none', textcomp.tooldisplay = 'block'" class="u-fontSize11 u-button">change vote</span>
-        <div class="highlightMenu-arrowClip">
-          <span class="highlightMenu-arrow"></span>
-        </div>
+        <span v-on:click="submitResponse(-1, 3, textcomp)" class="u-button">
+          <i class="fa fa-frown-o u-iconem" aria-hidden="true"></i>
+          <span class="u-agreeButtons u-verticalAlignTop u-inlineBlock">
+            <span class="u-agreeButton">disagree</span>
+          </span>
+        </span>
+        <span v-on:click="submitResponse(0, 4, textcomp)" class="u-button">
+          <i class="fa fa-meh-o u-iconem" aria-hidden="true"></i>
+          <span class="u-agreeButtons u-verticalAlignTop u-inlineBlock u-lastAgreeButton">
+            <span class="u-agreeButton">unsure</span>
+          </span>
+        </span>
+      </span>
+      <div class="highlightMenu-arrowClip">
+        <span class="highlightMenu-arrow"></span>
       </div>
+    </div> <!--end tooltip -->
 
+    <div id="tooltip" v-bind:style="{display: textcomp.talkdisplay, top: textcomp.tooltop, left: textcomp.toolleft}">
+      <span href="#talkModal" data-toggle="modal" class="u-button u-border" v-on:click="fetchComments(textcomp), textcomp.showUserResponse ='none'">contribute</span>
+      <span v-on:click="textcomp.talkdisplay = 'none', textcomp.tooldisplay = 'block'" class="u-fontSize11 u-button">change vote</span>
+      <div class="highlightMenu-arrowClip">
+        <span class="highlightMenu-arrow"></span>
+      </div>
     </div>
-  </template>
 
-  <script>
-  import mixin from '../assets/mixins/textComp.js';
-  export default {
-    mixins: [mixin],
-    data: function() {
-      return {}
-    },
-    props: ['textcomp'] //list assigning variable names from article.vue, article.vue knows to pass it via server.js
+  </div>
+</template>
 
-  }
-  </script>
+<script>
+import mixin from '../assets/mixins/textComp.js';
+export default {
+  mixins: [mixin],
+  data: function() {
+    return {}
+  },
+  props: ['textcomp'] //list assigning variable names from article.vue, article.vue knows to pass it via server.js
 
-  <style lang="css">
+}
+</script>
 
-  </style>
+<style lang="css">
+
+</style>
