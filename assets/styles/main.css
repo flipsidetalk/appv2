@@ -1328,7 +1328,7 @@ input:focus{
 }
 
 .section-heading {
-  font-size: 38px;
+  font-size: 48px;
   font-weight: lighter;
   line-height: 1.2;
 }
@@ -1340,7 +1340,7 @@ input:focus{
 }
 
 .section-heading.center-heading {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .section-heading.margin-top-0 {
