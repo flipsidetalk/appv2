@@ -340,9 +340,6 @@ class Spectrum:
                     vote = self.data[user_ind, question_ind]
                     votes.append(vote)
 
-        if i == -1:
-            print('\n\nQUESTION: {}'.format(question))
-            print(votes)
         group_answers = {}
         avg = None
         controversiality = None
