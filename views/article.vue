@@ -28,11 +28,11 @@
               <span class="">
                 <h4 class="">the ideas within our bubbles:</h4>
                 <span type="button" class="keyButtons u-lighter purpleBackground u-inlineBlock" name="keybutton" v-on:click="fetchEveryone(textcomp, mapcomp), colorBubbles(mapcomp)">everyone</span>
-                <span v-for="m in mapcomp.bubbleData">
+                <!-- <span v-for="m in mapcomp.bubbleData">
                   <span v-if="m.group != 0">
                     <span type="button" class="keyButtons u-lighter purpleBackground u-inlineBlock" name="keybutton" v-bind:id="m.group" v-on:click="fetchClaims(m.group, textcomp, mapcomp), addBorder(m.group, textcomp, mapcomp)">{{m.group}}</span>
                   </span>
-                </span>
+                </span> -->
                 <h4></h4>
                 <div class="everyone" v-bind:style="{display: mapcomp.displayEveryone}">
                   <div v-for="(m, mindex) in mapcomp.arrayEveryone">
