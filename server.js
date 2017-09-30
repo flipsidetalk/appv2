@@ -432,9 +432,7 @@ app.post('/submitResponse', function(req, res) {
         sentenceId: req.body.sentenceId,
         statement: req.body.statement,
         voteId: vote.id
-      }).then(() => {
-        utils.updateVizState(db, res, numCurrentVotes, articleId, sequelize);
-      });
+      })
     });
   });
 });
