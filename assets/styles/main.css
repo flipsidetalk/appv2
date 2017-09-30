@@ -536,6 +536,10 @@ input:checked+label {
   stroke-width: 5px;
 }
 
+.bubble{
+  background-color: gray;
+  border: 1px solid gray;
+}
 
 /* #########################################
 #    override the bootstrap configs     #
