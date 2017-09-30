@@ -241,6 +241,8 @@ var mixin = {
         });
       },
       submitVote: function(input, seenvalue, textcomp, mapcomp) {
+
+        textcomp.countVote +=1;
         var placeholderId = textcomp.lastReferenced; //this is the sentenceID
         //passing response data
         textcomp.response.sentenceId = placeholderId;
@@ -280,7 +282,7 @@ var mixin = {
           }
         });
       },
-      fetchComments: function(textcomp){
+      fetchCommentsFromCard: function(textcomp){
         var placeholderId = textcomp.lastReferenced;
         textcomp.whyResponse.input = "";
         textcomp.displayAgreeComments = [];
