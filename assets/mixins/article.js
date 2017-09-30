@@ -64,6 +64,9 @@ var mixin = {
 
     fetchEveryone: function(textcomp, mapcomp){
 
+      textcomp.displayVoteCard = 'block';
+      textcomp.displayContributeCard = 'none';
+      mapcomp.showVotePercents = 'none';
       mapcomp.displayEveryone = 'block';
       //mapcomp.displayIndividual = 'none';
       mapcomp.arrayEveryone = [];
@@ -136,6 +139,9 @@ var mixin = {
     },
 
     fetchNextClaim: function(mapcomp, textcomp){
+      mapcomp.showVotePercents = 'none';
+      textcomp.displayVoteCard = 'block';
+      textcomp.displayContributeCard = 'none';
       mapcomp.displayCounter += 1;
       if (mapcomp.displayCounter >= mapcomp.arrayEveryone.length-1) {
         mapcomp.displayCounter = 0;
@@ -234,11 +240,12 @@ var mixin = {
           }
         });
       },
-      submitVote: function(input, seenvalue, textcomp) {
+      submitVote: function(input, seenvalue, textcomp, mapcomp) {
         var placeholderId = textcomp.lastReferenced; //this is the sentenceID
         //passing response data
         textcomp.response.sentenceId = placeholderId;
         textcomp.response.input = input;
+        textcomp.lastVoteValue = input;
         this.postVote(textcomp.lastReferenced, input);
         textcomp.responses.push(textcomp.response)
         textcomp.response = {
@@ -249,8 +256,11 @@ var mixin = {
         textcomp.tempseen = seenvalue; //changes placeholder seen
         //textcomp.form = 0; //
         //textcomp.why = 1;
-        textcomp.talkdisplay = "block";
-        textcomp.tooldisplay = 'none';
+        textcomp.displayContributeCard = "block";
+        textcomp.displayVoteCard = 'none';
+
+        mapcomp.showVotePercents = 'block';
+
         //  refreshClusterMap();
       },
       postVote: function(sentenceId, reaction) {
@@ -270,6 +280,43 @@ var mixin = {
           }
         });
       },
+      fetchComments: function(textcomp){
+        var placeholderId = textcomp.lastReferenced;
+        textcomp.whyResponse.input = "";
+        textcomp.displayAgreeComments = [];
+        textcomp.displayDisagreeComments = [];
+        textcomp.displayUnsureComments = [];
+
+        //console.log('commentData:' + JSON.stringify(textcomp.commentData));
+
+        for (var comment of textcomp.commentData) {
+          if (comment.sentenceId == placeholderId) {
+            //append it to object
+            textcomp.eachDisplayComment.agreeable = comment.reaction;
+            textcomp.eachDisplayComment.text = comment.statement;
+            textcomp.eachDisplayComment.username = comment.firstname;
+
+            if (comment.reaction == -1) {
+              textcomp.displayDisagreeComments.push(textcomp.eachDisplayComment);
+            }
+            else if (comment.reaction == 1) {
+              textcomp.displayAgreeComments.push(textcomp.eachDisplayComment);
+            }
+            else {
+              textcomp.displayUnsureComments.push(textcomp.eachDisplayComment);
+            }
+            textcomp.eachDisplayComment = {
+              agreeable: '',
+              text: '',
+            };
+          }
+        }
+
+        console.log("agree comments" + JSON.stringify(textcomp.displayAgreeComments));
+        console.log("disagree comments" + JSON.stringify(textcomp.displayDisagreeComments));
+
+
+      }
     },
     mounted: function() {
       var textcomp = this.textcomp;

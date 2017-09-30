@@ -220,7 +220,9 @@ app.get('/article/:slug', function(req, res) {
           talkdisplay: "none",
           toolcolor: '#2b2b2b',
           hasvotes: false,
-
+          displayVoteCard: 'block',
+          displayContributeCard: 'none',
+          lastVoteValue: '',
           lastReferenced: 660,
           response: {
             sentenceId: "",
@@ -234,6 +236,7 @@ app.get('/article/:slug', function(req, res) {
           },
           whyResponses: [],
           user: req.user,
+
         },
 
         mapcomp: {
@@ -258,6 +261,7 @@ app.get('/article/:slug', function(req, res) {
           displayEveryone: 'none',
           displayIndividual: 'none',
           arrayEveryone: [],
+          showVotePercents: 'none',
           eachEveryone: {
             sentenceId: '',
             text: '',

@@ -108,9 +108,6 @@ var mixin = {
 
     fetchComments: function(textcomp){
       var placeholderId = textcomp.lastReferenced;
-
-      console.log(placeholderId);
-
       textcomp.whyResponse.input = "";
       textcomp.displayAgreeComments = [];
       textcomp.displayDisagreeComments = [];

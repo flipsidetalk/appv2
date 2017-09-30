@@ -10,7 +10,7 @@
     agreeComments: {{textcomp.displayAgreeComments}}
     <br><br><br>
     lastReferenced: {{textcomp.lastReferenced}}
- -->    
+ -->
     <div class="u-marginAuto">
       <span v-for="(m, mindex) in textcomp.article.sentences">
         <span class="load-text" v-bind:class="{'highlightable':m.mainClaim}">
@@ -62,8 +62,6 @@
           <span class="u-agreeButtons u-verticalAlignTop u-inlineBlock u-lastAgreeButton"><span class="u-agreeButton">unsure</span></span>
         </span>
       </span>
-
-
       <span v-else>
         <span v-on:click="submitResponse(1, 2, textcomp)">
           <i class="fa fa-smile-o u-iconem" aria-hidden="true"></i>
