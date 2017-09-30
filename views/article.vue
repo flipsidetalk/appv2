@@ -8,7 +8,7 @@
       <div class="container content textcomp.article">
         <div v-if="textcomp.voteCounter > 4">
           <div class="goToBubbleButton">
-            <button type="button" name="button" class="u-greenBackgroundButtonFill keyButtons" href="#mapcompAnchor">See bubbles below story!</button>
+            <button type="button" name="button" class="u-greenBackgroundButtonFill keyButtons" href="window.location.href.split('#')[0]">See bubbles below story!</button>
           </div>
         </div>
         <div class="section-content u-maxWidth1000 marginTopBottom70">
