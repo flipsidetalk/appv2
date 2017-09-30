@@ -20,7 +20,7 @@
               <div class="allClaims">
                 <div class="u-inlineBlock u-sizeFullWidth">
                   <div class="button keyButtons u-lighter purpleBackground u-inlineBlock u-marginAuto center u-width50" name="keybutton" v-on:click="fetchEveryone(textcomp, mapcomp)">
-                    see main sentences
+                    vote on main sentences
                   </div>
                 </div>
 
