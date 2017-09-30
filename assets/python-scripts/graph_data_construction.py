@@ -28,7 +28,7 @@ QUESTION_IDS = ['a1s21','a1s23','a1s30','a1s31','a1s34','a1s46','a1s55','a2s12',
 
 class Spectrum:
     def __init__(self, graph_low_votes = False, reducer = 'mds', cluster = 'kmeans', 
-        choosing_function = 'strong', norm_threshold = 100, defval = 0, impute_factor = True, 
+        choosing_function = 'diff', norm_threshold = 100, defval = 0, impute_factor = True, 
         min_users = 6, min_votes = 3, num_opinions = 5, max_users = 1000, n_components = 2):
 
         self.impute_factor = impute_factor
@@ -325,7 +325,7 @@ class Spectrum:
     def get_question_index(self, question_id):
         questions = np.array(self.question_ids)
         if question_id in questions:
-            index = np.where(self.question_ids == question_id)[0][0]
+            index = np.where(questions == question_id)[0][0]
             return index
         else:
             return None
@@ -493,9 +493,15 @@ class Spectrum:
         return question_std
 
     def get_group_averages(self):
+        #GET AVG FOR EACH GROUPS
+        # MUST DO FANCY INDEXING TO BOTH RESTRICT TO CERTAIN GROUPS AND TO IGNORE SPOTS THAT HAVENT
+        #GOTTEN VOTES YET
         group_averages = np.zeros((self.k, len(self.question_ids)))
         for c in range(self.k):
+            #indexes according to data only with graphed users
             group_indices = np.where(self.groups == c)[0]
+            #reindexing along original index for users by self.n_users which we need for self.votes_to_consider
+            group_indices = [self.users_to_graph[i] for i in group_indices]
             averages = []
             for q_id in self.question_ids:
                 user_inds = list(set(group_indices).intersection(self.votes_to_consider[q_id]))
@@ -509,22 +515,21 @@ class Spectrum:
 
     def differentiate_claims(self, group_averages, question_std):
         relevant_questions = dict()
-        relevant_questions = []
+        all_questions = []
         for group in range(self.k):
             sum_squared_differences = np.zeros(len(self.question_ids))
             for other_group in range(self.k):
                 if group != other_group:
                     mean_deviations = np.absolute(group_averages[group] - group_averages[other_group])
-                    if question_std:
-                        sum_squared_differences += mean_deviations / question_std
-                    else:
-                        sum_squared_differences += mean_deviations
+                    sum_squared_differences += mean_deviations
             #Taking the opinions for which differences are biggest
-            threshold = sorted(sum_squared_differences)[-(self.num_opinions)]
-            important_questions = np.where(sum_squared_differences >= threshold)[0][:self.num_opinions]
-            relevant_questions[group] = list(self.question_ids[important_questions])
-            relevant_questions[-1] += relevant_questions
-        relevant_questions[-1] = list(set(relevant_questions[-1]))
+            deviations = [(diff, q_id) for diff, q_id in zip(sum_squared_differences, self.question_ids)] 
+            #Taking the opinions for which differences are biggest
+            sorted_questions = sorted(deviations, reverse = True)
+            sorted_questions = [el[1] for el in sorted_questions if abs(el[0]) > 0]
+            relevant_questions[group] = sorted_questions
+            all_questions += sorted_questions
+        relevant_questions[-1] = set(all_questions)
         return relevant_questions
 
     def strongest_claims(self, group_averages, question_std):
@@ -560,11 +565,12 @@ class Spectrum:
         strongest_claims[-1] = list(set(strongest_claims[-1]))
         return strongest_claims
 
-    def find_relevant_claims(self):
+    def find_relevant_claims(self, use_std = False):
         question_std = None
         if self.normalize:
             try:
-                question_std = self.find_stds()
+                if use_std:
+                    question_std = self.find_stds()
             except:
                 sys.stderr.write("Couldn't Normalize")
                 pass
@@ -573,7 +579,7 @@ class Spectrum:
 
         if self.choosing_function == 'strong':
             chooser = self.strongest_claims
-        else:
+        elif self.choosing_function == 'diff':
             chooser = self.differentiate_claims
 
         return chooser(group_averages, question_std)
