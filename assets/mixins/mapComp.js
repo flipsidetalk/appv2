@@ -113,8 +113,10 @@ var mixin = {
 
 
       for (var eachBubble in this.mapcomp.bubbleData.slice(1)) {
-        if (true) {
-
+        for (eachUser of eachBubble.users) {
+          if (this.mapcomp.user.id == eachUser){
+            console.log(eachBubble.group);
+          }
         }
       }
 
