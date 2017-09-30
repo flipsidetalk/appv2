@@ -537,8 +537,12 @@ input:checked+label {
 }
 
 .bubble{
-  background-color: gray;
-  border: 1px solid gray;
+  background-color: #e3e3e3;
+}
+
+.bubbleMap{
+  width: 100%;
+  height: 300px;
 }
 
 /* #########################################

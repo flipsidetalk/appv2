@@ -18,43 +18,46 @@
               <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
               <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
 
-              {{mapcomp.bubbleData}}
+              <div class="u-inlineBlock u-sizeFullWidth">
+                <div class="button keyButtons u-lighter purpleBackground u-inlineBlock u-marginAuto center u-width50" name="keybutton" v-on:click="fetchEveryone(textcomp, mapcomp), colorBubbles(mapcomp)">
+                  see all claims
+                </div>
+              </div>
+
+              <div class="everyone" v-bind:style="{display: mapcomp.displayEveryone}">
+                <div v-for="(m, mindex) in mapcomp.arrayEveryone">
+                  <div v-if="mapcomp.displayCounter == mindex">
+                    <!-- tempsentenceId: {{mapcomp.tempsentenceId}} -->
+                    <div class="commentHeader">
+                      <!-- actualId: {{m.sentenceId}} -->
+                      <h4 class="u-lighter">{{m.text}}</h4>
+                    </div>
+                    <div class="commentBlock agreeBlock .transition2" v-bind:style="{width: 50+m.agree*50 + '%'}">
+                      <div class="commentHeader">
+                        <h4 class="u-lighter">{{(m.agree).toFixed(2)*100}}% agree</h4>
+                      </div>
+                    </div>
+                    <div class="commentBlock disagreeBlock .transition2" v-bind:style="{width: 50+m.disagree*50 + '%'}">
+                      <div class="commentHeader">
+                        <h4 class="u-lighter">{{(m.disagree).toFixed(2)*100}}% disagree</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" name="button" class="keyButtons u-lighter u-fontSize20 u-floatRight u-inlineBlock u-marginTop10" v-on:click="fetchNextClaim(mapcomp)">Next -></button>
+              </div>
+
+<br><br>
             <div class="row" v-if="mapcomp.bubbleData.length > 2">
                 <map-comp :mapcomp="mapcomp"></map-comp>
                 <!--this is keycomp -->
                 <div class="col-md-6">
                   <span class="">
-                    <h4 class="">the ideas within our bubbles:</h4>
-                    <span type="button" class="keyButtons u-lighter purpleBackground u-inlineBlock" name="keybutton" v-on:click="fetchEveryone(textcomp, mapcomp), colorBubbles(mapcomp)">everyone</span>
-                    <span v-for="m in mapcomp.bubbleData">
+                  <!-- <span v-for="m in mapcomp.bubbleData">
                       <span v-if="m.group != 0">
                         <span type="button" class="keyButtons u-lighter purpleBackground u-inlineBlock" name="keybutton" v-bind:id="m.group" v-on:click="fetchClaims(m.group, textcomp, mapcomp), addBorder(m.group, textcomp, mapcomp)">{{m.group}}</span>
                       </span>
-                    </span>
-                    <h4></h4>
-                    <div class="everyone" v-bind:style="{display: mapcomp.displayEveryone}">
-                      <div v-for="(m, mindex) in mapcomp.arrayEveryone">
-                        <div v-if="mapcomp.displayCounter == mindex">
-                          tempsentenceId: {{mapcomp.tempsentenceId}}
-                          <div class="commentHeader">
-                            actualId: {{m.sentenceId}}
-                            <h4 class="u-lighter">{{m.text}}</h4>
-                          </div>
-                          <div class="commentBlock agreeBlock .transition2" v-bind:style="{width: 50+m.agree*50 + '%'}">
-                            <div class="commentHeader">
-                              <h4 class="u-lighter">{{(m.agree*100).toFixed(2)}}% agree</h4>
-                            </div>
-                          </div>
-                          <div class="commentBlock disagreeBlock .transition2" v-bind:style="{width: 50+m.disagree*50 + '%'}">
-                            <div class="commentHeader">
-                              <h4 class="u-lighter">{{(m.disagree*100).toFixed(2)}}% disagree</h4>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <button type="button" name="button" class="keyButtons u-lighter u-fontSize20 u-floatRight u-inlineBlock u-marginTop10" v-on:click="fetchNextClaim(mapcomp), colorBubbles(mapcomp)">Next -></button>
-                    </div>
-
+                    </span> -->
                     <div v-bind:style="{display: mapcomp.displayIndividual}">
                       <div v-for="m in mapcomp.arrayClaim">
                         <div v-bind:class="m.agreeable" class="commentBlock">
@@ -73,6 +76,7 @@
                       </div>
                     </div>
                   </span>
+
                 </div>
               </div>
               <text-comp :textcomp="textcomp"></text-comp>

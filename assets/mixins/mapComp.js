@@ -46,10 +46,15 @@ var mixin = {
 
       var bubbleData = this.mapcomp.bubbleData.slice(1);
 
+      var viewBoxWidth = $('.bubbleMap').outerWidth();
+      console.log(viewBoxWidth);
+      var viewBoxHeight = 300;
+
       var svg = d3.select(".bubbleMap")
-      .attr("width", diameter)
-      .attr("height", diameter)
+      .attr("width", 100 + '%')
+      .attr("height", 300)
       .attr("class", "bubble")
+      .attr('id', "bubbleBox")
       .append("g")
       .attr("transform", "translate(0,0)");
 
@@ -66,11 +71,13 @@ var mixin = {
       .style("font", "15px sans-serif")
       .text("tooltip");
 
+
+
       var radiusScale = d3.scaleSqrt().domain([1, 60]).range([30, 75]);
 
       var simulation = d3.forceSimulation()
-      .force("x", d3.forceX(diameter / 2).strength(0.05))
-      .force("y", d3.forceY(diameter / 2).strength(0.05))
+      .force("x", d3.forceX(viewBoxWidth / 2).strength(0.05))
+      .force("y", d3.forceY(viewBoxHeight / 2).strength(0.05))
       .force("collide", d3.forceCollide(function(d) {
         return radiusScale(d.size + 5);
       }));
@@ -110,7 +117,7 @@ var mixin = {
           return d.y
         })
       }
-      
+
       var groupWithUser = "";
       if (this.mapcomp.user != undefined) {
         var userId = this.mapcomp.user.id;

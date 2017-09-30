@@ -253,7 +253,7 @@ app.get('/article/:slug', function(req, res) {
           },
 
           displayCounter: 0,
-          displayEveryone: 'block',
+          displayEveryone: 'none',
           displayIndividual: 'none',
           arrayEveryone: [],
           eachEveryone: {
