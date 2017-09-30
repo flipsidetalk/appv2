@@ -70,7 +70,7 @@ var mixin = {
     },
 
     submitResponse: function(input, seenvalue, textcomp) {
-      textcomp.countVote +=1;
+      textcomp.voteCounter +=1;
       var placeholderId = textcomp.lastReferenced; //this is the sentenceID
       //passing response data
       textcomp.response.sentenceId = placeholderId;

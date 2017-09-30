@@ -242,7 +242,7 @@ var mixin = {
       },
       submitVote: function(input, seenvalue, textcomp, mapcomp) {
 
-        textcomp.countVote +=1;
+        textcomp.voteCounter +=1;
         var placeholderId = textcomp.lastReferenced; //this is the sentenceID
         //passing response data
         textcomp.response.sentenceId = placeholderId;
