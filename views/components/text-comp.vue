@@ -10,8 +10,7 @@
     agreeComments: {{textcomp.displayAgreeComments}}
     <br><br><br>
     lastReferenced: {{textcomp.lastReferenced}}
- -->
-
+ -->    
     <div class="u-marginAuto">
       <span v-for="(m, mindex) in textcomp.article.sentences">
         <span class="load-text" v-bind:class="{'highlightable':m.mainClaim}">
