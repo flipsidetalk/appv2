@@ -110,17 +110,7 @@ var mixin = {
           return d.y
         })
       }
-      //
-      //
-      // for (var eachBubble in this.mapcomp.bubbleData.slice(1)) {
-      //   console.log(eachBubble.group)
-      //   // for (eachUser of eachBubble.users) {
-      //   //   if (this.mapcomp.user.id == eachUser){
-      //   //     console.log(eachBubble.group);
-      //   //   }
-      //   // }
-      // }
-
+      
       var groupWithUser = "";
       if (this.mapcomp.user != undefined) {
         var userId = this.mapcomp.user.id;
@@ -128,19 +118,14 @@ var mixin = {
       else {
         var userId = '';
       }
-
       for (var i = 0; i < bubbleData.length; i++) {
         for (var m = 0; m < bubbleData[i]['users'].length; m++) {
           if (bubbleData[i]['users'][m] == userId){
             groupWithUser = bubbleData[i]['group'];
             $("#" + groupWithUser).attr("fill", "url(#group1)");
-
           }
         }
       }
-
-
-
     };
   }
 }
