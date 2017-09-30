@@ -143,7 +143,7 @@ var mixin = {
       textcomp.displayVoteCard = 'block';
       textcomp.displayContributeCard = 'none';
       mapcomp.displayCounter += 1;
-      if (mapcomp.displayCounter >= mapcomp.arrayEveryone.length-1) {
+      if (mapcomp.displayCounter >= mapcomp.arrayEveryone.length) {
         mapcomp.displayCounter = 0;
       }
 
@@ -241,6 +241,8 @@ var mixin = {
         });
       },
       submitVote: function(input, seenvalue, textcomp, mapcomp) {
+
+        textcomp.voteCounter +=1;
         var placeholderId = textcomp.lastReferenced; //this is the sentenceID
         //passing response data
         textcomp.response.sentenceId = placeholderId;
@@ -280,7 +282,7 @@ var mixin = {
           }
         });
       },
-      fetchComments: function(textcomp){
+      fetchCommentsFromCard: function(textcomp){
         var placeholderId = textcomp.lastReferenced;
         textcomp.whyResponse.input = "";
         textcomp.displayAgreeComments = [];
