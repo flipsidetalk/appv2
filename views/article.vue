@@ -14,7 +14,6 @@
         <div class="section-content u-maxWidth1000 marginTopBottom70">
           <div class="row white">
             <div class="col-sm-offset-2 col-sm-8">
-
               <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
               <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
               <div class="allClaims">
@@ -25,15 +24,16 @@
                 </div>
 
                 <div class="everyone cardBlock" v-bind:style="{display: mapcomp.displayEveryone}">
+
                   <div v-for="(m, mindex) in mapcomp.arrayEveryone">
                     <div v-if="mapcomp.displayCounter == mindex">
-                      <button type="button" name="button" class="keyButtons u-lighter u-fontSize20 u-floatRight u-inlineBlock u-marginTop10" v-on:click="fetchNextClaim(mapcomp, textcomp)">Next -></button>
+                      <button type="button" name="button" class="keyButtons u-greenBackgroundButtonFill u-lighter u-fontSize20 u-floatRight u-inlineBlock u-marginTop10" v-on:click="fetchNextClaim(mapcomp, textcomp)">Next -></button>
 
                       <div class="commentHeader">
                         <!-- actualId: {{m.sentenceId}}
                         lastReferenced: {{textcomp.lastReferenced}}
                         responses: {{textcomp.responses}} -->
-                        <h5>Vote on five sentences see how you compare to others:</h5><br>
+                        <h4>Vote on five sentences see how you compare to others:</h4><br>
 
                         <h4 class="u-lighter georgia">{{m.text}}</h4>
                       </div>
@@ -76,7 +76,7 @@
                       </div>
                       <div class="contributeCard  u-paddingLeft20" v-bind:style="{display: textcomp.displayContributeCard}">
 
-                        <h4 class="u-lighter"> you voted
+                        <span><h4 class="u-lighter"> you voted:
 
                         <span v-if="textcomp.lastVoteValue == 0">
                           unsure
@@ -87,16 +87,18 @@
                         <span v-if="textcomp.lastVoteValue == -1">
                           disagree
                         </span>
-                        </h4>
+                        </h4></span>
+                        <span> <button href="#talkModal" data-toggle="modal" class="keyButtons u-purpleBackground" v-on:click="fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'">respond</button>
+</span>
+
                         <br>
-                        <h4 class="u-lighter"> others voted:</h4>
-
-
-                        <span href="#talkModal" data-toggle="modal" class="u-button u-border u-fontSize25" v-on:click="fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'">responses</span>
 
 
                       </div>
                       <div v-bind:style="{display: mapcomp.showVotePercents}" class="u-marginLeft10">
+                        <div v-if="(m.agree*100).toFixed(0) != 0 && (m.disagree*100).toFixed(0) != 0 ">
+
+                        <h4 class="u-lighter"> others voted:</h4>
                         <div class="commentBlock agreeBlock .transition2" v-bind:style="{width: 50+m.agree*50 + '%'}">
                           <div class="commentHeader">
                             <h4 class="u-lighter">{{(m.agree*100).toFixed(0)}}% agree</h4>
@@ -108,6 +110,15 @@
                           </div>
                         </div>
                       </div>
+                      <div v-else>
+                        <h4>No one else has voted, but you can share this with friends!!</h4>
+                      </div>
+                    </div>
+
+
+
+
+
                     </div>
                   </div>
                 </div>

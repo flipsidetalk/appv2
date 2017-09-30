@@ -143,7 +143,7 @@ var mixin = {
       textcomp.displayVoteCard = 'block';
       textcomp.displayContributeCard = 'none';
       mapcomp.displayCounter += 1;
-      if (mapcomp.displayCounter >= mapcomp.arrayEveryone.length-1) {
+      if (mapcomp.displayCounter >= mapcomp.arrayEveryone.length) {
         mapcomp.displayCounter = 0;
       }
 

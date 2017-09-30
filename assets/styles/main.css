@@ -435,7 +435,26 @@ label {
   font-weight: lighter!important;
 }
 
+@media(max-width:768px){
+.u-agreeButtonsCard{
+  cursor: pointer;
+  color: black;
+  padding: 0px 20px 0px 1px;
+  font-size: 19px;
+  /* background-color: rgba(131, 101, 158, 0.9); */
+  font-family: 'Montserrat', sans-serif!important;
+  font-weight: lighter!important;
+}
 
+.fa-2x{
+
+}
+.georgia{
+  font-family: georgia, "Times New Roman", times, serif!important;
+  line-height: 1.6!important;
+  font-size: 16px!important;
+}
+}
 
 .montserrat {
   font-family: 'Montserrat', sans-serif!important;
@@ -1307,9 +1326,8 @@ input:focus{
 
 .georgia{
   font-family: georgia, "Times New Roman", times, serif!important;
-  line-height: 1.8!important;
-  font-size: 19px!important;
-
+  line-height: 1.8;
+  font-size: 19px;
 }
 
 .load-text {

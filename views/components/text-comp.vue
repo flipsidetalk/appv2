@@ -1,16 +1,5 @@
 <template>
   <div>
-    <!-- {{textcomp.tooldisplay}}
-
-    commentDatA: {{textcomp.commentData}}
-
-    <br><br><br>
-    disagreeComment: {{textcomp.displayDisagreeComments}}
-    <br><br><br>
-    agreeComments: {{textcomp.displayAgreeComments}}
-    <br><br><br>
-    lastReferenced: {{textcomp.lastReferenced}}
- -->
     <div class="u-marginAuto">
       <span v-for="(m, mindex) in textcomp.article.sentences">
         <span class="load-text" v-bind:class="{'highlightable':m.mainClaim}">
@@ -65,7 +54,7 @@
           <i class="fa fa-flag-o u-iconem u-pointer" aria-hidden="true"></i>
         </span>
       </span>
-      
+
       <span v-else>
         <span v-on:click="submitResponse(1, 2, textcomp)" class="u-button u-pointer">
           <i class="fa fa-smile-o u-iconem u-pointer" aria-hidden="true"></i>
