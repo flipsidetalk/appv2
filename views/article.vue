@@ -6,12 +6,13 @@
     <signin-comp></signin-comp>
     <div id="root">
       <div class="container content textcomp.article">
-        <div class="section-content u-maxWidth1000">
+        <div class="section-content u-maxWidth1000 marginTopBottom70">
           <div class="row white">
             <div class="col-sm-offset-2 col-sm-8">
 
               <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
               <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
+
 
               <a href="#mapcompAnchor" onclick="location.reload()">#hardcore</a>
 
