@@ -326,6 +326,7 @@ class Spectrum:
         questions = np.array(self.question_ids)
         if question_id in questions:
             index = np.where(questions == question_id)[0][0]
+
             return index
         else:
             return None
