@@ -131,7 +131,7 @@ app.get('/', function(req, res) {
     }, {
       model: db.image
     }],
-    limit : 6,
+    limit : 20,
     attributes: {
       exclude: ['id', 'url', 'updatedAt']
     },
@@ -140,7 +140,8 @@ app.get('/', function(req, res) {
     ]
   }).then(articles => {
     let formattedArticles = {};
-    for (var i = 0; i < articles.length; i++) {
+    // for (var i = 0; i < articles.length; i++) {
+    for (var i = articles.length -1; i >= 0; --i) {
       let formattedArticle = {};
       formattedArticle.title = articles[i].title.title;
       formattedArticle.slug = articles[i].slug;
@@ -206,6 +207,7 @@ app.get('/article/:slug', function(req, res) {
 
           tempseen: false,
           /*** TOOLTIP ATTRIBUTES ***/
+          hasUserSeenHelper: false,
           hasUserVoted: false,
           helpdisplay: "none",
           helptop: "0px",

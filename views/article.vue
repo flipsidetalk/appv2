@@ -19,7 +19,7 @@
               <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
 
               <div class="u-inlineBlock u-sizeFullWidth">
-                <div class="button keyButtons u-lighter purpleBackground u-inlineBlock u-marginAuto center u-width50" name="keybutton" v-on:click="fetchEveryone(textcomp, mapcomp), colorBubbles(mapcomp)">
+                <div class="button keyButtons u-lighter purpleBackground u-inlineBlock u-marginAuto center u-width50" name="keybutton" v-on:click="fetchEveryone(textcomp, mapcomp)">
                   see all claims
                 </div>
               </div>
@@ -51,7 +51,7 @@
             <div class="row" v-if="mapcomp.bubbleData.length > 2">
                 <map-comp :mapcomp="mapcomp"></map-comp>
                 <!--this is keycomp -->
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <span class="">
                   <!-- <span v-for="m in mapcomp.bubbleData">
                       <span v-if="m.group != 0">

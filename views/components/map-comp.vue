@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div class="clusterMapOutput">
         <div class="d3stuff">
           <div class="weight-lighter">Opinion Map</div>
@@ -14,9 +14,6 @@
                   </pattern>
                 </defs>
             </svg>
-
-
-
           </div>
         </div>
       </div>

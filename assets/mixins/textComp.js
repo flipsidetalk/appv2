@@ -2,7 +2,7 @@ var mixin = {
   methods: {
     showTool: function(sentenceId, seenvalue, textcomp){
 
-      textcomp.seenHelper = true;
+      textcomp.hasUserSeenHelper = true;
       /** setting the sentence at hand**/
       //$("#tooltip").show();
       textcomp.helpdisplay = 'none';
@@ -51,7 +51,7 @@ var mixin = {
     showHelper: function(sentenceId, textcomp){
       /** setting the sentence at hand**/
       //$("#tooltip").show();
-      if (!textcomp.hasUserVoted) {
+      if (!textcomp.hasUserVoted && !textcomp.hasUserSeenHelper) {
         var sel = document.getElementById(sentenceId);
         var r = sel.getBoundingClientRect();
         var rel1= document.createRange();
