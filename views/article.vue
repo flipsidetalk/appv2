@@ -6,40 +6,41 @@
     <signin-comp></signin-comp>
     <div id="root">
       <div class="container content textcomp.article">
-        <div class="section-content u-maxWidth1000">
+        <div v-if="textcomp.voteCounter > 4">
+          <div class="goToBubbleButton">
+            <button type="button" name="button" class="u-greenBackgroundButtonFill keyButtons" href="window.location.href.split('#')[0]">See bubbles below story!</button>
+          </div>
+        </div>
+        <div class="section-content u-maxWidth1000 marginTopBottom70">
           <div class="row white">
             <div class="col-sm-offset-2 col-sm-8">
-
               <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
               <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
-
-              <a href="#mapcompAnchor" onclick="location.reload()">#hardcore</a>
-
               <div class="allClaims">
                 <div class="u-inlineBlock u-sizeFullWidth">
                   <div class="button keyButtons u-lighter purpleBackground u-inlineBlock u-marginAuto center u-width50" name="keybutton" v-on:click="fetchEveryone(textcomp, mapcomp)">
-                    see main sentences
+                    vote on main sentences
                   </div>
                 </div>
 
                 <div class="everyone cardBlock" v-bind:style="{display: mapcomp.displayEveryone}">
+
                   <div v-for="(m, mindex) in mapcomp.arrayEveryone">
                     <div v-if="mapcomp.displayCounter == mindex">
-                      tempsentenceId: {{mapcomp.tempsentenceId}}
-                      <button type="button" name="button" class="keyButtons u-lighter u-fontSize20 u-floatRight u-inlineBlock u-marginTop10" v-on:click="fetchNextClaim(mapcomp, textcomp)">Next -></button>
+                      <button type="button" name="button" class="keyButtons u-greenBackgroundButtonFill u-lighter u-fontSize20 u-floatRight u-inlineBlock u-marginTop10" v-on:click="fetchNextClaim(mapcomp, textcomp)">Next -></button>
 
                       <div class="commentHeader">
                         <!-- actualId: {{m.sentenceId}}
                         lastReferenced: {{textcomp.lastReferenced}}
                         responses: {{textcomp.responses}} -->
-                        <h5>Vote on five sentences see how you compare to others:</h5>
+                        <h4>Vote on five sentences see how you compare to others:</h4><br>
 
                         <h4 class="u-lighter georgia">{{m.text}}</h4>
                       </div>
                       <div class="voteSection" v-bind:style="{display: textcomp.displayVoteCard}">
                         <span v-if="textcomp.user == undefined" class="center">
                           <span href="#sign-in-modal" data-toggle="modal">
-                            <i class="fa fa-smile-o fa-2x black" aria-hidden="true"></i>
+                            <i class="fa fa-smile-o fa-2x black u-pointer" aria-hidden="true"></i>
                             <span class="u-agreeButtonsCard u-verticalAlignTop u-inlineBlock"><span class="u-agreeButton">agree</span></span>
                           </span>
                           <span href="#sign-in-modal" data-toggle="modal">
@@ -54,7 +55,7 @@
                         </span>
                         <span v-else class="center">
                           <span v-on:click="submitVote(1, 2, textcomp, mapcomp)">
-                            <i class="fa fa-smile-o fa-2x black" aria-hidden="true"></i>
+                            <i class="fa fa-smile-o fa-2x black u-pointer" aria-hidden="true"></i>
                             <span class="u-agreeButtonsCard u-verticalAlignTop u-inlineBlock">
                               <span class="u-agreeButton">agree</span>
                             </span>
@@ -73,9 +74,9 @@
                           </span>
                         </span>
                       </div>
-                      <div class="contributeCard  u-padding20" v-bind:style="{display: textcomp.displayContributeCard}">
+                      <div class="contributeCard  u-paddingLeft20" v-bind:style="{display: textcomp.displayContributeCard}">
 
-                        <h4 class="u-lighter"> you voted
+                        <span><h4 class="u-lighter"> you voted:
 
                         <span v-if="textcomp.lastVoteValue == 0">
                           unsure
@@ -86,16 +87,18 @@
                         <span v-if="textcomp.lastVoteValue == -1">
                           disagree
                         </span>
-                        </h4>
+                        </h4></span>
+                        <span> <button href="#talkModal" data-toggle="modal" class="keyButtons u-purpleBackground" v-on:click="fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'">respond</button>
+</span>
+
                         <br>
-                        <h4 class="u-lighter"> others voted:</h4>
-
-
-                        <span href="#talkModal" data-toggle="modal" class="u-button u-border u-fontSize25" v-on:click="fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'">responses</span>
 
 
                       </div>
                       <div v-bind:style="{display: mapcomp.showVotePercents}" class="u-marginLeft10">
+                        <div v-if="(m.agree*100).toFixed(0) != 0 && (m.disagree*100).toFixed(0) != 0 ">
+
+                        <h4 class="u-lighter"> others voted:</h4>
                         <div class="commentBlock agreeBlock .transition2" v-bind:style="{width: 50+m.agree*50 + '%'}">
                           <div class="commentHeader">
                             <h4 class="u-lighter">{{(m.agree*100).toFixed(0)}}% agree</h4>
@@ -107,6 +110,15 @@
                           </div>
                         </div>
                       </div>
+                      <div v-else>
+                        <h4>No one else has voted, but you can share this with friends!!</h4>
+                      </div>
+                    </div>
+
+
+
+
+
                     </div>
                   </div>
                 </div>
@@ -120,10 +132,14 @@
 
           <!--BEGIN MAPCOMP-->
           <div id="mapcompAnchor" class="row" v-if="mapcomp.bubbleData.length > 2">
+
+            <div v-if="textcomp.voteCounter > 4">
+              <button type="button" name="button" class="u-greenBackgroundButtonFill keyButtons" onclick="location.reload()">See Yourself!</button>
+            </div>
+
             <map-comp :mapcomp="mapcomp"></map-comp>
             <!--this is keycomp -->
             <div class="col-md-12">
-              <span class="">
                 <!-- <span v-for="m in mapcomp.bubbleData">
                 <span v-if="m.group != 0">
                 <span type="button" class="keyButtons u-lighter purpleBackground u-inlineBlock" name="keybutton" v-bind:id="m.group" v-on:click="fetchClaims(m.group, textcomp, mapcomp), addBorder(m.group, textcomp, mapcomp)">{{m.group}}</span>
@@ -146,8 +162,6 @@
                 </div>
               </div>
             </div>
-          </span>
-
         </div>
       </div>
 
@@ -182,9 +196,6 @@
   <div v-else="textcomp.article.sentences[textcomp.lastReferenced].seen == 4">
   <h5>I am <b>UNSURE</b> because ... </h5>
 </div> -->
-
-{{textcomp.article.sentences[textcomp.lastReferenced]}}
-
 
 <h5>I think ...<b></b> </h5>
 <textarea type="text" placeholder="" name="" value="" class="talkInput u-sizeFullWidth" v-model="textcomp.whyResponse.input" style="background-color: white;"></textarea>

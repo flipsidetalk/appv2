@@ -167,7 +167,7 @@ app.get('/', function(req, res) {
       catch (err) {
         formattedArticle.publicationDate = "Date Unknown"
       }
-      try {  
+      try {
         formattedArticle.image = articles[i].image.link;
       }
       catch (err) {
@@ -260,6 +260,7 @@ app.get('/article/:slug', function(req, res) {
           },
           whyResponses: [],
           user: req.user,
+          voteCounter: 0,
 
         },
 
