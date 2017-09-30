@@ -22,6 +22,13 @@ body {
   width: 100%;
 }
 
+.marginTopBottom70{
+  margin-top: 70px!important;
+  margin-bottom: 70px!important;
+}
+
+
+
 a:focus, a:hover {
   color: #6287A4;
   text-decoration: none;
@@ -61,7 +68,7 @@ hr {
 
 mark {
   background-color: rgba(184, 139, 208, 0.2);
-  cursor: pointer;
+  cursor: pointer!important;
 }
 
 mark:hover {
@@ -78,6 +85,10 @@ mark:hover {
 
 .u-greenBackground {
   background-color: rgba(69, 196, 173, 0.5)!important;
+}
+
+.u-greenBackgroundButtonFill {
+  background-color: rgba(69, 196, 173, 1)!important;
 }
 
 .u-redBackgroundButton {
@@ -368,7 +379,7 @@ label {
 }
 
 .u-pointer {
-  cursor: pointer;
+  cursor: pointer!important;
 }
 
 .u-agreeForm {
@@ -415,6 +426,18 @@ label {
   font-family: 'Montserrat', sans-serif!important;
   font-weight: lighter!important;
 }
+
+.u-agreeButtonsCard {
+  cursor: pointer;
+  color: black;
+  padding: 0px 30px 0px 1px;
+  font-size: 25px;
+  /* background-color: rgba(131, 101, 158, 0.9); */
+  font-family: 'Montserrat', sans-serif!important;
+  font-weight: lighter!important;
+}
+
+
 
 .montserrat {
   font-family: 'Montserrat', sans-serif!important;
@@ -536,6 +559,21 @@ input:checked+label {
   stroke-width: 5px;
 }
 
+.bubble{
+  background-color: #e3e3e3;
+}
+
+.bubbleMap{
+  width: 100%;
+  height: 300px;
+}
+
+.goToBubbleButton{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin:10px;
+}
 
 /* #########################################
 #    override the bootstrap configs     #
@@ -774,6 +812,20 @@ input:checked+label {
   padding-bottom: 10px;
   min-height: 70px;
 }
+
+.cardBlock{
+  border-radius: 0.5em;
+  margin-top: 20px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  min-height: 70px;
+  background-color: #e3e3e3;
+}
+
+.u-marginLeft10{
+  margin-left: 10px;
+}
+
 .agreeBlock{
   background-color: rgba(104, 207, 174, 1);
   color: white;
@@ -953,6 +1005,12 @@ input:checked+label {
   overflow:none;
   z-index:-100;
 }
+
+.helpTool{
+  font-size: 15px;
+  font-weight: lighter;
+}
+
 .highlightMenu-arrowClip{
   position: absolute;
   bottom: -10px;
@@ -1249,6 +1307,13 @@ input:focus{
   padding-right: 30px;
 }
 
+.georgia{
+  font-family: georgia, "Times New Roman", times, serif!important;
+  line-height: 1.8!important;
+  font-size: 19px!important;
+
+}
+
 .load-text {
   font-family: georgia, "Times New Roman", times, serif;
   font-size: 19px;
@@ -1328,7 +1393,7 @@ input:focus{
 }
 
 .section-heading {
-  font-size: 38px;
+  font-size: 48px;
   font-weight: lighter;
   line-height: 1.2;
 }
@@ -1340,7 +1405,7 @@ input:focus{
 }
 
 .section-heading.center-heading {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .section-heading.margin-top-0 {
@@ -1628,6 +1693,10 @@ footer {
 
 .tealBackground {
   background-color: #0097a7;
+}
+
+.black{
+  color: black;
 }
 
 

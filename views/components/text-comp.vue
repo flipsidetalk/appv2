@@ -11,12 +11,11 @@
     <br><br><br>
     lastReferenced: {{textcomp.lastReferenced}}
  -->
-
     <div class="u-marginAuto">
       <span v-for="(m, mindex) in textcomp.article.sentences">
         <span class="load-text" v-bind:class="{'highlightable':m.mainClaim}">
           <span v-if="m.mainClaim">
-            <span v-on:click="showTool(mindex, m.seen, textcomp)">
+            <span v-on:click="showTool(mindex, m.seen, textcomp)" v-on:mouseover="showHelper(mindex, textcomp)">
               <mark class="highlightedText" v-bind:id="mindex">{{m.text}}</mark>
             </span>
           </span>
@@ -36,6 +35,15 @@
     <div id="cal1">&nbsp;</div>
     <div id="cal2">&nbsp;</div>
     <!--TO DO: V-BIND BACKGROUND COLOR OR CLASS DEPENDING ON M.SEEN-->
+
+  <div id="tooltip" v-bind:style="{display: textcomp.helpdisplay, top: textcomp.helptop, left: textcomp.helpleft}">
+    <span class="helpTool">this is a main claim we've identified. You can click on any sentence to vote. Once you've voted 5 times, you can compare yourself with others! Try clicking on a sentence!</span>
+    <div class="highlightMenu-arrowClip">
+      <span class="highlightMenu-arrow"></span>
+    </div>
+  </div>
+
+
     <div id="tooltip" v-bind:style="{display: textcomp.tooldisplay, top: textcomp.tooltop, left: textcomp.toolleft}">
 
       <span v-if="textcomp.user == undefined">
@@ -54,8 +62,6 @@
           <span class="u-agreeButtons u-verticalAlignTop u-inlineBlock u-lastAgreeButton"><span class="u-agreeButton">unsure</span></span>
         </span>
       </span>
-
-
       <span v-else>
         <span v-on:click="submitResponse(1, 2, textcomp)">
           <i class="fa fa-smile-o u-iconem" aria-hidden="true"></i>

@@ -1,9 +1,11 @@
 var mixin = {
   methods: {
     showTool: function(sentenceId, seenvalue, textcomp){
+
+      textcomp.hasUserSeenHelper = true;
       /** setting the sentence at hand**/
       //$("#tooltip").show();
-
+      textcomp.helpdisplay = 'none';
       textcomp.lastReferenced = sentenceId;
       textcomp.tempseen = seenvalue;
 
@@ -46,6 +48,27 @@ var mixin = {
       }
 
     },
+    showHelper: function(sentenceId, textcomp){
+      /** setting the sentence at hand**/
+      //$("#tooltip").show();
+      if (!textcomp.hasUserVoted && !textcomp.hasUserSeenHelper) {
+        var sel = document.getElementById(sentenceId);
+        var r = sel.getBoundingClientRect();
+        var rel1= document.createRange();
+        rel1.selectNode(document.getElementById('cal1'));
+        var rel2= document.createRange();
+        rel2.selectNode(document.getElementById('cal2'));
+        var rb1 = rel1.getBoundingClientRect();
+        var rb2 = rel2.getBoundingClientRect();
+        r.center = (r.right+r.left)/2
+        rb2.center = (rb2.right+rb2.left)/2
+        rb1.center = (rb1.right+rb1.left)/2
+        textcomp.helptop = (r.top - rb2.top-42)*100/(rb1.top-rb2.top) + 'px'; //this will place ele below the selection
+        textcomp.helpleft = (r.center - rb2.center - 130)*100/(rb1.center-rb2.center) + 'px'; //this will align the right edges together
+        textcomp.helpdisplay = 'block';
+      }
+    },
+
     submitResponse: function(input, seenvalue, textcomp) {
       var placeholderId = textcomp.lastReferenced; //this is the sentenceID
       //passing response data
@@ -82,11 +105,9 @@ var mixin = {
         }
       });
     },
+
     fetchComments: function(textcomp){
       var placeholderId = textcomp.lastReferenced;
-
-      console.log(placeholderId);
-
       textcomp.whyResponse.input = "";
       textcomp.displayAgreeComments = [];
       textcomp.displayDisagreeComments = [];

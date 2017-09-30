@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div class="clusterMapOutput">
         <div class="d3stuff">
           <div class="weight-lighter">Opinion Map</div>
@@ -10,31 +10,10 @@
               <defs>
                   <pattern id="group1" x="0%" y="0%" height="100%" width="100%"
                            viewBox="0 0 512 512">
-                    <image x="0%" y="0%" width="512" height="512" xlink:href="https://cdn3.iconfinder.com/data/icons/people-professions/512/Baby-512.png"></image>
-                  </pattern>
-                  <pattern id="group2" x="0%" y="0%" height="100%" width="100%"
-                           viewBox="0 0 512 512">
-                    <image x="0%" y="0%" width="512" height="512" xlink:href="https://i.imgur.com/sQGz9wq.jpg"></image>
-                  </pattern>
-                  <pattern id="group3" x="0%" y="0%" height="100%" width="100%"
-                           viewBox="0 0 512 512">
-                    <image x="0%" y="0%" width="512" height="512" xlink:href="https://i.imgur.com/sQGz9wq.jpg"></image>
-                  </pattern>
-                  <pattern id="group4" x="0%" y="0%" height="100%" width="100%"
-                           viewBox="0 0 512 512">
-                    <image x="0%" y="0%" width="512" height="512" xlink:href="https://i.imgur.com/sQGz9wq.jpg"></image>
-                  </pattern>
-                  <pattern id="group5" x="0%" y="0%" height="100%" width="100%"
-                           viewBox="0 0 512 512">
-                    <image x="0%" y="0%" width="512" height="512" xlink:href="https://i.imgur.com/sQGz9wq.jpg"></image>
+                    <image x="0%" y="0%" width="512" height="512" xlink:href="https://i.imgur.com/VfkzbqR.png"></image>
                   </pattern>
                 </defs>
-
-
             </svg>
-
-
-
           </div>
         </div>
       </div>

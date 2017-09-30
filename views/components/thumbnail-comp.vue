@@ -51,6 +51,7 @@
               <!--  <a href="#" class="u-flexCenter">read more</a> -->
             </div>
           </header>
+          {{thumbnailcomp}}
           <div v-for="(m, mindex) in thumbnailcomp">
             <div class="u-borderBox u-size6of12 u-paddingRight20 u-xs-paddingLeft0 u-xs-paddingRight0 u-xs-size12of12 u-floatLeft">
 
