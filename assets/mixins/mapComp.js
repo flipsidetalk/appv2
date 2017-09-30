@@ -111,7 +111,17 @@ var mixin = {
         })
       }
 
-    }
+
+      for (var eachBubble in this.mapcomp.bubbleData.slice(1)) {
+        if (true) {
+
+        }
+      }
+
+    };
+
+
+
   }
 }
 

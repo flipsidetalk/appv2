@@ -164,6 +164,8 @@ app.get('/', function(req, res) {
 /* Get article page
  */
 app.get('/article/:slug', function(req, res) {
+
+
   const slug = req.params.slug;
   db.article.count({
       where: {
@@ -180,8 +182,6 @@ app.get('/article/:slug', function(req, res) {
           user: req.user
         },
         textcomp: {
-
-          hasUserVoted: false,
 
           //commentData
           showAgreeComments: false,
@@ -206,10 +206,10 @@ app.get('/article/:slug', function(req, res) {
 
           tempseen: false,
           /*** TOOLTIP ATTRIBUTES ***/
-
+          hasUserVoted: false,
           helpdisplay: "none",
           helptop: "0px",
-          helpleft: "0px",          
+          helpleft: "0px",
           tooldisplay: "none",
           tooltop: "0px",
           toolleft: "0px",
@@ -245,62 +245,6 @@ app.get('/article/:slug', function(req, res) {
             disagree: "",
             unsure: ""
           },
-
-          groupSimple: [{
-              label: "group1",
-              size: 10,
-              sentenceId: "a",
-              average: "",
-              agree: "",
-              disagree: "",
-              unsure: ""
-            },
-            {
-              label: "group2",
-              size: 20,
-              sentenceId: "b",
-              average: "",
-              agree: "",
-              disagree: "",
-              unsure: ""
-            },
-            {
-              label: "group3",
-              size: 30,
-              sentenceId: "c",
-              average: "",
-              agree: "",
-              disagree: "",
-              unsure: ""
-            },
-            {
-              label: "group4",
-              size: 40,
-              sentenceId: "d",
-              average: "",
-              agree: "",
-              disagree: "",
-              unsure: ""
-            },
-            {
-              label: "group5",
-              size: 50,
-              sentenceId: "e",
-              average: "",
-              agree: "",
-              disagree: "",
-              unsure: ""
-            },
-            {
-              label: "group6",
-              size: 60,
-              sentenceId: "f",
-              average: "",
-              agree: "",
-              disagree: "",
-              unsure: ""
-            }
-          ],
 
           bubbleShades: [],
           bubbleShade: {
@@ -350,13 +294,30 @@ app.get('/article/:slug', function(req, res) {
        */
       async.parallel({
           hasUserVoted: function(callback) {
-            db.votes.count({
-              where: {
-                userId: req.user
-              }
-            }).then(numVotes => {
-              callback(null, numVotes > 0)
-            })
+            // console.log(" \n\n\n\n\n\n\n\n\n\n\n TEST for hasUserVoted \n\n\n\n\n\n\n");
+            // console.log(req.user);
+            // var testUser = req.user;
+            // //
+            // // console.log(testUser);
+            // console.log(testUser['id']);
+            if (req.user == undefined) {
+              callback(null, false)
+            } else {
+              db.vote.count({
+                where: {
+                  'userId': req.user[Object.keys(req.user)[0]]
+                }
+              }).then(numVotes => {
+                var alreadyVoted = false;
+                if (numVotes > 0) {
+                  alreadyVoted = true;
+                }
+                callback(null, alreadyVoted)
+              });
+            }
+          },
+
+
           viz: function(callback) {
             db.article.findOne({
               where: {

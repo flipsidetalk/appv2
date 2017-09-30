@@ -12,25 +12,7 @@
                            viewBox="0 0 512 512">
                     <image x="0%" y="0%" width="512" height="512" xlink:href="https://cdn3.iconfinder.com/data/icons/people-professions/512/Baby-512.png"></image>
                   </pattern>
-                  <pattern id="group2" x="0%" y="0%" height="100%" width="100%"
-                           viewBox="0 0 512 512">
-                    <image x="0%" y="0%" width="512" height="512" xlink:href="https://i.imgur.com/sQGz9wq.jpg"></image>
-                  </pattern>
-                  <pattern id="group3" x="0%" y="0%" height="100%" width="100%"
-                           viewBox="0 0 512 512">
-                    <image x="0%" y="0%" width="512" height="512" xlink:href="https://i.imgur.com/sQGz9wq.jpg"></image>
-                  </pattern>
-                  <pattern id="group4" x="0%" y="0%" height="100%" width="100%"
-                           viewBox="0 0 512 512">
-                    <image x="0%" y="0%" width="512" height="512" xlink:href="https://i.imgur.com/sQGz9wq.jpg"></image>
-                  </pattern>
-                  <pattern id="group5" x="0%" y="0%" height="100%" width="100%"
-                           viewBox="0 0 512 512">
-                    <image x="0%" y="0%" width="512" height="512" xlink:href="https://i.imgur.com/sQGz9wq.jpg"></image>
-                  </pattern>
                 </defs>
-
-
             </svg>
 
 
@@ -45,7 +27,6 @@
     </span>
     <span>{{mapcomp.groupSimple}}</span>
   </div> -->
-
 </div>
 </div>
 </template>
