@@ -140,8 +140,8 @@ app.get('/', function(req, res) {
     ]
   }).then(articles => {
     let formattedArticles = {};
-    // for (var i = 0; i < articles.length; i++) {
-    for (var i = articles.length -1; i >= 0; --i) {
+    for (var i = 0; i < articles.length; i++) {
+    //for (var i = articles.length -1; i >= 0; --i) {
       let formattedArticle = {};
       try {
         formattedArticle.title = articles[i].title.title;
