@@ -1,7 +1,7 @@
 var mixin = {
   methods: {
     showTool: function(sentenceId, seenvalue, textcomp){
-
+      console.log(textcomp.article.sentences)
       textcomp.hasUserSeenHelper = true;
       /** setting the sentence at hand**/
       //$("#tooltip").show();
