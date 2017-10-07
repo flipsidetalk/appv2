@@ -45,10 +45,10 @@ try {
   dbconfig = {
     db: {
       'host': 'test.chsdfl7vaehp.us-east-1.rds.amazonaws.com',
-      'username': 'produser',
-      'password': 'dep0larized',
+      'username': 'testuser',
+      'password': 'testUser',
       'port': 3306,
-      'database': 'prod'
+      'database': 'test'
     }
   }
 }
