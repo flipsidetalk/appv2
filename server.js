@@ -500,6 +500,9 @@ app.post('/submitLink', function(req, res) {
               res.send('error');
               return;
             }
+            console.log('\n\n\n\nARTICLE DATA:\n')
+            console.log(JSON.stringify(body))
+            console.log('\n\n\n')
             const slug = makeSlug(body.title.title, {
               lower: true
             });
