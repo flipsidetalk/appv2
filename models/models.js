@@ -110,7 +110,7 @@ module.exports.init = function(sequelize, Sequelize) {
 
   const Sentence = sequelize.define('sentence', {
     text: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT
     },
     mainClaim: {
       type: Sequelize.BOOLEAN
