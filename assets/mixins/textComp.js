@@ -23,7 +23,7 @@ var mixin = {
       rb2.center = (rb2.right+rb2.left)/2
       rb1.center = (rb1.right+rb1.left)/2
       textcomp.tooltop = (r.top - rb2.top-42)*100/(rb1.top-rb2.top) + 'px'; //this will place ele below the selection
-      textcomp.toolleft = (r.center - rb2.center - 130)*100/(rb1.center-rb2.center) + 'px'; //this will align the right edges together
+      textcomp.toolleft = (r.center - rb2.center - 170)*100/(rb1.center-rb2.center) + 'px'; //this will align the right edges together
       textcomp.isHighlighted = sentenceId;
       textcomp.talktop = (r.top - rb2.top) + 'px'; //this will place ele below the selection
 
