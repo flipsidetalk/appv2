@@ -30,19 +30,17 @@ class Spectrum:
     def __init__(self, graph_low_votes = False, reducer = 'mds', cluster = 'kmeans',
         choosing_function = 'diff', norm_threshold = 100, defval = 0, impute_factor = True,
         min_users = 6, min_votes_user = 3, min_votes_question = 5, num_opinions = 3,
-        max_users = 1000, n_components = 2):
+        max_users = 1000, n_components = 2, min_votes_group = 2):
 
         self.impute_factor = impute_factor
         self.min_votes_user = min_votes_user
         self.min_votes_question = min_votes_question
+        self.min_votes_group = min_votes_group
+        self.min_users = min_users
         self.graph_low_votes = graph_low_votes
 
 
         self.n_components = n_components
-        if min_users:
-            self.min_users = min_users
-        else:
-            self.min_users = len(question_ids)
 
         self.max_users = max_users
 
@@ -78,7 +76,7 @@ class Spectrum:
         self.considered_points = None
         self.out_points = None
         self.groups = None
-        self.relevant_questions = None
+        self.relevant_claims= None
 
 
     def save_model(self):
@@ -101,7 +99,7 @@ class Spectrum:
                 x, y, group = self.out_points[i,0], self.out_points[i,1], self.groups[i]
                 out['out_points'].append({"x": float(x), "y": float(y), "group": int(group)})
 
-        out['relevant_questions'] = self.relevant_questions
+        out['relevant_questions'] = self.relevant_claims
 
         return json.dumps(out)
 
@@ -142,13 +140,15 @@ class Spectrum:
                 self.raw_votes[question_id] = set([(user_id, vote)])
             else:
                 self.raw_votes[question_id].add((user_id, vote))
-            self.add_question(question_id)
 
-            self.add_vote(user_id, question_id, vote)
             if question_id not in self.votes_to_consider.keys():
                 self.votes_to_consider[question_id] = set([user_id])
             else:
                 self.votes_to_consider[question_id].add(user_id)
+
+            self.add_question(question_id)
+
+            self.add_vote(user_id, question_id, vote)
 
         enough_users = (len(self.users_to_graph) >= self.min_users)
         enough_questions = len(self.question_ids) >= self.num_opinions
@@ -266,25 +266,37 @@ class Spectrum:
                 if self.k is not None:
                     r = self.k
                 for i in range(-1, r):
+                    #For all users group, i will be -1 and group index will be 0
                     if not clusters:
                         if i > -1:
                             return data
                     group = dict()
                     group['group'] = i + 1
-                    users = []
-                    gs = [None] * len(user_ids)
+                    users = None
+                    gs = None
                     if self.groups is not None:
                         gs = list(self.groups)
-                    for iden, g in zip(user_ids, gs):
-                        if g == i or i == -1:
-                            users.append(iden)
+                    else:
+                        gs = [None] * len(user_ids)
+                    if i != -1:
+                        users = []
+                        for iden, g in zip(user_ids, gs):
+                            #Check if the user is in the group or if we're considering all users
+                            if g == i:
+                                users.append(iden)
+                    else:
+                        users = set()
+                        for subset in self.votes_to_consider.values():
+                            users.update(subset)
+                        users = list(users)
+
                     group['users'] = users
                     group['size'] = len(users)
 
-                    if self.relevant_questions is None:
-                        self.relevant_questions = {-1: set(self.question_ids)}
+                    if self.relevant_claims is None:
+                        self.relevant_claims = {-1: set(self.question_ids)}
                     relevant_positions = []
-                    for question in self.relevant_questions[i]:
+                    for question in self.relevant_claims[i]:
                         claim_data = dict()
                         claim_data['sentenceId'] = str(question)
                         avg,controversiality, num_votes,proportions = self.get_numbers(i, question)
@@ -293,16 +305,14 @@ class Spectrum:
                         if controversiality is not None:
                             controversiality = float(controversiality)
                         if num_votes is not None:
-                            num_votes = float(num_votes)
+                            num_votes = int(num_votes)
                         claim_data['average'] = avg
                         claim_data['shadeColor'] = self.range_normalize(0, 1, 0.3, 0.1, avg)
                         claim_data['controversiality'] = controversiality
                         claim_data['num_votes'] = num_votes
                         for answer, direction in zip([-1,0,1], ['disagree', 'unsure', 'agree']):
-                            if answer in proportions.keys():
-                                if proportions[answer] is not None:
-                                    proportions[answer] = float(proportions[answer])
-                                claim_data[direction] = proportions[answer]
+                            if len(proportions) != 0:
+                                claim_data[direction] = float(proportions[answer])
                             else:
                                 claim_data[direction] = None
                         relevant_positions.append(claim_data)
@@ -330,28 +340,33 @@ class Spectrum:
 
     def get_numbers(self, i, question):
         votes = []
-        for user_id in self.votes_to_consider[question]:
-            user_ind = self.users[user_id]['index']
-            if user_ind in self.users_to_graph:
-                index = np.where(np.array(self.users_to_graph) == user_ind)[0][0]
-                question_ind = self.get_question_index(question)
-                if self.groups[index] == i or i == -1:
-                    vote = self.data[user_ind, question_ind]
+        seen_users = set()
+        for user_id, vote in self.raw_votes[question]:
+            if i == -1:
+                if user_id not in seen_users:
                     votes.append(vote)
+                    seen_users.add(user_id)
+            else:
+                if user_id not in seen_users:
+                    user_ind = self.users[user_id]['index']
+                    if user_ind in self.users_to_graph:
+                        index = np.where(np.array(self.users_to_graph) == user_ind)[0][0]
+                        if self.groups[index] == i or i == -1:
+                            votes.append(vote)
+                            seen_users.add(user_id)
 
         group_answers = {}
         avg = None
         controversiality = None
         num_votes = len(votes)
-        if num_votes >= self.min_votes:
+        if num_votes >= self.min_votes_group:
 
             controversiality = float(np.std(votes) / np.sqrt(num_votes))
             avg = float(np.mean(votes))
             votes = np.array(votes)
-            total = 0
             for answer in [-1,0,1]:
                 n_votes = float(np.where(votes == answer)[0].shape[0])
-                group_answers[answer] = float(n_votes / len(votes))
+                group_answers[answer] = float(n_votes / num_votes)
 
         return avg,controversiality,  num_votes, group_answers
 
@@ -542,7 +557,7 @@ class Spectrum:
 
         for group in self.group_averages.keys():
             #Indexed_averages --> [(group_avg, group, question),,...]
-            indexed_averages = [(abs(self.group_averages[group]["averages"][q]), group, q) for q in range(len(self.group_averages[group])) if self.group_averages[group]["counts"][q] >= 2]
+            indexed_averages = [(abs(self.group_averages[group]["averages"][q]), group, q) for q in range(len(self.group_averages[group])) if self.group_averages[group]["counts"][q] >= self.min_votes_group]
             all_opinions += indexed_averages
 
         all_opinions = sorted(all_opinions, reverse = True)

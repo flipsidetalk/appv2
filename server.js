@@ -666,6 +666,9 @@ app.post('/submitVote', function(req, res) {
       attributes: ['articleId']
     }).then(data => {
       const articleId = data.dataValues.articleId
+      console.log('\n\n\n\nUPDATING VIZ STATE FOR ARTICLE:\n\n')
+      console.log(articleId)
+      console.log('\n\n\n\n')
       utils.updateVizState(db, res, numCurrentVotes, articleId, sequelize);
     })
   });
