@@ -89,11 +89,11 @@ class OpinionBubbleTest:
                 for user in self.num_votes.keys():
                     if user in group['users']:
                         self.num_votes[user]['grouped'] = True
-            for user in self.num_votes.keys():
-                user_obj = self.num_votes[user]
-                if (user_obj['grouped'] == False) and (user_obj['count'] >= self.min_votes_user):
-                    print('USER {} WITH {} VOTES NOT GROUPED'.format(user, user_obj['count']))
-                    self.ungrouped_users.add(user)
+        for user in self.num_votes.keys():
+            user_obj = self.num_votes[user]
+            if (user_obj['grouped'] == False) and (user_obj['count'] >= self.min_votes_user):
+                print('USER {} WITH {} VOTES NOT GROUPED'.format(user, user_obj['count']))
+                self.ungrouped_users.add(user)
 
 
 
