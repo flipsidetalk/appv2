@@ -5,6 +5,7 @@ var totalClusterInfo = {"clusterData":[[{"average":0.5,"cluster":0,"sentenceId":
  */
 const PYTHON_SERVER_URL = 'http://54.236.205.41:80/';
 const CURRENT_SLUG = 'the-aclu-needs-to-rethink-free-speech';
+const CURRENT_ID = 63;
 const path = require('path');
 const express = require('express');
 const expressVue = require('express-vue');
@@ -668,6 +669,10 @@ app.post('/submitVote', function(req, res) {
     })
   });
   res.sendStatus(200);
+});
+
+app.post('/updateVizState', function(req, res) {
+  utils.updateVizState(db, res, numCurrentVotes, CURRENT_ID, sequelize);
 });
 
 

@@ -325,6 +325,18 @@ var mixin = {
       var mapcomp = this.mapcomp;
       var fetchClaims = this.fetchClaims;
       var addBorder = this.addBorder;
+      setInterval(function() {
+        $.ajax({
+          type: 'POST',
+          url: '/updateVizState',
+          success: function() {
+            console.log("sendsuccess: " + data);
+          },
+          error: function() {
+            console.log("error: " + data);
+          }
+        });
+      }, 5000);
       $(document).mouseup(function(e) {
         if ($(e.target).is('circle')) {
           fetchClaims(e.target.id, textcomp, mapcomp);
