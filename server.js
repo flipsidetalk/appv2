@@ -4,6 +4,7 @@ var totalClusterInfo = {"clusterData":[[{"average":0.5,"cluster":0,"sentenceId":
 /* Constants and import statements
  */
 const PYTHON_SERVER_URL = 'http://54.236.205.41:80/';
+const CURRENT_SLUG = 'the-aclu-needs-to-rethink-free-speech';
 const path = require('path');
 const express = require('express');
 const expressVue = require('express-vue');
@@ -118,80 +119,80 @@ require('./auth.js')(app, connection, db);
 
 /* Get index page
  */
-app.get('/', function(req, res) {
-  db.article.findAll({
-    include: [{
-      model: db.title
-    }, {
-      model: db.author
-    }, {
-      model: db.publication
-    }, {
-      model: db.publicationDate
-    }, {
-      model: db.image
-    }],
-    limit : 20,
-    attributes: {
-      exclude: ['id', 'url', 'updatedAt']
-    },
-    order: [
-      ['createdAt', 'DESC']
-    ]
-  }).then(articles => {
-    let formattedArticles = {};
-    for (var i = 0; i < articles.length; i++) {
-    //for (var i = articles.length -1; i >= 0; --i) {
-      let formattedArticle = {};
-      try {
-        formattedArticle.title = articles[i].title.title;
-      } catch (err) {
-        formattedArticle.title = 'Title Unknown'
-      }
-      formattedArticle.slug = articles[i].slug;
-      try {
-        formattedArticle.author = articles[i].authors[0].name;
-      }
-      catch (err) {
-        formattedArticle.author = 'Author Unknown'
-      }
-      try {
-        formattedArticle.publication = articles[i].publication.name;
-      }
-      catch (err) {
-        formattedArticle.publication = 'Publication Unknown'
-      }
-      try {
-        formattedArticle.publicationDate = dateFormat(articles[i].publicationDate.date, "longDate");
-      }
-      catch (err) {
-        formattedArticle.publicationDate = "Date Unknown"
-      }
-      try {
-        formattedArticle.image = articles[i].image.link;
-      }
-      catch (err) {
-        formattedArticle.image = "No Image Found."
-      }
-      formattedArticles['article' + (i + 1)] = formattedArticle;
-    }
-    console.log('FEATURES: ' + JSON.stringify(formattedArticles));
-    var data = {
-      headercomp: {
-        user: req.user
-      },
-      thumbnailcomp: formattedArticles
-      }
-    res.renderVue('index', data, utils.vue('Flipside — A new side of news.'));
-  });
-});
+// app.get('/', function(req, res) {
+//   db.article.findAll({
+//     include: [{
+//       model: db.title
+//     }, {
+//       model: db.author
+//     }, {
+//       model: db.publication
+//     }, {
+//       model: db.publicationDate
+//     }, {
+//       model: db.image
+//     }],
+//     limit : 20,
+//     attributes: {
+//       exclude: ['id', 'url', 'updatedAt']
+//     },
+//     order: [
+//       ['createdAt', 'DESC']
+//     ]
+//   }).then(articles => {
+//     let formattedArticles = {};
+//     for (var i = 0; i < articles.length; i++) {
+//     //for (var i = articles.length -1; i >= 0; --i) {
+//       let formattedArticle = {};
+//       try {
+//         formattedArticle.title = articles[i].title.title;
+//       } catch (err) {
+//         formattedArticle.title = 'Title Unknown'
+//       }
+//       formattedArticle.slug = articles[i].slug;
+//       try {
+//         formattedArticle.author = articles[i].authors[0].name;
+//       }
+//       catch (err) {
+//         formattedArticle.author = 'Author Unknown'
+//       }
+//       try {
+//         formattedArticle.publication = articles[i].publication.name;
+//       }
+//       catch (err) {
+//         formattedArticle.publication = 'Publication Unknown'
+//       }
+//       try {
+//         formattedArticle.publicationDate = dateFormat(articles[i].publicationDate.date, "longDate");
+//       }
+//       catch (err) {
+//         formattedArticle.publicationDate = "Date Unknown"
+//       }
+//       try {
+//         formattedArticle.image = articles[i].image.link;
+//       }
+//       catch (err) {
+//         formattedArticle.image = "No Image Found."
+//       }
+//       formattedArticles['article' + (i + 1)] = formattedArticle;
+//     }
+//     console.log('FEATURES: ' + JSON.stringify(formattedArticles));
+//     var data = {
+//       headercomp: {
+//         user: req.user
+//       },
+//       thumbnailcomp: formattedArticles
+//       }
+//     res.renderVue('index', data, utils.vue('Flipside — A new side of news.'));
+//   });
+// });
 
 /* Get article page
  */
-app.get('/article/:slug', function(req, res) {
+app.get('/', function(req, res) {
 
 
-  const slug = req.params.slug;
+  const slug = CURRENT_SLUG;
   db.article.count({
       where: {
         slug: slug
