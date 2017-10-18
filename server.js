@@ -502,6 +502,9 @@ app.post('/submitLink', function(req, res) {
               res.send('error');
               return;
             }
+            console.log('\n\n\n\nARTICLE DATA:\n')
+            console.log(JSON.stringify(body))
+            console.log('\n\n\n')
             const slug = makeSlug(body.title.title, {
               lower: true
             });
@@ -665,6 +668,9 @@ app.post('/submitVote', function(req, res) {
       attributes: ['articleId']
     }).then(data => {
       const articleId = data.dataValues.articleId
+      console.log('\n\n\n\nUPDATING VIZ STATE FOR ARTICLE:\n\n')
+      console.log(articleId)
+      console.log('\n\n\n\n')
       utils.updateVizState(db, res, numCurrentVotes, articleId, sequelize);
     })
   });
