@@ -6,6 +6,8 @@ var totalClusterInfo = {"clusterData":[[{"average":0.5,"cluster":0,"sentenceId":
 const PYTHON_SERVER_URL = 'http://54.236.205.41:80/';
 const CURRENT_SLUG = 'the-aclu-needs-to-rethink-free-speech';
 const CURRENT_ID = 63;
+const NUM_FAKE_USERS = 10;
+const INIT_SPLIT = 0.8
 const path = require('path');
 const express = require('express');
 const expressVue = require('express-vue');
@@ -192,6 +194,7 @@ require('./auth.js')(app, connection, db);
  */
 app.get('/', function(req, res) {
 
+  //SET ARTICLE TO DRAW FRONT PAGE FROM
 
   const slug = CURRENT_SLUG;
   db.article.count({
@@ -366,9 +369,40 @@ app.get('/', function(req, res) {
                   articleId: id
                 }
               }).then(viz => {
-                callback(null, viz);
+                if (viz && viz[0]) {
+                    callback(null, viz);
+                } else {
+                    //If there is no viz for the article, we need dummy votes
+                    //Need all the mainClaim sentenceIds to initialize votes
+                    db.sentences.findAll({
+                      where: {
+                        slug: slug
+                      },
+                      attributes: ['id', 'mainClaim']
+                    }).then(response => {
+                      const sentences = article.dataValues.sentences;
+                      console.log(sentences);
+                      //Create Dummy Votes and insert into db
+                      utils.initRandomVotes(db, sentences, NUM_FAKE_USERS, INIT_SPLIT);
+                    }).then(() => {
+                      //Get new Viz State based on new votes
+                      utils.updateVizState(db, res, numCurrentVotes, articleId, sequelize);
+                    }).then(() {
+                      //Get that viz state
+                      db.viz.findAll({
+                        limit: 1,
+                        order: [[ 'createdAt', 'DESC' ]],
+                        where: {
+                          articleId: id
+                        }
+                      }).then(viz => {
+                        //Same as if we already had a viz
+                        callback(null, viz);
+                      });
+                    });
+                };
               });
-            });
+            }
           },
           article: function(callback) {
             db.article.findOne({
