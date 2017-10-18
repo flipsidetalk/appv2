@@ -75,7 +75,7 @@
                         <!-- actualId: {{m.sentenceId}}
                         lastReferenced: {{textcomp.lastReferenced}}
                         responses: {{textcomp.responses}} -->
-                        <h4>Vote on five sentences see how you compare to others:</h4><br>
+                        <h4>claim {{mapcomp.displayCounter}}/{{mapcomp.arrayEveryone.length}}</h4><br>
 
                         <h4 class="u-lighter georgia">{{m.text}}</h4>
                       </div>
