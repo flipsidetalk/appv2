@@ -6,7 +6,10 @@ import numpy as np
 
 
 class OpinionBubbleTest:
-    def __init__(self, csv_input = True, article_id = 45, input_data = '/Users/siddharth/flipsideML/ML-research/visualization/prodvotedata.csv', sample_size = 1.0, min_votes_user = 3):
+    def __init__(self, csv_input = True, article_id = 40,
+            input_data = '/Users/siddharth/flipsideML/ML-research/visualization/prodvotedata.csv',
+            sample_size = 1.0, min_votes_user = 3, seed = 42):
+        np.random.seed(seed)
         if csv_input:
             self.data = pd.read_csv(input_data)
         else:
@@ -69,11 +72,16 @@ class OpinionBubbleTest:
         votes = self.sampled_votes
         viz_data = self.viz_data
         self.num_votes = {}
+        self.questions = {}
         for vote in votes:
             if vote['userId'] not in self.num_votes.keys():
                 self.num_votes[vote['userId']] = {'count':1, 'grouped':False}
             else:
                 self.num_votes[vote['userId']]['count'] += 1
+            if vote['sentenceId'] not in self.questions.keys():
+                self.questions[vote['sentenceId']] = set([vote['userId']])
+            else:
+                self.questions[vote['sentenceId']].add(vote['userId'])
 
         self.uncounted_users = set()
         self.ungrouped_users = set()
@@ -89,14 +97,24 @@ class OpinionBubbleTest:
                 for user in self.num_votes.keys():
                     if user in group['users']:
                         self.num_votes[user]['grouped'] = True
-        for user in self.num_votes.keys():
-            user_obj = self.num_votes[user]
-            if (user_obj['grouped'] == False) and (user_obj['count'] >= self.min_votes_user):
-                print('USER {} WITH {} VOTES NOT GROUPED'.format(user, user_obj['count']))
-                self.ungrouped_users.add(user)
+        enough_users = len([user for user in self.num_votes.keys() if self.num_votes[user]['count'] >= self.min_votes_user]) >= self.model.min_users
+        voted_questions = [q for q in self.questions.keys() if len(self.questions[q]) >= self.model.min_votes_question]
+        enough_questions = len(voted_questions) >= self.model.num_opinions
+        if enough_users and enough_questions:
+            for user in self.num_votes.keys():
+                user_obj = self.num_votes[user]
+                if (user_obj['grouped'] == False) and (user_obj['count'] > self.min_votes_user):
+                    print('USER {} WITH {} VOTES NOT GROUPED'.format(user, user_obj['count']))
+                    self.ungrouped_users.add(user)
 
 
+TESTING_PARAMS = {"sample_size": [0.1, 0.5, 0.9, 1.0], "min_votes": [2, 3, 4, 5,6, 7, 8]}
 
 if __name__ == "__main__":
-    test = OpinionBubbleTest()
-    test.run()
+    for size in TESTING_PARAMS["sample_size"]:
+        for minim in TESTING_PARAMS["min_votes"]:
+            try:
+                test = OpinionBubbleTest(sample_size=size, min_votes_user = minim)
+                test.run()
+            except:
+                print('failed on test with size: {} and minim: {}'.format(size, minim))

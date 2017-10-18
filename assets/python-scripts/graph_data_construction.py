@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.decomposition import PCA
 from sklearn.manifold import MDS
-from sklearn.cluster import KMeans, AffinityPropagation, MeanShift
+from sklearn.cluster import KMeans, AffinityPropagation
 from sklearn.metrics import silhouette_score, pairwise
 import json
 import sys
@@ -29,7 +29,7 @@ QUESTION_IDS = ['a1s21','a1s23','a1s30','a1s31','a1s34','a1s46','a1s55','a2s12',
 class Spectrum:
     def __init__(self, graph_low_votes = False, reducer = 'mds', cluster = 'kmeans',
         choosing_function = 'diff', norm_threshold = 100, defval = 0, impute_factor = True,
-        min_users = 6, min_votes_user = 3, min_votes_question = 5, num_opinions = 3,
+        min_users = 10, min_votes_user = 3, min_votes_question = 3, num_opinions = 3,
         max_users = 1000, n_components = 2, min_votes_group = 2):
 
         self.impute_factor = impute_factor
@@ -131,8 +131,8 @@ class Spectrum:
         for user_id, question_id, vote in votes:
             assert (vote == 1 or vote == 0 or vote == -1)
             if user_id not in self.users.keys():
-                    self.users[user_id] = {"index":self.n_users, "questions": set([question_id])}
-                    self.n_users += 1
+                self.users[user_id] = {"index":self.n_users, "questions": set([question_id])}
+                self.n_users += 1
             else:
                 self.users[user_id]["questions"].add(question_id)
 
@@ -162,10 +162,13 @@ class Spectrum:
         if question_ind is not None:
             self.data[user_ind][question_ind] = vote
 
-            if len(self.users[user_id]["questions"]) >= self.min_votes_user:
-                #add index of user if they've added enough votes
-                if self.users[user_id]["index"] not in self.users_to_graph:
-                    self.users_to_graph.append(self.users[user_id]["index"])
+        #regardless of if the questions a user has voted on have been voted enough
+        #to be counted, they will be added to users to graph if they've voted
+        # a certain number of times
+        if len(self.users[user_id]["questions"]) >= self.min_votes_user:
+            #add index of user if they've added enough votes
+            if self.users[user_id]["index"] not in self.users_to_graph:
+                self.users_to_graph.append(self.users[user_id]["index"])
 
     def add_question(self, question_id):
         if question_id not in self.question_ids:
