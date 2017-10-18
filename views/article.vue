@@ -82,34 +82,28 @@
                       <div class="voteSection" v-bind:style="{display: textcomp.displayVoteCard}">
                         <span v-if="textcomp.user == undefined" class="center">
                           <span href="#sign-in-modal" data-toggle="modal">
-                            <i class="fa fa-smile-o fa-2x black u-pointer" aria-hidden="true"></i>
                             <span class="u-agreeButtonsCard u-verticalAlignTop u-inlineBlock"><span class="u-agreeButton">agree</span></span>
                           </span>
                           <span href="#sign-in-modal" data-toggle="modal">
-                            <i class="fa fa-frown-o fa-2x black" aria-hidden="true"></i>
                             <span class="u-agreeButtonsCard u-verticalAlignTop u-inlineBlock"><span class="u-agreeButton">disagree</span></span>
                           </span>
 
                           <span href="#sign-in-modal" data-toggle="modal">
-                            <i class="fa fa-meh-o fa-2x black" aria-hidden="true"></i>
                             <span class="u-agreeButtonsCard u-verticalAlignTop u-inlineBlock u-lastAgreeButton"><span class="u-agreeButton">unsure</span></span>
                           </span>
                         </span>
                         <span v-else class="center">
                           <span v-on:click="submitVote(1, 2, textcomp, mapcomp)">
-                            <i class="fa fa-smile-o fa-2x black u-pointer" aria-hidden="true"></i>
                             <span class="u-agreeButtonsCard u-verticalAlignTop u-inlineBlock">
                               <span class="u-agreeButton">agree</span>
                             </span>
                           </span>
                           <span v-on:click="submitVote(-1, 3, textcomp, mapcomp)" class="u-button">
-                            <i class="fa fa-frown-o fa-2x black" aria-hidden="true"></i>
                             <span class="u-agreeButtonsCard u-verticalAlignTop u-inlineBlock">
                               <span class="u-agreeButton">disagree</span>
                             </span>
                           </span>
                           <span v-on:click="submitVote(0, 4, textcomp, mapcomp)" class="u-button">
-                            <i class="fa fa-meh-o fa-2x black" aria-hidden="true"></i>
                             <span class="u-agreeButtonsCard u-verticalAlignTop u-inlineBlock u-lastAgreeButton">
                               <span class="u-agreeButton">unsure</span>
                             </span>
