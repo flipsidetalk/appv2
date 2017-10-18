@@ -73,7 +73,7 @@
 
                       <div class="u-floatRight u-inlineBlock">
                         <button type="button" name="button" class="keyButtons u-greenBackgroundButtonFill u-lighter u-fontSize14 u-marginTop10" v-on:click="fetchNextClaim(mapcomp, textcomp)">NEXT CLAIM</button>
-                        <h4>claim {{mapcomp.displayCounter}}/{{mapcomp.arrayEveryone.length}}</h4><br>
+                        <h5 class="u-floatRight u-lighter">claim {{mapcomp.displayCounter}}/{{mapcomp.arrayEveryone.length}}</h5>
                       </div>
 
                       <div class="commentHeader u-inlineBlock">
@@ -81,35 +81,33 @@
                       </div>
                       <div class="voteSection u-inlineBlock" v-bind:style="{display: textcomp.displayVoteCard}">
 
-
-
                         <span v-if="textcomp.user == undefined" class="center">
-                          <span href="#sign-in-modal" data-toggle="modal" class="cardButton center">
-                            <span class="u-agreeButtonsCard u-verticalAlignTop u-inlineBlock"><span class="u-agreeButton">agree</span></span>
+
+                          <span href="#sign-in-modal" data-toggle="modal" class="cardButtonSection center u-greenBackgroundButton u-borderRadiusBL">
+                            <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">agree</span>
                           </span>
-                          <span href="#sign-in-modal" data-toggle="modal" class="cardButton">
-                            <span class="u-agreeButtonsCard u-verticalAlignTop u-inlineBlock"><span class="u-agreeButton">disagree</span></span>
+                          <span href="#sign-in-modal" data-toggle="modal" class="cardButtonSection center u-redBackgroundButton">
+                            <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">disagree</span>
                           </span>
 
-                          <span href="#sign-in-modal" data-toggle="modal" class="cardButton">
-                            <span class="u-agreeButtonsCard u-verticalAlignTop u-inlineBlock u-lastAgreeButton"><span class="u-agreeButton">unsure</span></span>
+                          <span href="#sign-in-modal" data-toggle="modal" class="cardButtonSection center u-grayBackgroundButton u-borderRadiusBR">
+                            <span class="u-cardButtonText u-unsureButtonsCard u-verticalAlignTop u-inlineBlock">unsure</span>
                           </span>
                         </span>
 
-
                         <span v-else class="center">
                           <span v-on:click="submitVote(1, 2, textcomp, mapcomp)">
-                            <span class="u-agreeButtonsCard u-verticalAlignTop u-inlineBlock">
+                            <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">
                               <span class="u-agreeButton">agree</span>
                             </span>
                           </span>
                           <span v-on:click="submitVote(-1, 3, textcomp, mapcomp)" class="u-button">
-                            <span class="u-agreeButtonsCard u-verticalAlignTop u-inlineBlock">
+                            <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">
                               <span class="u-agreeButton">disagree</span>
                             </span>
                           </span>
                           <span v-on:click="submitVote(0, 4, textcomp, mapcomp)" class="u-button">
-                            <span class="u-agreeButtonsCard u-verticalAlignTop u-inlineBlock u-lastAgreeButton">
+                            <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton">
                               <span class="u-agreeButton">unsure</span>
                             </span>
                           </span>

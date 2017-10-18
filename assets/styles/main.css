@@ -412,38 +412,36 @@ label {
   border-bottom: 1px solid;
 }
 
-.u-lastAgreeButton{
-  padding: 0px 0px 0px 1px!important;
-}
 .u-agreeButtons {
   cursor: pointer;
   color: #ffffff;
-  padding: 0px 16px 0px 1px;
   font-size: 15px;
   /* background-color: rgba(131, 101, 158, 0.9); */
   font-family: 'Montserrat', sans-serif!important;
   font-weight: lighter!important;
 }
 
-.u-agreeButtonsCard {
+.u-cardButtonText {
   cursor: pointer;
-  color: black;
-  padding: 0px 30px 0px 1px;
-  font-size: 25px;
-  /* background-color: rgba(131, 101, 158, 0.9); */
+  color: white;
   font-family: 'Montserrat', sans-serif!important;
   font-weight: lighter!important;
+  font-size: 20px;
+  padding-top: 4px;
+}
+
+.u-unsureButtonsCard{
+  color: #6C6C6C!important;
 }
 
 @media(max-width:768px){
-  .u-agreeButtonsCard{
+  .u-cardButtonText{
     cursor: pointer;
-    color: black;
-    padding: 0px 20px 0px 1px;
-    font-size: 19px;
-    /* background-color: rgba(131, 101, 158, 0.9); */
+    color: white;
     font-family: 'Montserrat', sans-serif!important;
     font-weight: lighter!important;
+    font-size: 18px;
+    padding-top: 5.5px;
   }
 
   .fa-2x{
@@ -492,7 +490,7 @@ input:checked+label {
   /*font-size: 19px;*/
   font-family: 'Montserrat', sans-serif!important;
   font-weight: lighter!important;
-  border-radius: 0.3em;
+  border-radius: 0.5em;
   border: none;
   margin-right: 8px
 }
@@ -511,8 +509,6 @@ input:checked+label {
   }
 
 }
-
-
 
 /*landing page styles*/
 
@@ -542,7 +538,7 @@ input:checked+label {
 .overlay-dialogue {
   background-color: #ffff;
   border-radius: 3px;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .44);
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .38);
 }
 
 .overlay-content {
@@ -834,7 +830,7 @@ input:checked+label {
 }
 
 .commentBlock{
-  border-radius: 0.3em;
+  border-radius: 0.5em;
   box-shadow:
   margin-top: 20px;
   padding-right: 10px;
@@ -843,7 +839,7 @@ input:checked+label {
 }
 
 .cardBlock{
-  border-radius: 0.3em;
+  border-radius: 0.5em;
   margin-top: 20px;
   min-height: 70px;
   -webkit-box-shadow: 0px 12px 40px -13px rgba(97,97,97,1);
@@ -851,10 +847,22 @@ input:checked+label {
   box-shadow: 0px 12px 40px -13px rgba(97,97,97,1);
 }
 
-.cardButton{
-  border: 2px solid;
-  background-color: #52aefb;
-  width: 33.33%
+.cardButtonSection{
+  width: 33.33%;
+  height: 40px;
+  cursor: pointer;
+}
+
+.u-grayBackgroundButton{
+  background-color: #D1D1D1;
+}
+
+.u-borderRadiusBL{
+  border-radius: 0px 0px 0px 0.5em;
+}
+
+.u-borderRadiusBR{
+  border-radius: 0px 0px 0.5em 0px;
 }
 
 
