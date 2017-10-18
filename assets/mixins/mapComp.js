@@ -10,8 +10,8 @@ var mixin = {
       testgroup.style.fill = "rgba(82, 174, 251, 0.4)";
 
       mapcomp.groupSimple = [];
-      for (var index in mapcomp.bubbleData) { //for every bubble group
-        var groupObj = mapcomp.bubbleData[index]
+      for (var index in mapcomp.acluData) { //for every bubble group
+        var groupObj = mapcomp.acluData[index]
         mapcomp.groupInfo.label = groupObj.group;
         mapcomp.groupInfo.size = groupObj.size;
         mapcomp.groupInfo.sentenceId = inputSentenceId;
@@ -39,12 +39,12 @@ var mixin = {
     }
   },
   mounted: function() {
-    if (this.mapcomp.bubbleData.length > 2) {
+    if (this.mapcomp.acluData.length > 2) {
 
       var diameter = 400; //max size of the bubbles
       var color = d3.scaleOrdinal(d3.schemeCategory20c);
 
-      var bubbleData = this.mapcomp.bubbleData.slice(1);
+      var acluData = this.mapcomp.acluData.slice(1);
 
       var viewBoxWidth = $('.bubbleMap').outerWidth();
       console.log(viewBoxWidth);
@@ -83,7 +83,7 @@ var mixin = {
       }));
 
       var circles = svg.selectAll("circle")
-      .data(bubbleData)
+      .data(acluData)
       .enter().append("circle")
       .attr("id", function(d) {
         return d.group;
@@ -105,7 +105,7 @@ var mixin = {
       })
       ;
 
-      simulation.nodes(bubbleData)
+      simulation.nodes(acluData)
       .on("tick", ticked)
 
       function ticked() {
@@ -125,10 +125,10 @@ var mixin = {
       else {
         var userId = '';
       }
-      for (var i = 0; i < bubbleData.length; i++) {
-        for (var m = 0; m < bubbleData[i]['users'].length; m++) {
-          if (bubbleData[i]['users'][m] == userId){
-            groupWithUser = bubbleData[i]['group'];
+      for (var i = 0; i < acluData.length; i++) {
+        for (var m = 0; m < acluData[i]['users'].length; m++) {
+          if (acluData[i]['users'][m] == userId){
+            groupWithUser = acluData[i]['group'];
             $("#" + groupWithUser).attr("fill", "url(#group1)");
           }
         }

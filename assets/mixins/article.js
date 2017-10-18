@@ -110,32 +110,6 @@ var mixin = {
       }
       mapcomp.tempsentenceId = mapcomp.arrayEveryone[mapcomp.displayCounter].sentenceId;
       textcomp.lastReferenced = mapcomp.arrayEveryone[mapcomp.displayCounter].sentenceId;
-
-
-
-
-      // for (var m of mapcomp.bubbleData) {
-      //   if (m.group == 0) {
-      //     for (var s of m.sentences) {
-      //       var tempId = s.sentenceId
-      //       mapcomp.eachEveryone.sentenceId = tempId;
-      //       mapcomp.eachEveryone.agree = s.agree;
-      //       mapcomp.eachEveryone.unsure = s.unsure;
-      //       mapcomp.eachEveryone.disagree = s.disagree;
-      //       mapcomp.eachEveryone.text = textcomp.article.sentences[tempId].text;
-      //       mapcomp.arrayEveryone.push(mapcomp.eachEveryone);
-      //       mapcomp.eachEveryone = {
-      //         sentenceId: '',
-      //         text: '',
-      //         agree: '',
-      //         disagree: '',
-      //         unsure: ''
-      //       };
-      //     }
-      //   }
-      // }
-      // mapcomp.tempsentenceId = mapcomp.arrayEveryone[mapcomp.displayCounter].sentenceId;
-
     },
 
     fetchNextClaim: function(mapcomp, textcomp){
@@ -325,6 +299,8 @@ var mixin = {
       var mapcomp = this.mapcomp;
       var fetchClaims = this.fetchClaims;
       var addBorder = this.addBorder;
+      this.fetchEveryone(textcomp, mapcomp)
+
       setInterval(function() {
         $.ajax({
           type: 'POST',
