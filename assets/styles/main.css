@@ -592,7 +592,7 @@ input:checked+label {
 }
 
 .bubble{
-  background-color: #e3e3e3;
+  background-color: white;
 }
 
 .bubbleMap{
@@ -1409,8 +1409,8 @@ input:focus{
 
 .georgiaCard{
   font-family: georgia, "Times New Roman", times, serif!important;
-  line-height: 1.6;
-  font-size: 16px;
+  line-height: 1.8;
+  font-size: 19px;
 }
 
 .load-text {
