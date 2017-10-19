@@ -118,3 +118,45 @@ module.exports.vue = function(pageTitle) {
     }
   }
 };
+
+module.exports.initRandomVotes = function(db, sentences, numFakeUsers, split) {
+    if (sentences != null) {
+        var sentenceIds = [];
+        for (sentence in sentences) {
+            if (sentence.mainClaim == true) {
+                sentenceIds.push(sentence.id)
+            }
+        }
+        var fakeVotes = []
+        for (var i = 0; i < numFakeUsers; i++) {
+            //First numFakeUsers/2 fake users agree with article split% of time and disagree otherwise
+            //Other half of fake users disagree with article split% of time and agree otherwise
+            var userFor = (i < Math.floor(numFakeUsers/2))
+            //user_ids have special string style.
+            var fakeUserId = 50 + i
+            fakeUsers.push(newUserId)
+            for (claim in sentenceIds) {
+                var vote = null
+                draw = Math.random();
+                if (userFor == true) {
+                    if (draw > split) {
+                        vote = 1
+                    } else {
+                        vote = -1
+                    }
+                } else {
+                    if (draw > split) {
+                        vote = -1
+                    } else {
+                        vote = 1
+                    }
+                }
+                fakeVotes.push({"userId": newUserId, "sentenceId": claim, "vote": vote})
+            }
+        }
+        return db.vote.create(fakeVotes)
+    } else {
+        return false
+    }
+}
+
