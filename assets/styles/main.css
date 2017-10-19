@@ -425,12 +425,15 @@ label {
   cursor: pointer;
   color: white;
   font-family: 'Montserrat', sans-serif!important;
-  font-weight: lighter!important;
-  font-size: 20px;
-  padding-top: 5px;
+  font-size: 16px;
+  padding-top: 8px;
 }
 
 .u-unsureButtonsCard{
+  color: #6C6C6C!important;
+}
+
+.u-lastAgreeButton{
   color: #6C6C6C!important;
 }
 
@@ -440,13 +443,10 @@ label {
     color: white;
     font-family: 'Montserrat', sans-serif!important;
     font-weight: lighter!important;
-    font-size: 18px;
-    padding-top: 5.5px;
+    font-size: 14px;
+    padding-top: 6px;
   }
 
-  .fa-2x{
-
-  }
   .georgia{
     font-family: georgia, "Times New Roman", times, serif!important;
     line-height: 1.6!important;
@@ -762,10 +762,10 @@ input:checked+label {
 -------------------------------------------------- */
 
 .slide-fade-enter-active {
-  transition: all .3s ease;
+  transition: all .5s ease;
 }
 .slide-fade-leave-active {
-  transition: all .3s ease;
+  transition: all .5s ease;
 }
 .slide-fade-enter, .slide-fade-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {
@@ -822,7 +822,6 @@ input:checked+label {
 
 .commentBlock{
   border-radius: 0.5em;
-  box-shadow:
   margin-top: 20px;
   padding-right: 10px;
   padding-bottom: 10px;
@@ -842,6 +841,9 @@ input:checked+label {
   width: 33.33%;
   height: 40px;
   cursor: pointer;
+  margin: 0px 20px;
+  border-radius: 0.4em!important;
+  outline: none;
 }
 
 .u-grayBackgroundButton{
@@ -872,6 +874,10 @@ input:checked+label {
 .commentHeader{
   padding: 10px;
   font-weight: bolder;
+}
+
+.u-padding10{
+  padding: 10px;
 }
 
 .quoteSection{
@@ -973,10 +979,12 @@ input:checked+label {
 .talkInput{
   height: 80px;
   outline: none;
-  border: 0px;
+  border: 2px solid;
+  border-color: rgba(42, 42, 42, 0.3);
   padding: 9px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: lighter;
+  border-radius: 0.4em;
 }
 
 .talkButton{

@@ -45,15 +45,6 @@
             </div>
 
             <div class="col-sm-offset-2 col-sm-8">
-              <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
-              <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
-              <div class="allClaims">
-                <div class="u-inlineBlock u-sizeFullWidth">
-                  <div class="button keyButtons u-lighter purpleBackground u-inlineBlock u-marginAuto center u-width50" name="keybutton" v-on:click="fetchEveryone(textcomp, mapcomp)">
-                    vote
-                  </div>
-                </div>
-
                 <!--VOTE CARD-->
                 <div class="everyone cardBlock" v-bind:style="{display: mapcomp.displayEveryone}">
                   <div v-for="(m, mindex) in mapcomp.arrayEveryone">
@@ -67,10 +58,10 @@
                         <p class="u-paddingTop10 u-marginLeft10 u-fontSize25 grayFont u-marginTop0">Claim {{mapcomp.displayCounter+1}}/{{mapcomp.arrayEveryone.length}}</p>
                       </div>
 
-                      <div class="commentHeader u-inlineBlock">
+                      <div class="u-padding10 u-inlineBlock">
                         <h4 class="u-paddingRight20 u-paddingLeft20 georgia u-marginTop0">"{{m.text}}"</h4>
                       </div>
-                      <div class="voteSection u-inlineBlock" v-bind:style="{display: textcomp.displayVoteCard}">
+                      <div class="voteSection u-inlineBlock u-paddingBottom10" v-bind:style="{display: textcomp.displayVoteCard}">
 
                         <!-- <span v-if="textcomp.user == undefined" class="center">
                         <span href="#sign-in-modal" data-toggle="modal" class="cardButtonSection center u-greenBackgroundButton u-borderRadiusBL">
@@ -88,13 +79,13 @@
 
                 <span class="center">
                   <span v-on:click="submitVote(1, 2, textcomp, mapcomp)" class="cardButtonSection center u-greenBackgroundButton u-borderRadiusBL" @click="textcomp.displayContributeCard = !textcomp.displayContributeCard">
-                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">AGREE</span>
+                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">Agree</span>
                   </span>
                   <span v-on:click="submitVote(-1, 3, textcomp, mapcomp)" class="cardButtonSection center u-redBackgroundButton">
-                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">DISAGREE</span>
+                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">Disagree</span>
                   </span>
                   <span v-on:click="submitVote(0, 4, textcomp, mapcomp)" class="cardButtonSection center u-grayBackgroundButton u-borderRadiusBR">
-                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton">UNSURE</span>
+                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton">Unsure</span>
                   </span>
                 </span>
               </div>
@@ -102,24 +93,25 @@
 
               <transition name="slide-fade">
               <!-- <div class="contributeCard  u-paddingLeft20" v-bind:style="{display: textcomp.displayContributeCard}"> -->
-              <div v-if="textcomp.displayContributeCard">
-                <span><h4 class="u-lighter"> you voted:
-                  <span v-if="textcomp.lastVoteValue == 0">
-                    unsure
-                  </span>
-                  <span v-if="textcomp.lastVoteValue == 1">
-                    agree
-                  </span>
-                  <span v-if="textcomp.lastVoteValue == -1">
-                    disagree
-                  </span>
-                </h4></span>
+              <div v-if="textcomp.displayContributeCard" class="u-paddingLeft20 u-paddingRight20">
+
                 <span>
                   <button href="#talkModal" data-toggle="modal" class="keyButtons u-purpleBackground" v-on:click="fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'">respond</button>
                 </span>
 
-                <h5>I think ...<b></b> </h5>
-                <textarea type="text" placeholder="" name="" value="" class="talkInput u-sizeFullWidth" v-model="textcomp.whyResponse.input" style="background-color: white;"></textarea>
+                <div><h4 class="u-lighter"> I
+                  <span v-if="textcomp.lastVoteValue == 0">
+                    am unsure because...
+                  </span>
+                  <span v-if="textcomp.lastVoteValue == 1">
+                    agree because ...
+                  </span>
+                  <span v-if="textcomp.lastVoteValue == -1">
+                    disagree because...
+                  </span>
+                </h4></div>
+
+                <textarea type="text" placeholder="write a reason to help others understand your stance" name="" value="" class="talkInput u-sizeFullWidth" v-model="textcomp.whyResponse.input" style="background-color: white;"></textarea>
                 <p class="talkButton montserratLight u-floatRight" v-on:click="submitWhy(textcomp), textcomp.showUserResponse = 'block'">Share</p>
 
                 <div v-if="(m.agree*100).toFixed(0) != 0 && (m.disagree*100).toFixed(0) != 0 ">
@@ -135,21 +127,15 @@
                     </div>
                   </div>
                 </div>
-                <div v-else>
-                  <h4>No one else has voted, but you can share this with friends!!</h4>
-                </div>
-
-
             </div>
           </transition>
             </div>
           </div>
         </div>
-      </div>
-
 
       <br><br>
-
+      <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
+      <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
       <text-comp :textcomp="textcomp"></text-comp>
       <br><br>
 
