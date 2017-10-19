@@ -345,8 +345,8 @@ var mixin = {
         $.ajax({
           type: 'POST',
           url: '/updateVizState',
-          success: function() {
-            console.log("sendsuccess: " + data);
+          success: function(data) {
+            console.log("sendsuccessINTERVAL: " + data);
 
             if (this.mapcomp.user != undefined) {
               var userId = this.mapcomp.user.id;
@@ -368,8 +368,8 @@ var mixin = {
 
 
           },
-          error: function() {
-            console.log("error: " + data);
+          error: function(data) {
+            console.log("errorINTERVAL: " + data);
           }
         });
       }, 5000);
