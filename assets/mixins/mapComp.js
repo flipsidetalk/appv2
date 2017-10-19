@@ -73,13 +73,12 @@ var mixin = {
       .append("svg:image")
       .attr('id', 'thinkingEmoji')
       .attr('xlink:href', '../img/thinkingEmoji.png')
-      .attr("x", "60")
-      .attr("y", "60")
+      .attr("x", viewBoxWidth/2-25)
+      .attr("y", viewBoxHeight/2-25)
       .attr("width", "50")
       .attr("height", "50");
-      // .attr("transition" "2s");
 
-      var radiusScale = d3.scaleSqrt().domain([1, 60]).range([30, 100]);
+      var radiusScale = d3.scaleSqrt().domain([1, 60]).range([30, 130]);
 
       var simulation = d3.forceSimulation()
       .force("x", d3.forceX(viewBoxWidth / 2).strength(0.05))

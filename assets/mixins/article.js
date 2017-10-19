@@ -249,7 +249,27 @@ var mixin = {
         var height = positionInfo.height;
         var width = positionInfo.width;
 
-        d3.selectAll("#thinkingEmoji").transition().style("x",width/2).duration(500);
+        var startingX = "";
+        var startingY = "";
+        //move emoji
+        var element = document.getElementById('bubbleBox');
+        var positionInfo = element.getBoundingClientRect();
+        var height = positionInfo.height;
+        var width = positionInfo.width;
+
+
+        startingX = width/2 - width/8 -25
+        startingY = height/2 - height/8 -25
+        var changeX = Math.floor(Math.random() * width/4) + 1
+        var changeY = Math.floor(Math.random() * height/4) + 1
+
+        //d3.selectAll("#thinkingEmoji").transition().style("x",Math.floor(Math.random() * 100* height/4) + 1).duration(500);
+        //d3.selectAll("#thinkingEmoji").transition().style("y",startingY).duration(500);
+
+
+        d3.selectAll("#thinkingEmoji").transition().duration(500).attr("x",startingX+changeX).attr("y",startingY+changeY);
+        //d3.selectAll("#thinkingEmoji").transition().style("y",startingY+changeY).duration(500);
+
 
 
 
