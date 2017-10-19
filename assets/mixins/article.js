@@ -2,16 +2,19 @@ var mixin = {
   methods: {
 
     fetchClaims: function(groupId, textcomp, mapcomp){
+
+      console.log('groupId', groupId)
       //mapcomp.displayEveryone = 'none';
       mapcomp.displayIndividual = 'block';
       //identify the id's for the sentences
       mapcomp.arrayClaim = [];
 
-      for (var m of mapcomp.bubbleData) {
+      for (var m of mapcomp.acluData) {
         if (groupId == m.group) {
           if (m.sentences.length < 2) {
             var sentenceObject = m.sentences[0];
             var tempId = m.sentences[0].sentenceId;
+
             mapcomp.eachClaim.sentenceId = sentenceObject.sentenceId;
             mapcomp.eachClaim.text = JSON.stringify(textcomp.article.sentences[tempId].text);
             if (sentenceObject.average > 0) {
@@ -33,8 +36,9 @@ var mixin = {
           else {
             for (var s = 0; s < 2; s++) {
               var tempId = m.sentences[s].sentenceId
-
               mapcomp.eachClaim.sentenceId = m.sentences[s].sentenceId;
+              console.log(tempId)
+              console.log(textcomp.article.sentences[tempId])
               mapcomp.eachClaim.text = JSON.stringify(textcomp.article.sentences[tempId].text);
               if (m.sentences[s].average > 0 ) {
                 //value is positive
@@ -84,7 +88,7 @@ var mixin = {
           mapcomp.eachEveryone.disagree = '';
 
 
-          for (var cluster of mapcomp.bubbleData) {
+          for (var cluster of mapcomp.acluData) {
             if (cluster.group == 0) {
               for (var s of cluster.sentences) {
                 if(s.sentenceId == sentenceObject.id){
@@ -143,7 +147,7 @@ var mixin = {
 
     colorBubbles: function(mapcomp){
       var sentenceShowing = mapcomp.tempsentenceId;
-      for (var m of mapcomp.bubbleData) {
+      for (var m of mapcomp.acluData) {
         if (m.group != 0) {
           for (var s of m.sentences) {
             if (s.sentenceId == sentenceShowing) {
