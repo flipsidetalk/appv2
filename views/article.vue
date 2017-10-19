@@ -11,7 +11,7 @@
             <button type="button" name="button" class="u-greenBackgroundButtonFill keyButtons" href="window.location.href.split('#')[0]">See bubbles below story!</button>
           </div>
         </div>
-        <div class="section-content u-maxWidth1000 marginTopBottom70">
+        <div class="section-content u-maxWidth1000 marginTopBottom50">
           <div class="row white">
 
             <div class="col-sm-offset-2 col-sm-8">
@@ -44,7 +44,6 @@
               </div>
             </div>
 
-            <!--VOTE CARD-->
             <div class="col-sm-offset-2 col-sm-8">
               <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
               <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
@@ -55,16 +54,21 @@
                   </div>
                 </div>
 
-
+                <!--VOTE CARD-->
                 <div class="everyone cardBlock" v-bind:style="{display: mapcomp.displayEveryone}">
                   <div v-for="(m, mindex) in mapcomp.arrayEveryone">
                     <div v-if="mapcomp.displayCounter == mindex">
-                      <div class="u-floatRight u-inlineBlock">
-                        <button type="button" name="button" class="keyButtons u-greenBackgroundButtonFill u-lighter u-fontSize14 u-marginTop10" v-on:click="fetchNextClaim(mapcomp, textcomp)">NEXT CLAIM</button>
-                        <h5 class="u-floatRight u-lighter">claim {{mapcomp.displayCounter}}/{{mapcomp.arrayEveryone.length}}</h5>
+
+                      <div class="u-sizeFullWidth u-inlineBlock u-paddingTop10 u-paddingLeft12 u-paddingRight12">
+                        <button type="button" name="button" class="u-floatLeft keyButtons lessImportantButton u-lighter u-fontSize14 u-marginTop10" v-on:click="fetchNextClaim(mapcomp, textcomp)">SEE CONTEXT</button>
+                        <button type="button" name="button" class="u-floatRight keyButtons u-greenBackgroundButtonFill u-lighter u-fontSize14 u-marginTop10" v-on:click="fetchNextClaim(mapcomp, textcomp)">NEXT CLAIM</button>
                       </div>
+                      <div class="u-sizeFullWidth u-inlineBlock u-paddingLeft12 u-paddingRight20 u-marginLeft10 u-marginTop10">
+                        <p class="u-paddingTop10 u-marginLeft10 u-fontSize25 grayFont u-marginTop0">Claim {{mapcomp.displayCounter+1}}/{{mapcomp.arrayEveryone.length}}</p>
+                      </div>
+
                       <div class="commentHeader u-inlineBlock">
-                        <h4 class="u-lighter georgia">{{m.text}}</h4>
+                        <h4 class="u-paddingRight20 u-paddingLeft20 georgia u-marginTop0">"{{m.text}}"</h4>
                       </div>
                       <div class="voteSection u-inlineBlock" v-bind:style="{display: textcomp.displayVoteCard}">
 
@@ -84,13 +88,13 @@
 
                 <span class="center">
                   <span v-on:click="submitVote(1, 2, textcomp, mapcomp)" class="cardButtonSection center u-greenBackgroundButton u-borderRadiusBL" @click="textcomp.displayContributeCard = !textcomp.displayContributeCard">
-                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">agree</span>
+                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">AGREE</span>
                   </span>
                   <span v-on:click="submitVote(-1, 3, textcomp, mapcomp)" class="cardButtonSection center u-redBackgroundButton">
-                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">disagree</span>
+                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">DISAGREE</span>
                   </span>
                   <span v-on:click="submitVote(0, 4, textcomp, mapcomp)" class="cardButtonSection center u-grayBackgroundButton u-borderRadiusBR">
-                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton">unsure</span>
+                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton">UNSURE</span>
                   </span>
                 </span>
               </div>
@@ -114,6 +118,10 @@
                   <button href="#talkModal" data-toggle="modal" class="keyButtons u-purpleBackground" v-on:click="fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'">respond</button>
                 </span>
 
+                <h5>I think ...<b></b> </h5>
+                <textarea type="text" placeholder="" name="" value="" class="talkInput u-sizeFullWidth" v-model="textcomp.whyResponse.input" style="background-color: white;"></textarea>
+                <p class="talkButton montserratLight u-floatRight" v-on:click="submitWhy(textcomp), textcomp.showUserResponse = 'block'">Share</p>
+
                 <div v-if="(m.agree*100).toFixed(0) != 0 && (m.disagree*100).toFixed(0) != 0 ">
                   <h4 class="u-lighter"> others voted:</h4>
                   <div class="commentBlock agreeBlock .transition2" v-bind:style="{width: 50+m.agree*50 + '%'}">
@@ -130,6 +138,8 @@
                 <div v-else>
                   <h4>No one else has voted, but you can share this with friends!!</h4>
                 </div>
+
+
             </div>
           </transition>
             </div>
