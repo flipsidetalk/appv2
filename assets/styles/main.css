@@ -754,33 +754,16 @@ input:checked+label {
 -------------------------------------------------- */
 
 .slide-fade-enter-active {
-  transition: all .5s ease;
+  transition: all .3s ease;
 }
-
 .slide-fade-leave-active {
-  transition: all .1s ease;
+  transition: all .3s ease;
 }
-
-.slide-fade-enter {
-  transform: translateX(10px);
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateY(-10px);
   opacity: 0;
 }
-
-.slide-fade-leave-to {
-  transform: translateX(-50px);
-  opacity: 0;
-}
-
-.why-slide-fade-enter-active {
-  transition: all 1s ease;
-  transition-delay: .2s;
-}
-
-.why-slide-fade-enter {
-  transform: translateX(40px);
-  opacity: 0;
-}
-
 
 /* TALKBOX
 -------------------------------------------------- */

@@ -247,7 +247,7 @@ app.get('/', function(req, res) {
           toolcolor: '#2b2b2b',
           hasvotes: false,
           displayVoteCard: 'block',
-          displayContributeCard: 'none',
+          displayContributeCard: false,
           lastVoteValue: '',
           lastReferenced: 660,
           response: {

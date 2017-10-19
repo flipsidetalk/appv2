@@ -65,7 +65,7 @@ var mixin = {
     fetchEveryone: function(textcomp, mapcomp){
 
       textcomp.displayVoteCard = 'block';
-      textcomp.displayContributeCard = 'none';
+      textcomp.displayContributeCard = false;
       mapcomp.showVotePercents = 'none';
       mapcomp.displayEveryone = 'block';
       //mapcomp.displayIndividual = 'none';
@@ -115,7 +115,7 @@ var mixin = {
     fetchNextClaim: function(mapcomp, textcomp){
       mapcomp.showVotePercents = 'none';
       textcomp.displayVoteCard = 'block';
-      textcomp.displayContributeCard = 'none';
+      textcomp.displayContributeCard = false;
       mapcomp.displayCounter += 1;
       if (mapcomp.displayCounter >= mapcomp.arrayEveryone.length) {
         mapcomp.displayCounter = 0;
@@ -214,6 +214,7 @@ var mixin = {
           }
         });
       },
+
       submitVote: function(input, seenvalue, textcomp, mapcomp) {
 
         textcomp.voteCounter +=1;
@@ -232,8 +233,8 @@ var mixin = {
         textcomp.tempseen = seenvalue; //changes placeholder seen
         //textcomp.form = 0; //
         //textcomp.why = 1;
-        textcomp.displayContributeCard = "block";
-        textcomp.displayVoteCard = 'none';
+        //textcomp.displayContributeCard = true;
+        //textcomp.displayVoteCard = 'none';
 
         mapcomp.showVotePercents = 'block';
 
