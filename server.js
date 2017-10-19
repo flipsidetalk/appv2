@@ -387,7 +387,7 @@ app.get('/', function(req, res) {
                     }).then(() => {
                       //Get new Viz State based on new votes
                       utils.updateVizState(db, res, numCurrentVotes, articleId, sequelize);
-                    }).then(() {
+                    }).then(() => {
                       //Get that viz state
                       db.viz.findAll({
                         limit: 1,
@@ -402,7 +402,7 @@ app.get('/', function(req, res) {
                     });
                 };
               });
-            }
+            })
           },
           article: function(callback) {
             db.article.findOne({

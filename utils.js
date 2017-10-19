@@ -131,9 +131,9 @@ module.exports.initRandomVotes = function(db, sentences, numFakeUsers, split) {
         for (var i = 0; i < numFakeUsers; i++) {
             //First numFakeUsers/2 fake users agree with article split% of time and disagree otherwise
             //Other half of fake users disagree with article split% of time and agree otherwise
-            var userFor = (i < Math.floor(numFakeUsers/2)
+            var userFor = (i < Math.floor(numFakeUsers/2))
             //user_ids have special string style.
-            var fakeUserId = 'FAKE_' + i.toString()
+            var fakeUserId = 50 + i
             fakeUsers.push(newUserId)
             for (claim in sentenceIds) {
                 var vote = null
