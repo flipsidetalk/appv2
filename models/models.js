@@ -177,6 +177,9 @@ module.exports.init = function(sequelize, Sequelize) {
   const Response = sequelize.define('response', {
     statement: {
       type: Sequelize.TEXT
+    },
+    responseAB: {
+      type: Sequelize.STRING
     }
   });
   Response.belongsTo(Vote);
