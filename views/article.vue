@@ -24,28 +24,37 @@
                 <map-comp :mapcomp="mapcomp"></map-comp>
 
                 <div class="col-md-12">
-                  <div v-bind:style="{display: mapcomp.displayIndividual}">
-                    <div v-for="m in mapcomp.arrayClaim">
 
+                  <transition name='slide-fade'>
+                  <div v-if="mapcomp.displayIndividual">
 
-
-                      <div v-bind:class="m.agreeable" class="commentBlock">
-                        <div class="commentHeader">
-                          <div v-if="m.agreeable == 'agreeBlock'" class="u-lighter">
-                            {{(m.percent*100).toFixed(2)}}% in agreement
-                          </div>
-                          <div v-else class="u-lighter">
-                            {{(m.percent*100).toFixed(2)}}% in disagreement
-                          </div>
-                        </div>
-                        <div class="commentSection">
-                          <h5 class="u-lighter">{{m.text}}</h5>
-                        </div>
+                    <div class="cardBlock">
+                      <button type="button" class="close" v-on:click="mapcomp.displayIndividual = false;">
+                        <span>&times;</span>
+                      </button>
+                      <div class="u-sizeFullWidth u-inlineBlock u-paddingLeft12 u-paddingRight20 u-marginLeft10 u-marginTop10 u-paddingBottom10">
+                        <p class="u-paddingTop10 u-marginLeft10 u-fontSize25 grayFont u-marginTop0">How this group voted:</p>
                       </div>
 
+                      <div v-for="m in mapcomp.arrayClaim">
 
+
+                        <div v-if="m.agreeable == 'agreeBlock'" class="u-paddingLeft10">
+                          <h4 class="agreeTeal u-fontSize25 u-paddingLeft20">{{(m.percent*100).toFixed(0)}}% agree with:</h4>
+                        </div>
+                        <div v-else class="u-paddingLeft10">
+                          <h4 class="disagreeRed u-fontSize25 u-paddingLeft20">{{(m.percent*100).toFixed(0)}}% disagree with:</h4>
+                        </div>
+                        <div class="u-paddingLeft10">
+                          <h5 class="georgia u-paddingRight20 u-paddingLeft20 u-paddingBottom10">{{m.text}}</h5>
+                        </div>
+
+
+                      </div>
                     </div>
+
                   </div>
+                </transition>
                 </div>
 
               </div>

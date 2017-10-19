@@ -896,7 +896,6 @@ input:checked+label {
 
 .commentSection{
   padding: 0 20px;
-  color: white;
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;

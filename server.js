@@ -286,7 +286,7 @@ app.get('/', function(req, res) {
 
           displayCounter: 0,
           displayEveryone: 'block',
-          displayIndividual: 'none',
+          displayIndividual: false,
           arrayEveryone: [],
           showVotePercents: 'none',
           eachEveryone: {

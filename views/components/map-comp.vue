@@ -4,8 +4,6 @@
       <div class="clusterMapOutput">
         <div class="d3stuff">
           <div class="">
-            <img src="../img/thinkingEmoji.png" alt="" width="">
-
             <svg class="bubbleMap">
               <defs>
                 <pattern id="group1" x="0%" y="0%" height="100%" width="100%" viewBox="0 0 512 512">

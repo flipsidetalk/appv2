@@ -5,7 +5,7 @@ var mixin = {
 
       console.log('groupId', groupId)
       //mapcomp.displayEveryone = 'none';
-      mapcomp.displayIndividual = 'block';
+      mapcomp.displayIndividual = true;
       //identify the id's for the sentences
       mapcomp.arrayClaim = [];
 
@@ -243,6 +243,8 @@ var mixin = {
 
         //  refreshClusterMap();
         //document.getElementById("thinkingEmoji").setAttribute("x", "120");
+
+
 
         var element = document.getElementById('bubbleBox');
         var positionInfo = element.getBoundingClientRect();
