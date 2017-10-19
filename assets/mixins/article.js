@@ -336,6 +336,9 @@ var mixin = {
       var mapcomp = this.mapcomp;
       var fetchClaims = this.fetchClaims;
       var addBorder = this.addBorder;
+      var acluData = this.mapcomp.acluData.slice(1);
+      var groupWithUser = "";
+
       this.fetchEveryone(textcomp, mapcomp)
 
       setInterval(function() {
@@ -344,6 +347,26 @@ var mixin = {
           url: '/updateVizState',
           success: function() {
             console.log("sendsuccess: " + data);
+
+            if (this.mapcomp.user != undefined) {
+              var userId = this.mapcomp.user.id;
+            }
+            else {
+              var userId = '';
+            }
+            for (var i = 0; i < acluData.length; i++) {
+              console.log("okay")
+              console.log(userId)
+              for (var m = 0; m < acluData[i]['users'].length; m++) {
+                if (acluData[i]['users'][m] == userId){
+                  groupWithUser = acluData[i]['group'];
+                  $("#" + groupWithUser).attr("fill", "url(#group1)");
+                }
+              }
+            }
+
+
+
           },
           error: function() {
             console.log("error: " + data);
