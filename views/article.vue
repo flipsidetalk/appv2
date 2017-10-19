@@ -22,9 +22,13 @@
                   <button type="button" name="button" class="u-greenBackgroundButtonFill keyButtons" onclick="location.reload()">See Yourself!</button>
                 </div>
                 <map-comp :mapcomp="mapcomp"></map-comp>
+
                 <div class="col-md-12">
                   <div v-bind:style="{display: mapcomp.displayIndividual}">
                     <div v-for="m in mapcomp.arrayClaim">
+
+
+
                       <div v-bind:class="m.agreeable" class="commentBlock">
                         <div class="commentHeader">
                           <div v-if="m.agreeable == 'agreeBlock'" class="u-lighter">
@@ -38,9 +42,12 @@
                           <h5 class="u-lighter">{{m.text}}</h5>
                         </div>
                       </div>
+
+
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
 
@@ -52,7 +59,7 @@
                     <div v-if="mapcomp.displayCounter == mindex">
                       <div class="u-sizeFullWidth u-inlineBlock u-paddingTop10 u-paddingLeft12 u-paddingRight12">
                         <button type="button" name="button" class="u-floatLeft keyButtons lessImportantButton u-lighter u-fontSize14 u-marginTop10" v-on:click="fetchNextClaim(mapcomp, textcomp)">SEE CONTEXT</button>
-                        <button type="button" name="button" class="u-floatRight keyButtons u-greenBackgroundButtonFill u-lighter u-fontSize14 u-marginTop10" v-on:click="fetchNextClaim(mapcomp, textcomp)">NEXT CLAIM</button>
+                        <button type="button" name="button" class="u-floatRight keyButtons u-greenBackgroundButtonFill u-lighter u-fontSize14 u-marginTop10" v-on:click="textcomp.displayContributeCard = false, fetchNextClaim(mapcomp, textcomp)">NEXT CLAIM</button>
                       </div>
                       <div class="u-sizeFullWidth u-inlineBlock u-paddingLeft12 u-paddingRight20 u-marginLeft10 u-marginTop10">
                         <p class="u-paddingTop10 u-marginLeft10 u-fontSize25 grayFont u-marginTop0">Claim {{mapcomp.displayCounter+1}}/{{mapcomp.arrayEveryone.length}}</p>

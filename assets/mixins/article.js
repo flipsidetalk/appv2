@@ -119,7 +119,6 @@ var mixin = {
     fetchNextClaim: function(mapcomp, textcomp){
       mapcomp.showVotePercents = 'none';
       textcomp.displayVoteCard = 'block';
-      textcomp.displayContributeCard = false;
       mapcomp.displayCounter += 1;
       if (mapcomp.displayCounter >= mapcomp.arrayEveryone.length) {
         mapcomp.displayCounter = 0;
@@ -243,6 +242,11 @@ var mixin = {
         mapcomp.showVotePercents = 'block';
 
         //  refreshClusterMap();
+          //document.getElementById("thinkingEmoji").setAttribute("x", "120");
+        d3.selectAll("#thinkingEmoji").transition().style("x","300").duration(1000);
+
+
+
       },
       postVote: function(sentenceId, reaction) {
         var data = {
