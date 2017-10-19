@@ -328,7 +328,6 @@ var mixin = {
         console.log("agree comments" + JSON.stringify(textcomp.displayAgreeComments));
         console.log("disagree comments" + JSON.stringify(textcomp.displayDisagreeComments));
 
-
       }
     },
     mounted: function() {
