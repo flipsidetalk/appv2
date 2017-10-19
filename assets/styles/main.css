@@ -1017,6 +1017,31 @@ input:checked+label {
   transition: 2s;
 }
 
+
+.agreeTeal{
+  color: rgba(0, 209, 193, 1);
+}
+
+.disagreeRed{
+  color: rgba(255, 90, 95, 1);
+}
+
+
+.grayBorderLB{
+  border-width: 0px 0px 1.5px 1.5px;
+  border-style: solid;
+  border-color: rgba(215, 218, 214, 0.9);
+
+}
+
+.grayBorderRB{
+  border-width: 0px 1.5px 1.5px 0px;
+  border-style: solid;
+  border-color: rgba(215, 218, 214, 0.9);
+}
+
+
+
 /* TOOLTIP
 -------------------------------------------------- */
 #tooltip {

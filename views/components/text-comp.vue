@@ -56,19 +56,19 @@
       </span>
 
       <span v-else>
-        <span v-on:click="submitResponse(1, 2, textcomp)" class="u-button u-pointer">
+        <span v-on:click="submitResponse(1, 2, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="u-button u-pointer">
           <i class="fa fa-smile-o u-iconem u-pointer" aria-hidden="true"></i>
           <span class="u-agreeButtons u-verticalAlignTop u-inlineBlock u-pointer">
             <span class="u-agreeButton">agree</span>
           </span>
         </span>
-        <span v-on:click="submitResponse(-1, 3, textcomp)" class="u-button u-pointer">
+        <span v-on:click="submitResponse(-1, 3, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="u-button u-pointer">
           <i class="fa fa-frown-o u-iconem u-pointer" aria-hidden="true"></i>
           <span class="u-agreeButtons u-verticalAlignTop u-inlineBlock u-pointer">
             <span class="u-agreeButton">disagree</span>
           </span>
         </span>
-        <span v-on:click="submitResponse(0, 4, textcomp)" class="u-button u-pointer">
+        <span v-on:click="submitResponse(0, 4, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="u-button u-pointer">
           <i class="fa fa-meh-o u-iconem u-pointer" aria-hidden="true"></i>
           <span class="u-agreeButtons u-verticalAlignTop u-inlineBlock u-pointer">
             <span class="u-agreeButton">unsure</span>

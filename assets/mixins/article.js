@@ -233,7 +233,7 @@ var mixin = {
         textcomp.tempseen = seenvalue; //changes placeholder seen
         //textcomp.form = 0; //
         //textcomp.why = 1;
-        //textcomp.displayContributeCard = true;
+        textcomp.displayContributeCard = true;
         //textcomp.displayVoteCard = 'none';
 
         mapcomp.showVotePercents = 'block';
