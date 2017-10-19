@@ -242,8 +242,14 @@ var mixin = {
         mapcomp.showVotePercents = 'block';
 
         //  refreshClusterMap();
-          //document.getElementById("thinkingEmoji").setAttribute("x", "120");
-        d3.selectAll("#thinkingEmoji").transition().style("x","300").duration(1000);
+        //document.getElementById("thinkingEmoji").setAttribute("x", "120");
+
+        var element = document.getElementById('bubbleBox');
+        var positionInfo = element.getBoundingClientRect();
+        var height = positionInfo.height;
+        var width = positionInfo.width;
+
+        d3.selectAll("#thinkingEmoji").transition().style("x",width/2).duration(500);
 
 
 

@@ -47,7 +47,6 @@ var mixin = {
       var acluData = this.mapcomp.acluData.slice(1);
 
       var viewBoxWidth = $('.bubbleMap').outerWidth();
-      console.log(viewBoxWidth);
       var viewBoxHeight = 300;
 
       var svg = d3.select(".bubbleMap")
