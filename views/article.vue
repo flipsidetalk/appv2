@@ -78,26 +78,20 @@
                 <!-- <span v-else class="center"> -->
 
                 <span class="center">
-                  <span v-on:click="submitVote(1, 2, textcomp, mapcomp)" class="cardButtonSection center u-greenBackgroundButton u-borderRadiusBL" @click="textcomp.displayContributeCard = !textcomp.displayContributeCard">
+                  <span v-on:click="submitVote(1, 2, textcomp, mapcomp), fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'" class="cardButtonSection center u-greenBackgroundButton u-borderRadiusBL" @click="textcomp.displayContributeCard = !textcomp.displayContributeCard">
                     <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">Agree</span>
                   </span>
-                  <span v-on:click="submitVote(-1, 3, textcomp, mapcomp)" class="cardButtonSection center u-redBackgroundButton">
+                  <span v-on:click="submitVote(-1, 3, textcomp, mapcomp), fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'" class="cardButtonSection center u-redBackgroundButton">
                     <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">Disagree</span>
                   </span>
-                  <span v-on:click="submitVote(0, 4, textcomp, mapcomp)" class="cardButtonSection center u-grayBackgroundButton u-borderRadiusBR">
+                  <span v-on:click="submitVote(0, 4, textcomp, mapcomp), fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'" class="cardButtonSection center u-grayBackgroundButton u-borderRadiusBR">
                     <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton">Unsure</span>
                   </span>
                 </span>
               </div>
 
-
               <transition name="slide-fade">
-              <!-- <div class="contributeCard  u-paddingLeft20" v-bind:style="{display: textcomp.displayContributeCard}"> -->
               <div v-if="textcomp.displayContributeCard" class="u-paddingLeft20 u-paddingRight20">
-
-                <span>
-                  <button href="#talkModal" data-toggle="modal" class="keyButtons u-purpleBackground" v-on:click="fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'">respond</button>
-                </span>
 
                 <div><h4 class="u-lighter"> I
                   <span v-if="textcomp.lastVoteValue == 0">
