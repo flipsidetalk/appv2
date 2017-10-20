@@ -4,8 +4,8 @@ var totalClusterInfo = {"clusterData":[[{"average":0.5,"cluster":0,"sentenceId":
 /* Constants and import statements
  */
 const PYTHON_SERVER_URL = 'http://54.236.205.41:80/';
-const CURRENT_SLUG = 'travel-barriers-are-the-worst-of-the-new-cold-war'
-const CURRENT_ID = 30;
+const CURRENT_SLUG = 'the-false-hope-of-graduate-student-unions'
+const CURRENT_ID = 68;
 const NUM_FAKE_USERS = 10;
 const INIT_SPLIT = 0.8
 const path = require('path');
