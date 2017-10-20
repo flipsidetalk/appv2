@@ -390,7 +390,7 @@ app.get('/', function(req, res) {
                       utils.initRandomVotes(db, sentences, NUM_FAKE_USERS, INIT_SPLIT);
                     }).then(() => {
                       //Get new Viz State based on new votes
-                      utils.updateVizState(db, res, numCurrentVotes, articleId, sequelize);
+                      utils.updateVizState(db, res, articleId, sequelize);
                     }).then(() => {
                       //Get that viz state
                       db.viz.findAll({
@@ -480,10 +480,7 @@ app.get('/', function(req, res) {
     });
 });
 
-/* currentVotes is the number of votes in the database the last time
- * the viz was rendered. If it hasn't increased, don't re-render.
- */
-let numCurrentVotes = 0;
+
 app.post('/submitResponse', function(req, res) {
   db.sentence.findOne({
     where: {
@@ -709,14 +706,14 @@ app.post('/submitVote', function(req, res) {
       console.log('\n\n\n\nUPDATING VIZ STATE FOR ARTICLE:\n\n')
       console.log(articleId)
       console.log('\n\n\n\n')
-      utils.updateVizState(db, res, numCurrentVotes, articleId, sequelize);
+      utils.updateVizState(db, res, articleId, sequelize);
     })
   });
   res.sendStatus(200);
 });
 
 app.post('/updateVizState', function(req, res) {
-  utils.updateVizState(db, res, numCurrentVotes, CURRENT_ID, sequelize);
+  utils.updateVizState(db, res, CURRENT_ID, sequelize);
 });
 
 
