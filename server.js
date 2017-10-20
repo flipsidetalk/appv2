@@ -396,7 +396,7 @@ app.get('/', function(req, res) {
                       db.vote.bulkCreate(votes).then(() => {
                           console.log('UPDATING STATE');
                           //Get new Viz State based on new votes
-                          utils.updateVizState(db, res, numCurrentVotes, id, sequelize);
+                          utils.updateVizState(db, res, id, sequelize);
                       }).then(() => {
                         //Get that viz state
                         db.viz.findAll({
@@ -716,14 +716,14 @@ app.post('/submitVote', function(req, res) {
       console.log('\n\n\n\nUPDATING VIZ STATE FOR ARTICLE:\n\n')
       console.log(articleId)
       console.log('\n\n\n\n')
-      utils.updateVizState(db, res, numCurrentVotes, articleId, sequelize);
+      utils.updateVizState(db, res, articleId, sequelize);
     })
   });
   res.sendStatus(200);
 });
 
 app.post('/updateVizState', function(req, res) {
-  utils.updateVizState(db, res, numCurrentVotes, CURRENT_ID, sequelize);
+  utils.updateVizState(db, res, CURRENT_ID, sequelize);
 });
 
 
