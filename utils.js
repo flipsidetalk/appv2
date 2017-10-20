@@ -27,7 +27,11 @@ module.exports.makeExternalRequest = function(request, url, data, success, err) 
   });
 }
 
-module.exports.updateVizState = function(db, res, numCurrentVotes, articleId, sequelize) {
+/* currentVotes is the number of votes in the database the last time
+ * the viz was rendered. If it hasn't increased, don't re-render.
+ */
+let numCurrentVotes = 0;
+module.exports.updateVizState = function(db, res, articleId, sequelize) {
   var pythonVis = require('./assets/python-scripts/start_python_script.js');
   var out;
   sequelize.query('SELECT * FROM test.votes INNER JOIN test.sentences on votes.sentenceId = sentences.id INNER JOIN test.articles ON sentences.articleId = articles.id WHERE articleId = ' + articleId)
@@ -122,7 +126,8 @@ module.exports.vue = function(pageTitle) {
 module.exports.initRandomVotes = function(db, sentences, numFakeUsers, split) {
     if (sentences != null) {
         var sentenceIds = [];
-        for (sentence in sentences) {
+        for (index in sentences) {
+            sentence = sentences[index]
             if (sentence.mainClaim == true) {
                 sentenceIds.push(sentence.id)
             }
@@ -134,7 +139,6 @@ module.exports.initRandomVotes = function(db, sentences, numFakeUsers, split) {
             var userFor = (i < Math.floor(numFakeUsers/2))
             //user_ids have special string style.
             var fakeUserId = 50 + i
-            fakeUsers.push(newUserId)
             for (claim in sentenceIds) {
                 var vote = null
                 draw = Math.random();
@@ -151,12 +155,12 @@ module.exports.initRandomVotes = function(db, sentences, numFakeUsers, split) {
                         vote = 1
                     }
                 }
-                fakeVotes.push({"userId": newUserId, "sentenceId": claim, "vote": vote})
+                var data = {"userId": fakeUserId, "sentenceId": sentenceIds[claim], "reaction": vote}
+                fakeVotes.push(data)
             }
         }
-        return db.vote.create(fakeVotes)
+        return fakeVotes
     } else {
         return false
     }
 }
-
