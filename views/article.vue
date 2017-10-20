@@ -76,6 +76,7 @@
             </div>
 
             <div class="col-sm-offset-2 col-sm-8">
+
               <!--VOTE CARD-->
               <div class="cardBlock" v-bind:style="{display: mapcomp.displayEveryone}">
                 <div class="u-paddingBottom10">
@@ -120,8 +121,6 @@
 
 
               <transition name="slide-fade">
-
-
                 <div v-if="textcomp.displayContributeCard" class="u-paddingLeft20 u-paddingRight20">
                   <hr>
                   <div>
@@ -162,8 +161,6 @@
                       </div>
                     </div>
                   </div>
-
-
                 </div>
               </transition>
             </div>

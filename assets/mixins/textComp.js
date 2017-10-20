@@ -178,59 +178,66 @@ var mixin = {
       console.log("disagree comments" + JSON.stringify(textcomp.displayDisagreeComments));
 
 
-    }
-  },
+    },
+    fetchSentenceData: function(textcomp){ //equivalent to fetchEveryone from Mapcomp
+      console.log("IT WORKS")
+      //textcomp.displayVoteCard = 'block';
+      //textcomp.displayContributeCard = false;
+      //mapcomp.showVotePercents = 'none';
+      //mapcomp.displayEveryone = 'block';
+      //mapcomp.displayIndividual = 'none';
+      textcomp.arrayEveryone = [];
 
-  fetchSentenceData: function(textcomp, mapcomp){ //equivalent to fetchEveryone from Mapcomp
+      for (var m in textcomp.article.sentences) {
 
-    //textcomp.displayVoteCard = 'block';
-    //textcomp.displayContributeCard = false;
-    //mapcomp.showVotePercents = 'none';
-    //mapcomp.displayEveryone = 'block';
-    //mapcomp.displayIndividual = 'none';
-    textcomp.arrayEveryone = [];
+        var sentenceObject = textcomp.article.sentences[m];
 
-    for (var m in textcomp.article.sentences) {
+        if (sentenceObject.mainClaim) {
+          textcomp.eachEveryone.text = sentenceObject.text;
+          textcomp.eachEveryone.agree = '';
+          textcomp.eachEveryone.unsure = '';
+          textcomp.eachEveryone.disagree = '';
+          console.log(sentenceObject.id)
+          textcomp.eachEveryone.sentenceId = sentenceObject.id;
 
-      var sentenceObject = textcomp.article.sentences[m];
 
-      if (sentenceObject.mainClaim) {
-        textcomp.eachEveryone.sentenceId = sentenceObject.id;
-        textcomp.eachEveryone.text = sentenceObject.text;
-        textcomp.eachEveryone.agree = '';
-        textcomp.eachEveryone.unsure = '';
-        textcomp.eachEveryone.disagree = '';
+          for (var cluster of textcomp.bubbleData) {
+            if (cluster.group == 0) {
+              console.log("test test")
 
-        for (var cluster of textcomp.bubbleData) {
-          if (cluster.group == 0) {
-            for (var s of cluster.sentences) {
-              if(s.sentenceId == sentenceObject.id){
-                var tempId = s.sentenceId
-                textcomp.eachEveryone.agree = s.agree;
-                textcomp.eachEveryone.unsure = s.unsure;
-                textcomp.eachEveryone.disagree = s.disagree;
+              for (var s of cluster.sentences) {
+                if(s.sentenceId == sentenceObject.id){
+                  var tempId = s.sentenceId
+                  textcomp.eachEveryone.agree = s.agree;
+                  textcomp.eachEveryone.unsure = s.unsure;
+                  textcomp.eachEveryone.disagree = s.disagree;
+                }
               }
+
             }
           }
+
+          textcomp.arrayEveryone.push(textcomp.eachEveryone);
+          textcomp.eachEveryone = {
+            sentenceId: '',
+            text: '',
+            agree: '',
+            disagree: '',
+            unsure: ''
+          };
+
         }
-
-        textcomp.arrayEveryone.push(textcomp.eachEveryone);
-        textcomp.eachEveryone = {
-          sentenceId: '',
-          text: '',
-          agree: '',
-          disagree: '',
-          unsure: ''
-        };
-
       }
-    }
-    textcomp.lastReferenced = textcomp.arrayEveryone[textcomp.displayCounter].sentenceId;
+      textcomp.lastReferenced = textcomp.arrayEveryone[textcomp.displayCounter].sentenceId;
+    },
+
   },
+
 
 
   mounted: function(){
-
+    var textcomp = this.textcomp;
+    this.fetchSentenceData(textcomp)
   }
 };
 

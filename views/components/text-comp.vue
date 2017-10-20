@@ -3,26 +3,33 @@
     <div class="u-marginAuto">
       <span v-for="(m, mindex) in textcomp.article.sentences">
         <span class="load-text" v-bind:class="{'highlightable':m.mainClaim}">
+
+
+
           <span v-if="m.mainClaim">
-            <span v-on:click="showTool(mindex, m.seen, textcomp)" v-on:mouseover="showHelper(mindex, textcomp)">
+            <span>
               <mark class="highlightedText" v-bind:id="mindex">{{m.text}}</mark>
             </span>
             <br>
 
-            <div class="u-floatRight u-paddingTop10">
-              <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(1, 2, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse greenButtonInverse u-marginLeft10">
-                <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newGreen">Agree</span>
-              </span>
-              <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(-1, 3, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse redButtonInverse u-marginLeft10">
-                <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newRed">Disagree</span>
-              </span>
-              <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(0, 4, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse grayButtonInverse u-marginLeft10">
-                <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton newGray">Unsure</span>
-              </span>
+            <div class="u-sizeFullWidth u-inlineBlock">
+
+              <div class="u-floatRight u-paddingTop10">
+                <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(1, 2, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse greenButtonInverse u-marginLeft10">
+                  <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newGreen">Agree</span>
+                </span>
+                <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(-1, 3, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse redButtonInverse u-marginLeft10">
+                  <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newRed">Disagree</span>
+                </span>
+                <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(0, 4, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse grayButtonInverse u-marginLeft10">
+                  <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton newGray">Unsure</span>
+                </span>
+              </div>
             </div>
+
+
             <transition name="slide-fade">
-              <div v-if="textcomp.lastReferenced == mindex" class="u-paddingLeft20 u-paddingRight20">
-                <hr>
+              <div v-if="textcomp.lastReferenced == mindex" class="u-paddingLeft20 u-paddingRight20 montserratLight">
                 <div>
                   <h4 class="u-lighter"> I
                     <span v-if="textcomp.lastVoteValue == 0">
@@ -41,33 +48,39 @@
                 <div class="u-sizeFullWidth u-inlineBlock">
                   <p class="talkButton montserratLight u-floatRight" v-on:click="submitWhy(textcomp), textcomp.showUserResponse = 'block'">Share</p>
                 </div>
-                <!-- <div v-if="(m.agree*100).toFixed(0) != 0 && (m.disagree*100).toFixed(0) != 0 " class="u-inlineBlock u-sizeFullWidth">
-                  <div class="col-xs-6 u-paddingRight0 grayBorderRB">
 
-                    <h4 class="agreeTeal  u-paddingRight10 u-marginTop0 u-paddingBottom10">{{(m.agree*100).toFixed(0)}}% agree</h4>
-                    <div v-for="(commentObj, mindex) in textcomp.displayAgreeComments">
-                      <div class="u-paddingRight10 grayBorderTop">
-                        <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>
+
+                <div v-for="(sentenceObj, sindex) in textcomp.arrayEveryone">
+                  <div v-if="sentenceObj.sentenceId == mindex">
+                    <div v-if="(sentenceObj.agree*100).toFixed(0) != 0 && (sentenceObj.disagree*100).toFixed(0) != 0 " class="u-inlineBlock u-sizeFullWidth">
+                      <div class="col-xs-6 u-paddingRight0 grayBorderRB">
+                        <h4 class="agreeTeal  u-paddingRight10 u-marginTop0 u-paddingBottom10">{{(sentenceObj.agree*100).toFixed(0)}}% agree</h4>
+                        <div v-for="(commentObj, mindex) in textcomp.displayAgreeComments">
+                          <div class="u-paddingRight10 grayBorderTop">
+                            <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 u-paddingLeft0 grayBorderLB">
+                        <h4 class="disagreeRed u-paddingLeft10 u-marginTop0 u-paddingBottom10">{{(sentenceObj.disagree*100).toFixed(0)}}% disagree</h4>
+                        <div v-for="commentObj in textcomp.displayDisagreeComments">
+                          <div class="u-paddingLeft10 grayBorderTop">
+                            <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-xs-6 u-paddingLeft0 grayBorderLB">
-                    <h4 class="disagreeRed u-paddingLeft10 u-marginTop0 u-paddingBottom10">{{(m.disagree*100).toFixed(0)}}% disagree</h4>
-                    <div v-for="commentObj in textcomp.displayDisagreeComments">
-                      <div class="u-paddingLeft10 grayBorderTop">
-                        <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
-
+                </div>
               </div>
             </transition>
 
 
             <br><br>
           </span>
+
+
+
           <span v-else>
             <span v-bind:id="mindex">
               {{m.text}}
