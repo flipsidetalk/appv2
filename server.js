@@ -4,8 +4,8 @@ var totalClusterInfo = {"clusterData":[[{"average":0.5,"cluster":0,"sentenceId":
 /* Constants and import statements
  */
 const PYTHON_SERVER_URL = 'http://54.236.205.41:80/';
-const CURRENT_SLUG = 'the-aclu-needs-to-rethink-free-speech';
-const CURRENT_ID = 63;
+const CURRENT_SLUG = 'travel-barriers-are-the-worst-of-the-new-cold-war'
+const CURRENT_ID = 30;
 const NUM_FAKE_USERS = 10;
 const INIT_SPLIT = 0.8
 const path = require('path');
@@ -387,41 +387,49 @@ app.get('/', function(req, res) {
                   articleId: id
                 }
               }).then(viz => {
+                console.log('REACHED HERE')
                 if (viz && viz[0]) {
+                    console.log("\n\n\n\n\n\n FOUND VIZ IN TABLE \n\n\n");
+                    console.log(JSON.stringify(viz));
                     callback(null, viz);
                 } else {
+                    console.log('THEN REACHED HERE');
                     //If there is no viz for the article, we need dummy votes
                     //Need all the mainClaim sentenceIds to initialize votes
-                    db.sentences.findAll({
+                    db.sentence.findAll({
                       where: {
-                        slug: slug
+                        articleId: id
                       },
                       attributes: ['id', 'mainClaim']
                     }).then(response => {
-                      const sentences = article.dataValues.sentences;
-                      console.log(sentences);
+                      console.log('GETTING SENTENCES')
+                      console.log(response)
                       //Create Dummy Votes and insert into db
-                      utils.initRandomVotes(db, sentences, NUM_FAKE_USERS, INIT_SPLIT);
-                    }).then(() => {
-                      //Get new Viz State based on new votes
-                      utils.updateVizState(db, res, articleId, sequelize);
-                    }).then(() => {
-                      //Get that viz state
-                      db.viz.findAll({
-                        limit: 1,
-                        order: [[ 'createdAt', 'DESC' ]],
-                        where: {
-                          articleId: id
-                        }
-                      }).then(viz => {
-                        //Same as if we already had a viz
-                        callback(null, viz);
+                      var votes = utils.initRandomVotes(db, response, NUM_FAKE_USERS, INIT_SPLIT);
+                      console.log('\n\n\n\n\nGOT RANDOM VOTES!')
+                      db.vote.bulkCreate(votes).then(() => {
+                          console.log('UPDATING STATE');
+                          //Get new Viz State based on new votes
+                          utils.updateVizState(db, res, id, sequelize);
+                      }).then(() => {
+                        //Get that viz state
+                        db.viz.findAll({
+                          limit: 1,
+                          order: [[ 'createdAt', 'DESC' ]],
+                          where: {
+                            articleId: id
+                          }
+                        }).then(viz => {
+                          //Same as if we already had a viz
+                          callback(null, viz);
+                        });
+
                       });
                     });
-                };
-              });
-            })
-          },
+                  };
+                })
+               })
+             },
           article: function(callback) {
             db.article.findOne({
               include: [{
