@@ -181,6 +181,53 @@ var mixin = {
     }
   },
 
+  fetchSentenceData: function(textcomp, mapcomp){ //equivalent to fetchEveryone from Mapcomp
+
+    //textcomp.displayVoteCard = 'block';
+    //textcomp.displayContributeCard = false;
+    //mapcomp.showVotePercents = 'none';
+    //mapcomp.displayEveryone = 'block';
+    //mapcomp.displayIndividual = 'none';
+    textcomp.arrayEveryone = [];
+
+    for (var m in textcomp.article.sentences) {
+
+      var sentenceObject = textcomp.article.sentences[m];
+
+      if (sentenceObject.mainClaim) {
+        textcomp.eachEveryone.sentenceId = sentenceObject.id;
+        textcomp.eachEveryone.text = sentenceObject.text;
+        textcomp.eachEveryone.agree = '';
+        textcomp.eachEveryone.unsure = '';
+        textcomp.eachEveryone.disagree = '';
+
+        for (var cluster of textcomp.bubbleData) {
+          if (cluster.group == 0) {
+            for (var s of cluster.sentences) {
+              if(s.sentenceId == sentenceObject.id){
+                var tempId = s.sentenceId
+                textcomp.eachEveryone.agree = s.agree;
+                textcomp.eachEveryone.unsure = s.unsure;
+                textcomp.eachEveryone.disagree = s.disagree;
+              }
+            }
+          }
+        }
+
+        textcomp.arrayEveryone.push(textcomp.eachEveryone);
+        textcomp.eachEveryone = {
+          sentenceId: '',
+          text: '',
+          agree: '',
+          disagree: '',
+          unsure: ''
+        };
+
+      }
+    }
+    textcomp.lastReferenced = textcomp.arrayEveryone[textcomp.displayCounter].sentenceId;
+  },
+
 
   mounted: function(){
 

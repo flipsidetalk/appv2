@@ -41,22 +41,7 @@
                 <div class="u-sizeFullWidth u-inlineBlock">
                   <p class="talkButton montserratLight u-floatRight" v-on:click="submitWhy(textcomp), textcomp.showUserResponse = 'block'">Share</p>
                 </div>
-
-
-                for (var cluster of mapcomp.bubbleData) {
-                  if (cluster.group == 0) {
-                    for (var s of cluster.sentences) {
-                      if(s.sentenceId == sentenceObject.id){
-                        var tempId = s.sentenceId
-                        mapcomp.eachEveryone.agree = s.agree;
-                        mapcomp.eachEveryone.unsure = s.unsure;
-                        mapcomp.eachEveryone.disagree = s.disagree;
-                      }
-                    }
-                  }
-                }
-
-                <div v-if="(m.agree*100).toFixed(0) != 0 && (m.disagree*100).toFixed(0) != 0 " class="u-inlineBlock u-sizeFullWidth">
+                <!-- <div v-if="(m.agree*100).toFixed(0) != 0 && (m.disagree*100).toFixed(0) != 0 " class="u-inlineBlock u-sizeFullWidth">
                   <div class="col-xs-6 u-paddingRight0 grayBorderRB">
 
                     <h4 class="agreeTeal  u-paddingRight10 u-marginTop0 u-paddingBottom10">{{(m.agree*100).toFixed(0)}}% agree</h4>
@@ -74,7 +59,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
 
               </div>

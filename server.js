@@ -268,6 +268,19 @@ app.get('/', function(req, res) {
           user: req.user,
           voteCounter: 0,
           testMapcomp: [],
+
+          //for fetchSentenceData
+          arrayEveryone: [],
+          //showVotePercents: 'none',
+          eachEveryone: {
+            sentenceId: '',
+            text: '',
+            agree: '',
+            disagree: '',
+            unsure: ''
+          },
+
+
         },
 
         mapcomp: {
@@ -475,7 +488,6 @@ app.get('/', function(req, res) {
               data.mapcomp.bubbleData = JSON.parse(results.viz[0].data);
               data.textcomp.bubbleData = JSON.parse(results.viz[0].data);
             }
-            data.textcomp.testMapcomp = data.mapcomp;
             data.pageTitle = 'Flipside - ' + results.article.title.title;
             res.renderVue('article', data, utils.vue(data.pageTitle));
           }
