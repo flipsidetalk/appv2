@@ -9,7 +9,7 @@ var mixin = {
       //identify the id's for the sentences
       mapcomp.arrayClaim = [];
 
-      for (var m of mapcomp.acluData) {
+      for (var m of mapcomp.bubbleData) {
         if (groupId == m.group) {
           if (m.sentences.length < 2) {
             var sentenceObject = m.sentences[0];
@@ -88,7 +88,7 @@ var mixin = {
           mapcomp.eachEveryone.disagree = '';
 
 
-          for (var cluster of mapcomp.acluData) {
+          for (var cluster of mapcomp.bubbleData) {
             if (cluster.group == 0) {
               for (var s of cluster.sentences) {
                 if(s.sentenceId == sentenceObject.id){
@@ -146,7 +146,7 @@ var mixin = {
 
     colorBubbles: function(mapcomp){
       var sentenceShowing = mapcomp.tempsentenceId;
-      for (var m of mapcomp.acluData) {
+      for (var m of mapcomp.bubbleData) {
         if (m.group != 0) {
           for (var s of m.sentences) {
             if (s.sentenceId == sentenceShowing) {
@@ -273,8 +273,6 @@ var mixin = {
         //d3.selectAll("#thinkingEmoji").transition().style("y",startingY+changeY).duration(500);
 
 
-
-
       },
       postVote: function(sentenceId, reaction) {
         var data = {
@@ -335,7 +333,7 @@ var mixin = {
       var mapcomp = this.mapcomp;
       var fetchClaims = this.fetchClaims;
       var addBorder = this.addBorder;
-      var acluData = this.mapcomp.acluData.slice(1);
+      var bubbleData = this.mapcomp.bubbleData.slice(1);
       var groupWithUser = "";
 
       this.fetchEveryone(textcomp, mapcomp)
@@ -353,12 +351,12 @@ var mixin = {
             else {
               var userId = '';
             }
-            for (var i = 0; i < acluData.length; i++) {
+            for (var i = 0; i < bubbleData.length; i++) {
               console.log("okay")
               console.log(userId)
-              for (var m = 0; m < acluData[i]['users'].length; m++) {
-                if (acluData[i]['users'][m] == userId){
-                  groupWithUser = acluData[i]['group'];
+              for (var m = 0; m < bubbleData[i]['users'].length; m++) {
+                if (bubbleData[i]['users'][m] == userId){
+                  groupWithUser = bubbleData[i]['group'];
                   $("#" + groupWithUser).attr("fill", "url(#group1)");
                 }
               }

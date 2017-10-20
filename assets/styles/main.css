@@ -265,6 +265,10 @@ circle:hover{
   font-size: 25px;
 }
 
+.u-fontSize45{
+  font-size: 45px;
+}
+
 .button {
   height: 37px;
   font-size: 14px;
@@ -861,6 +865,10 @@ input:checked+label {
 
 .u-marginLeft10{
   margin-left: 10px;
+}
+
+.u-marginRight10{
+  margin-right: 10px;
 }
 
 .agreeBlock{

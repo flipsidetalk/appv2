@@ -4,9 +4,11 @@
       <span v-for="(m, mindex) in textcomp.article.sentences">
         <span class="load-text" v-bind:class="{'highlightable':m.mainClaim}">
           <span v-if="m.mainClaim">
+            <br>
             <span v-on:click="showTool(mindex, m.seen, textcomp)" v-on:mouseover="showHelper(mindex, textcomp)">
               <mark class="highlightedText" v-bind:id="mindex">{{m.text}}</mark>
             </span>
+            <br>
           </span>
           <span v-else>
             <span class="regularText" v-bind:id="mindex" v-on:click="showTool(mindex, m.seen, textcomp)" v-bind:class="{regularTextActive: textcomp.isHighlighted==mindex}">

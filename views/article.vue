@@ -16,43 +16,56 @@
 
             <div class="col-sm-offset-2 col-sm-8">
               <!--BEGIN MAPCOMP-->
-              <h2 class="margin-top-0" name="main">The People's Opinion</h2>
-              <div id="mapcompAnchor" class="row" v-if="mapcomp.acluData.length > 2">
+              <div id="mapcompAnchor" v-if="mapcomp.bubbleData.length > 2">
                 <div v-if="textcomp.voteCounter > 4">
                   <button type="button" name="button" class="u-greenBackgroundButtonFill keyButtons" onclick="location.reload()">See Yourself!</button>
                 </div>
 
                 <div class="cardBlock u-height350">
+
+                  <h2 class="margin-top-0" name="main">The People's Opinion</h2>
+
                   <div class="u-paddingTop10">
 
                     <map-comp :mapcomp="mapcomp"></map-comp>
+                    <div class="u-sizeFullWidth u-inlineBlock u-paddingBottom10 u-paddingLeft12 u-paddingRight12">
+                      <button type="button" name="button" class="u-floatRight keyButtons u-greenBackgroundButtonFill u-lighter u-fontSize14 u-marginTop10" v-on:click="textcomp.displayContributeCard = false, fetchNextClaim(mapcomp, textcomp)">Vote</button>
+                    </div>
                     <transition name='slide-fade'>
                       <div v-if="mapcomp.displayIndividual">
                         <div class="u-inlineBlock">
 
                           <div class="u-paddingRight20 u-paddingLeft20">
                             <hr>
-
                           </div>
-                          <button type="button" class="close" v-on:click="mapcomp.displayIndividual = false;">
-                            <span>&times;</span>
+                          <div class="u-padding10">
+
+                          <div class="u-sizeFullWidth u-inlineBlock u-paddingLeft12 u-paddingRight20 u-marginLeft10 u-marginTop10 u-marginRight10">
+
+                          <button type="button u-marginRight10" class="close" v-on:click="mapcomp.displayIndividual = false;">
+                            <span class="u-fontSize45 u-lighter">&times;</span>
                           </button>
-                          <div class="u-sizeFullWidth u-inlineBlock u-paddingLeft12 u-paddingRight20 u-marginLeft10 u-marginTop10 u-paddingBottom10">
                             <p class="u-paddingTop10 u-marginLeft10 u-fontSize25 grayFont u-marginTop0">How this group voted:</p>
                           </div>
 
                           <div v-for="m in mapcomp.arrayClaim">
 
+                            <div class="u-paddingLeft10">
 
-                            <div v-if="m.agreeable == 'agreeBlock'" class="u-paddingLeft10">
+                            <div v-if="m.agreeable == 'agreeBlock'">
                               <h4 class="agreeTeal u-fontSize20 u-paddingLeft20">{{(m.percent*100).toFixed(0)}}% agree with:</h4>
                             </div>
-                            <div v-else class="u-paddingLeft10">
+                            <div v-else>
                               <h4 class="disagreeRed u-fontSize20 u-paddingLeft20">{{(m.percent*100).toFixed(0)}}% disagree with:</h4>
                             </div>
-                            <div class="u-paddingLeft10">
+                            <div>
                               <h5 class="georgiaCard u-paddingRight20 u-paddingLeft20 u-paddingBottom10">{{m.text}}</h5>
                             </div>
+
+                            </div>
+                          </div>
+
+
                           </div>
                         </div>
                       </div>
@@ -64,7 +77,7 @@
 
             <div class="col-sm-offset-2 col-sm-8">
               <!--VOTE CARD-->
-              <div class="everyone cardBlock" v-bind:style="{display: mapcomp.displayEveryone}">
+              <div class="cardBlock" v-bind:style="{display: mapcomp.displayEveryone}">
                 <div class="u-paddingBottom10">
                   <div v-for="(m, mindex) in mapcomp.arrayEveryone">
                     <div v-if="mapcomp.displayCounter == mindex">
@@ -134,15 +147,12 @@
                     <div class="col-xs-6 u-paddingRight0 grayBorderRB">
 
                       <h4 class="agreeTeal  u-paddingRight10 u-marginTop0 u-paddingBottom10">{{(m.agree*100).toFixed(0)}}% agree</h4>
-
                       <div v-for="(commentObj, mindex) in textcomp.displayAgreeComments">
                         <div class="u-paddingRight10 grayBorderTop">
                           <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>
                         </div>
                       </div>
-
                     </div>
-
                     <div class="col-xs-6 u-paddingLeft0 grayBorderLB">
                       <h4 class="disagreeRed u-paddingLeft10 u-marginTop0 u-paddingBottom10">{{(m.disagree*100).toFixed(0)}}% disagree</h4>
                       <div v-for="commentObj in textcomp.displayDisagreeComments">
@@ -241,7 +251,7 @@
 <div class="commentBlock agreeBlock">
   <div class="u-sizeFullWidth u-inlineBlock">
     <h4 class="white-text commentHeader u-inlineBlock">
-      <span v-for="m in mapcomp.acluData">
+      <span v-for="m in mapcomp.bubbleData">
         <span v-if="m.group == 0">
           <span v-for="s in m.sentences">
             <span v-if="s.sentenceId == textcomp.lastReferenced">
@@ -295,7 +305,7 @@
 <div class="commentBlock disagreeBlock">
   <div class="u-sizeFullWidth u-inlineBlock">
     <h4 class="white-text commentHeader u-inlineBlock">
-      <span v-for="m in mapcomp.acluData">
+      <span v-for="m in mapcomp.bubbleData">
         <span v-if="m.group == 0">
           <span v-for="s in m.sentences">
             <span v-if="s.sentenceId == textcomp.lastReferenced">
