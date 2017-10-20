@@ -7,7 +7,7 @@ var mixin = {
       //$("#tooltip").show();
       textcomp.helpdisplay = 'none';
       textcomp.lastReferenced = sentenceId;
-      textcomp.tempseen = seenvalue;
+      //textcomp.tempseen = seenvalue;
 
       var sel = document.getElementById(sentenceId);
       var r = sel.getBoundingClientRect();
@@ -27,25 +27,25 @@ var mixin = {
       textcomp.isHighlighted = sentenceId;
       textcomp.talktop = (r.top - rb2.top) + 'px'; //this will place ele below the selection
 
-      if (!textcomp.tempseen) {
-        textcomp.tooldisplay = 'block';
-        textcomp.talkdisplay = 'none';
-        textcomp.toolcolor = '#2b2b2b';
-      }
-      else {
-        if (seenvalue == 2) {
-          textcomp.toolcolor = 'green';
-        }
-        else if (seenvalue == 3) {
-          textcomp.toolcolor = 'red';
-        }
-        else {
-          textcomp.toolcolor = 'purple';
-        }
-        textcomp.talkdisplay = 'block';
-        textcomp.tooldisplay = 'none';
-
-      }
+      // if (!textcomp.tempseen) {
+      //   textcomp.tooldisplay = 'block';
+      //   textcomp.talkdisplay = 'none';
+      //   textcomp.toolcolor = '#2b2b2b';
+      // }
+      // else {
+      //   if (seenvalue == 2) {
+      //     textcomp.toolcolor = 'green';
+      //   }
+      //   else if (seenvalue == 3) {
+      //     textcomp.toolcolor = 'red';
+      //   }
+      //   else {
+      //     textcomp.toolcolor = 'purple';
+      //   }
+      //   textcomp.talkdisplay = 'block';
+      //   textcomp.tooldisplay = 'none';
+      //
+      // }
 
     },
     showHelper: function(sentenceId, textcomp){
@@ -120,8 +120,8 @@ var mixin = {
       textcomp.tempseen = seenvalue; //changes placeholder seen
       //textcomp.form = 0; //
       //textcomp.why = 1;
-      textcomp.talkdisplay = "block";
-      textcomp.tooldisplay = 'none';
+      // textcomp.talkdisplay = "block";
+      // textcomp.tooldisplay = 'none';
       //  refreshClusterMap();
     },
     postVote: function(sentenceId, reaction) {

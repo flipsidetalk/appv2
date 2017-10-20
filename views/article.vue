@@ -29,7 +29,7 @@
 
                     <map-comp :mapcomp="mapcomp"></map-comp>
                     <div class="u-sizeFullWidth u-inlineBlock u-paddingBottom10 u-paddingLeft12 u-paddingRight12">
-                      <button type="button" name="button" class="u-floatRight keyButtons u-greenBackgroundButtonFill u-lighter u-fontSize14 u-marginTop10" v-on:click="textcomp.displayContributeCard = false, fetchNextClaim(mapcomp, textcomp)">Vote</button>
+                      <button type="button" name="button" class="u-floatRight keyButtons u-greenBackgroundButtonFill u-lighter u-fontSize14 u-marginTop10" v-on:click="textcomp.displayContributeCard = false, mapcomp.displayIndividual = false;">Vote</button>
                     </div>
                     <transition name='slide-fade'>
                       <div v-if="mapcomp.displayIndividual">
