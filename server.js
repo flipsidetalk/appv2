@@ -389,6 +389,7 @@ app.get('/', function(req, res) {
                       attributes: ['id', 'mainClaim']
                     }).then(response => {
                       console.log('GETTING SENTENCES')
+                      console.log(response)
                       //Create Dummy Votes and insert into db
                       utils.initRandomVotes(db, response, NUM_FAKE_USERS, INIT_SPLIT);
                       //utils.upsert(fakeVotes);

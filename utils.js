@@ -124,6 +124,7 @@ module.exports.initRandomVotes = function(db, sentences, numFakeUsers, split) {
         console.log('INSIDE')
         var sentenceIds = [];
         for (sentenceObj in sentences) {
+            console.log(typeof(sentenceObj));
             sentence = sentenceObj.dataValues;
             if (sentence.mainClaim == true) {
                 sentenceIds.push(sentence.id)
