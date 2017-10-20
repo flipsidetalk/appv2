@@ -23,7 +23,6 @@
 
                 <h2 class="margin-top-0 u-lighter" name="main">Welcome to Flipside</h2><br>
                 <h3 class="u-lighter"><b>Click on Bubbles</b> to learn what different people think</h3>
-                <h3 class="u-lighter u-paddingTop10 u-paddingBottom10"><b>Vote</b> to see how you compare</h3>
 
                 <div class="cardBlock u-height350">
 
@@ -83,13 +82,15 @@
             <div class="col-sm-offset-2 col-sm-8">
               <!--VOTE CARD-->
               <div class="cardBlock" v-bind:style="{display: mapcomp.displayEveryone}">
+                {{mapcomp.arrayEveryone}}<br><br><br>
+                {{mapcomp.bubbleData}}
                 <div class="u-paddingBottom10">
                   <div v-for="(m, mindex) in mapcomp.arrayEveryone">
                     <div v-if="mapcomp.displayCounter == mindex">
                       <div class="u-sizeFullWidth u-inlineBlock u-paddingTop10 u-paddingLeft12 u-paddingRight12">
-                        <a :href="'#'+m.sentenceId">
+                        <!-- <a :href="'#'+m.sentenceId">
                           <button type="button" name="button" class="u-floatLeft keyButtons lessImportantButton u-lighter u-fontSize14 u-marginTop10">SEE CONTEXT</button>
-                        </a>
+                        </a> -->
                         <button type="button" name="button" class="u-floatRight keyButtons u-greenBackgroundButtonFill u-lighter u-fontSize14 u-marginTop10" v-on:click="textcomp.displayContributeCard = false, fetchNextClaim(mapcomp, textcomp)">NEXT CLAIM</button>
                       </div>
                       <div class="u-sizeFullWidth u-inlineBlock u-paddingLeft12 u-paddingRight20 u-marginLeft10 u-marginTop10">
@@ -162,6 +163,10 @@
                           <textarea type="text" placeholder="write a reason to help others understand your stance" name="" value="" class="talkInput u-sizeFullWidth" v-model="textcomp.whyResponse.input" style="background-color: white;"></textarea>
                           <div class="u-sizeFullWidth u-inlineBlock">
                             <p class="talkButton montserratLight u-floatRight" v-on:click="submitWhy(textcomp), textcomp.showUserResponse = 'block'">Share</p>
+                          </div>
+
+                          <div v-bind:style="{display: textcomp.showUserResponse}" class="u-sizeFullWidth u-paddingTop10 u-paddingBottom10">
+                            <h4>Thank you for sharing!</h4>
                           </div>
 
                           <div v-if="(m.agree*100).toFixed(0) != 0 && (m.disagree*100).toFixed(0) != 0 " class="u-inlineBlock u-sizeFullWidth">

@@ -77,7 +77,7 @@ var mixin = {
       textcomp.lastUserVote = textcomp.whyResponse.vote;
       this.postResponse(textcomp.whyResponse.input, textcomp.whyResponse.sentenceId);
 
-
+      textcomp.showUserResponse = 'block';
       console.log(textcomp.lastUserResponse);
       textcomp.whyResponse = {
         sentenceId: "",

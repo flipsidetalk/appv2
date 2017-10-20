@@ -219,7 +219,7 @@ app.get('/', function(req, res) {
           showDisagreeComments: false,
 
           lastUserResponse: '',
-          showUserResponse: 'block',
+          showUserResponse: 'none',
           lastUserVote: '',
 
           commentData: [
