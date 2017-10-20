@@ -549,7 +549,7 @@ class Spectrum:
             deviations = [(diff, q_id) for diff, q_id in zip(sum_squared_differences, self.question_ids)]
             sorted_questions = sorted(deviations, reverse = True)
             #Ignoring questions for which deviation is zero
-            sorted_questions = [el[1] for el in sorted_questions if abs(el[0]) > 0]
+            sorted_questions = [el[1] for el in sorted_questions]
             relevant_questions[group] = sorted_questions
             all_questions += sorted_questions
         relevant_questions[-1] = set(all_questions)
