@@ -9,7 +9,6 @@
             </span>
             <br>
 
-
             <div class="u-floatRight u-paddingTop10">
               <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(1, 2, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse greenButtonInverse u-marginLeft10">
                 <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newGreen">Agree</span>
@@ -21,6 +20,65 @@
                 <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton newGray">Unsure</span>
               </span>
             </div>
+            <transition name="slide-fade">
+              <div v-if="textcomp.lastReferenced == mindex" class="u-paddingLeft20 u-paddingRight20">
+                <hr>
+                <div>
+                  <h4 class="u-lighter"> I
+                    <span v-if="textcomp.lastVoteValue == 0">
+                      am unsure because...
+                    </span>
+                    <span v-if="textcomp.lastVoteValue == 1">
+                      agree because ...
+                    </span>
+                    <span v-if="textcomp.lastVoteValue == -1">
+                      disagree because...
+                    </span>
+                  </h4>
+                </div>
+
+                <textarea type="text" placeholder="write a reason to help others understand your stance" name="" value="" class="talkInput u-sizeFullWidth" v-model="textcomp.whyResponse.input" style="background-color: white;"></textarea>
+                <div class="u-sizeFullWidth u-inlineBlock">
+                  <p class="talkButton montserratLight u-floatRight" v-on:click="submitWhy(textcomp), textcomp.showUserResponse = 'block'">Share</p>
+                </div>
+
+
+                for (var cluster of mapcomp.bubbleData) {
+                  if (cluster.group == 0) {
+                    for (var s of cluster.sentences) {
+                      if(s.sentenceId == sentenceObject.id){
+                        var tempId = s.sentenceId
+                        mapcomp.eachEveryone.agree = s.agree;
+                        mapcomp.eachEveryone.unsure = s.unsure;
+                        mapcomp.eachEveryone.disagree = s.disagree;
+                      }
+                    }
+                  }
+                }
+
+                <div v-if="(m.agree*100).toFixed(0) != 0 && (m.disagree*100).toFixed(0) != 0 " class="u-inlineBlock u-sizeFullWidth">
+                  <div class="col-xs-6 u-paddingRight0 grayBorderRB">
+
+                    <h4 class="agreeTeal  u-paddingRight10 u-marginTop0 u-paddingBottom10">{{(m.agree*100).toFixed(0)}}% agree</h4>
+                    <div v-for="(commentObj, mindex) in textcomp.displayAgreeComments">
+                      <div class="u-paddingRight10 grayBorderTop">
+                        <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-6 u-paddingLeft0 grayBorderLB">
+                    <h4 class="disagreeRed u-paddingLeft10 u-marginTop0 u-paddingBottom10">{{(m.disagree*100).toFixed(0)}}% disagree</h4>
+                    <div v-for="commentObj in textcomp.displayDisagreeComments">
+                      <div class="u-paddingLeft10 grayBorderTop">
+                        <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </transition>
 
 
             <br><br>

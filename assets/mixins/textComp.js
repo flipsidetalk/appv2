@@ -69,10 +69,45 @@ var mixin = {
       }
     },
 
+    submitWhy: function(textcomp) {
+      textcomp.whyResponse.sentenceId = textcomp.lastReferenced;
+      textcomp.whyResponse.vote = textcomp.article.sentences[textcomp.lastReferenced].seen;
+      textcomp.whyResponses.push(textcomp.whyResponse);
+      textcomp.lastUserResponse = textcomp.whyResponse.input;
+      textcomp.lastUserVote = textcomp.whyResponse.vote;
+      this.postResponse(textcomp.whyResponse.input, textcomp.whyResponse.sentenceId);
+
+
+      console.log(textcomp.lastUserResponse);
+      textcomp.whyResponse = {
+        sentenceId: "",
+        input: "",
+        vote: ""
+      };
+    },
+    postResponse: function(statement, sentenceId) {
+      var data = {
+        sentenceId: sentenceId,
+        statement: statement
+      }
+      $.ajax({
+        type: 'POST',
+        url: '/submitResponse',
+        data: data,
+        success: function() {
+          console.log("sendsuccess: " + data);
+        },
+        error: function() {
+          console.log("error: " + data);
+        }
+      });
+    },
+
     submitResponse: function(input, seenvalue, textcomp) {
       textcomp.voteCounter +=1;
       var placeholderId = textcomp.lastReferenced; //this is the sentenceID
       //passing response data
+      textcomp.lastVoteValue = input;
       textcomp.response.sentenceId = placeholderId;
       textcomp.response.input = input;
       this.postVote(textcomp.lastReferenced, input);
