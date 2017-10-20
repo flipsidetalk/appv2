@@ -43,10 +43,10 @@ app.use(expressVueMiddleware);
  */
 var dbconfig;
 // Try-catch for automatic switching from test to prod
-try {
+//try {
   dbconfig = require('opsworks'); // RDS prod connection data
-} catch (err) {
-  dbconfig = {
+// catch (err) {
+dbconfig = {
     db: {
       'host': 'test.chsdfl7vaehp.us-east-1.rds.amazonaws.com',
       'username': 'testuser',
@@ -54,8 +54,8 @@ try {
       'port': 3306,
       'database': 'test'
     }
-  }
 }
+//}
 
 // Connect to the database instance
 var connection = mysql.createConnection({
