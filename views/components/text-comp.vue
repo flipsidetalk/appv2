@@ -74,6 +74,10 @@
                 <div class="u-sizeFullWidth u-inlineBlock">
                   <p class="talkButton montserratLight u-floatRight" v-on:click="submitWhy(textcomp), textcomp.showUserResponse = 'block'">Share</p>
                 </div>
+
+                <div v-bind:style="{display: textcomp.showUserResponse}" class="u-sizeFullWidth u-paddingTop10 u-paddingBottom10">
+                  <h4>Thank you for sharing!</h4>
+                </div>
                 <div v-for="(sentenceObj, sindex) in textcomp.arrayEveryone">
                   <div v-if="sentenceObj.sentenceId == mindex">
                     <div v-if="(sentenceObj.agree*100).toFixed(0) != 0 && (sentenceObj.disagree*100).toFixed(0) != 0 " class="u-inlineBlock u-sizeFullWidth">
