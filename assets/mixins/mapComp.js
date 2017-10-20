@@ -76,7 +76,7 @@ var mixin = {
       .attr("x", viewBoxWidth/2-25)
       .attr("y", viewBoxHeight/2-25)
       .attr("width", "50")
-      .attr("height", "50");
+      .attr("height", "50")
 
       var radiusScale = d3.scaleSqrt().domain([1, 60]).range([30, 130]);
 

@@ -358,6 +358,7 @@ var mixin = {
                 if (bubbleData[i]['users'][m] == userId){
                   groupWithUser = bubbleData[i]['group'];
                   $("#" + groupWithUser).attr("fill", "url(#group1)");
+                  $("#thinkingEmoji").attr("visibility", "hidden");
                 }
               }
             }
