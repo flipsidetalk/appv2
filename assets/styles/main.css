@@ -440,7 +440,10 @@ label {
 .u-lastAgreeButton{
   color: #6C6C6C!important;
 }
-
+.anchor{
+    position: relative;
+    padding-top: 150px;
+}
 @media(max-width:768px){
   .u-cardButtonText{
     cursor: pointer;
