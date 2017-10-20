@@ -361,9 +361,6 @@ var mixin = {
                 }
               }
             }
-
-
-
           },
           error: function(data) {
             console.log("errorINTERVAL: " + data);
