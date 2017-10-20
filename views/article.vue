@@ -21,12 +21,10 @@
                   <button type="button" name="button" class="u-greenBackgroundButtonFill keyButtons" onclick="location.reload()">See Yourself!</button>
                 </div>
 
-                <h2 class="margin-top-0 u-lighter" name="main">Welcome to Flipside</h2><br>
-                <h3 class="u-lighter"><b>Click on Bubbles</b> to learn what different people think</h3>
+                <h2 class="margin-top-0 u-lighter" name="main">Welcome to Flipside!</h2><br>
+                <h3 class="u-lighter"><b>Click on Bubbles</b> to learn what different people think.</h3>
 
                 <div class="cardBlock u-height350">
-
-
                   <div class="u-paddingTop10">
                     <div class="u-sizeFullWidth u-inlineBlock u-paddingLeft12 u-paddingRight20 u-marginLeft10">
                       <p class="u-paddingTop10 u-marginLeft10 u-fontSize25 grayFont u-marginTop0">The People's Opinion</p>
@@ -82,8 +80,6 @@
             <div class="col-sm-offset-2 col-sm-8">
               <!--VOTE CARD-->
               <div class="cardBlock" v-bind:style="{display: mapcomp.displayEveryone}">
-                {{mapcomp.arrayEveryone}}<br><br><br>
-                {{mapcomp.bubbleData}}
                 <div class="u-paddingBottom10">
                   <div v-for="(m, mindex) in mapcomp.arrayEveryone">
                     <div v-if="mapcomp.displayCounter == mindex">

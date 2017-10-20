@@ -99,7 +99,7 @@ var mixin = {
       .attr("class", "aBubble")
       .attr("fill", "#a88dc3")
       .on("mouseover", function(d) {
-        tooltip.text("group " + d.group + '\n' + d.size + "people");
+        tooltip.text("group " + d.group + ', ' + d.size + " people");
         tooltip.style("visibility", "visible");
       })
       .on("mousemove", function() {

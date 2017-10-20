@@ -227,7 +227,11 @@ var mixin = {
 
         }
       }
+
+
       textcomp.lastReferenced = textcomp.arrayEveryone[textcomp.displayCounter].sentenceId;
+
+
     },
 
   },
