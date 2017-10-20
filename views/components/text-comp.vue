@@ -15,7 +15,7 @@
 
             <span class="u-sizeFullWidth u-inlineBlock">
               <span class="u-floatRight u-paddingTop10">
-                <span v-if="textcomp.voteCounter < 3">
+                <span v-if="textcomp.voteCounter < 2">
                   <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(1, 2, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse greenButtonInverse u-marginLeft10">
                     <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newGreen">Agree</span>
                   </span>
@@ -78,7 +78,7 @@
                   <div v-if="sentenceObj.sentenceId == mindex">
                     <div v-if="(sentenceObj.agree*100).toFixed(0) != 0 && (sentenceObj.disagree*100).toFixed(0) != 0 " class="u-inlineBlock u-sizeFullWidth">
                       <div class="col-xs-6 u-paddingRight0 grayBorderRB">
-                        <h4 class="agreeTeal  u-paddingRight10 u-marginTop0 u-paddingBottom10">{{(sentenceObj.agree*100).toFixed(0)}}% agree</h4>
+                        <h4 class="agreeTeal u-paddingRight10 u-marginTop0 u-paddingBottom10">{{(sentenceObj.agree*100).toFixed(0)}}% agree</h4>
                         <div v-for="(commentObj, mindex) in textcomp.displayAgreeComments">
                           <div class="u-paddingRight10 grayBorderTop">
                             <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>

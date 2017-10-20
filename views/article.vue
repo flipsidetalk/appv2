@@ -100,7 +100,7 @@
                       </div>
                       <div class="voteSection u-inlineBlock u-paddingBottom10" v-bind:style="{display: textcomp.displayVoteCard}">
 
-                        <span v-if="textcomp.voteCounter < 3">
+                        <span v-if="textcomp.voteCounter < 2">
                           <span class="center">
                             <span v-on:click="submitVote(1, 2, textcomp, mapcomp), fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'" class="cardButtonSection center u-greenBackgroundButton u-borderRadiusBL">
                               <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">Agree</span>

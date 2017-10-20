@@ -180,7 +180,6 @@ var mixin = {
 
     },
     fetchSentenceData: function(textcomp){ //equivalent to fetchEveryone from Mapcomp
-      console.log("IT WORKS")
       //textcomp.displayVoteCard = 'block';
       //textcomp.displayContributeCard = false;
       //mapcomp.showVotePercents = 'none';
