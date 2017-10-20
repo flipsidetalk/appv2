@@ -338,36 +338,39 @@ var mixin = {
 
       this.fetchEveryone(textcomp, mapcomp)
 
-      setInterval(function() {
-        $.ajax({
-          type: 'POST',
-          url: '/updateVizState',
-          success: function(data) {
-            console.log("sendsuccessINTERVAL: " + data);
-
-            if (this.mapcomp.user != undefined) {
-              var userId = this.mapcomp.user.id;
-            }
-            else {
-              var userId = '';
-            }
-            for (var i = 0; i < bubbleData.length; i++) {
-              console.log("okay")
-              console.log(userId)
-              for (var m = 0; m < bubbleData[i]['users'].length; m++) {
-                if (bubbleData[i]['users'][m] == userId){
-                  groupWithUser = bubbleData[i]['group'];
-                  $("#" + groupWithUser).attr("fill", "url(#group1)");
-                  $("#thinkingEmoji").attr("visibility", "hidden");
-                }
-              }
-            }
-          },
-          error: function(data) {
-            console.log("errorINTERVAL: " + data);
-          }
-        });
-      }, 5000);
+      // setInterval(function() {
+      //   $.ajax({
+      //     type: 'POST',
+      //     url: '/updateVizState',
+      //     success: function(data) {
+      //       console.log("sendsuccessINTERVAL: " + data);
+      //
+      //       if (this.mapcomp.user != undefined) {
+      //         var userId = this.mapcomp.user.id;
+      //       }
+      //       else {
+      //         var userId = '';
+      //       }
+      //       for (var i = 0; i < bubbleData.length; i++) {
+      //         console.log("okay")
+      //         console.log(userId)
+      //         for (var m = 0; m < bubbleData[i]['users'].length; m++) {
+      //           if (bubbleData[i]['users'][m] == userId){
+      //             groupWithUser = bubbleData[i]['group'];
+      //             $("#" + groupWithUser).attr("fill", "url(#group1)");
+      //             $("#thinkingEmoji").attr("visibility", "hidden");
+      //           }
+      //         }
+      //       }
+      //     },
+      //     error: function(data) {
+      //       console.log("errorINTERVAL: " + data);
+      //     }
+      //   });
+      //
+      //
+      //
+      // }, 5000);
       $(document).mouseup(function(e) {
         if ($(e.target).is('circle')) {
           fetchClaims(e.target.id, textcomp, mapcomp);
