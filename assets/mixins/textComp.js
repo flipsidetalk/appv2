@@ -152,7 +152,7 @@ var mixin = {
       //console.log('commentData:' + JSON.stringify(textcomp.commentData));
 
       for (var comment of textcomp.commentData) {
-        if (comment.sentenceId == placeholderId) {
+        if (comment.sentenceId == placeholderId &&comment.statement.length > 2) {
           //append it to object
           textcomp.eachDisplayComment.agreeable = comment.reaction;
           textcomp.eachDisplayComment.text = comment.statement;
