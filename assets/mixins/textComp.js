@@ -7,7 +7,7 @@ var mixin = {
       //$("#tooltip").show();
       textcomp.helpdisplay = 'none';
       textcomp.lastReferenced = sentenceId;
-      textcomp.tempseen = seenvalue;
+      //textcomp.tempseen = seenvalue;
 
       var sel = document.getElementById(sentenceId);
       var r = sel.getBoundingClientRect();
@@ -27,25 +27,25 @@ var mixin = {
       textcomp.isHighlighted = sentenceId;
       textcomp.talktop = (r.top - rb2.top) + 'px'; //this will place ele below the selection
 
-      if (!textcomp.tempseen) {
-        textcomp.tooldisplay = 'block';
-        textcomp.talkdisplay = 'none';
-        textcomp.toolcolor = '#2b2b2b';
-      }
-      else {
-        if (seenvalue == 2) {
-          textcomp.toolcolor = 'green';
-        }
-        else if (seenvalue == 3) {
-          textcomp.toolcolor = 'red';
-        }
-        else {
-          textcomp.toolcolor = 'purple';
-        }
-        textcomp.talkdisplay = 'block';
-        textcomp.tooldisplay = 'none';
-
-      }
+      // if (!textcomp.tempseen) {
+      //   textcomp.tooldisplay = 'block';
+      //   textcomp.talkdisplay = 'none';
+      //   textcomp.toolcolor = '#2b2b2b';
+      // }
+      // else {
+      //   if (seenvalue == 2) {
+      //     textcomp.toolcolor = 'green';
+      //   }
+      //   else if (seenvalue == 3) {
+      //     textcomp.toolcolor = 'red';
+      //   }
+      //   else {
+      //     textcomp.toolcolor = 'purple';
+      //   }
+      //   textcomp.talkdisplay = 'block';
+      //   textcomp.tooldisplay = 'none';
+      //
+      // }
 
     },
     showHelper: function(sentenceId, textcomp){
@@ -69,10 +69,45 @@ var mixin = {
       }
     },
 
+    submitWhy: function(textcomp) {
+      textcomp.whyResponse.sentenceId = textcomp.lastReferenced;
+      textcomp.whyResponse.vote = textcomp.article.sentences[textcomp.lastReferenced].seen;
+      textcomp.whyResponses.push(textcomp.whyResponse);
+      textcomp.lastUserResponse = textcomp.whyResponse.input;
+      textcomp.lastUserVote = textcomp.whyResponse.vote;
+      this.postResponse(textcomp.whyResponse.input, textcomp.whyResponse.sentenceId);
+
+
+      console.log(textcomp.lastUserResponse);
+      textcomp.whyResponse = {
+        sentenceId: "",
+        input: "",
+        vote: ""
+      };
+    },
+    postResponse: function(statement, sentenceId) {
+      var data = {
+        sentenceId: sentenceId,
+        statement: statement
+      }
+      $.ajax({
+        type: 'POST',
+        url: '/submitResponse',
+        data: data,
+        success: function() {
+          console.log("sendsuccess: " + data);
+        },
+        error: function() {
+          console.log("error: " + data);
+        }
+      });
+    },
+
     submitResponse: function(input, seenvalue, textcomp) {
       textcomp.voteCounter +=1;
       var placeholderId = textcomp.lastReferenced; //this is the sentenceID
       //passing response data
+      textcomp.lastVoteValue = input;
       textcomp.response.sentenceId = placeholderId;
       textcomp.response.input = input;
       this.postVote(textcomp.lastReferenced, input);
@@ -85,8 +120,8 @@ var mixin = {
       textcomp.tempseen = seenvalue; //changes placeholder seen
       //textcomp.form = 0; //
       //textcomp.why = 1;
-      textcomp.talkdisplay = "block";
-      textcomp.tooldisplay = 'none';
+      // textcomp.talkdisplay = "block";
+      // textcomp.tooldisplay = 'none';
       //  refreshClusterMap();
     },
     postVote: function(sentenceId, reaction) {
@@ -143,12 +178,66 @@ var mixin = {
       console.log("disagree comments" + JSON.stringify(textcomp.displayDisagreeComments));
 
 
-    }
+    },
+    fetchSentenceData: function(textcomp){ //equivalent to fetchEveryone from Mapcomp
+      console.log("IT WORKS")
+      //textcomp.displayVoteCard = 'block';
+      //textcomp.displayContributeCard = false;
+      //mapcomp.showVotePercents = 'none';
+      //mapcomp.displayEveryone = 'block';
+      //mapcomp.displayIndividual = 'none';
+      textcomp.arrayEveryone = [];
+
+      for (var m in textcomp.article.sentences) {
+
+        var sentenceObject = textcomp.article.sentences[m];
+
+        if (sentenceObject.mainClaim) {
+          textcomp.eachEveryone.text = sentenceObject.text;
+          textcomp.eachEveryone.agree = '';
+          textcomp.eachEveryone.unsure = '';
+          textcomp.eachEveryone.disagree = '';
+          console.log(sentenceObject.id)
+          textcomp.eachEveryone.sentenceId = sentenceObject.id;
+
+
+          for (var cluster of textcomp.bubbleData) {
+            if (cluster.group == 0) {
+              console.log("test test")
+
+              for (var s of cluster.sentences) {
+                if(s.sentenceId == sentenceObject.id){
+                  var tempId = s.sentenceId
+                  textcomp.eachEveryone.agree = s.agree;
+                  textcomp.eachEveryone.unsure = s.unsure;
+                  textcomp.eachEveryone.disagree = s.disagree;
+                }
+              }
+
+            }
+          }
+
+          textcomp.arrayEveryone.push(textcomp.eachEveryone);
+          textcomp.eachEveryone = {
+            sentenceId: '',
+            text: '',
+            agree: '',
+            disagree: '',
+            unsure: ''
+          };
+
+        }
+      }
+      textcomp.lastReferenced = textcomp.arrayEveryone[textcomp.displayCounter].sentenceId;
+    },
+
   },
 
 
-  mounted: function(){
 
+  mounted: function(){
+    var textcomp = this.textcomp;
+    this.fetchSentenceData(textcomp)
   }
 };
 

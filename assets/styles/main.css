@@ -1045,6 +1045,7 @@ input:checked+label {
   background: rgba(0, 151, 167, 0.74);
   padding: 8px 16px 8px 16px;
   text-decoration: none;
+  cursor: pointer;
 }
 .u-margin2{
   margin:0px 2px;
