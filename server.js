@@ -373,24 +373,29 @@ app.get('/', function(req, res) {
                   articleId: id
                 }
               }).then(viz => {
-                if (viz && viz[0]) {
+                console.log('REACHED HERE')
+                if (false) {//viz && viz[0]) {
+                    console.log("\n\n\n\n\n\n FOUND VIZ IN TABLE \n\n\n");
+                    console.log(JSON.stringify(viz));
                     callback(null, viz);
                 } else {
+                    console.log('THEN REACHED HERE');
                     //If there is no viz for the article, we need dummy votes
                     //Need all the mainClaim sentenceIds to initialize votes
-                    db.sentences.findAll({
+                    db.sentence.findAll({
                       where: {
-                        slug: slug
+                        articleId: id
                       },
                       attributes: ['id', 'mainClaim']
                     }).then(response => {
-                      const sentences = article.dataValues.sentences;
-                      console.log(sentences);
+                      console.log('GETTING SENTENCES')
                       //Create Dummy Votes and insert into db
-                      utils.initRandomVotes(db, sentences, NUM_FAKE_USERS, INIT_SPLIT);
+                      utils.initRandomVotes(db, response, NUM_FAKE_USERS, INIT_SPLIT);
+                      //utils.upsert(fakeVotes);
                     }).then(() => {
+                      console.log('UPDATING STATE');
                       //Get new Viz State based on new votes
-                      utils.updateVizState(db, res, numCurrentVotes, articleId, sequelize);
+                      utils.updateVizState(db, res, numCurrentVotes, id, sequelize);
                     }).then(() => {
                       //Get that viz state
                       db.viz.findAll({

@@ -121,12 +121,16 @@ module.exports.vue = function(pageTitle) {
 
 module.exports.initRandomVotes = function(db, sentences, numFakeUsers, split) {
     if (sentences != null) {
+        console.log('INSIDE')
         var sentenceIds = [];
-        for (sentence in sentences) {
+        for (sentenceObj in sentences) {
+            sentence = sentenceObj.dataValues;
             if (sentence.mainClaim == true) {
                 sentenceIds.push(sentence.id)
             }
         }
+        console.log('SENTENCES!')
+        console.log(sentenceIds)
         var fakeVotes = []
         for (var i = 0; i < numFakeUsers; i++) {
             //First numFakeUsers/2 fake users agree with article split% of time and disagree otherwise
@@ -134,7 +138,6 @@ module.exports.initRandomVotes = function(db, sentences, numFakeUsers, split) {
             var userFor = (i < Math.floor(numFakeUsers/2))
             //user_ids have special string style.
             var fakeUserId = 50 + i
-            fakeUsers.push(newUserId)
             for (claim in sentenceIds) {
                 var vote = null
                 draw = Math.random();
@@ -151,10 +154,16 @@ module.exports.initRandomVotes = function(db, sentences, numFakeUsers, split) {
                         vote = 1
                     }
                 }
-                fakeVotes.push({"userId": newUserId, "sentenceId": claim, "vote": vote})
+                var data = {"userId": fakeUserId, "sentenceId": claim, "vote": vote}
+                console.log('\n\n\nINDIVIDUAL VOTE:')
+                console.log(data)
+                db.vote.create(data)
+                fakeVotes.push(data)
             }
         }
-        return db.vote.create(fakeVotes)
+        console.log('\n\n\n\nFINISHED MAKING RANDOM VOTES')
+        console.log(JSON.stringify(fakeVotes))
+        return fakeVotes
     } else {
         return false
     }
