@@ -214,6 +214,7 @@ app.get('/', function(req, res) {
         textcomp: {
 
           //commentData
+          bubbleData: [],
           showAgreeComments: false,
           showDisagreeComments: false,
 
@@ -266,6 +267,19 @@ app.get('/', function(req, res) {
           whyResponses: [],
           user: req.user,
           voteCounter: 0,
+          testMapcomp: [],
+
+          //for fetchSentenceData
+          arrayEveryone: [],
+          //showVotePercents: 'none',
+          eachEveryone: {
+            sentenceId: '',
+            text: '',
+            agree: '',
+            disagree: '',
+            unsure: ''
+          },
+
 
         },
 
@@ -409,6 +423,7 @@ app.get('/', function(req, res) {
                           //Same as if we already had a viz
                           callback(null, viz);
                         });
+
                       });
                     });
                   };
@@ -479,6 +494,7 @@ app.get('/', function(req, res) {
             console.log("COMMENTS: " + JSON.stringify(results.comments));
             if (results.viz && results.viz[0]) {
               data.mapcomp.bubbleData = JSON.parse(results.viz[0].data);
+              data.textcomp.bubbleData = JSON.parse(results.viz[0].data);
             }
             data.pageTitle = 'Flipside - ' + results.article.title.title;
             res.renderVue('article', data, utils.vue(data.pageTitle));
@@ -487,10 +503,7 @@ app.get('/', function(req, res) {
     });
 });
 
-/* currentVotes is the number of votes in the database the last time
- * the viz was rendered. If it hasn't increased, don't re-render.
- */
-let numCurrentVotes = 0;
+
 app.post('/submitResponse', function(req, res) {
   db.sentence.findOne({
     where: {

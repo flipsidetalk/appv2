@@ -27,7 +27,11 @@ module.exports.makeExternalRequest = function(request, url, data, success, err) 
   });
 }
 
-module.exports.updateVizState = function(db, res, numCurrentVotes, articleId, sequelize) {
+/* currentVotes is the number of votes in the database the last time
+ * the viz was rendered. If it hasn't increased, don't re-render.
+ */
+let numCurrentVotes = 0;
+module.exports.updateVizState = function(db, res, articleId, sequelize) {
   var pythonVis = require('./assets/python-scripts/start_python_script.js');
   var out;
   sequelize.query('SELECT * FROM test.votes INNER JOIN test.sentences on votes.sentenceId = sentences.id INNER JOIN test.articles ON sentences.articleId = articles.id WHERE articleId = ' + articleId)
@@ -160,4 +164,3 @@ module.exports.initRandomVotes = function(db, sentences, numFakeUsers, split) {
         return false
     }
 }
-

@@ -90,11 +90,11 @@ mark:hover {
 }
 
 .u-redBackgroundButton {
-  background-color: rgba(235, 112, 107, 0.9)!important;
+  background-color: #E28181!important;
 }
 
 .u-greenBackgroundButton {
-  background-color: rgba(69, 196, 173, 0.9)!important;
+  background-color: #00D1C1!important;
 }
 
 .u-width50 {
@@ -851,7 +851,7 @@ input:checked+label {
 }
 
 .u-grayBackgroundButton{
-  background-color: #D1D1D1;
+  background-color: #D7DAD6;
 }
 
 .u-borderRadiusBL{
@@ -924,16 +924,49 @@ input:checked+label {
   font-size: 16px;
   font-weight: lighter;
 }
-.talkButton{
+.talkButtonInverse{
   -webkit-border-radius: 4;
   -moz-border-radius: 4;
-  border-radius: 7px;
-  color: #ffffff;
-  font-size: 16px;
-  background: rgba(0, 151, 167, 0.74);
-  padding: 6px 12px 9px 12px;
+  border-radius: 4px;
+  font-size: 15px;
+  line-height: 15px;
+  padding: 8px 16px 8px 16px;
   text-decoration: none;
+  cursor: pointer
 }
+
+.redButtonInverse{
+  color: #E28181;
+  border-color: #E28181;
+  border: 1px solid !important;
+}
+
+.greenButtonInverse{
+  color: #00D1C1;
+  border-color: #00d1c1;
+  border: 1px solid !important;
+}
+
+.grayButtonInverse{
+  color: #565a5c;
+  border-color: #565a5c;
+  border: 1px solid !important;
+}
+
+
+.newRed{
+  color: #E28181!important;
+}
+
+.newGreen{
+  color: #00D1C1!important;
+}
+
+.newGray{
+  color: #565a5c!important;
+}
+
+
 
 .seeMoreButton{
   -webkit-border-radius: 7;
@@ -1005,12 +1038,14 @@ input:checked+label {
 .talkButton{
   -webkit-border-radius: 4;
   -moz-border-radius: 4;
-  border-radius: 2.5px;
+  border-radius: 4px;
   color: #ffffff;
-  font-size: 12px;
+  font-size: 14px;
+  line-height: 16px;
   background: rgba(0, 151, 167, 0.74);
-  padding: 6px 12px 9px 12px;
+  padding: 8px 16px 8px 16px;
   text-decoration: none;
+  cursor: pointer;
 }
 .u-margin2{
   margin:0px 2px;
