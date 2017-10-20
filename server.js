@@ -391,29 +391,30 @@ app.get('/', function(req, res) {
                       console.log('GETTING SENTENCES')
                       console.log(response)
                       //Create Dummy Votes and insert into db
-                      utils.initRandomVotes(db, response, NUM_FAKE_USERS, INIT_SPLIT);
-                      //utils.upsert(fakeVotes);
-                    }).then(() => {
-                      console.log('UPDATING STATE');
-                      //Get new Viz State based on new votes
-                      utils.updateVizState(db, res, numCurrentVotes, id, sequelize);
-                    }).then(() => {
-                      //Get that viz state
-                      db.viz.findAll({
-                        limit: 1,
-                        order: [[ 'createdAt', 'DESC' ]],
-                        where: {
-                          articleId: id
-                        }
-                      }).then(viz => {
-                        //Same as if we already had a viz
-                        callback(null, viz);
+                      var votes = utils.initRandomVotes(db, response, NUM_FAKE_USERS, INIT_SPLIT);
+                      console.log('\n\n\n\n\nGOT RANDOM VOTES!')
+                      db.vote.bulkCreate(votes).then(() => {
+                          console.log('UPDATING STATE');
+                          //Get new Viz State based on new votes
+                          utils.updateVizState(db, res, numCurrentVotes, id, sequelize);
+                      }).then(() => {
+                        //Get that viz state
+                        db.viz.findAll({
+                          limit: 1,
+                          order: [[ 'createdAt', 'DESC' ]],
+                          where: {
+                            articleId: id
+                          }
+                        }).then(viz => {
+                          //Same as if we already had a viz
+                          callback(null, viz);
+                        });
                       });
                     });
-                };
-              });
-            })
-          },
+                  };
+                })
+               })
+             },
           article: function(callback) {
             db.article.findOne({
               include: [{
