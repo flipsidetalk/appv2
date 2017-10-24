@@ -284,7 +284,7 @@ var mixin = {
           url: '/submitVote',
           data: data,
           success: function(response) {
-            console.log("sendsuccess: " + JSON.stringify(response));
+            //console.log("sendsuccess: " + JSON.stringify(response));
             mapcomp.bubbleData = response;
             $('.d3stuff').html('<div class="d3stuff"><div><svg class="bubbleMap"><defs><pattern id="group1" x="0%" y="0%" height="100%" width="100%" viewBox="0 0 512 512"><image x="0%" y="0%" width="512" height="512" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://i.imgur.com/fzYCtwg.png"></image></pattern></defs></svg></div></div>')
             if (mapcomp.bubbleData.length > 2) {
@@ -361,6 +361,7 @@ var mixin = {
               simulation.nodes(bubbleData)
               .on("tick", ticked)
 
+              console.log("hello hello")
               function ticked() {
                 circles
                 .attr("cx", function(d) {
@@ -381,6 +382,7 @@ var mixin = {
               for (var i = 0; i < bubbleData.length; i++) {
                 for (var m = 0; m < bubbleData[i]['users'].length; m++) {
                   if (bubbleData[i]['users'][m] == userId){
+                    console.log("USER IS GROUPED!")
                     groupWithUser = bubbleData[i]['group'];
                     $("#" + groupWithUser).attr("fill", "url(#group1)");
                     $("#thinkingEmoji").attr("visibility", "hidden");
