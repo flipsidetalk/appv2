@@ -44,7 +44,7 @@ app.use(expressVueMiddleware);
 var dbconfig;
 // Try-catch for automatic switching from test to prod
 //try {
-  dbconfig = require('opsworks'); // RDS prod connection data
+ // dbconfig = require('opsworks'); // RDS prod connection data
 // catch (err) {
 dbconfig = {
     db: {
@@ -390,7 +390,7 @@ app.get('/', function(req, res) {
                 console.log('REACHED HERE')
                 if (viz && viz[0]) {
                     console.log("\n\n\n\n\n\n FOUND VIZ IN TABLE \n\n\n");
-                    console.log(JSON.stringify(viz));
+                    console.log(JSON.stringify(viz[0]));
                     callback(null, viz);
                 } else {
                     console.log('THEN REACHED HERE');

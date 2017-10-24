@@ -354,7 +354,7 @@ class Spectrum:
                     user_ind = self.users[user_id]['index']
                     if user_ind in self.users_to_graph:
                         index = np.where(np.array(self.users_to_graph) == user_ind)[0][0]
-                        if self.groups[index] == i or i == -1:
+                        if self.groups[index] == i:
                             votes.append(vote)
                             seen_users.add(user_id)
 
