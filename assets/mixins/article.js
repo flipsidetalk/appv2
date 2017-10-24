@@ -37,8 +37,8 @@ var mixin = {
             for (var s = 0; s < 2; s++) {
               var tempId = m.sentences[s].sentenceId
               mapcomp.eachClaim.sentenceId = m.sentences[s].sentenceId;
-              console.log(tempId)
-              console.log(textcomp.article.sentences[tempId])
+              // console.log(tempId)
+              // console.log(textcomp.article.sentences[tempId])
               mapcomp.eachClaim.text = JSON.stringify(textcomp.article.sentences[tempId].text);
               if (m.sentences[s].average > 0 ) {
                 //value is positive
@@ -193,7 +193,7 @@ var mixin = {
         this.postResponse(textcomp.whyResponse.input, textcomp.whyResponse.sentenceId);
 
 
-        console.log(textcomp.lastUserResponse);
+        // console.log(textcomp.lastUserResponse);
         textcomp.whyResponse = {
           sentenceId: "",
           input: "",
@@ -226,7 +226,7 @@ var mixin = {
         textcomp.response.sentenceId = placeholderId;
         textcomp.response.input = input;
         textcomp.lastVoteValue = input;
-        this.postVote(textcomp.lastReferenced, input);
+        this.postVote(textcomp.lastReferenced, input, mapcomp);
         textcomp.responses.push(textcomp.response)
         textcomp.response = {
           sentenceId: "",
@@ -274,7 +274,7 @@ var mixin = {
 
 
       },
-      postVote: function(sentenceId, reaction) {
+      postVote: function(sentenceId, reaction, mapcomp) {
         var data = {
           sentenceId: sentenceId,
           reaction: reaction
@@ -283,11 +283,114 @@ var mixin = {
           type: 'POST',
           url: '/submitVote',
           data: data,
-          success: function() {
-            console.log("sendsuccess: " + data);
+          success: function(response) {
+            console.log("sendsuccess: " + JSON.stringify(response));
+            mapcomp.bubbleData = response;
+            $('.d3stuff').html('<div class="d3stuff"><div><svg class="bubbleMap"><defs><pattern id="group1" x="0%" y="0%" height="100%" width="100%" viewBox="0 0 512 512"><image x="0%" y="0%" width="512" height="512" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://i.imgur.com/fzYCtwg.png"></image></pattern></defs></svg></div></div>')
+            if (mapcomp.bubbleData.length > 2) {
+
+              var diameter = 400; //max size of the bubbles
+              var color = d3.scaleOrdinal(d3.schemeCategory20c);
+
+              var bubbleData = mapcomp.bubbleData.slice(1);
+
+              var viewBoxWidth = $('.bubbleMap').outerWidth();
+              var viewBoxHeight = 300;
+
+              var svg = d3.select(".bubbleMap")
+              .attr("width", 100 + '%')
+              .attr("height", 300)
+              .attr("class", "bubble")
+              .attr('id', "bubbleBox")
+              .append("g")
+              .attr("transform", "translate(0,0)");
+
+              var tooltip = d3.select("body")
+              .append("div")
+              .style("position", "absolute")
+              .style("z-index", "10")
+              .style("visibility", "hidden")
+              .style("color", "white")
+              .style("padding", "8px")
+              .style("background-color", "rgba(0, 0, 0, 0.75)")
+              .style("border-radius", "6px")
+              .style("font", "15px sans-serif")
+              .text("tooltip");
+
+              var emoji = d3.select(".bubble")
+              .append("svg:image")
+              .attr('id', 'thinkingEmoji')
+              .attr('xlink:href', '../img/thinkingEmoji.png')
+              .attr("x", viewBoxWidth/2-25)
+              .attr("y", viewBoxHeight/2-25)
+              .attr("width", "50")
+              .attr("height", "50")
+
+              var radiusScale = d3.scaleSqrt().domain([1, 60]).range([30, 130]);
+
+              var simulation = d3.forceSimulation()
+              .force("x", d3.forceX(viewBoxWidth / 2).strength(0.05))
+              .force("y", d3.forceY(viewBoxHeight / 2).strength(0.05))
+              .force("collide", d3.forceCollide(function(d) {
+                return radiusScale(d.size + 5);
+              }));
+
+              var circles = svg.selectAll("circle")
+              .data(bubbleData)
+              .enter().append("circle")
+              .attr("id", function(d) {
+                return d.group;
+              })
+              .attr("r", function(d) {
+                return radiusScale(d.size)
+              })
+              .attr("class", "aBubble")
+              .attr("fill", "#a88dc3")
+              .on("mouseover", function(d) {
+                tooltip.text("group " + d.group + ', ' + d.size + " people");
+                tooltip.style("visibility", "visible");
+              })
+              .on("mousemove", function() {
+                return tooltip.style("top", (d3.event.pageY + 24) + "px").style("left", (d3.event.pageX - 10) + "px");
+              })
+              .on("mouseout", function() {
+                return tooltip.style("visibility", "hidden");
+              })
+              ;
+
+              simulation.nodes(bubbleData)
+              .on("tick", ticked)
+
+              function ticked() {
+                circles
+                .attr("cx", function(d) {
+                  return d.x
+                })
+                .attr("cy", function(d) {
+                  return d.y
+                })
+              }
+
+              var groupWithUser = "";
+              if (mapcomp.user != undefined) {
+                var userId = mapcomp.user.id;
+              }
+              else {
+                var userId = '';
+              }
+              for (var i = 0; i < bubbleData.length; i++) {
+                for (var m = 0; m < bubbleData[i]['users'].length; m++) {
+                  if (bubbleData[i]['users'][m] == userId){
+                    groupWithUser = bubbleData[i]['group'];
+                    $("#" + groupWithUser).attr("fill", "url(#group1)");
+                    $("#thinkingEmoji").attr("visibility", "hidden");
+                  }
+                }
+              }
+            }
           },
-          error: function() {
-            console.log("error: " + JSON.stringify(data));
+          error: function(response) {
+            console.log("error: " + JSON.stringify(response));
           }
         });
       },
@@ -323,8 +426,8 @@ var mixin = {
           }
         }
 
-        console.log("agree comments" + JSON.stringify(textcomp.displayAgreeComments));
-        console.log("disagree comments" + JSON.stringify(textcomp.displayDisagreeComments));
+        // console.log("agree comments" + JSON.stringify(textcomp.displayAgreeComments));
+        // console.log("disagree comments" + JSON.stringify(textcomp.displayDisagreeComments));
 
       }
     },
@@ -336,41 +439,8 @@ var mixin = {
       var bubbleData = this.mapcomp.bubbleData.slice(1);
       var groupWithUser = "";
 
-      this.fetchEveryone(textcomp, mapcomp)
+      this.fetchEveryone(textcomp, mapcomp);
 
-      // setInterval(function() {
-      //   $.ajax({
-      //     type: 'POST',
-      //     url: '/updateVizState',
-      //     success: function(data) {
-      //       console.log("sendsuccessINTERVAL: " + data);
-      //
-      //       if (this.mapcomp.user != undefined) {
-      //         var userId = this.mapcomp.user.id;
-      //       }
-      //       else {
-      //         var userId = '';
-      //       }
-      //       for (var i = 0; i < bubbleData.length; i++) {
-      //         console.log("okay")
-      //         console.log(userId)
-      //         for (var m = 0; m < bubbleData[i]['users'].length; m++) {
-      //           if (bubbleData[i]['users'][m] == userId){
-      //             groupWithUser = bubbleData[i]['group'];
-      //             $("#" + groupWithUser).attr("fill", "url(#group1)");
-      //             $("#thinkingEmoji").attr("visibility", "hidden");
-      //           }
-      //         }
-      //       }
-      //     },
-      //     error: function(data) {
-      //       console.log("errorINTERVAL: " + data);
-      //     }
-      //   });
-      //
-      //
-      //
-      // }, 5000);
       $(document).mouseup(function(e) {
         if ($(e.target).is('circle')) {
           fetchClaims(e.target.id, textcomp, mapcomp);

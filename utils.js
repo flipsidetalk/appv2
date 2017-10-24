@@ -18,7 +18,7 @@ module.exports.makeExternalRequest = function(request, url, data, success, err) 
       json: true,
       body: data
   }, function (error, response, body) {
-    console.log('Response: ' + response);
+    // console.log('Response: ' + response);
     if (!error) {
       success(body);
     } else  {
@@ -32,24 +32,28 @@ module.exports.makeExternalRequest = function(request, url, data, success, err) 
  */
 let numCurrentVotes = 0;
 module.exports.updateVizState = function(db, res, articleId, sequelize) {
+
+  db.viz.findOne({
+    order: [ [ 'createdAt', 'DESC' ]]
+  }).then(function(data){
+    // console.log("DATA: " + JSON.stringify(JSON.parse(JSON.stringify(data)).data));
+    res.send(JSON.parse(JSON.parse(JSON.stringify(data)).data));
+  });
+
   var pythonVis = require('./assets/python-scripts/start_python_script.js');
   var out;
   sequelize.query('SELECT * FROM test.votes INNER JOIN test.sentences on votes.sentenceId = sentences.id INNER JOIN test.articles ON sentences.articleId = articles.id WHERE articleId = ' + articleId)
   .then(inputData => {
     try {
-      console.log('\n\n\n\n\n\n\n\n')
-      console.log("InputData: " + inputData);
-      console.log('\n\n\n\n\n\n\n\n')
+      // console.log('\n\n\n\n\n\n\n\n')
+      // console.log("InputData: " + inputData);
+      // console.log('\n\n\n\n\n\n\n\n')
       var votes = inputData;
       if (votes.length > numCurrentVotes) {
         numCurrentVotes = votes.length;
-        console.log('\n\n\n\n\n\n\n\n')
+        // console.log('\n\n\n\n\n\n\n\n')
         pythonVis(votes, (outData) => {
-          console.log("outData: " + JSON.stringify(outData));
-          if (typeof(res) === 'response') {
-            res.send(outData);
-          }
-          console.log('INSERTING');
+          // console.log('INSERTING');
           db.viz.create({
             data: outData,
             numVotes: numCurrentVotes,
@@ -59,7 +63,6 @@ module.exports.updateVizState = function(db, res, articleId, sequelize) {
       }
     } catch (err) {
       console.log(err);
-      res.send(509);
     }
   });
 }

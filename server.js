@@ -43,19 +43,19 @@ app.use(expressVueMiddleware);
  */
 var dbconfig;
 // Try-catch for automatic switching from test to prod
-//try {
- // dbconfig = require('opsworks'); // RDS prod connection data
-// catch (err) {
-dbconfig = {
-    db: {
-      'host': 'test.chsdfl7vaehp.us-east-1.rds.amazonaws.com',
-      'username': 'testuser',
-      'password': 'testUser',
-      'port': 3306,
-      'database': 'test'
+try {
+  dbconfig = require('opsworks'); // RDS prod connection data
+} catch (err) {
+    dbconfig = {
+      db: {
+        'host': 'test.chsdfl7vaehp.us-east-1.rds.amazonaws.com',
+        'username': 'testuser',
+        'password': 'testUser',
+        'port': 3306,
+        'database': 'test'
+      }
     }
-}
-//}
+  }
 
 // Connect to the database instance
 var connection = mysql.createConnection({
@@ -119,76 +119,6 @@ app.use('/localSignin', apiLimiter);
 require('./auth.js')(app, connection, db);
 
 // Structure of user object: { id: 14, firstname: 'Forrest', name: 'Forrest Sill' }
-
-/* Get index page
- */
-// app.get('/', function(req, res) {
-//   db.article.findAll({
-//     include: [{
-//       model: db.title
-//     }, {
-//       model: db.author
-//     }, {
-//       model: db.publication
-//     }, {
-//       model: db.publicationDate
-//     }, {
-//       model: db.image
-//     }],
-//     limit : 20,
-//     attributes: {
-//       exclude: ['id', 'url', 'updatedAt']
-//     },
-//     order: [
-//       ['createdAt', 'DESC']
-//     ]
-//   }).then(articles => {
-//     let formattedArticles = {};
-//     for (var i = 0; i < articles.length; i++) {
-//     //for (var i = articles.length -1; i >= 0; --i) {
-//       let formattedArticle = {};
-//       try {
-//         formattedArticle.title = articles[i].title.title;
-//       } catch (err) {
-//         formattedArticle.title = 'Title Unknown'
-//       }
-//       formattedArticle.slug = articles[i].slug;
-//       try {
-//         formattedArticle.author = articles[i].authors[0].name;
-//       }
-//       catch (err) {
-//         formattedArticle.author = 'Author Unknown'
-//       }
-//       try {
-//         formattedArticle.publication = articles[i].publication.name;
-//       }
-//       catch (err) {
-//         formattedArticle.publication = 'Publication Unknown'
-//       }
-//       try {
-//         formattedArticle.publicationDate = dateFormat(articles[i].publicationDate.date, "longDate");
-//       }
-//       catch (err) {
-//         formattedArticle.publicationDate = "Date Unknown"
-//       }
-//       try {
-//         formattedArticle.image = articles[i].image.link;
-//       }
-//       catch (err) {
-//         formattedArticle.image = "No Image Found."
-//       }
-//       formattedArticles['article' + (i + 1)] = formattedArticle;
-//     }
-//     console.log('FEATURES: ' + JSON.stringify(formattedArticles));
-//     var data = {
-//       headercomp: {
-//         user: req.user
-//       },
-//       thumbnailcomp: formattedArticles
-//       }
-//     res.renderVue('index', data, utils.vue('Flipside — A new side of news.'));
-//   });
-// });
 
 /* Get article page
  */
@@ -348,12 +278,6 @@ app.get('/', function(req, res) {
        */
       async.parallel({
           hasUserVoted: function(callback) {
-            // console.log(" \n\n\n\n\n\n\n\n\n\n\n TEST for hasUserVoted \n\n\n\n\n\n\n");
-            // console.log(req.user);
-            // var testUser = req.user;
-            // //
-            // // console.log(testUser);
-            // console.log(testUser['id']);
             if (req.user == undefined) {
               callback(null, false)
             } else {
@@ -370,8 +294,6 @@ app.get('/', function(req, res) {
               });
             }
           },
-
-
           viz: function(callback) {
             db.article.findOne({
               where: {
@@ -387,13 +309,17 @@ app.get('/', function(req, res) {
                   articleId: id
                 }
               }).then(viz => {
-                console.log('REACHED HERE')
                 if (viz && viz[0]) {
+<<<<<<< HEAD
                     console.log("\n\n\n\n\n\n FOUND VIZ IN TABLE \n\n\n");
                     console.log(JSON.stringify(viz[0]));
+=======
+                    // console.log("\n\n\n\n\n\n FOUND VIZ IN TABLE \n\n\n");
+                    // console.log(JSON.stringify(viz));
+>>>>>>> 88ccd646ffb8d4ed70eb1df7f76d63fe42990761
                     callback(null, viz);
                 } else {
-                    console.log('THEN REACHED HERE');
+                    // console.log('THEN REACHED HERE');
                     //If there is no viz for the article, we need dummy votes
                     //Need all the mainClaim sentenceIds to initialize votes
                     db.sentence.findAll({
@@ -402,13 +328,13 @@ app.get('/', function(req, res) {
                       },
                       attributes: ['id', 'mainClaim']
                     }).then(response => {
-                      console.log('GETTING SENTENCES')
-                      console.log(response)
+                      // console.log('GETTING SENTENCES')
+                      // console.log(response)
                       //Create Dummy Votes and insert into db
                       var votes = utils.initRandomVotes(db, response, NUM_FAKE_USERS, INIT_SPLIT);
-                      console.log('\n\n\n\n\nGOT RANDOM VOTES!')
+                      // console.log('\n\n\n\n\nGOT RANDOM VOTES!')
                       db.vote.bulkCreate(votes).then(() => {
-                          console.log('UPDATING STATE');
+                          // console.log('UPDATING STATE');
                           //Get new Viz State based on new votes
                           utils.updateVizState(db, res, id, sequelize);
                       }).then(() => {
@@ -491,7 +417,7 @@ app.get('/', function(req, res) {
             data.textcomp.hasUserVoted = results.hasUserVoted;
             data.textcomp.article = results.article;
             data.textcomp.commentData = results.comments;
-            console.log("COMMENTS: " + JSON.stringify(results.comments));
+            // console.log("COMMENTS: " + JSON.stringify(results.comments));
             if (results.viz && results.viz[0]) {
               data.mapcomp.bubbleData = JSON.parse(results.viz[0].data);
               data.textcomp.bubbleData = JSON.parse(results.viz[0].data);
@@ -560,9 +486,6 @@ app.post('/submitLink', function(req, res) {
               res.send('error');
               return;
             }
-            console.log('\n\n\n\nARTICLE DATA:\n')
-            console.log(JSON.stringify(body))
-            console.log('\n\n\n')
             const slug = makeSlug(body.title.title, {
               lower: true
             });
@@ -695,20 +618,6 @@ app.post('/userStatus', function(req, res) {
 });
 
 // Post vote
-// app.post('/submitVote', function(req, res) {
-//   let user = req.user ? req.user.id : req.sessionID;
-//   utils.upsert(db.vote, {
-//     userId: user,
-//     sentenceId: req.body.sentenceId,
-//     reaction: req.body.reaction
-//   }, {
-//     userId: user,
-//     sentenceId: req.body.sentenceId
-//   });
-//   res.sendStatus(200);
-// });
-
-// Post vote
 app.post('/submitVote', function(req, res) {
   let user = req.user ? req.user.id : req.sessionID;
   utils.upsert(db.vote, {
@@ -726,13 +635,9 @@ app.post('/submitVote', function(req, res) {
       attributes: ['articleId']
     }).then(data => {
       const articleId = data.dataValues.articleId
-      console.log('\n\n\n\nUPDATING VIZ STATE FOR ARTICLE:\n\n')
-      console.log(articleId)
-      console.log('\n\n\n\n')
       utils.updateVizState(db, res, articleId, sequelize);
     })
   });
-  res.sendStatus(200);
 });
 
 app.post('/updateVizState', function(req, res) {
