@@ -732,7 +732,7 @@ app.post('/submitVote', function(req, res) {
       utils.updateVizState(db, res, articleId, sequelize);
     })
   });
-  res.sendStatus(200);
+  // res.sendStatus(200);
 });
 
 app.post('/updateVizState', function(req, res) {
