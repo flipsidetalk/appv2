@@ -310,13 +310,8 @@ app.get('/', function(req, res) {
                 }
               }).then(viz => {
                 if (viz && viz[0]) {
-<<<<<<< HEAD
-                    console.log("\n\n\n\n\n\n FOUND VIZ IN TABLE \n\n\n");
-                    console.log(JSON.stringify(viz[0]));
-=======
                     // console.log("\n\n\n\n\n\n FOUND VIZ IN TABLE \n\n\n");
                     // console.log(JSON.stringify(viz));
->>>>>>> 88ccd646ffb8d4ed70eb1df7f76d63fe42990761
                     callback(null, viz);
                 } else {
                     // console.log('THEN REACHED HERE');
