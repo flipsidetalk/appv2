@@ -37,8 +37,8 @@ var mixin = {
             for (var s = 0; s < 2; s++) {
               var tempId = m.sentences[s].sentenceId
               mapcomp.eachClaim.sentenceId = m.sentences[s].sentenceId;
-              console.log(tempId)
-              console.log(textcomp.article.sentences[tempId])
+              // console.log(tempId)
+              // console.log(textcomp.article.sentences[tempId])
               mapcomp.eachClaim.text = JSON.stringify(textcomp.article.sentences[tempId].text);
               if (m.sentences[s].average > 0 ) {
                 //value is positive
@@ -193,7 +193,7 @@ var mixin = {
         this.postResponse(textcomp.whyResponse.input, textcomp.whyResponse.sentenceId);
 
 
-        console.log(textcomp.lastUserResponse);
+        // console.log(textcomp.lastUserResponse);
         textcomp.whyResponse = {
           sentenceId: "",
           input: "",
@@ -426,8 +426,8 @@ var mixin = {
           }
         }
 
-        console.log("agree comments" + JSON.stringify(textcomp.displayAgreeComments));
-        console.log("disagree comments" + JSON.stringify(textcomp.displayDisagreeComments));
+        // console.log("agree comments" + JSON.stringify(textcomp.displayAgreeComments));
+        // console.log("disagree comments" + JSON.stringify(textcomp.displayDisagreeComments));
 
       }
     },
@@ -441,39 +441,6 @@ var mixin = {
 
       this.fetchEveryone(textcomp, mapcomp);
 
-      // setInterval(function() {
-      //   $.ajax({
-      //     type: 'POST',
-      //     url: '/updateVizState',
-      //     success: function(data) {
-      //       console.log("sendsuccessINTERVAL: " + data);
-      //
-      //       if (this.mapcomp.user != undefined) {
-      //         var userId = this.mapcomp.user.id;
-      //       }
-      //       else {
-      //         var userId = '';
-      //       }
-      //       for (var i = 0; i < bubbleData.length; i++) {
-      //         console.log("okay")
-      //         console.log(userId)
-      //         for (var m = 0; m < bubbleData[i]['users'].length; m++) {
-      //           if (bubbleData[i]['users'][m] == userId){
-      //             groupWithUser = bubbleData[i]['group'];
-      //             $("#" + groupWithUser).attr("fill", "url(#group1)");
-      //             $("#thinkingEmoji").attr("visibility", "hidden");
-      //           }
-      //         }
-      //       }
-      //     },
-      //     error: function(data) {
-      //       console.log("errorINTERVAL: " + data);
-      //     }
-      //   });
-      //
-      //
-      //
-      // }, 5000);
       $(document).mouseup(function(e) {
         if ($(e.target).is('circle')) {
           fetchClaims(e.target.id, textcomp, mapcomp);
