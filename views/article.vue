@@ -29,6 +29,10 @@
             <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
             <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
 
+
+            <text-comp :textcomp="textcomp"></text-comp>
+
+
             <div class="cardBlock" v-bind:style="{display: mapcomp.displayEveryone}">
               <div class="u-paddingBottom10">
                 <div v-for="(m, mindex) in mapcomp.arrayEveryone">
@@ -36,7 +40,7 @@
                     <div class="u-sizeFullWidth u-inlineBlock u-paddingTop10 u-paddingLeft12 u-paddingRight12">
                       <!-- <a :href="'#'+m.sentenceId">
                       <button type="button" name="button" class="u-floatLeft keyButtons lessImportantButton u-lighter u-fontSize14 u-marginTop10">SEE CONTEXT</button>
-                    </a>
+                    </a> -->
                     <button type="button" name="button" class="u-floatRight keyButtons u-greenBackgroundButtonFill u-lighter u-fontSize14 u-marginTop10" v-on:click="textcomp.displayContributeCard = false, fetchNextClaim(mapcomp, textcomp)">NEXT CLAIM</button>
                   </div>
                   <div class="u-sizeFullWidth u-inlineBlock u-paddingLeft12 u-paddingRight20 u-marginLeft10 u-marginTop10">
@@ -141,13 +145,6 @@
             </div>
           </div>
           <br><br>
-
-
-
-
-
-            <text-comp :textcomp="textcomp"></text-comp>
-            <br><br>
           </div>
 
 
