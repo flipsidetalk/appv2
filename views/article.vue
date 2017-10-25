@@ -22,13 +22,14 @@
             <h3 class="montserratLight">1. <b class="newRed">Vote</b> on main claims in the article below</h3>
             <h3 class="montserratLight">2. support your opinion with <b class="newRed">Reasons</b></h3>
             <h3 class="montserratLight">3. See the big picture and <b class="newRed">How You Compare</b></h3>
+            <br>
+            <br>
           </div>
 
           <!-- ARTICLE TEXT -->
           <div class="col-sm-offset-2 col-sm-8">
             <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
             <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
-
 
             <text-comp :textcomp="textcomp"></text-comp>
 
@@ -164,9 +165,9 @@
                     <p class="u-paddingTop10 u-marginLeft10 u-fontSize25 grayFont u-marginTop0">The People's Opinion</p>
                   </div>
                   <map-comp :mapcomp="mapcomp"></map-comp>
-                  <div class="u-sizeFullWidth u-inlineBlock u-paddingBottom10 u-paddingLeft12 u-paddingRight12">
+                  <!-- <div class="u-sizeFullWidth u-inlineBlock u-paddingBottom10 u-paddingLeft12 u-paddingRight12">
                     <button type="button" name="button" class="u-floatRight keyButtons u-greenBackgroundButtonFill u-lighter u-fontSize14 u-marginTop10" v-on:click="textcomp.displayContributeCard = false, mapcomp.displayIndividual = false;">Vote</button>
-                  </div>
+                  </div> -->
                   <transition name='slide-fade'>
                     <div v-if="mapcomp.displayIndividual">
                       <div class="u-inlineBlock">

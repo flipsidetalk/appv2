@@ -15,7 +15,18 @@
 
             <span class="u-sizeFullWidth u-inlineBlock">
               <span class="u-floatRight u-paddingTop10">
-                <span v-if="textcomp.voteCounter < 2">
+                <span v-if="textcomp.user == undefined">
+                  <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse greenButtonInverse u-marginLeft10">
+                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newGreen">Agree</span>
+                  </span>
+                  <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse redButtonInverse u-marginLeft10">
+                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newRed">Disagree</span>
+                  </span>
+                  <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse grayButtonInverse u-marginLeft10">
+                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton newGray">Unsure</span>
+                  </span>
+                </span>
+                <span v-else>
                   <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(1, 2, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse greenButtonInverse u-marginLeft10">
                     <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newGreen">Agree</span>
                   </span>
@@ -24,30 +35,6 @@
                   </span>
                   <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(0, 4, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse grayButtonInverse u-marginLeft10">
                     <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton newGray">Unsure</span>
-                  </span>
-                </span>
-                <span v-else>
-                  <span v-if="textcomp.user == undefined">
-                    <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse greenButtonInverse u-marginLeft10">
-                      <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newGreen">Agree</span>
-                    </span>
-                    <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse redButtonInverse u-marginLeft10">
-                      <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newRed">Disagree</span>
-                    </span>
-                    <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse grayButtonInverse u-marginLeft10">
-                      <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton newGray">Unsure</span>
-                    </span>
-                  </span>
-                  <span v-else>
-                    <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(1, 2, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse greenButtonInverse u-marginLeft10">
-                      <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newGreen">Agree</span>
-                    </span>
-                    <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(-1, 3, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse redButtonInverse u-marginLeft10">
-                      <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newRed">Disagree</span>
-                    </span>
-                    <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(0, 4, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse grayButtonInverse u-marginLeft10">
-                      <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton newGray">Unsure</span>
-                    </span>
                   </span>
                 </span>
               </span>
@@ -72,7 +59,15 @@
 
                 <textarea type="text" placeholder="write a reason to help others understand your stance" name="" value="" class="talkInput u-sizeFullWidth" v-model="textcomp.whyResponse.input" style="background-color: white;"></textarea>
                 <div class="u-sizeFullWidth u-inlineBlock">
-                  <p class="talkButton montserratLight u-floatRight" v-on:click="submitWhy(textcomp), textcomp.showUserResponse = 'block'">Share</p>
+
+                  <span v-if="textcomp.user == undefined">
+                    <p class="talkButton montserratLight u-floatRight" href="#sign-in-modal" data-toggle="modal">Share</p>
+                  </span>
+                  <span v-else>
+                    <p class="talkButton montserratLight u-floatRight" v-on:click="submitWhy(textcomp), textcomp.showUserResponse = 'block'">Share</p>
+                  </span>
+
+
                 </div>
 
                 <div v-bind:style="{display: textcomp.showUserResponse}" class="u-sizeFullWidth u-paddingTop10 u-paddingBottom10">
