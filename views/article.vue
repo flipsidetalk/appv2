@@ -32,15 +32,15 @@
 
             <text-comp :textcomp="textcomp"></text-comp>
 
-
+<!--
             <div class="cardBlock" v-bind:style="{display: mapcomp.displayEveryone}">
               <div class="u-paddingBottom10">
                 <div v-for="(m, mindex) in mapcomp.arrayEveryone">
                   <div v-if="mapcomp.displayCounter == mindex">
                     <div class="u-sizeFullWidth u-inlineBlock u-paddingTop10 u-paddingLeft12 u-paddingRight12">
-                      <!-- <a :href="'#'+m.sentenceId">
+                     <a :href="'#'+m.sentenceId">
                       <button type="button" name="button" class="u-floatLeft keyButtons lessImportantButton u-lighter u-fontSize14 u-marginTop10">SEE CONTEXT</button>
-                    </a> -->
+                    </a>
                     <button type="button" name="button" class="u-floatRight keyButtons u-greenBackgroundButtonFill u-lighter u-fontSize14 u-marginTop10" v-on:click="textcomp.displayContributeCard = false, fetchNextClaim(mapcomp, textcomp)">NEXT CLAIM</button>
                   </div>
                   <div class="u-sizeFullWidth u-inlineBlock u-paddingLeft12 u-paddingRight20 u-marginLeft10 u-marginTop10">
@@ -143,7 +143,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <br><br>
           </div>
 
