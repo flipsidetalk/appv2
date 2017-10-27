@@ -149,8 +149,7 @@
           </div>
 
 
-          <div class="col-sm-offset-2 col-sm-8">
-            <!--BEGIN MAPCOMP-->
+          <!-- <div class="col-sm-offset-2 col-sm-8">
             <div id="mapcompAnchor" v-if="mapcomp.bubbleData.length > 2">
               <div v-if="textcomp.voteCounter > 4">
                 <button type="button" name="button" class="u-greenBackgroundButtonFill keyButtons" onclick="location.reload()">See Yourself!</button>
@@ -165,9 +164,7 @@
                     <p class="u-paddingTop10 u-marginLeft10 u-fontSize25 grayFont u-marginTop0">The People's Opinion</p>
                   </div>
                   <map-comp :mapcomp="mapcomp"></map-comp>
-                  <!-- <div class="u-sizeFullWidth u-inlineBlock u-paddingBottom10 u-paddingLeft12 u-paddingRight12">
-                    <button type="button" name="button" class="u-floatRight keyButtons u-greenBackgroundButtonFill u-lighter u-fontSize14 u-marginTop10" v-on:click="textcomp.displayContributeCard = false, mapcomp.displayIndividual = false;">Vote</button>
-                  </div> -->
+
                   <transition name='slide-fade'>
                     <div v-if="mapcomp.displayIndividual">
                       <div class="u-inlineBlock">
@@ -210,7 +207,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
