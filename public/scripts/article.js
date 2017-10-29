@@ -8,8 +8,7 @@ $.ajax({
       data: {
         textcomp: response.textcomp,
         mapcomp: response.mapcomp,
-        user: response.user,
-        pagetitle: response.pagetitle
+        user: response.user
       }
     });
   },

@@ -123,9 +123,19 @@ require('./auth.js')(app, connection, db);
 /* Get article page
  */
 app.get('/', function(req, res) {
-
-  res.render('article');
-
+  db.article.findOne({
+    where: {
+      slug: CURRENT_SLUG
+    },
+    include: [{
+      model: db.title
+    }]
+  })
+  .then(data => {
+    res.render('article', {
+      title: 'Flipside - ' + data.title.title
+    });
+  });
 });
 
 app.post('/getArticleData', function(req, res) {
@@ -420,7 +430,6 @@ app.post('/getArticleData', function(req, res) {
               data.mapcomp.bubbleData = JSON.parse(results.viz[0].data);
               data.textcomp.bubbleData = JSON.parse(results.viz[0].data);
             }
-            data.pagetitle = 'Flipside - ' + results.article.title.title;
             data.user = req.user;
             res.send(data);
           }
