@@ -10,6 +10,7 @@ $.ajax({
         user: response.user
       },
       mounted: function() {
+        this.fetchSentenceData(this.textcomp)
         jQueryFunctions();
       },
       methods: {
@@ -242,7 +243,7 @@ $.ajax({
           }
 
 
-          textcomp.lastReferenced = textcomp.arrayEveryone[textcomp.displayCounter].sentenceId;
+          // textcomp.lastReferenced = textcomp.arrayEveryone[textcomp.displayCounter].sentenceId;
 
 
         },

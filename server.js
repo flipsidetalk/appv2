@@ -307,63 +307,63 @@ app.post('/getArticleData', function(req, res) {
               });
             }
           },
-          viz: function(callback) {
-            db.article.findOne({
-              where: {
-                slug: slug
-              },
-              attributes: ['id']
-            }).then(data => {
-              const id = data.dataValues.id;
-              db.viz.findAll({
-                limit: 1,
-                order: [[ 'createdAt', 'DESC' ]],
-                where: {
-                  articleId: id
-                }
-              }).then(viz => {
-                if (viz && viz[0]) {
-                    // console.log("\n\n\n\n\n\n FOUND VIZ IN TABLE \n\n\n");
-                    // console.log(JSON.stringify(viz));
-                    callback(null, viz);
-                } else {
-                    // console.log('THEN REACHED HERE');
-                    //If there is no viz for the article, we need dummy votes
-                    //Need all the mainClaim sentenceIds to initialize votes
-                    db.sentence.findAll({
-                      where: {
-                        articleId: id
-                      },
-                      attributes: ['id', 'mainClaim']
-                    }).then(response => {
-                      // console.log('GETTING SENTENCES')
-                      // console.log(response)
-                      //Create Dummy Votes and insert into db
-                      var votes = utils.initRandomVotes(db, response, NUM_FAKE_USERS, INIT_SPLIT);
-                      // console.log('\n\n\n\n\nGOT RANDOM VOTES!')
-                      db.vote.bulkCreate(votes).then(() => {
-                          // console.log('UPDATING STATE');
-                          //Get new Viz State based on new votes
-                          utils.updateVizState(db, res, id, sequelize);
-                      }).then(() => {
-                        //Get that viz state
-                        db.viz.findAll({
-                          limit: 1,
-                          order: [[ 'createdAt', 'DESC' ]],
-                          where: {
-                            articleId: id
-                          }
-                        }).then(viz => {
-                          //Same as if we already had a viz
-                          callback(null, viz);
-                        });
-
-                      });
-                    });
-                  };
-                })
-               })
-             },
+          // viz: function(callback) {
+          //   db.article.findOne({
+          //     where: {
+          //       slug: slug
+          //     },
+          //     attributes: ['id']
+          //   }).then(data => {
+          //     const id = data.dataValues.id;
+          //     db.viz.findAll({
+          //       limit: 1,
+          //       order: [[ 'createdAt', 'DESC' ]],
+          //       where: {
+          //         articleId: id
+          //       }
+          //     }).then(viz => {
+          //       if (viz && viz[0]) {
+          //           // console.log("\n\n\n\n\n\n FOUND VIZ IN TABLE \n\n\n");
+          //           // console.log(JSON.stringify(viz));
+          //           callback(null, viz);
+          //       } else {
+          //           // console.log('THEN REACHED HERE');
+          //           //If there is no viz for the article, we need dummy votes
+          //           //Need all the mainClaim sentenceIds to initialize votes
+          //           db.sentence.findAll({
+          //             where: {
+          //               articleId: id
+          //             },
+          //             attributes: ['id', 'mainClaim']
+          //           }).then(response => {
+          //             // console.log('GETTING SENTENCES')
+          //             // console.log(response)
+          //             //Create Dummy Votes and insert into db
+          //             var votes = utils.initRandomVotes(db, response, NUM_FAKE_USERS, INIT_SPLIT);
+          //             // console.log('\n\n\n\n\nGOT RANDOM VOTES!')
+          //             db.vote.bulkCreate(votes).then(() => {
+          //                 // console.log('UPDATING STATE');
+          //                 //Get new Viz State based on new votes
+          //                 utils.updateVizState(db, res, id, sequelize);
+          //             }).then(() => {
+          //               //Get that viz state
+          //               db.viz.findAll({
+          //                 limit: 1,
+          //                 order: [[ 'createdAt', 'DESC' ]],
+          //                 where: {
+          //                   articleId: id
+          //                 }
+          //               }).then(viz => {
+          //                 //Same as if we already had a viz
+          //                 callback(null, viz);
+          //               });
+          //
+          //             });
+          //           });
+          //         };
+          //       })
+          //      })
+          //    },
           article: function(callback) {
             db.article.findOne({
               include: [{
@@ -426,10 +426,10 @@ app.post('/getArticleData', function(req, res) {
             data.textcomp.article = results.article;
             data.textcomp.commentData = results.comments;
             // console.log("COMMENTS: " + JSON.stringify(results.comments));
-            if (results.viz && results.viz[0]) {
-              data.mapcomp.bubbleData = JSON.parse(results.viz[0].data);
-              data.textcomp.bubbleData = JSON.parse(results.viz[0].data);
-            }
+            // if (results.viz && results.viz[0]) {
+            //   data.mapcomp.bubbleData = JSON.parse(results.viz[0].data);
+            //   data.textcomp.bubbleData = JSON.parse(results.viz[0].data);
+            // }
             data.user = req.user;
             res.send(data);
           }
