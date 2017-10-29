@@ -36,8 +36,7 @@ const vueOptions = {
   }
 };
 
-const expressVueMiddleware = expressVue.init(vueOptions);
-app.use(expressVueMiddleware);
+app.use(express.static(path.join(__dirname, 'public')));
 
 /* Set up database connection
  */
@@ -100,6 +99,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, 'assets')));
 // Serves favicon
 app.use('/favicon.ico', express.static('favicon.ico'));
+app.set('view engine', 'ejs');
 
 
 /* Set up rate limiting
@@ -124,8 +124,11 @@ require('./auth.js')(app, connection, db);
  */
 app.get('/', function(req, res) {
 
-  //SET ARTICLE TO DRAW FRONT PAGE FROM
+  res.render('article');
 
+});
+
+app.post('/getArticleData', function(req, res) {
   const slug = CURRENT_SLUG;
   db.article.count({
       where: {
@@ -417,12 +420,13 @@ app.get('/', function(req, res) {
               data.mapcomp.bubbleData = JSON.parse(results.viz[0].data);
               data.textcomp.bubbleData = JSON.parse(results.viz[0].data);
             }
-            data.pageTitle = 'Flipside - ' + results.article.title.title;
-            res.renderVue('article', data, utils.vue(data.pageTitle));
+            data.pagetitle = 'Flipside - ' + results.article.title.title;
+            data.user = req.user;
+            res.send(data);
           }
         });
     });
-});
+})
 
 
 app.post('/submitResponse', function(req, res) {
