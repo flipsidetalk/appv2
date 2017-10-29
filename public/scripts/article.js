@@ -764,8 +764,8 @@ function jQueryFunctions() {
       addBorder(e.target.id, mapcomp);
     }
     if ((e.target.className != "regularText") || (e.target.className != "highlightedText") || (e.target.id != "highlightedText")) {
-      textcomp.tooldisplay = 'none';
-      textcomp.talkdisplay = 'none';
+      storyContent.textcomp.tooldisplay = 'none';
+      storyContent.textcomp.talkdisplay = 'none';
     }
   });
 }
