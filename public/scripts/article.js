@@ -2,6 +2,7 @@ $.ajax({
   type: 'POST',
   url: '/getArticleData',
   success: function(response) {
+    console.log(JSON.stringify(response.textcomp.commentData));
     storyContent = new Vue({
       el: "#root",
       data: {
