@@ -36,8 +36,7 @@ const vueOptions = {
   }
 };
 
-const expressVueMiddleware = expressVue.init(vueOptions);
-app.use(expressVueMiddleware);
+app.use(express.static(path.join(__dirname, 'public')));
 
 /* Set up database connection
  */
@@ -100,6 +99,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(path.join(__dirname, 'assets')));
 // Serves favicon
 app.use('/favicon.ico', express.static('favicon.ico'));
+app.set('view engine', 'ejs');
 
 
 /* Set up rate limiting
@@ -123,9 +123,22 @@ require('./auth.js')(app, connection, db);
 /* Get article page
  */
 app.get('/', function(req, res) {
+  db.article.findOne({
+    where: {
+      slug: CURRENT_SLUG
+    },
+    include: [{
+      model: db.title
+    }]
+  })
+  .then(data => {
+    res.render('article', {
+      title: 'Flipside - ' + data.title.title
+    });
+  });
+});
 
-  //SET ARTICLE TO DRAW FRONT PAGE FROM
-
+app.post('/getArticleData', function(req, res) {
   const slug = CURRENT_SLUG;
   db.article.count({
       where: {
@@ -277,23 +290,23 @@ app.get('/', function(req, res) {
        * then render the page.
        */
       async.parallel({
-          // hasUserVoted: function(callback) {
-          //   if (req.user == undefined) {
-          //     callback(null, false)
-          //   } else {
-          //     db.vote.count({
-          //       where: {
-          //         'userId': req.user[Object.keys(req.user)[0]]
-          //       }
-          //     }).then(numVotes => {
-          //       var alreadyVoted = false;
-          //       if (numVotes > 0) {
-          //         alreadyVoted = true;
-          //       }
-          //       callback(null, alreadyVoted)
-          //     });
-          //   }
-          // },
+          hasUserVoted: function(callback) {
+            if (req.user == undefined) {
+              callback(null, false)
+            } else {
+              db.vote.count({
+                where: {
+                  'userId': req.user[Object.keys(req.user)[0]]
+                }
+              }).then(numVotes => {
+                var alreadyVoted = false;
+                if (numVotes > 0) {
+                  alreadyVoted = true;
+                }
+                callback(null, alreadyVoted)
+              });
+            }
+          },
           // viz: function(callback) {
           //   db.article.findOne({
           //     where: {
@@ -384,26 +397,26 @@ app.get('/', function(req, res) {
               callback(null, article.dataValues);
             });
           },
-          // comments: function(callback) {
-          //   db.article.findOne({
-          //     where: {
-          //       slug: slug
-          //     },
-          //     attributes: ['id']
-          //   }).then(response => {
-          //     const id = response.dataValues.id;
-          //     sequelize.query('SELECT `response`.`id`, `response`.`statement`, `response`.`sentenceId`, `local`.`firstname` AS `lcfn`, `vote`.`reaction` AS `reaction`, `facebook`.`firstname` AS `fbfn` FROM `responses` AS `response` INNER JOIN `sentences` AS `sentence` ON `response`.`sentenceId` = `sentence`.`id` AND `sentence`.`articleId` = ' + id + ' INNER JOIN `votes` AS `vote` ON `response`.`voteId` = `vote`.`id` LEFT JOIN `local` ON `vote`.`userId` = `local`.`id` LEFT JOIN `facebook` ON `vote`.`userId` = `facebook`.`id`')
-          //     .then(comments => {
-          //       comments = comments[0];
-          //       for (var i in comments) {
-          //         comments[i].firstname = comments[i].lcfn ? comments[i].lcfn : comments[i].fbfn;
-          //         comments[i].lcfn = undefined;
-          //         comments[i].fbfn = undefined;
-          //       }
-          //       callback(null, comments);
-          //     });
-          //   });
-          // }
+          comments: function(callback) {
+            db.article.findOne({
+              where: {
+                slug: slug
+              },
+              attributes: ['id']
+            }).then(response => {
+              const id = response.dataValues.id;
+              sequelize.query('SELECT `response`.`id`, `response`.`statement`, `response`.`sentenceId`, `local`.`firstname` AS `lcfn`, `vote`.`reaction` AS `reaction`, `facebook`.`firstname` AS `fbfn` FROM `responses` AS `response` INNER JOIN `sentences` AS `sentence` ON `response`.`sentenceId` = `sentence`.`id` AND `sentence`.`articleId` = ' + id + ' INNER JOIN `votes` AS `vote` ON `response`.`voteId` = `vote`.`id` LEFT JOIN `local` ON `vote`.`userId` = `local`.`id` LEFT JOIN `facebook` ON `vote`.`userId` = `facebook`.`id`')
+              .then(comments => {
+                comments = comments[0];
+                for (var i in comments) {
+                  comments[i].firstname = comments[i].lcfn ? comments[i].lcfn : comments[i].fbfn;
+                  comments[i].lcfn = undefined;
+                  comments[i].fbfn = undefined;
+                }
+                callback(null, comments);
+              });
+            });
+          }
         },
         function(err, results) {
           if (err) {
@@ -413,16 +426,16 @@ app.get('/', function(req, res) {
             data.textcomp.article = results.article;
             data.textcomp.commentData = results.comments;
             // console.log("COMMENTS: " + JSON.stringify(results.comments));
-            if (results.viz && results.viz[0]) {
-              data.mapcomp.bubbleData = JSON.parse(results.viz[0].data);
-              data.textcomp.bubbleData = JSON.parse(results.viz[0].data);
-            }
-            data.pageTitle = 'Flipside - ' + results.article.title.title;
-            res.renderVue('article', data, utils.vue(data.pageTitle));
+            // if (results.viz && results.viz[0]) {
+            //   data.mapcomp.bubbleData = JSON.parse(results.viz[0].data);
+            //   data.textcomp.bubbleData = JSON.parse(results.viz[0].data);
+            // }
+            data.user = req.user;
+            res.send(data);
           }
         });
     });
-});
+})
 
 
 app.post('/submitResponse', function(req, res) {

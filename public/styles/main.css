@@ -16,6 +16,10 @@ body {
   background-color: 'white';
 }
 
+[v-cloak] {
+  display: none;
+}
+
 .container {
   margin-left: 0;
   margin-right: 0;
