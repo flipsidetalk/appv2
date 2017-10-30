@@ -1,8 +1,4 @@
-/* EXAMPLE DATA - remove before deployment
- */
-var totalClusterInfo = {"clusterData":[[{"average":0.5,"cluster":0,"sentenceId":"a4s55","phrase":"in moderate agreement"},{"average":-0.3333333333333333,"cluster":0,"sentenceId":"a4s32","phrase":"in moderate disagreement"},{"average":0.5,"cluster":0,"sentenceId":"a1s55","phrase":"in moderate agreement"},{"average":0.8333333333333334,"cluster":0,"sentenceId":"a1s21","phrase":"in strong agreement"},{"average":-0.6666666666666666,"cluster":0,"sentenceId":"a3s15","phrase":"in moderate disagreement"}],[{"average":0,"cluster":1,"sentenceId":"a4s55","phrase":"neutral"},{"average":0,"cluster":1,"sentenceId":"a4s41","phrase":"neutral"},{"average":0,"cluster":1,"sentenceId":"a4s40","phrase":"neutral"},{"average":-0.3333333333333333,"cluster":1,"sentenceId":"a4s27","phrase":"in moderate disagreement"},{"average":0,"cluster":1,"sentenceId":"a4s25","phrase":"neutral"}],[{"average":-0.5,"cluster":2,"sentenceId":"a4s40","phrase":"in moderate disagreement"},{"average":0,"cluster":2,"sentenceId":"a4s27","phrase":"neutral"},{"average":0.25,"cluster":2,"sentenceId":"a4s25","phrase":"in weak agreement"},{"average":0.5,"cluster":2,"sentenceId":"a2s45","phrase":"in moderate agreement"},{"average":0.75,"cluster":2,"sentenceId":"a1s55","phrase":"in strong agreement"}],[{"average":0.25,"cluster":3,"sentenceId":"a4s32","phrase":"in weak agreement"},{"average":0.5,"cluster":3,"sentenceId":"a1s46","phrase":"in moderate agreement"},{"average":0,"cluster":3,"sentenceId":"a1s34","phrase":"neutral"},{"average":-0.25,"cluster":3,"sentenceId":"a1s30","phrase":"in weak disagreement"},{"average":0,"cluster":3,"sentenceId":"a2s18","phrase":"neutral"}]],"extremes":{"yMin":-0.5012789990723624,"xMax":0.5867170129561489,"yMax":0.6841756039985455,"xMin":-0.5220715562703917},"shadeData":[{"cluster":0,"shading":[{"y":-0.1441421105282525,"x":-0.5220715562703917},{"y":-0.3697823555483827,"x":-0.3766614228917927},{"y":-0.3953096049895108,"x":-0.12005938615550224},{"y":-0.2500216908572623,"x":-0.19442428732302652},{"y":0.045556306514005454,"x":-0.3882689819854707},{"y":-0.1441421105282525,"x":-0.5220715562703917}]},{"cluster":1,"shading":[{"y":0.22887569035367122,"x":0.24799967672484496},{"y":0.2593934194553389,"x":0.5867170129561489},{"y":0.33226473195538775,"x":0.3354831091704648},{"y":0.22887569035367122,"x":0.24799967672484496}]},{"cluster":2,"shading":[{"y":0.6841756039985455,"x":-0.3103266877591186},{"y":0.32988976884712085,"x":-0.28141153088113113},{"y":0.2665928548468992,"x":0.035207394017766964},{"y":0.4638843614074746,"x":0.04934027944001254},{"y":0.6841756039985455,"x":-0.3103266877591186}]},{"cluster":3,"shading":[{"y":-0.5012789990723624,"x":0.10166015405304253},{"y":-0.2212672948474511,"x":0.4808719541213589},{"y":-0.09383151087806305,"x":0.3355301552296104},{"y":-0.5012789990723624,"x":0.10166015405304253}]}],"pointData":{"31":{"y":0.2665928548468992,"cluster":2,"x":0.035207394017766964},"34":{"y":0.33226473195538775,"cluster":1,"x":0.3354831091704648},"37":{"y":0.32988976884712085,"cluster":2,"x":-0.28141153088113113},"38":{"y":-0.3953096049895108,"cluster":0,"x":-0.12005938615550224},"39":{"y":-0.2212672948474511,"cluster":3,"x":0.4808719541213589},"40":{"y":-0.5012789990723624,"cluster":3,"x":0.10166015405304253},"41":{"y":0.22887569035367122,"cluster":1,"x":0.24799967672484496},"42":{"y":-0.1441421105282525,"cluster":0,"x":-0.5220715562703917},"43":{"y":0.045556306514005454,"cluster":0,"x":-0.3882689819854707},"44":{"y":-0.3697823555483827,"cluster":0,"x":-0.3766614228917927},"45":{"y":-0.2500216908572623,"cluster":0,"x":-0.19442428732302652},"46":{"y":-0.3658393553041467,"cluster":3,"x":0.2738754177444379},"47":{"y":0.6841756039985455,"cluster":2,"x":-0.3103266877591186},"50":{"y":0.4638843614074746,"cluster":2,"x":0.04934027944001254},"51":{"y":0.2593934194553389,"cluster":1,"x":0.5867170129561489},"10213370026154390":{"y":-0.05534779385182953,"cluster":0,"x":-0.3286277542054012},"10209787576116056":{"y":-0.09383151087806305,"cluster":3,"x":0.3355301552296104}}};
-/* Constants and import statements
- */
+/* Constants and import statements */
 const PYTHON_SERVER_URL = 'http://54.236.205.41:80/';
 const CURRENT_SLUG = 'the-false-hope-of-graduate-student-unions'
 const CURRENT_ID = 68;
@@ -45,16 +41,16 @@ var dbconfig;
 try {
   dbconfig = require('opsworks'); // RDS prod connection data
 } catch (err) {
-    dbconfig = {
-      db: {
-        'host': 'test.chsdfl7vaehp.us-east-1.rds.amazonaws.com',
-        'username': 'testuser',
-        'password': 'testUser',
-        'port': 3306,
-        'database': 'test'
-      }
+  dbconfig = {
+    db: {
+      'host': 'test.chsdfl7vaehp.us-east-1.rds.amazonaws.com',
+      'username': 'testuser',
+      'password': 'testUser',
+      'port': 3306,
+      'database': 'test'
     }
   }
+}
 
 // Connect to the database instance
 var connection = mysql.createConnection({
@@ -106,7 +102,7 @@ app.set('view engine', 'ejs');
  */
 app.enable('trust proxy');
 const apiLimiter = new rateLimit({
-  windowMs: 15*60*1000, // 15 minutes
+  windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100,
   delayMs: 0 // No delaying
 });
@@ -124,20 +120,19 @@ require('./auth.js')(app, connection, db);
  */
 app.get('/', function(req, res) {
   db.article.findOne({
-    where: {
-      slug: CURRENT_SLUG
-    },
-    include: [{
-      model: db.title
-    }]
-  })
-  .then(data => {
-    res.render('article', {
-      title: 'Flipside - ' + data.title.title
+      where: {
+        slug: CURRENT_SLUG
+      },
+      include: [{
+        model: db.title
+      }]
+    })
+    .then(data => {
+      res.render('article', {
+        title: 'Flipside - ' + data.title.title
+      });
     });
-  });
 });
-
 app.post('/getArticleData', function(req, res) {
   const slug = CURRENT_SLUG;
   db.article.count({
@@ -437,7 +432,6 @@ app.post('/getArticleData', function(req, res) {
     });
 })
 
-
 app.post('/submitResponse', function(req, res) {
   db.sentence.findOne({
     where: {
@@ -483,7 +477,7 @@ app.post('/submitLink', function(req, res) {
     }).then(article => {
       if (article != null) {
         // Article exists in the database, so serve that page.
-        res.send('/article/' + JSON.stringify(article.slug).slice(1,-1));
+        res.send('/article/' + JSON.stringify(article.slug).slice(1, -1));
       } else {
         // Article does not exist, so make a call to the article parser server
         // and show the user a loading screen.
@@ -505,36 +499,36 @@ app.post('/submitLink', function(req, res) {
               where: {
                 url: link
               }
-              }).then(result => {
-                if (result == null) {
-                  db.article.create(body, {
+            }).then(result => {
+              if (result == null) {
+                db.article.create(body, {
+                  include: [{
+                    model: db.title
+                  }, {
+                    model: db.author
+                  }, {
+                    model: db.publication
+                  }, {
+                    model: db.publicationDate
+                  }, {
+                    model: db.image
+                  }, {
+                    model: db.sentence
+                  }, {
+                    model: db.tag,
                     include: [{
-                      model: db.title
-                    }, {
-                      model: db.author
-                    }, {
-                      model: db.publication
-                    }, {
-                      model: db.publicationDate
-                    }, {
-                      model: db.image
-                    }, {
-                      model: db.sentence
-                    }, {
-                      model: db.tag,
-                      include: [{
-                        model: db.rdftype
-                      }]
-                    }, {
-                      model: db.originalText
+                      model: db.rdftype
                     }]
-                  }).then(() => {
-                    res.send('/article/' + slug);
-                  });
-                } else {
+                  }, {
+                    model: db.originalText
+                  }]
+                }).then(() => {
                   res.send('/article/' + slug);
-                }
-              });
+                });
+              } else {
+                res.send('/article/' + slug);
+              }
+            });
           } else {
             res.send('invalid_url');
           }
