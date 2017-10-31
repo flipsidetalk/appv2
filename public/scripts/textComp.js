@@ -1,7 +1,6 @@
 var mixin = {
   methods: {
     showTool: function(sentenceId, seenvalue, textcomp){
-      console.log(textcomp.article.sentences)
       textcomp.hasUserSeenHelper = true;
       /** setting the sentence at hand**/
       //$("#tooltip").show();
@@ -78,7 +77,6 @@ var mixin = {
       this.postResponse(textcomp.whyResponse.input, textcomp.whyResponse.sentenceId);
 
       textcomp.showUserResponse = 'block';
-      console.log(textcomp.lastUserResponse);
       textcomp.whyResponse = {
         sentenceId: "",
         input: "",
@@ -149,7 +147,6 @@ var mixin = {
       textcomp.displayDisagreeComments = [];
       textcomp.displayUnsureComments = [];
 
-      //console.log('commentData:' + JSON.stringify(textcomp.commentData));
 
       for (var comment of textcomp.commentData) {
         if (comment.sentenceId == placeholderId &&comment.statement.length > 2) {
@@ -185,6 +182,7 @@ var mixin = {
       //mapcomp.showVotePercents = 'none';
       //mapcomp.displayEveryone = 'block';
       //mapcomp.displayIndividual = 'none';
+      console.log("fetchSentencedATA textcompjs");
       textcomp.arrayEveryone = [];
 
       for (var m in textcomp.article.sentences) {
@@ -196,13 +194,11 @@ var mixin = {
           textcomp.eachEveryone.agree = '';
           textcomp.eachEveryone.unsure = '';
           textcomp.eachEveryone.disagree = '';
-          console.log(sentenceObject.id)
           textcomp.eachEveryone.sentenceId = sentenceObject.id;
 
 
           for (var cluster of textcomp.bubbleData) {
             if (cluster.group == 0) {
-              console.log("test test")
 
               for (var s of cluster.sentences) {
                 if(s.sentenceId == sentenceObject.id){
@@ -227,11 +223,7 @@ var mixin = {
 
         }
       }
-
-
       textcomp.lastReferenced = textcomp.arrayEveryone[textcomp.displayCounter].sentenceId;
-
-
     }
 
   },

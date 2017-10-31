@@ -2,7 +2,6 @@ $.ajax({
   type: 'POST',
   url: '/getArticleData',
   success: function(response) {
-    console.log(JSON.stringify(response.textcomp.commentData));
     storyContent = new Vue({
       el: "#root",
       data: {
@@ -13,10 +12,10 @@ $.ajax({
       mounted: function() {
         this.fetchSentenceData(this.textcomp)
         jQueryFunctions();
+
       },
       methods: {
         showTool: function(sentenceId, seenvalue, textcomp) {
-          console.log(textcomp.article.sentences)
           textcomp.hasUserSeenHelper = true;
           /** setting the sentence at hand**/
           //$("#tooltip").show();
@@ -93,7 +92,6 @@ $.ajax({
           this.postResponse(textcomp.whyResponse.input, textcomp.whyResponse.sentenceId);
 
           textcomp.showUserResponse = 'block';
-          console.log(textcomp.lastUserResponse);
           textcomp.whyResponse = {
             sentenceId: "",
             input: "",
@@ -164,7 +162,6 @@ $.ajax({
           textcomp.displayDisagreeComments = [];
           textcomp.displayUnsureComments = [];
 
-          //console.log('commentData:' + JSON.stringify(textcomp.commentData));
 
           for (var comment of textcomp.commentData) {
             if (comment.sentenceId == placeholderId && comment.statement.length > 2) {
@@ -198,6 +195,7 @@ $.ajax({
           //mapcomp.showVotePercents = 'none';
           //mapcomp.displayEveryone = 'block';
           //mapcomp.displayIndividual = 'none';
+
           textcomp.arrayEveryone = [];
 
           for (var m in textcomp.article.sentences) {
@@ -209,13 +207,13 @@ $.ajax({
               textcomp.eachEveryone.agree = '';
               textcomp.eachEveryone.unsure = '';
               textcomp.eachEveryone.disagree = '';
-              console.log(sentenceObject.id)
               textcomp.eachEveryone.sentenceId = sentenceObject.id;
+
 
 
               for (var cluster of textcomp.bubbleData) {
                 if (cluster.group == 0) {
-                  console.log("test test")
+
 
                   for (var s of cluster.sentences) {
                     if (s.sentenceId == sentenceObject.id) {
@@ -248,7 +246,6 @@ $.ajax({
         },
         fetchClaims: function(groupId, textcomp, mapcomp) {
 
-          console.log('groupId', groupId)
           //mapcomp.displayEveryone = 'none';
           mapcomp.displayIndividual = true;
           //identify the id's for the sentences
@@ -280,8 +277,7 @@ $.ajax({
                 for (var s = 0; s < 2; s++) {
                   var tempId = m.sentences[s].sentenceId
                   mapcomp.eachClaim.sentenceId = m.sentences[s].sentenceId;
-                  // console.log(tempId)
-                  // console.log(textcomp.article.sentences[tempId])
+
                   mapcomp.eachClaim.text = JSON.stringify(textcomp.article.sentences[tempId].text);
                   if (m.sentences[s].average > 0) {
                     //value is positive
@@ -315,6 +311,7 @@ $.ajax({
           mapcomp.showVotePercents = 'none';
           mapcomp.displayEveryone = 'block';
           //mapcomp.displayIndividual = 'none';
+
           mapcomp.arrayEveryone = [];
 
           for (var m in textcomp.article.sentences) {
@@ -382,7 +379,6 @@ $.ajax({
 
           //$('#'+groupId).attr('fill', 'url(#group'+groupId+')');
 
-          //console.log(groupId);
 
         },
 
@@ -434,7 +430,6 @@ $.ajax({
           this.postResponse(textcomp.whyResponse.input, textcomp.whyResponse.sentenceId);
 
 
-          // console.log(textcomp.lastUserResponse);
           textcomp.whyResponse = {
             sentenceId: "",
             input: "",
@@ -603,7 +598,6 @@ $.ajax({
                 simulation.nodes(bubbleData)
                   .on("tick", ticked)
 
-                console.log("hello hello")
 
                 function ticked() {
                   circles
@@ -624,7 +618,7 @@ $.ajax({
                 for (var i = 0; i < bubbleData.length; i++) {
                   for (var m = 0; m < bubbleData[i]['users'].length; m++) {
                     if (bubbleData[i]['users'][m] == userId) {
-                      console.log("USER IS GROUPED!")
+                      console.log("USER IS GROUPED!");
                       groupWithUser = bubbleData[i]['group'];
                       $("#" + groupWithUser).attr("fill", "url(#group1)");
                       $("#thinkingEmoji").attr("visibility", "hidden");
@@ -645,9 +639,6 @@ $.ajax({
           textcomp.displayAgreeComments = [];
           textcomp.displayDisagreeComments = [];
           textcomp.displayUnsureComments = [];
-
-          //console.log('commentData:' + JSON.stringify(textcomp.commentData));
-
           for (var comment of textcomp.commentData) {
             if (comment.sentenceId == placeholderId && comment.statement.length > 2) {
               //append it to object

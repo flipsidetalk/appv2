@@ -15,7 +15,7 @@
 
             <span class="u-sizeFullWidth u-inlineBlock">
               <span class="u-floatRight u-paddingTop10">
-                <span v-if="textcomp.user == undefined">
+                <!-- <span v-if="textcomp.user == undefined">
                   <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse greenButtonInverse u-marginLeft10">
                     <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newGreen">Agree</span>
                   </span>
@@ -26,7 +26,7 @@
                     <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton newGray">Unsure</span>
                   </span>
                 </span>
-                <span v-else>
+                <span v-else> -->
                   <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(1, 2, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse greenButtonInverse u-marginLeft10">
                     <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newGreen">Agree</span>
                   </span>
@@ -36,7 +36,7 @@
                   <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(0, 4, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse grayButtonInverse u-marginLeft10">
                     <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton newGray">Unsure</span>
                   </span>
-                </span>
+                <!-- </span> -->
               </span>
             </span>
 
