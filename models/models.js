@@ -200,6 +200,9 @@ module.exports.init = function(sequelize, Sequelize) {
   const SentenceFeedback = sequelize.define('sentenceFeedback', {
     response: {
       type: Sequelize.INTEGER
+    },
+    userId: {
+      type: Sequelize.STRING
     }
   });
   SentenceFeedback.belongsTo(Sentence);
