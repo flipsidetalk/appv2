@@ -197,5 +197,13 @@ module.exports.init = function(sequelize, Sequelize) {
   Viz.belongsTo(Article);
   tables.viz = Viz;
 
+  const SentenceFeedback = sequelize.define('sentenceFeedback', {
+    response: {
+      type: Sequelize.INTEGER
+    }
+  });
+  SentenceFeedback.belongsTo(Sentence);
+  tables.sentenceFeedback = SentenceFeedback;
+
   return tables;
 }
