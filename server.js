@@ -662,6 +662,18 @@ app.post('/numVotesCast', function(req, res) {
   });
 });
 
+app.post('/sentenceFeedback', function(req, res) {
+  let user = req.user ? req.user.id : req.sessionID;
+  utils.upsert(db.sentenceFeedback, {
+    sentenceId: req.body.sentenceId,
+    response: req.body.response
+  }, {
+    userId: user
+  }).then(response => {
+    res.send(response);
+  });
+});
+
 app.get('/terms', function(req, res) {
   res.render('legal/terms/index');
 });

@@ -749,6 +749,26 @@ function jQueryFunctions() {
     }
   });
 
+  $('#sentence-feedback-btn').click(function(e) {
+    e.preventDefault();
+    // TODO: get setenceId and response
+    let data = {
+      sentenceId: 0,
+      response: 0
+    };
+    $.ajax({
+      type: 'POST',
+      url: '/sentenceFeedback',
+      data: data,
+      success: function() {
+        // console.log("success: " + data);
+      },
+      error: function() {
+        // console.log("error: " + data);
+      }
+    });
+  });
+
   $(document).mouseup(function(e) {
     if ($(e.target).is('circle')) {
       fetchClaims(e.target.id, textcomp, mapcomp);
