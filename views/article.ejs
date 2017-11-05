@@ -251,7 +251,7 @@
 
 
                     <transition name="slide-fade">
-                      <div v-if="textcomp.lastReferenced == mindex" class="u-paddingLeft20 u-paddingRight20 montserratLight">
+                      <div v-if="textcomp.lastReferenced == mindex && textcomp.justVoted" class="u-paddingLeft20 u-paddingRight20 montserratLight">
                         <div>
                           <h4 class="u-lighter"> I
                             <span v-if="textcomp.lastVoteValue == 0">
@@ -592,9 +592,11 @@ disagree because...
         <button id="sentence-feedback-btn" type="button" name="button" class="btn btn-default" v-on:click="submitFeedback(textcomp)">
           Let us know if this isn't a main claim
         </button>
+        <transition name="slide-slow">
         <div v-bind:style="{display: textcomp.showThankYou}" class="u-sizeFullWidth u-paddingTop10 u-paddingBottom10">
           <h4>Thanks for your feedback!</h4>
         </div>
+      </transition>
       </div>
       <!-- End # Login Form -->
     </div>

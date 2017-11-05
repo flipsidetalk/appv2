@@ -158,11 +158,16 @@ $.ajax({
         openFeedbackForm: function(sentenceId, textcomp){
           textcomp.lastReferenced = sentenceId;
           textcomp.showThankYou = 'none';
+          textcomp.justVoted = false;
         },
 
         submitFeedback: function(textcomp) {
           textcomp.showThankYou = 'block';
           this.postFeedback(textcomp.lastReferenced, 1);
+          //$('#feedback-modal').delay(100000).modal('hide');
+          setTimeout(function(){
+            $('#feedback-modal').modal('hide');
+          }, 800);
         },
 
         postFeedback: function(sentenceId, response){
@@ -181,7 +186,6 @@ $.ajax({
               // console.log("error: " + data);
             }
           });
-          $('#feedback-modal').delay(10000).modal('hide');
         },
 
         fetchComments: function(textcomp) {
@@ -213,6 +217,7 @@ $.ajax({
             }
           }
 
+          textcomp.justVoted = true;
           console.log("agree comments" + JSON.stringify(textcomp.displayAgreeComments));
           console.log("disagree comments" + JSON.stringify(textcomp.displayDisagreeComments));
 

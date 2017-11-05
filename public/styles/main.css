@@ -784,6 +784,18 @@ input:checked+label {
   opacity: 0;
 }
 
+.slide-slow-enter-active {
+  transition: all .9s ease;
+}
+.slide-slow-leave-active {
+  transition: all .9s ease;
+}
+.slide-slow-enter, .slide-slow-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateY(-10px);
+  opacity: 0;
+}
+
 /* TALKBOX
 -------------------------------------------------- */
 .talkModal .modal-backdrop {

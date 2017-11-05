@@ -150,7 +150,8 @@ app.post('/getArticleData', function(req, res) {
           user: req.user
         },
         textcomp: {
-          sendFeedback: 'none',
+          showThankYou: 'none',
+          justVoted: false,
           //commentData
           bubbleData: [],
           showAgreeComments: false,
