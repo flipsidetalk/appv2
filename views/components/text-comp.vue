@@ -17,24 +17,24 @@
               <span class="u-floatRight u-paddingTop10">
                 <!-- <span v-if="textcomp.user == undefined">
                   <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse greenButtonInverse u-marginLeft10">
-                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newGreen">Agree</span>
+                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock green-text">Agree</span>
                   </span>
                   <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse redButtonInverse u-marginLeft10">
-                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newRed">Disagree</span>
+                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock red-text">Disagree</span>
                   </span>
                   <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse grayButtonInverse u-marginLeft10">
-                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton newGray">Unsure</span>
+                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton gray-text">Unsure</span>
                   </span>
                 </span>
                 <span v-else> -->
                   <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(1, 2, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse greenButtonInverse u-marginLeft10">
-                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newGreen">Agree</span>
+                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock green-text">Agree</span>
                   </span>
                   <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(-1, 3, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse redButtonInverse u-marginLeft10">
-                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock newRed">Disagree</span>
+                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock red-text">Disagree</span>
                   </span>
                   <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(0, 4, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse grayButtonInverse u-marginLeft10">
-                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton newGray">Unsure</span>
+                    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton gray-text">Unsure</span>
                   </span>
                 <!-- </span> -->
               </span>

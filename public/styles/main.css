@@ -77,30 +77,6 @@ mark:hover {
   background-color: rgba(184, 139, 208, 0.4);
 }
 
-.u-purpleBackground {
-  background-color: rgba(131, 101, 158, 0.6)!important;
-}
-
-.u-redBackground {
-  background-color: rgba(235, 112, 107, 0.5)!important;
-}
-
-.u-greenBackground {
-  background-color: rgba(69, 196, 173, 0.5)!important;
-}
-
-.u-greenBackgroundButtonFill {
-  background-color: rgba(69, 196, 173, 1)!important;
-}
-
-.u-redBackgroundButton {
-  background-color: #E28181!important;
-}
-
-.u-greenBackgroundButton {
-  background-color: #00D1C1!important;
-}
-
 .u-width50 {
   width: 50%;
 }
@@ -265,28 +241,6 @@ circle:hover{
   font-size: 25px;
 }
 
-.u-fontSize25 {
-  font-size: 25px;
-}
-
-.u-fontSize45{
-  font-size: 45px;
-}
-
-.button {
-  height: 37px;
-  font-size: 14px;
-  vertical-align: middle;
-  font-weight: lighter;
-}
-
-.buttonset {
-  margin: 15px 5px 10px 10px;
-  display: inline-block;
-  white-space: nowrap;
-  vertical-align: top;
-}
-
 .u-lineHeightInherit {
   line-height: inherit;
 }
@@ -317,18 +271,6 @@ circle:hover{
 
 .u-overflowX {
   overflow-x: auto;
-}
-
-.u-fontSize14 {
-  font-size: 14px;
-}
-
-.u-fontSize12 {
-  font-size: 12px;
-}
-
-.u-fontSize11 {
-  font-size: 11px;
 }
 
 .u-paddingTop5 {
@@ -406,48 +348,12 @@ label {
   font-size: 1.5em!important;
 }
 
-.u-button {
-  cursor: pointer;
-  color: #ffffff;
-  padding: 3px 8px;
-  font-size: 14.5px;
-  /* background-color: rgba(131, 101, 158, 0.9); */
-  font-family: 'Montserrat', sans-serif!important;
-  font-weight: lighter!important;
-}
-
-.u-agreeButton:hover{
-  border-bottom: 1px solid;
-}
-
-.u-agreeButtons {
-  cursor: pointer;
-  color: #ffffff;
-  font-size: 15px;
-  /* background-color: rgba(131, 101, 158, 0.9); */
-  font-family: 'Montserrat', sans-serif!important;
-  font-weight: lighter!important;
-}
-
-.u-cardButtonText {
-  cursor: pointer;
-  color: white;
-  font-family: 'Montserrat', sans-serif!important;
-  font-size: 16px;
-  padding-top: 8px;
-}
-
-.u-unsureButtonsCard{
-  color: #6C6C6C!important;
-}
-
-.u-lastAgreeButton{
-  color: #6C6C6C!important;
-}
 .anchor{
-    position: relative;
-    padding-top: 150px;
+  position: relative;
+  padding-top: 150px;
 }
+
+
 @media(max-width:768px){
   .u-cardButtonText{
     cursor: pointer;
@@ -522,12 +428,59 @@ input:checked+label {
     font-size: 12px!important;
   }
 
-  .u-fontSize25{
-    font-size: 20px!important;
-  }
-
 
 }
+
+
+
+/*FONTS
+--------------------------------*/
+
+.georgia{
+  font-family: georgia, "Times New Roman", times, serif!important;
+  line-height: 1.6!important;
+  font-size: 16px!important;
+}
+
+.u-fontSize20 {
+  font-size: 20px;
+}
+
+.u-fontSize25 {
+  font-size: 25px;
+}
+
+.u-fontSize45{
+  font-size: 45px;
+}
+
+.u-fontSize14 {
+  font-size: 14px;
+}
+
+.u-fontSize12 {
+  font-size: 12px;
+}
+
+.u-fontSize11 {
+  font-size: 11px;
+}
+
+.u-fontSize25{
+  font-size: 20px!important;
+}
+
+.weight-lighter {
+  font-weight: lighter;
+  font-size: 16px!important;
+}
+
+.u-lighter {
+  font-weight: lighter;
+}
+
+
+
 
 /*landing page styles*/
 
@@ -536,9 +489,6 @@ input:checked+label {
   width: 100%;
 }
 
-.u-fontSize20 {
-  font-size: 20px;
-}
 
 .firstStory {
   width: 32%!important;
@@ -640,14 +590,6 @@ input:checked+label {
   border-bottom: 3px;
 }
 
-.weight-lighter {
-  font-weight: lighter;
-  font-size: 16px!important;
-}
-
-.u-lighter {
-  font-weight: lighter;
-}
 
 .form-error {
   display: none;
@@ -780,8 +722,8 @@ input:checked+label {
 }
 .slide-fade-enter, .slide-fade-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateY(-10px);
-  opacity: 0;
+transform: translateY(-10px);
+opacity: 0;
 }
 
 .slide-slow-enter-active {
@@ -792,8 +734,8 @@ input:checked+label {
 }
 .slide-slow-enter, .slide-slow-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {
-  transform: translateY(-10px);
-  opacity: 0;
+transform: translateY(-10px);
+opacity: 0;
 }
 
 /* TALKBOX
@@ -954,39 +896,6 @@ input:checked+label {
   cursor: pointer
 }
 
-.redButtonInverse{
-  color: #E28181;
-  border-color: #E28181;
-  border: 1px solid !important;
-}
-
-.greenButtonInverse{
-  color: #00D1C1;
-  border-color: #00d1c1;
-  border: 1px solid !important;
-}
-
-.grayButtonInverse{
-  color: #565a5c;
-  border-color: #565a5c;
-  border: 1px solid !important;
-}
-
-
-.newRed{
-  color: #E28181!important;
-}
-
-.newGreen{
-  color: #00D1C1!important;
-}
-
-.newGray{
-  color: #565a5c!important;
-}
-
-
-
 .seeMoreButton{
   -webkit-border-radius: 7;
   -moz-border-radius: 7;
@@ -1087,15 +996,6 @@ input:checked+label {
 }
 
 
-.agreeTeal{
-  color: rgba(0, 209, 193, 1);
-}
-
-.disagreeRed{
-  color: rgba(255, 90, 95, 1);
-}
-
-
 .grayBorderLB{
   border-width: 0px 0px 0px 3px;
   border-style: solid;
@@ -1116,9 +1016,9 @@ input:checked+label {
 }
 
 .BorderRadius7{
-    -webkit-border-radius: 4;
-    -moz-border-radius: 4;
-    border-radius: 7px;
+  -webkit-border-radius: 4;
+  -moz-border-radius: 4;
+  border-radius: 7px;
 }
 
 /* TOOLTIP
@@ -1190,10 +1090,6 @@ input:checked+label {
   border-bottom: 4.2px solid rgba(0, 151, 167, 0.4);
   transition: ease-out 0.1s;
   transition: ease-in 0.1s;
-}
-
-.grayFont{
-  color: rgba(42, 42, 42, 0.6);
 }
 
 /* THUMBNAIL STYLES
@@ -1299,6 +1195,10 @@ input:checked+label {
   position: relative;
 }
 
+.u-top5{
+  top: 5px;
+}
+
 .u-borderRadius2{
   border-radius: 2px !important;
 }
@@ -1377,10 +1277,6 @@ input:checked+label {
   }
 }
 
-.purpleBackground{
-  /*background-color: rgba(184, 139, 208); */
-  background-color: rgba(91, 59, 122, 0.71);
-}
 
 input{
   background: none;
@@ -1765,7 +1661,7 @@ blockquote cite:before {
 
 /* THEME COLORS
 -------------------------------------------------- */
-
+/*ITERATION ONE COLORS */
 .blue {
   background-color: #587A95
   /*background-color: #6287A4; */
@@ -1789,6 +1685,139 @@ blockquote cite:before {
 
 .white-text {
   color: #FFFFFF;
+}
+
+/*ITERATION 2 COLORS*/
+
+.u-purpleBackground {
+  background-color: rgba(131, 101, 158, 0.6)!important;
+}
+
+.u-redBackground {
+  background-color: rgba(235, 112, 107, 0.5)!important;
+}
+
+.u-greenBackground {
+  background-color: rgba(69, 196, 173, 0.5)!important;
+}
+
+.purpleBackground{
+  /*background-color: rgba(184, 139, 208); */
+  background-color: rgba(91, 59, 122, 0.71);
+}
+
+.agreeTeal{
+  color: rgba(0, 209, 193, 1);
+}
+
+.disagreeRed{
+  color: rgba(255, 90, 95, 1);
+}
+
+/*ITERATION THREE COLORS*/
+.gray-text{
+  color: rgba(42, 42, 42, 0.6);
+}
+
+.red-text{
+  color: #E28181!important;
+}
+
+.green-text{
+  color: #00D1C1!important;
+}
+
+.gray-text{
+  color: #565a5c!important;
+}
+
+
+
+/*BUTTONS
+---------------------------------------------------*/
+
+.redButtonInverse{
+  color: #E28181;
+  border-color: #E28181;
+  border: 1px solid !important;
+}
+
+.greenButtonInverse{
+  color: #00D1C1;
+  border-color: #00d1c1;
+  border: 1px solid !important;
+}
+
+.grayButtonInverse{
+  color: #565a5c;
+  border-color: #565a5c;
+  border: 1px solid !important;
+}
+
+.u-redBackgroundButton {
+  background-color: #E28181!important;
+}
+
+.u-greenBackgroundButton {
+  background-color: #00D1C1!important;
+}
+
+.u-greenBackgroundButtonFill {
+  background-color: rgba(69, 196, 173, 1)!important;
+}
+
+.button {
+  height: 37px;
+  font-size: 14px;
+  vertical-align: middle;
+  font-weight: lighter;
+}
+
+.buttonset {
+  margin: 15px 5px 10px 10px;
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+
+.u-button {
+  cursor: pointer;
+  color: #ffffff;
+  padding: 3px 8px;
+  font-size: 14.5px;
+  /* background-color: rgba(131, 101, 158, 0.9); */
+  font-family: 'Montserrat', sans-serif!important;
+  font-weight: lighter!important;
+}
+
+.u-agreeButton:hover{
+  border-bottom: 1px solid;
+}
+
+.u-agreeButtons {
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 15px;
+  /* background-color: rgba(131, 101, 158, 0.9); */
+  font-family: 'Montserrat', sans-serif!important;
+  font-weight: lighter!important;
+}
+
+.u-cardButtonText {
+  cursor: pointer;
+  color: white;
+  font-family: 'Montserrat', sans-serif!important;
+  font-size: 16px;
+  padding-top: 8px;
+}
+
+.u-unsureButtonsCard{
+  color: #6C6C6C!important;
+}
+
+.u-lastAgreeButton{
+  color: #6C6C6C!important;
 }
 
 
