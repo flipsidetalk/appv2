@@ -183,6 +183,9 @@
 
         <div class="col-sm-offset-2 col-sm-8 u-marginBottom20">
           <h2 class="montserratLight section-heading">Welcome to <b class="red-text">Flipside!</b></h2>
+
+
+          {{mapcomp.bubbleData[0].users.length}}
           <h3 class="montserratLight">A new way to share and hear others' <b class="green-text">opinions</b></h3><br>
           <h3 class="montserratLight">1. <b class="red-text">Vote</b> on the main claims in the article below</h3>
           <h3 class="montserratLight">2. Support your opinion with <b class="red-text">reasons</b></h3>
@@ -200,14 +203,10 @@
             <div class="u-marginAuto">
               <span v-for="(m, mindex) in textcomp.article.sentences">
                 <span class="load-text" v-bind:class="{'highlightable':m.mainClaim}">
-
-
-
                   <span v-if="m.mainClaim">
                     <span>
-                      <a :id="mindex" :name="m.id+2" class="anchor"></a>
-                      <mark class="highlightedText">{{m.text}}</mark>
-
+                      <a :id="mindex"></a>
+                      <span class="mainClaim">{{m.text}}</span>
                     </span>
                     <br>
 
@@ -221,10 +220,10 @@
                             <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock red-text">Disagree</span>
                           </span>
                           <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse grayButtonInverse u-marginLeft10">
-                            <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton gray-text">Unsure</span>
+                            <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock gray-text">Interesting</span>
                           </span>
                           <span href="#feedback-modal" data-toggle="modal" v-on:click="openFeedbackForm(mindex, textcomp)" class="u-relative u-top5">
-                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                            <img src="../img/info.png" alt="info" style="height:23px;" class="u-paddingTop5 u-paddingLeft10">
                           </span>
                         </span>
                         <span v-else>
@@ -235,7 +234,10 @@
                             <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock red-text">Disagree</span>
                           </span>
                           <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(0, 4, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse grayButtonInverse u-marginLeft10">
-                            <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton gray-text">Unsure</span>
+                            <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton gray-text">Interesting</span>
+                          </span>
+                          <span href="#feedback-modal" data-toggle="modal" v-on:click="openFeedbackForm(mindex, textcomp)" class="u-relative u-top5">
+                            <img src="../img/info.png" alt="info" style="height:23px;" class="u-paddingTop5 u-paddingLeft10">
                           </span>
                         </span>
                       </span>
@@ -248,7 +250,7 @@
                         <div>
                           <h4 class="u-lighter"> I
                             <span v-if="textcomp.lastVoteValue == 0">
-                              am unsure because...
+                              find this interesting because...
                             </span>
                             <span v-if="textcomp.lastVoteValue == 1">
                               agree because ...
@@ -340,7 +342,7 @@
           <a :href="'#'+m.sentenceId">
           <button type="button" name="button" class="u-floatLeft keyButtons lessImportantButton u-lighter u-fontSize14 u-marginTop10">SEE CONTEXT</button>
         </a>
-        <button type="button" name="button" class="u-floatRight keyButtons u-greenBackgroundButtonFill u-lighter u-fontSize14 u-marginTop10" v-on:click="textcomp.displayContributeCard = false, fetchNextClaim(mapcomp, textcomp)">NEXT CLAIM</button>
+        <button type="button" name="button" class="u-floatRight keyButtons u-greenBackgroundButton u-lighter u-fontSize14 u-marginTop10" v-on:click="textcomp.displayContributeCard = false, fetchNextClaim(mapcomp, textcomp)">NEXT CLAIM</button>
       </div>
       <div class="u-sizeFullWidth u-inlineBlock u-paddingLeft12 u-paddingRight20 u-marginLeft10 u-marginTop10">
       <p class="u-paddingTop10 u-marginLeft10 u-fontSize25 gray-text u-marginTop0">Claim {{mapcomp.displayCounter+1}}/{{mapcomp.arrayEveryone.length}}</p>
@@ -359,7 +361,7 @@
 <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">Disagree</span>
 </span>
 <span v-on:click="submitVote(0, 4, textcomp, mapcomp), fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'" class="cardButtonSection center u-grayBackgroundButton u-borderRadiusBR">
-<span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton">Unsure</span>
+<span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton">Interesting</span>
 </span>
 </span>
 </span>
@@ -372,7 +374,7 @@
 <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">disagree</span>
 </span>
 <span href="#sign-in-modal" data-toggle="modal" class="cardButtonSection center u-grayBackgroundButton u-borderRadiusBR">
-<span class="u-cardButtonText u-unsureButtonsCard u-verticalAlignTop u-inlineBlock">unsure</span>
+<span class="u-cardButtonText u-unsureButtonsCard u-verticalAlignTop u-inlineBlock">Interesting</span>
 </span>
 </span>
 <span v-else class="center">
@@ -383,7 +385,7 @@
 <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">Disagree</span>
 </span>
 <span v-on:click="submitVote(0, 4, textcomp, mapcomp), fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'" class="cardButtonSection center u-grayBackgroundButton u-borderRadiusBR">
-<span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton">Unsure</span>
+<span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton">Interesting</span>
 </span>
 </span>
 </span>
@@ -398,7 +400,7 @@
 <div>
 <h4 class="u-lighter"> I
 <span v-if="textcomp.lastVoteValue == 0">
-am unsure because...
+find this interesting because...
 </span>
 <span v-if="textcomp.lastVoteValue == 1">
 agree because ...
@@ -450,7 +452,7 @@ disagree because...
 <!-- <div class="col-sm-offset-2 col-sm-8">
 <div id="mapcompAnchor" v-if="mapcomp.bubbleData.length > 2">
 <div v-if="textcomp.voteCounter > 4">
-<button type="button" name="button" class="u-greenBackgroundButtonFill keyButtons" onclick="location.reload()">See Yourself!</button>
+<button type="button" name="button" class="u-greenBackgroundButton keyButtons" onclick="location.reload()">See Yourself!</button>
 </div>
 
 <h2 class="margin-top-0 u-lighter" name="main">Welcome to Flipside!</h2><br>
