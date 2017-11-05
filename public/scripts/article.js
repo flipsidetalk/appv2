@@ -155,6 +155,35 @@ $.ajax({
           });
         },
 
+        openFeedbackForm: function(sentenceId, textcomp){
+          textcomp.lastReferenced = sentenceId;
+          textcomp.showThankYou = 'none';
+        },
+
+        submitFeedback: function(textcomp) {
+          textcomp.showThankYou = 'block';
+          this.postFeedback(textcomp.lastReferenced, 1);
+        },
+
+        postFeedback: function(sentenceId, response){
+          var data = {
+            sentenceId: sentenceId,
+            response: response
+          }
+          $.ajax({
+            type: 'POST',
+            url: '/sentenceFeedback',
+            data: data,
+            success: function() {
+              // console.log("success: " + data);
+            },
+            error: function() {
+              // console.log("error: " + data);
+            }
+          });
+          $('#feedback-modal').delay(10000).modal('hide');
+        },
+
         fetchComments: function(textcomp) {
           var placeholderId = textcomp.lastReferenced;
           textcomp.whyResponse.input = "";
@@ -399,143 +428,143 @@ $.ajax({
                   } else {
                     mapcomp.bubbleShade.fill = 'rgba(220, 220, 220, 1)'
                   } //else if (s.average == 0) {
-                  //
-                  //   mapcomp.bubbleShade.fill = 'blue';
-                  //
-                  // }
+                    //
+                    //   mapcomp.bubbleShade.fill = 'blue';
+                    //
+                    // }
 
-                  mapcomp.bubbleShades.push(mapcomp.bubbleShade);
-                  mapcomp.bubbleShade = {
-                    group: '',
-                    fill: ''
-                  };
+                    mapcomp.bubbleShades.push(mapcomp.bubbleShade);
+                    mapcomp.bubbleShade = {
+                      group: '',
+                      fill: ''
+                    };
+                  }
                 }
               }
             }
-          }
-          for (m of mapcomp.bubbleShades) {
-            var bubbleId = m.group;
-            var bubbleFill = m.fill;
-            $('#' + bubbleId).attr("fill", bubbleFill);
-          }
-
-        },
-
-        submitWhy: function(textcomp) {
-          textcomp.whyResponse.sentenceId = textcomp.lastReferenced;
-          textcomp.whyResponse.vote = textcomp.article.sentences[textcomp.lastReferenced].seen;
-          textcomp.whyResponses.push(textcomp.whyResponse);
-          textcomp.lastUserResponse = textcomp.whyResponse.input;
-          textcomp.lastUserVote = textcomp.whyResponse.vote;
-          this.postResponse(textcomp.whyResponse.input, textcomp.whyResponse.sentenceId);
-
-
-          textcomp.whyResponse = {
-            sentenceId: "",
-            input: "",
-            vote: ""
-          };
-        },
-
-        postResponse: function(statement, sentenceId) {
-          var data = {
-            sentenceId: sentenceId,
-            statement: statement
-          }
-          $.ajax({
-            type: 'POST',
-            url: '/submitResponse',
-            data: data,
-            success: function() {
-              console.log("sendsuccess: " + data);
-            },
-            error: function() {
-              console.log("error: " + data);
+            for (m of mapcomp.bubbleShades) {
+              var bubbleId = m.group;
+              var bubbleFill = m.fill;
+              $('#' + bubbleId).attr("fill", bubbleFill);
             }
-          });
-        },
 
-        submitVote: function(input, seenvalue, textcomp, mapcomp) {
+          },
 
-          textcomp.voteCounter += 1;
-          var placeholderId = textcomp.lastReferenced; //this is the sentenceID
-          //passing response data
-          textcomp.response.sentenceId = placeholderId;
-          textcomp.response.input = input;
-          textcomp.lastVoteValue = input;
-          this.postVote(textcomp.lastReferenced, input, mapcomp);
-          textcomp.responses.push(textcomp.response)
-          textcomp.response = {
-            sentenceId: "",
-            input: ""
-          }; //resets response
-          textcomp.article.sentences[placeholderId].seen = seenvalue; //changes m.seen
-          textcomp.tempseen = seenvalue; //changes placeholder seen
-          //textcomp.form = 0; //
-          //textcomp.why = 1;
-          textcomp.displayContributeCard = true;
-          //textcomp.displayVoteCard = 'none';
-
-          mapcomp.showVotePercents = 'block';
-
-          //  refreshClusterMap();
-          //document.getElementById("thinkingEmoji").setAttribute("x", "120");
+          submitWhy: function(textcomp) {
+            textcomp.whyResponse.sentenceId = textcomp.lastReferenced;
+            textcomp.whyResponse.vote = textcomp.article.sentences[textcomp.lastReferenced].seen;
+            textcomp.whyResponses.push(textcomp.whyResponse);
+            textcomp.lastUserResponse = textcomp.whyResponse.input;
+            textcomp.lastUserVote = textcomp.whyResponse.vote;
+            this.postResponse(textcomp.whyResponse.input, textcomp.whyResponse.sentenceId);
 
 
+            textcomp.whyResponse = {
+              sentenceId: "",
+              input: "",
+              vote: ""
+            };
+          },
 
-          var element = document.getElementById('bubbleBox');
-          var positionInfo = element.getBoundingClientRect();
-          var height = positionInfo.height;
-          var width = positionInfo.width;
+          postResponse: function(statement, sentenceId) {
+            var data = {
+              sentenceId: sentenceId,
+              statement: statement
+            }
+            $.ajax({
+              type: 'POST',
+              url: '/submitResponse',
+              data: data,
+              success: function() {
+                console.log("sendsuccess: " + data);
+              },
+              error: function() {
+                console.log("error: " + data);
+              }
+            });
+          },
 
-          var startingX = "";
-          var startingY = "";
-          //move emoji
-          var element = document.getElementById('bubbleBox');
-          var positionInfo = element.getBoundingClientRect();
-          var height = positionInfo.height;
-          var width = positionInfo.width;
+          submitVote: function(input, seenvalue, textcomp, mapcomp) {
+
+            textcomp.voteCounter += 1;
+            var placeholderId = textcomp.lastReferenced; //this is the sentenceID
+            //passing response data
+            textcomp.response.sentenceId = placeholderId;
+            textcomp.response.input = input;
+            textcomp.lastVoteValue = input;
+            this.postVote(textcomp.lastReferenced, input, mapcomp);
+            textcomp.responses.push(textcomp.response)
+            textcomp.response = {
+              sentenceId: "",
+              input: ""
+            }; //resets response
+            textcomp.article.sentences[placeholderId].seen = seenvalue; //changes m.seen
+            textcomp.tempseen = seenvalue; //changes placeholder seen
+            //textcomp.form = 0; //
+            //textcomp.why = 1;
+            textcomp.displayContributeCard = true;
+            //textcomp.displayVoteCard = 'none';
+
+            mapcomp.showVotePercents = 'block';
+
+            //  refreshClusterMap();
+            //document.getElementById("thinkingEmoji").setAttribute("x", "120");
 
 
-          startingX = width / 2 - width / 8 - 25
-          startingY = height / 2 - height / 8 - 25
-          var changeX = Math.floor(Math.random() * width / 4) + 1
-          var changeY = Math.floor(Math.random() * height / 4) + 1
 
-          //d3.selectAll("#thinkingEmoji").transition().style("x",Math.floor(Math.random() * 100* height/4) + 1).duration(500);
-          //d3.selectAll("#thinkingEmoji").transition().style("y",startingY).duration(500);
+            var element = document.getElementById('bubbleBox');
+            var positionInfo = element.getBoundingClientRect();
+            var height = positionInfo.height;
+            var width = positionInfo.width;
+
+            var startingX = "";
+            var startingY = "";
+            //move emoji
+            var element = document.getElementById('bubbleBox');
+            var positionInfo = element.getBoundingClientRect();
+            var height = positionInfo.height;
+            var width = positionInfo.width;
 
 
-          d3.selectAll("#thinkingEmoji").transition().duration(500).attr("x", startingX + changeX).attr("y", startingY + changeY);
-          //d3.selectAll("#thinkingEmoji").transition().style("y",startingY+changeY).duration(500);
+            startingX = width / 2 - width / 8 - 25
+            startingY = height / 2 - height / 8 - 25
+            var changeX = Math.floor(Math.random() * width / 4) + 1
+            var changeY = Math.floor(Math.random() * height / 4) + 1
+
+            //d3.selectAll("#thinkingEmoji").transition().style("x",Math.floor(Math.random() * 100* height/4) + 1).duration(500);
+            //d3.selectAll("#thinkingEmoji").transition().style("y",startingY).duration(500);
 
 
-        },
+            d3.selectAll("#thinkingEmoji").transition().duration(500).attr("x", startingX + changeX).attr("y", startingY + changeY);
+            //d3.selectAll("#thinkingEmoji").transition().style("y",startingY+changeY).duration(500);
 
-        postVote: function(sentenceId, reaction, mapcomp) {
-          var data = {
-            sentenceId: sentenceId,
-            reaction: reaction
-          }
-          $.ajax({
-            type: 'POST',
-            url: '/submitVote',
-            data: data,
-            success: function(response) {
-              //console.log("sendsuccess: " + JSON.stringify(response));
-              mapcomp.bubbleData = response;
-              $('.d3stuff').html('<div class="d3stuff"><div><svg class="bubbleMap"><defs><pattern id="group1" x="0%" y="0%" height="100%" width="100%" viewBox="0 0 512 512"><image x="0%" y="0%" width="512" height="512" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://i.imgur.com/fzYCtwg.png"></image></pattern></defs></svg></div></div>')
-              if (mapcomp.bubbleData.length > 2) {
 
-                var diameter = 400; //max size of the bubbles
-                var color = d3.scaleOrdinal(d3.schemeCategory20c);
+          },
 
-                var bubbleData = mapcomp.bubbleData.slice(1);
+          postVote: function(sentenceId, reaction, mapcomp) {
+            var data = {
+              sentenceId: sentenceId,
+              reaction: reaction
+            }
+            $.ajax({
+              type: 'POST',
+              url: '/submitVote',
+              data: data,
+              success: function(response) {
+                //console.log("sendsuccess: " + JSON.stringify(response));
+                mapcomp.bubbleData = response;
+                $('.d3stuff').html('<div class="d3stuff"><div><svg class="bubbleMap"><defs><pattern id="group1" x="0%" y="0%" height="100%" width="100%" viewBox="0 0 512 512"><image x="0%" y="0%" width="512" height="512" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://i.imgur.com/fzYCtwg.png"></image></pattern></defs></svg></div></div>')
+                if (mapcomp.bubbleData.length > 2) {
 
-                var viewBoxWidth = $('.bubbleMap').outerWidth();
-                var viewBoxHeight = 300;
+                  var diameter = 400; //max size of the bubbles
+                  var color = d3.scaleOrdinal(d3.schemeCategory20c);
 
-                var svg = d3.select(".bubbleMap")
+                  var bubbleData = mapcomp.bubbleData.slice(1);
+
+                  var viewBoxWidth = $('.bubbleMap').outerWidth();
+                  var viewBoxHeight = 300;
+
+                  var svg = d3.select(".bubbleMap")
                   .attr("width", 100 + '%')
                   .attr("height", 300)
                   .attr("class", "bubble")
@@ -543,7 +572,7 @@ $.ajax({
                   .append("g")
                   .attr("transform", "translate(0,0)");
 
-                var tooltip = d3.select("body")
+                  var tooltip = d3.select("body")
                   .append("div")
                   .style("position", "absolute")
                   .style("z-index", "10")
@@ -555,7 +584,7 @@ $.ajax({
                   .style("font", "15px sans-serif")
                   .text("tooltip");
 
-                var emoji = d3.select(".bubble")
+                  var emoji = d3.select(".bubble")
                   .append("svg:image")
                   .attr('id', 'thinkingEmoji')
                   .attr('xlink:href', '../img/thinkingEmoji.png')
@@ -564,16 +593,16 @@ $.ajax({
                   .attr("width", "50")
                   .attr("height", "50")
 
-                var radiusScale = d3.scaleSqrt().domain([1, 60]).range([30, 130]);
+                  var radiusScale = d3.scaleSqrt().domain([1, 60]).range([30, 130]);
 
-                var simulation = d3.forceSimulation()
+                  var simulation = d3.forceSimulation()
                   .force("x", d3.forceX(viewBoxWidth / 2).strength(0.05))
                   .force("y", d3.forceY(viewBoxHeight / 2).strength(0.05))
                   .force("collide", d3.forceCollide(function(d) {
                     return radiusScale(d.size + 5);
                   }));
 
-                var circles = svg.selectAll("circle")
+                  var circles = svg.selectAll("circle")
                   .data(bubbleData)
                   .enter().append("circle")
                   .attr("id", function(d) {
@@ -595,188 +624,188 @@ $.ajax({
                     return tooltip.style("visibility", "hidden");
                   });
 
-                simulation.nodes(bubbleData)
+                  simulation.nodes(bubbleData)
                   .on("tick", ticked)
 
 
-                function ticked() {
-                  circles
+                  function ticked() {
+                    circles
                     .attr("cx", function(d) {
                       return d.x
                     })
                     .attr("cy", function(d) {
                       return d.y
                     })
-                }
+                  }
 
-                var groupWithUser = "";
-                if (mapcomp.user != undefined) {
-                  var userId = mapcomp.user.id;
-                } else {
-                  var userId = '';
-                }
-                for (var i = 0; i < bubbleData.length; i++) {
-                  for (var m = 0; m < bubbleData[i]['users'].length; m++) {
-                    if (bubbleData[i]['users'][m] == userId) {
-                      console.log("USER IS GROUPED!");
-                      groupWithUser = bubbleData[i]['group'];
-                      $("#" + groupWithUser).attr("fill", "url(#group1)");
-                      $("#thinkingEmoji").attr("visibility", "hidden");
+                  var groupWithUser = "";
+                  if (mapcomp.user != undefined) {
+                    var userId = mapcomp.user.id;
+                  } else {
+                    var userId = '';
+                  }
+                  for (var i = 0; i < bubbleData.length; i++) {
+                    for (var m = 0; m < bubbleData[i]['users'].length; m++) {
+                      if (bubbleData[i]['users'][m] == userId) {
+                        console.log("USER IS GROUPED!");
+                        groupWithUser = bubbleData[i]['group'];
+                        $("#" + groupWithUser).attr("fill", "url(#group1)");
+                        $("#thinkingEmoji").attr("visibility", "hidden");
+                      }
                     }
                   }
                 }
+              },
+              error: function(response) {
+                console.log("error: " + JSON.stringify(response));
               }
-            },
-            error: function(response) {
-              console.log("error: " + JSON.stringify(response));
-            }
-          });
-        },
+            });
+          },
 
-        fetchCommentsFromCard: function(textcomp) {
-          var placeholderId = textcomp.lastReferenced;
-          textcomp.whyResponse.input = "";
-          textcomp.displayAgreeComments = [];
-          textcomp.displayDisagreeComments = [];
-          textcomp.displayUnsureComments = [];
-          for (var comment of textcomp.commentData) {
-            if (comment.sentenceId == placeholderId && comment.statement.length > 2) {
-              //append it to object
-              textcomp.eachDisplayComment.agreeable = comment.reaction;
-              textcomp.eachDisplayComment.text = comment.statement;
-              textcomp.eachDisplayComment.username = comment.firstname;
+          fetchCommentsFromCard: function(textcomp) {
+            var placeholderId = textcomp.lastReferenced;
+            textcomp.whyResponse.input = "";
+            textcomp.displayAgreeComments = [];
+            textcomp.displayDisagreeComments = [];
+            textcomp.displayUnsureComments = [];
+            for (var comment of textcomp.commentData) {
+              if (comment.sentenceId == placeholderId && comment.statement.length > 2) {
+                //append it to object
+                textcomp.eachDisplayComment.agreeable = comment.reaction;
+                textcomp.eachDisplayComment.text = comment.statement;
+                textcomp.eachDisplayComment.username = comment.firstname;
 
-              if (comment.reaction == -1) {
-                textcomp.displayDisagreeComments.push(textcomp.eachDisplayComment);
-              } else if (comment.reaction == 1) {
-                textcomp.displayAgreeComments.push(textcomp.eachDisplayComment);
-              } else {
-                textcomp.displayUnsureComments.push(textcomp.eachDisplayComment);
+                if (comment.reaction == -1) {
+                  textcomp.displayDisagreeComments.push(textcomp.eachDisplayComment);
+                } else if (comment.reaction == 1) {
+                  textcomp.displayAgreeComments.push(textcomp.eachDisplayComment);
+                } else {
+                  textcomp.displayUnsureComments.push(textcomp.eachDisplayComment);
+                }
+                textcomp.eachDisplayComment = {
+                  agreeable: '',
+                  text: '',
+                };
               }
-              textcomp.eachDisplayComment = {
-                agreeable: '',
-                text: '',
-              };
             }
+
+            // console.log("agree comments" + JSON.stringify(textcomp.displayAgreeComments));
+            // console.log("disagree comments" + JSON.stringify(textcomp.displayDisagreeComments));
+
           }
-
-          // console.log("agree comments" + JSON.stringify(textcomp.displayAgreeComments));
-          // console.log("disagree comments" + JSON.stringify(textcomp.displayDisagreeComments));
-
         }
-      }
 
+      });
+    },
+    error: function(response) {
+      console.error("error: " + response);
+    }
+  });
+
+  function jQueryFunctions() {
+    $('#switch-to-email').click(function() {
+      $('#sign-in-modal').modal('hide');
+      $('#email-signup-modal').modal('show');
     });
-  },
-  error: function(response) {
-    console.error("error: " + response);
+
+    $('#switch-email-login').click(function() {
+      $('#email-signup-modal').modal('hide');
+      $('#email-login-modal').modal('show');
+    });
+
+    $('#sign-up').click(function(e) {
+      e.preventDefault();
+      var field = $('#inputEmail');
+      var email = field.val();
+      if (validateEmail(email)) {
+        writeEmail(email);
+        field.val("");
+      } else {
+        $('#signup > form > .form-group').addClass('has-error').addClass('has-feedback');
+        $('#signup > form > .form-group > .glyphicon-remove').show();
+      }
+    });
+
+    $('#sign-up-top').click(function(e) {
+      e.preventDefault();
+      var field = $('#inputEmail-top');
+      var email = field.val();
+      if (validateEmail(email)) {
+        writeEmail(email);
+        field.val("");
+      } else {
+        $('#signup-top > form > .form-group').addClass('has-error').addClass('has-feedback');
+        $('#signup-top > form > .form-group > .glyphicon-remove').show();
+      }
+    });
+
+    $('#submit-contact-us').click(function(e) {
+      e.preventDefault();
+      var name = $('#name-contact-us').val();
+      var emailField = $('#email-contact-us');
+      var email = emailField.val();
+      var message = $('#message-contact-us').val()
+      if (validateEmail(email)) {
+        writeContact();
+        $('#contact-modal').modal('hide');
+      } else {
+        $('#contact-us-form > .form-group.email').addClass('has-error').addClass('has-feedback');
+        $('#contact-us-form > .form-group.email > .glyphicon-remove').show();
+      }
+    });
+
+    $('#signup-btn').click(function(e) {
+      e.preventDefault();
+      var email = $('#signup-email').val();
+      var fn = $('#signup-fn').val();
+      var ln = $('#signup-ln').val();
+      var password = $('#signup-password').val();
+      if (validateEmail(email)) {
+        signUp(email, password, fn, ln);
+      } else {
+        $('#valid-email-signup').show();
+      }
+    });
+
+    $('#signin-btn').click(function(e) {
+      e.preventDefault();
+      var email = $('#signin-email').val();
+      var password = $('#signin-password').val();
+      if (validateEmail(email)) {
+        signIn(email, password);
+      } else {
+        $('#valid-email-signin').show();
+      }
+    });
+
+    // $('#sentence-feedback-btn').click(function(e) {
+    //   e.preventDefault();
+    //   let data = {
+    //     sentenceId: 0,
+    //     response: 0
+    //   };
+    //   $.ajax({
+    //     type: 'POST',
+    //     url: '/sentenceFeedback',
+    //     data: data,
+    //     success: function() {
+    //       // console.log("success: " + data);
+    //     },
+    //     error: function() {
+    //       // console.log("error: " + data);
+    //     }
+    //   });
+    //   $('#feedback-modal').delay(3000).modal('hide');
+    // });
+
+    $(document).mouseup(function(e) {
+      if ($(e.target).is('circle')) {
+        fetchClaims(e.target.id, textcomp, mapcomp);
+        addBorder(e.target.id, mapcomp);
+      }
+      if ((e.target.className != "regularText") || (e.target.className != "highlightedText") || (e.target.id != "highlightedText")) {
+        storyContent.textcomp.tooldisplay = 'none';
+        storyContent.textcomp.talkdisplay = 'none';
+      }
+    });
   }
-});
-
-function jQueryFunctions() {
-  $('#switch-to-email').click(function() {
-    $('#sign-in-modal').modal('hide');
-    $('#email-signup-modal').modal('show');
-  });
-
-  $('#switch-email-login').click(function() {
-    $('#email-signup-modal').modal('hide');
-    $('#email-login-modal').modal('show');
-  });
-
-  $('#sign-up').click(function(e) {
-    e.preventDefault();
-    var field = $('#inputEmail');
-    var email = field.val();
-    if (validateEmail(email)) {
-      writeEmail(email);
-      field.val("");
-    } else {
-      $('#signup > form > .form-group').addClass('has-error').addClass('has-feedback');
-      $('#signup > form > .form-group > .glyphicon-remove').show();
-    }
-  });
-
-  $('#sign-up-top').click(function(e) {
-    e.preventDefault();
-    var field = $('#inputEmail-top');
-    var email = field.val();
-    if (validateEmail(email)) {
-      writeEmail(email);
-      field.val("");
-    } else {
-      $('#signup-top > form > .form-group').addClass('has-error').addClass('has-feedback');
-      $('#signup-top > form > .form-group > .glyphicon-remove').show();
-    }
-  });
-
-  $('#submit-contact-us').click(function(e) {
-    e.preventDefault();
-    var name = $('#name-contact-us').val();
-    var emailField = $('#email-contact-us');
-    var email = emailField.val();
-    var message = $('#message-contact-us').val()
-    if (validateEmail(email)) {
-      writeContact();
-      $('#contact-modal').modal('hide');
-    } else {
-      $('#contact-us-form > .form-group.email').addClass('has-error').addClass('has-feedback');
-      $('#contact-us-form > .form-group.email > .glyphicon-remove').show();
-    }
-  });
-
-  $('#signup-btn').click(function(e) {
-    e.preventDefault();
-    var email = $('#signup-email').val();
-    var fn = $('#signup-fn').val();
-    var ln = $('#signup-ln').val();
-    var password = $('#signup-password').val();
-    if (validateEmail(email)) {
-      signUp(email, password, fn, ln);
-    } else {
-      $('#valid-email-signup').show();
-    }
-  });
-
-  $('#signin-btn').click(function(e) {
-    e.preventDefault();
-    var email = $('#signin-email').val();
-    var password = $('#signin-password').val();
-    if (validateEmail(email)) {
-      signIn(email, password);
-    } else {
-      $('#valid-email-signin').show();
-    }
-  });
-
-  $('#sentence-feedback-btn').click(function(e) {
-    e.preventDefault();
-    // TODO: get setenceId and response
-    let data = {
-      sentenceId: 0,
-      response: 0
-    };
-    $.ajax({
-      type: 'POST',
-      url: '/sentenceFeedback',
-      data: data,
-      success: function() {
-        // console.log("success: " + data);
-      },
-      error: function() {
-        // console.log("error: " + data);
-      }
-    });
-  });
-
-  $(document).mouseup(function(e) {
-    if ($(e.target).is('circle')) {
-      fetchClaims(e.target.id, textcomp, mapcomp);
-      addBorder(e.target.id, mapcomp);
-    }
-    if ((e.target.className != "regularText") || (e.target.className != "highlightedText") || (e.target.id != "highlightedText")) {
-      storyContent.textcomp.tooldisplay = 'none';
-      storyContent.textcomp.talkdisplay = 'none';
-    }
-  });
-}

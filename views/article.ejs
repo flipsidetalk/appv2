@@ -176,25 +176,6 @@
         </div>
       </div>
     </div>
-
-    <!-- BEGIN # MODAL LOGIN -->
-    <div class="modal fade" id="feedback-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header" align="center">
-            <img src="../img/logo-no-text.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
-            <h2>We appreciate your curiosity!</h2>
-            <h3 class="weight-lighter">If you were wondering how we determine main claims, check out our FAQs page!</h3>
-            <h3class="weight-lighter">Let us know if you think this isn't a main claim</h3>
-
-            <h3> Thanks for your feedback!</h3>
-          </div>
-          <!-- End # Login Form -->
-        </div>
-      </div>
-    </div>
-    <!-- END # MODAL LOGIN -->
-
     <div>
       <div class="container content textcomp.article">
         <!-- <div v-if="textcomp.voteCounter > 4">
@@ -249,7 +230,7 @@
                           <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse grayButtonInverse u-marginLeft10">
                             <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton newGray">Unsure</span>
                           </span>
-                          <span href="#feedback-modal" data-toggle="modal">
+                          <span href="#feedback-modal" data-toggle="modal" v-on:click="openFeedbackForm(mindex, textcomp)">
                             <i class="fa fa-info-circle" aria-hidden="true"></i>
                           </span>
                         </span>
@@ -596,6 +577,31 @@ disagree because...
 </div>
 </div>
 <!--START MODAL-->
+
+<!-- BEGIN # MODAL LOGIN -->
+<div class="modal fade" id="feedback-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <img src="../img/logo-no-text.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
+        <h2>We appreciate your curiosity!</h2>
+
+        <h3 class="weight-lighter">To learn how we detect main claims, check out our FAQs page!</h3>
+        <br>
+
+        <button id="sentence-feedback-btn" type="button" name="button" class="btn btn-default" v-on:click="submitFeedback(textcomp)">
+          Let us know if this isn't a main claim
+        </button>
+        <div v-bind:style="{display: textcomp.showThankYou}" class="u-sizeFullWidth u-paddingTop10 u-paddingBottom10">
+          <h4>Thanks for your feedback!</h4>
+        </div>
+      </div>
+      <!-- End # Login Form -->
+    </div>
+  </div>
+</div>
+<!-- END # MODAL Feedback -->
+
 <div class="modal fade talkModal" id="talkModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-content talkDialogue">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
