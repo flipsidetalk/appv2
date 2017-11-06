@@ -167,3 +167,11 @@ module.exports.initRandomVotes = function(db, sentences, numFakeUsers, split) {
         return false
     }
 }
+
+module.exports.requireHTTPS = function(req, res, next) {
+  // Checks that request is HTTP and not in dev mode (port 3000)
+  if (!req.secure && process.env.PORT != 3000) {
+    return res.redirect('https://' + req.get('host') + req.url);
+  }
+  next();
+}
