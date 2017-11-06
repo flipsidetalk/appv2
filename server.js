@@ -119,7 +119,7 @@ require('./auth.js')(app, connection, db);
 /* Get article page
  */
 app.get('/', function(req, res) {
-  utils.requireHTTPS(req, res, function() {
+  // utils.requireHTTPS(req, res, function() {
     db.article.findOne({
         where: {
           slug: CURRENT_SLUG
@@ -133,7 +133,7 @@ app.get('/', function(req, res) {
           title: 'Flipside - ' + data.title.title
         });
       });
-  });
+  // });
 });
 app.post('/getArticleData', function(req, res) {
   const slug = CURRENT_SLUG;
