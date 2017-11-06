@@ -667,7 +667,8 @@ app.post('/sentenceFeedback', function(req, res) {
   let user = req.user ? req.user.id : req.sessionID;
   utils.upsert(db.sentenceFeedback, {
     sentenceId: req.body.sentenceId,
-    response: req.body.response
+    response: req.body.response,
+    userId: user
   }, {
     userId: user
   }).then(response => {
