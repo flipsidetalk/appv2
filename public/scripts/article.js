@@ -163,7 +163,7 @@ $.ajax({
 
         submitFeedback: function(textcomp) {
           textcomp.showThankYou = 'block';
-          this.postFeedback(textcomp.lastReferenced, 1);
+          this.postFeedback(textcomp.lastReferenced, -1);
           //$('#feedback-modal').delay(100000).modal('hide');
           setTimeout(function(){
             $('#feedback-modal').modal('hide');
