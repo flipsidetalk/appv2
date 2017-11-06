@@ -176,192 +176,191 @@
     </div>
     <div>
       <div class="container content textcomp.article">
-    <div class="section-content u-maxWidth1000 marginTopBottom50">
-      <div class="row white">
+        <div class="section-content u-maxWidth1000 marginTopBottom50">
+          <div class="row white">
 
-        <!--INTRO SECTION -->
+            <!--INTRO SECTION -->
 
-        <div class="col-sm-offset-2 col-sm-8 u-marginBottom20">
-          <h2 class="montserratLight section-heading">Welcome to <b class="red-text">Flipside!</b></h2>
+            <div class="col-sm-12 u-marginBottom20 landingSection">
+              <!-- <img src="../img/ChicagoGrads.png" alt="info" style="width:100%;" class=""> -->
+              <div class="u-paddingRight10 u-paddingLeft10 u-paddingTop10 u-paddingBottom10">
+                <h2 class="montserrat section-heading white-text">Welcome to Flipside!</h2>
+                <h3 class="montserrat white-text">A new way to share opinions</h3><br>
+                <h3 class="montserratLight white-text u-paddingBottom10">Join <b class="red-text">{{mapcomp.bubbleData[0].users.length}} </b>others on a discussion about graduate students unionizing</h3>
+              </div>
+            </div>
+            <br><br><br>
+
+            <!-- ARTICLE TEXT -->
+            <div class="col-sm-offset-2 col-sm-8">
+              <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
+              <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
 
 
-          {{mapcomp.bubbleData[0].users.length}}
-          <h3 class="montserratLight">A new way to share and hear others' <b class="green-text">opinions</b></h3><br>
-          <h3 class="montserratLight">1. <b class="red-text">Vote</b> on the main claims in the article below</h3>
-          <h3 class="montserratLight">2. Support your opinion with <b class="red-text">reasons</b></h3>
-          <h3 class="montserratLight">3. See the big picture and <b class="red-text">how you compare</b></h3>
-          <br>
-          <hr>
-        </div>
 
-        <!-- ARTICLE TEXT -->
-        <div class="col-sm-offset-2 col-sm-8">
-          <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
-          <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
+              <div>
+                <div class="u-marginAuto">
+                  <span v-for="(m, mindex) in textcomp.article.sentences">
+                    <span class="load-text" v-bind:class="{'highlightable':m.mainClaim}">
+                      <span v-if="m.mainClaim">
+                        <span>
+                          <a :id="mindex"></a>
+                          <span class="mainClaim">{{m.text}}</span>
+                        </span>
+                        <br>
 
-          <div>
-            <div class="u-marginAuto">
-              <span v-for="(m, mindex) in textcomp.article.sentences">
-                <span class="load-text" v-bind:class="{'highlightable':m.mainClaim}">
-                  <span v-if="m.mainClaim">
-                    <span>
-                      <a :id="mindex"></a>
-                      <span class="mainClaim">{{m.text}}</span>
-                    </span>
-                    <br>
-
-                    <span class="u-sizeFullWidth u-inlineBlock">
-                      <span class="u-floatRight u-paddingTop10">
-                        <span v-if="textcomp.user == undefined">
-                          <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse greenButtonInverse u-marginLeft10">
-                            <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock green-text">Agree</span>
-                          </span>
-                          <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse redButtonInverse u-marginLeft10">
-                            <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock red-text">Disagree</span>
-                          </span>
-                          <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse grayButtonInverse u-marginLeft10">
-                            <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock gray-text">Interesting</span>
-                          </span>
-                          <span href="#feedback-modal" data-toggle="modal" v-on:click="openFeedbackForm(mindex, textcomp)" class="u-relative u-top5">
-                            <img src="../img/info.png" alt="info" style="height:23px;" class="u-paddingTop5 u-paddingLeft10">
+                        <span class="u-sizeFullWidth u-inlineBlock">
+                          <span class="u-floatRight u-paddingTop10">
+                            <span v-if="textcomp.user == undefined">
+                              <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse greenButtonInverse u-marginLeft10">
+                                <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock green-text">Agree</span>
+                              </span>
+                              <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse redButtonInverse u-marginLeft10">
+                                <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock red-text">Disagree</span>
+                              </span>
+                              <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse grayButtonInverse u-marginLeft10">
+                                <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock gray-text">Interesting</span>
+                              </span>
+                              <span href="#feedback-modal" data-toggle="modal" v-on:click="openFeedbackForm(mindex, textcomp)" class="u-relative u-top5">
+                                <img src="../img/info.png" alt="info" style="height:23px;" class="u-paddingTop5 u-paddingLeft10">
+                              </span>
+                            </span>
+                            <span v-else>
+                              <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(1, 2, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse greenButtonInverse u-marginLeft10">
+                                <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock green-text">Agree</span>
+                              </span>
+                              <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(-1, 3, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse redButtonInverse u-marginLeft10">
+                                <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock red-text">Disagree</span>
+                              </span>
+                              <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(0, 4, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse grayButtonInverse u-marginLeft10">
+                                <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton gray-text">Interesting</span>
+                              </span>
+                              <span href="#feedback-modal" data-toggle="modal" v-on:click="openFeedbackForm(mindex, textcomp)" class="u-relative u-top5">
+                                <img src="../img/info.png" alt="info" style="height:23px;" class="u-paddingTop5 u-paddingLeft10">
+                              </span>
+                            </span>
                           </span>
                         </span>
-                        <span v-else>
-                          <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(1, 2, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse greenButtonInverse u-marginLeft10">
-                            <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock green-text">Agree</span>
-                          </span>
-                          <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(-1, 3, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse redButtonInverse u-marginLeft10">
-                            <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock red-text">Disagree</span>
-                          </span>
-                          <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(0, 4, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse grayButtonInverse u-marginLeft10">
-                            <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton gray-text">Interesting</span>
-                          </span>
-                          <span href="#feedback-modal" data-toggle="modal" v-on:click="openFeedbackForm(mindex, textcomp)" class="u-relative u-top5">
-                            <img src="../img/info.png" alt="info" style="height:23px;" class="u-paddingTop5 u-paddingLeft10">
-                          </span>
-                        </span>
-                      </span>
-                    </span>
 
 
 
-                    <transition name="slide-fade">
-                      <div v-if="textcomp.lastReferenced == mindex && textcomp.justVoted" class="u-paddingLeft20 u-paddingRight20 montserratLight">
-                        <div>
-                          <h4 class="u-lighter"> I
-                            <span v-if="textcomp.lastVoteValue == 0">
-                              find this interesting because...
-                            </span>
-                            <span v-if="textcomp.lastVoteValue == 1">
-                              agree because ...
-                            </span>
-                            <span v-if="textcomp.lastVoteValue == -1">
-                              disagree because...
-                            </span>
-                          </h4>
-                        </div>
+                        <transition name="slide-fade">
+                          <div v-if="textcomp.lastReferenced == mindex && textcomp.justVoted" class="u-paddingLeft20 u-paddingRight20 montserratLight">
+                            <div>
+                              <h4 class="u-lighter"> I
+                                <span v-if="textcomp.lastVoteValue == 0">
+                                  find this interesting because...
+                                </span>
+                                <span v-if="textcomp.lastVoteValue == 1">
+                                  agree because ...
+                                </span>
+                                <span v-if="textcomp.lastVoteValue == -1">
+                                  disagree because...
+                                </span>
+                              </h4>
+                            </div>
 
-                        <textarea type="text" placeholder="write a reason to help others understand your stance" name="" value="" class="talkInput u-sizeFullWidth" v-model="textcomp.whyResponse.input" style="background-color: white;"></textarea>
-                        <div class="u-sizeFullWidth u-inlineBlock">
+                            <textarea type="text" placeholder="write a reason to help others understand your stance" name="" value="" class="talkInput u-sizeFullWidth" v-model="textcomp.whyResponse.input" style="background-color: white;"></textarea>
+                            <div class="u-sizeFullWidth u-inlineBlock">
 
-                          <span v-if="textcomp.user == undefined">
-                            <p class="talkButton montserratLight u-floatRight" href="#sign-in-modal" data-toggle="modal">Share</p>
-                          </span>
-                          <span v-else>
-                            <p class="talkButton montserratLight u-floatRight" v-on:click="submitWhy(textcomp), textcomp.showUserResponse = 'block'">Share</p>
-                          </span>
-                        </div>
+                              <span v-if="textcomp.user == undefined">
+                                <p class="talkButton montserratLight u-floatRight" href="#sign-in-modal" data-toggle="modal">Share</p>
+                              </span>
+                              <span v-else>
+                                <p class="talkButton montserratLight u-floatRight" v-on:click="submitWhy(textcomp), textcomp.showUserResponse = 'block'">Share</p>
+                              </span>
+                            </div>
 
-                        <div v-bind:style="{display: textcomp.showUserResponse}" class="u-sizeFullWidth u-paddingTop10 u-paddingBottom10">
-                          <h4>Thank you for sharing!</h4>
-                        </div>
+                            <div v-bind:style="{display: textcomp.showUserResponse}" class="u-sizeFullWidth u-paddingTop10 u-paddingBottom10">
+                              <h4>Thank you for sharing!</h4>
+                            </div>
 
 
-                        <div v-for="(sentenceObj, sindex) in textcomp.arrayEveryone">
-                          <div v-if="sentenceObj.sentenceId == mindex">
-                            <div v-if="(sentenceObj.agree*100).toFixed(0) != 0 && (sentenceObj.disagree*100).toFixed(0) != 0 " class="u-inlineBlock u-sizeFullWidth">
-                              <div class="col-xs-6 u-paddingRight0 grayBorderRB">
-                                <h4 class="agreeTeal u-paddingRight10 u-marginTop0 u-paddingBottom10">{{(sentenceObj.agree*100).toFixed(0)}}% agree</h4>
-                                <div v-for="(commentObj, mindex) in textcomp.displayAgreeComments">
-                                  <div class="u-paddingRight10 grayBorderTop">
-                                    <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>
+                            <div v-for="(sentenceObj, sindex) in textcomp.arrayEveryone">
+                              <div v-if="sentenceObj.sentenceId == mindex">
+                                <div v-if="(sentenceObj.agree*100).toFixed(0) != 0 && (sentenceObj.disagree*100).toFixed(0) != 0 " class="u-inlineBlock u-sizeFullWidth">
+                                  <div class="col-xs-6 u-paddingRight0 grayBorderRB">
+                                    <h4 class="agreeTeal u-paddingRight10 u-marginTop0 u-paddingBottom10">{{(sentenceObj.agree*100).toFixed(0)}}% agree</h4>
+                                    <div v-for="(commentObj, mindex) in textcomp.displayAgreeComments">
+                                      <div class="u-paddingRight10 grayBorderTop">
+                                        <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>
+                                      </div>
+                                    </div>
                                   </div>
-                                </div>
-                              </div>
-                              <div class="col-xs-6 u-paddingLeft0 grayBorderLB">
-                                <h4 class="disagreeRed u-paddingLeft10 u-marginTop0 u-paddingBottom10">{{(sentenceObj.disagree*100).toFixed(0)}}% disagree</h4>
-                                <div v-for="commentObj in textcomp.displayDisagreeComments">
-                                  <div class="u-paddingLeft10 grayBorderTop">
-                                    <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>
+                                  <div class="col-xs-6 u-paddingLeft0 grayBorderLB">
+                                    <h4 class="disagreeRed u-paddingLeft10 u-marginTop0 u-paddingBottom10">{{(sentenceObj.disagree*100).toFixed(0)}}% disagree</h4>
+                                    <div v-for="commentObj in textcomp.displayDisagreeComments">
+                                      <div class="u-paddingLeft10 grayBorderTop">
+                                        <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>
+                                      </div>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </transition>
-                    <br><br>
-                  </span>
+                        </transition>
+                        <br><br>
+                      </span>
 
 
 
-                  <span v-else>
-                    <span v-bind:id="mindex">
-                      <a :id="mindex" :name="m.id+2" class="anchor"></a>
+                      <span v-else>
+                        <span v-bind:id="mindex">
+                          <a :id="mindex" :name="m.id+2" class="anchor"></a>
 
-                      {{m.text}}
+                          {{m.text}}
+                        </span>
+                      </span>
+
+                      <span v-if="m.endParagraph">
+                        <br><br>
+                      </span>
                     </span>
                   </span>
+                  <!--END OF STORY CONTENT-->
+                </div>
+                <div id="cal1">&nbsp;</div>
+                <div id="cal2">&nbsp;</div>
+                <div id="tooltip" v-bind:style="{display: textcomp.talkdisplay, top: textcomp.tooltop, left: textcomp.toolleft}">
+                  <span href="#talkModal" data-toggle="modal" class="u-button u-border" v-on:click="fetchComments(textcomp), textcomp.showUserResponse ='none'">contribute</span>
+                  <span v-on:click="textcomp.talkdisplay = 'none', textcomp.tooldisplay = 'block'" class="u-fontSize11 u-button">change vote</span>
+                  <div class="highlightMenu-arrowClip">
+                    <span class="highlightMenu-arrow"></span>
+                  </div>
+                </div>
 
-                  <span v-if="m.endParagraph">
-                    <br><br>
-                  </span>
-                </span>
-              </span>
-              <!--END OF STORY CONTENT-->
-            </div>
-            <div id="cal1">&nbsp;</div>
-            <div id="cal2">&nbsp;</div>
-            <div id="tooltip" v-bind:style="{display: textcomp.talkdisplay, top: textcomp.tooltop, left: textcomp.toolleft}">
-              <span href="#talkModal" data-toggle="modal" class="u-button u-border" v-on:click="fetchComments(textcomp), textcomp.showUserResponse ='none'">contribute</span>
-              <span v-on:click="textcomp.talkdisplay = 'none', textcomp.tooldisplay = 'block'" class="u-fontSize11 u-button">change vote</span>
-              <div class="highlightMenu-arrowClip">
-                <span class="highlightMenu-arrow"></span>
               </div>
-            </div>
 
+              <!--
+              <div class="cardBlock" v-bind:style="{display: mapcomp.displayEveryone}">
+              <div class="u-paddingBottom10">
+              <div v-for="(m, mindex) in mapcomp.arrayEveryone">
+              <div v-if="mapcomp.displayCounter == mindex">
+              <div class="u-sizeFullWidth u-inlineBlock u-paddingTop10 u-paddingLeft12 u-paddingRight12">
+              <a :href="'#'+m.sentenceId">
+              <button type="button" name="button" class="u-floatLeft keyButtons lessImportantButton u-lighter u-fontSize14 u-marginTop10">SEE CONTEXT</button>
+            </a>
+            <button type="button" name="button" class="u-floatRight keyButtons u-greenBackgroundButton u-lighter u-fontSize14 u-marginTop10" v-on:click="textcomp.displayContributeCard = false, fetchNextClaim(mapcomp, textcomp)">NEXT CLAIM</button>
           </div>
-
-          <!--
-          <div class="cardBlock" v-bind:style="{display: mapcomp.displayEveryone}">
-          <div class="u-paddingBottom10">
-          <div v-for="(m, mindex) in mapcomp.arrayEveryone">
-          <div v-if="mapcomp.displayCounter == mindex">
-          <div class="u-sizeFullWidth u-inlineBlock u-paddingTop10 u-paddingLeft12 u-paddingRight12">
-          <a :href="'#'+m.sentenceId">
-          <button type="button" name="button" class="u-floatLeft keyButtons lessImportantButton u-lighter u-fontSize14 u-marginTop10">SEE CONTEXT</button>
-        </a>
-        <button type="button" name="button" class="u-floatRight keyButtons u-greenBackgroundButton u-lighter u-fontSize14 u-marginTop10" v-on:click="textcomp.displayContributeCard = false, fetchNextClaim(mapcomp, textcomp)">NEXT CLAIM</button>
+          <div class="u-sizeFullWidth u-inlineBlock u-paddingLeft12 u-paddingRight20 u-marginLeft10 u-marginTop10">
+          <p class="u-paddingTop10 u-marginLeft10 u-fontSize25 gray-text u-marginTop0">Claim {{mapcomp.displayCounter+1}}/{{mapcomp.arrayEveryone.length}}</p>
+        </div>
+        <div class="u-padding10 u-inlineBlock">
+        <h4 class="u-paddingRight20 u-paddingLeft20 georgiaCard u-marginTop0">"{{m.text}}"</h4>
       </div>
-      <div class="u-sizeFullWidth u-inlineBlock u-paddingLeft12 u-paddingRight20 u-marginLeft10 u-marginTop10">
-      <p class="u-paddingTop10 u-marginLeft10 u-fontSize25 gray-text u-marginTop0">Claim {{mapcomp.displayCounter+1}}/{{mapcomp.arrayEveryone.length}}</p>
-    </div>
-    <div class="u-padding10 u-inlineBlock">
-    <h4 class="u-paddingRight20 u-paddingLeft20 georgiaCard u-marginTop0">"{{m.text}}"</h4>
-  </div>
-  <div class="voteSection u-inlineBlock u-paddingBottom10" v-bind:style="{display: textcomp.displayVoteCard}">
+      <div class="voteSection u-inlineBlock u-paddingBottom10" v-bind:style="{display: textcomp.displayVoteCard}">
 
-  <span v-if="textcomp.voteCounter < 2">
-  <span class="center">
-  <span v-on:click="submitVote(1, 2, textcomp, mapcomp), fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'" class="cardButtonSection center u-greenBackgroundButton u-borderRadiusBL">
-  <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">Agree</span>
-</span>
-<span v-on:click="submitVote(-1, 3, textcomp, mapcomp), fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'" class="cardButtonSection center u-redBackgroundButton">
-<span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">Disagree</span>
-</span>
-<span v-on:click="submitVote(0, 4, textcomp, mapcomp), fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'" class="cardButtonSection center u-grayBackgroundButton u-borderRadiusBR">
-<span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton">Interesting</span>
+      <span v-if="textcomp.voteCounter < 2">
+      <span class="center">
+      <span v-on:click="submitVote(1, 2, textcomp, mapcomp), fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'" class="cardButtonSection center u-greenBackgroundButton u-borderRadiusBL">
+      <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">Agree</span>
+    </span>
+    <span v-on:click="submitVote(-1, 3, textcomp, mapcomp), fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'" class="cardButtonSection center u-redBackgroundButton">
+    <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock">Disagree</span>
+  </span>
+  <span v-on:click="submitVote(0, 4, textcomp, mapcomp), fetchCommentsFromCard(textcomp), textcomp.showUserResponse ='none'" class="cardButtonSection center u-grayBackgroundButton u-borderRadiusBR">
+  <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton">Interesting</span>
 </span>
 </span>
 </span>
@@ -529,10 +528,10 @@ disagree because...
           Let us know if this isn't a main claim
         </button>
         <transition name="slide-slow">
-        <div v-bind:style="{display: textcomp.showThankYou}" class="u-sizeFullWidth u-paddingTop10 u-paddingBottom10">
-          <h4>Thanks for your feedback!</h4>
-        </div>
-      </transition>
+          <div v-bind:style="{display: textcomp.showThankYou}" class="u-sizeFullWidth u-paddingTop10 u-paddingBottom10">
+            <h4>Thanks for your feedback!</h4>
+          </div>
+        </transition>
       </div>
     </div>
   </div>

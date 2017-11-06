@@ -304,6 +304,11 @@ circle:hover{
 
 /*landingSection styles*/
 
+.landingSection{
+  background: url(../img/ChicagoGrads.png);
+  background-position: center;
+}
+
 .colorBar {
   height: 2px;
   width: 100%;
