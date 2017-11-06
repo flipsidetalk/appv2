@@ -374,7 +374,7 @@ label {
     font-family: 'Montserrat', sans-serif!important;
     font-weight: lighter!important;
     font-size: 14px;
-    padding-top: 6px;
+    padding-top: 5px!important;
   }
 
   .georgia{
@@ -1113,8 +1113,14 @@ opacity: 0;
   position: relative;
 }
 
-.u-top5{
-  top: 5px;
+.u-top4{
+  top: 4px;
+}
+
+@@media (max-width:767px) {
+  .u-top4{
+    top: 2px!important;
+  }
 }
 
 .u-borderRadius2{
@@ -1528,7 +1534,7 @@ blockquote cite:before {
 
 .btn {
   border-width: 2px;
-  padding: 10px 50px;
+  padding: 10px 10px;
 }
 
 .submission.btn.blue:hover {

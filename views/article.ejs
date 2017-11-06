@@ -68,9 +68,9 @@
           <form id="facebook-form">
             <div class="modal-body">
               <div class="overlay-content">
-                <a href="/auth/facebook" style="white-space: normal;" class="btn-primary facebookSign u-sizeFullWidth u-lighter u-fontSize20 u-maxHeight350"><span class="fa fa-facebook"></span> Sign in through Facebook
+                <button href="/auth/facebook" style="white-space: normal;" class="btn btn-primary facebookSign u-sizeFullWidth u-lighter u-fontSize20 u-maxHeight350"><span class="fa fa-facebook"></span> Sign in through Facebook
                   <p class="u-lighter u-fontSize12">We won't post anything without asking</p>
-                </a>
+                </button>
                 <div class="u-marginAuto u-inline-block u-paddingTop10 center">
                   <a href="#email-signup-modal" id="switch-to-email" class="u-lighter u-fontSize14">or sign in with email</a>
                 </div>
@@ -333,9 +333,6 @@
                               <span href="#sign-in-modal" data-toggle="modal" class="talkButtonInverse grayButtonInverse u-marginLeft10">
                                 <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock gray-text">Interesting</span>
                               </span>
-                              <span href="#feedback-modal" data-toggle="modal" v-on:click="openFeedbackForm(mindex, textcomp)" class="u-relative u-top5">
-                                <img src="../img/info.png" alt="info" style="height:23px;" class="u-paddingTop5 u-paddingLeft10">
-                              </span>
                             </span>
                             <span v-else>
                               <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(1, 2, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse greenButtonInverse u-marginLeft10">
@@ -347,10 +344,10 @@
                               <span v-on:click="showTool(mindex, m.seen, textcomp), submitResponse(0, 4, textcomp), fetchComments(textcomp), textcomp.showUserResponse ='none'" class="talkButtonInverse grayButtonInverse u-marginLeft10">
                                 <span class="u-cardButtonText u-verticalAlignTop u-inlineBlock u-lastAgreeButton gray-text">Interesting</span>
                               </span>
-                              <span href="#feedback-modal" data-toggle="modal" v-on:click="openFeedbackForm(mindex, textcomp)" class="u-relative u-top5">
-                                <img src="../img/info.png" alt="info" style="height:23px;" class="u-paddingTop5 u-paddingLeft10">
-                              </span>
-                            </span>
+                            </span><br>
+                            <div href="#feedback-modal" data-toggle="modal" v-on:click="openFeedbackForm(mindex, textcomp)" class="u-relative u-top4 u-inlineBlock u-floatRight">
+                              <p class="u-fontSize12 underline montserratLight u-paddingTop5">not a claim?</p>
+                            </div>
                           </span>
                         </span>
 
@@ -633,17 +630,17 @@ disagree because...
         <img src="../img/logo-no-text.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
         <h2>We appreciate your curiosity!</h2>
 
-        <h3 class="weight-lighter">To learn how we detect main claims, check out our FAQs page!</h3>
-        <br>
-
-        <button id="sentence-feedback-btn" type="button" name="button" class="btn btn-default" v-on:click="submitFeedback(textcomp)">
+        <div id="sentence-feedback-btn" type="button" name="button" class="btn btn-default" v-on:click="submitFeedback(textcomp)">
           Let us know if this isn't a main claim
-        </button>
+        </div>
         <transition name="slide-slow">
           <div v-bind:style="{display: textcomp.showThankYou}" class="u-sizeFullWidth u-paddingTop10 u-paddingBottom10">
             <h4>Thanks for your feedback!</h4>
           </div>
         </transition>
+        <br>
+        <h3 class="weight-lighter">To learn how we detect main claims, check out our FAQs page!</h3>
+
       </div>
     </div>
   </div>
