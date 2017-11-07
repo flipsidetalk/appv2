@@ -119,19 +119,21 @@ require('./auth.js')(app, connection, db);
 /* Get article page
  */
 app.get('/', function(req, res) {
-  db.article.findOne({
-      where: {
-        slug: CURRENT_SLUG
-      },
-      include: [{
-        model: db.title
-      }]
-    })
-    .then(data => {
-      res.render('article', {
-        title: 'Flipside - ' + data.title.title
+  // utils.requireHTTPS(req, res, function() {
+    db.article.findOne({
+        where: {
+          slug: CURRENT_SLUG
+        },
+        include: [{
+          model: db.title
+        }]
+      })
+      .then(data => {
+        res.render('article', {
+          title: 'Flipside - ' + data.title.title
+        });
       });
-    });
+  // });
 });
 app.post('/getArticleData', function(req, res) {
   const slug = CURRENT_SLUG;
@@ -667,7 +669,8 @@ app.post('/sentenceFeedback', function(req, res) {
   let user = req.user ? req.user.id : req.sessionID;
   utils.upsert(db.sentenceFeedback, {
     sentenceId: req.body.sentenceId,
-    response: req.body.response
+    response: req.body.response,
+    userId: user
   }, {
     userId: user
   }).then(response => {

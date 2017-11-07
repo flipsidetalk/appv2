@@ -40,7 +40,7 @@
                     <span>Welcome, {{user.name}} &bull;</span> <a class="logout-link" href="/logout">Logout</a>
                   </div>
                   <span v-else>
-                    <a class="button u-paddingRight20" href="#faq-modal" data-toggle="modal">FAQ's</a>
+                    <a class="button u-paddingRight20" href="#faq-modal" data-toggle="modal">FAQs</a>
                     <a class="button" href="#sign-in-modal" data-toggle="modal">Sign in / Sign up</a>
                   </span>
                 </div>
@@ -60,15 +60,14 @@
 
         <div class="modal-content">
           <div class="modal-header" align="center">
-            <img src="../img/logo-no-text.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
+            <img src="../img/logo.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
             <h2>Flipside</h2>
             <h3 class="weight-lighter">Sign up to interact with and learn about different perspectives</h3>
           </div>
           <!-- Begin # Login Form -->
-          <form id="facebook-form">
             <div class="modal-body">
               <div class="overlay-content">
-                <button href="/auth/facebook" style="white-space: normal;" class="btn btn-primary facebookSign u-sizeFullWidth u-lighter u-fontSize20 u-maxHeight350"><span class="fa fa-facebook"></span> Sign in through Facebook
+                <button onclick="window.location.href='/auth/facebook'" style="white-space: normal;" class="btn btn-primary facebookSign u-sizeFullWidth u-lighter u-fontSize20 u-maxHeight350"><span class="fa fa-facebook"></span> Sign in through Facebook
                   <p class="u-lighter u-fontSize12">We won't post anything without asking</p>
                 </button>
                 <div class="u-marginAuto u-inline-block u-paddingTop10 center">
@@ -76,7 +75,6 @@
                 </div>
               </div>
             </div>
-          </form>
           <!-- End # Login Form -->
         </div>
       </div>
@@ -90,7 +88,7 @@
           <button type="button" class="close u-fontSize45" data-dismiss="modal">&times;</button>
 
           <div class="modal-header" align="center">
-            <img src="../img/logo-no-text.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
+            <img src="../img/logo.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
             <h2>Flipside</h2>
             <h3 class="weight-lighter">Sign up to interact and learn about different perspectives</h3>
             <h3 class="weight-lighter">or <a id="switch-email-login" class="underline">sign in if you already have an account</a>.</h3>
@@ -147,16 +145,12 @@
           <button type="button" class="close u-fontSize45" data-dismiss="modal">&times;</button>
 
           <div class="modal-header" align="center">
-            <img src="../img/logo-no-text.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
+            <img src="../img/logo.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
             <h2>We appreciate your curiosity!</h2>
           </div>
           <!-- Begin # Login Form -->
           <div class="modal-body">
-
-            <h5><i>wanna chat?</i></h5>
-            <h5 class="montserratLight">email us at flipsidetalk@gmail.com!</h5>
-            <br>
-            <h5><i>What is the goal of flipside?</i></h5>
+            <h5><i>What is the goal of Flipside?</i></h5>
             <h5 class="montserratLight">In a world of restricted speech and echo chambers, it’s never been more important for us to learn
               about and share our differing opinions and perspectives. But the internet has become so noisy and toxic that it’s pretty much
               impossible to have a fun or interesting conversation with people we disagree with. We think we can change that.
@@ -175,9 +169,7 @@
             <h5><i>How does Flipside improve online conversations?</i></h5>
             <h5 class="montserratLight">Through lots of trial and error, we’ve found that the main claims create a great jumping off point for interesting conversations,
               makes it fun for people to share what they believe, and makes it easy and organized to learn about different perspectives on beliefs
-              you’re curious about.
-              <br>
-              But this is all just the beginning! We think there’s a lot that can be done to make online conversations more accessible and more productive. If you have thoughts on how we can do this better, definitely reach out at flipsidetalk@gmail.com.
+              you’re curious about. But this is just the beginning! We think there’s a lot that can be done to make online conversations more accessible and more productive. If you have thoughts on how we can do this better, definitely reach out at <a href="mailto:feeback@flipsidetalk.com">feeback@flipsidetalk.com</a>.
             </h5>
             <br>
 
@@ -230,7 +222,9 @@
               they know. We intentionally choose the most difficult topics to discuss, because that’s what we need most.
             </h5>
             <br>
-
+            <h5><i>Wanna chat?</i></h5>
+            <h5 class="montserratLight">Email us at <a href="mailto:feeback@flipsidetalk.com">feeback@flipsidetalk.com</a>!</h5>
+            <br>
           </div>
           <div class="modal-footer">
 
@@ -250,7 +244,7 @@
           <button type="button" class="close u-fontSize45" data-dismiss="modal">&times;</button>
 
           <div class="modal-header" align="center">
-            <img src="../img/logo-no-text.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
+            <img src="../img/logo.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
             <h2>Flipside</h2>
             <h3 class="weight-lighter">Sign in to interact and learn about different perspectives</h3>
           </div>
@@ -297,8 +291,8 @@
               <div class="u-paddingRight10 u-paddingLeft10 u-paddingTop10 u-paddingBottom10 u-marginBottom25">
                 <h2 class="montserrat section-heading white-text">Welcome to Flipside!</h2>
                 <h3 class="montserrat white-text">A new way to share opinions</h3><br>
-                <h3 class="montserratLight white-text u-paddingBottom10">Join <b class="red-text">{{mapcomp.bubbleData[0].users.length}} </b>others on a discussion about graduate students unionizing</h3>
-                <h4 class="montserratLight white-text"> or <a class="underline" href="mailto:flipsidetalk@gmail.com?Subject=Discussion%20Idea" target="_top">send us an article</a> you'd like to discuss</h4>
+                <h3 class="montserratLight white-text u-paddingBottom10">Join <b class="red-text">{{mapcomp.bubbleData[0].users.length}} </b>others on a discussion about graduate student unionization</h3>
+                <h4 class="montserratLight white-text"> or <a class="underline" href="mailto:submit@flipsidetalk.com?Subject=Discussion%20Idea" target="_top">send us an article</a> you'd like to discuss</h4>
               </div>
             </div>
 
@@ -630,15 +624,15 @@ disagree because...
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" align="center">
-        <img src="../img/logo-no-text.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
-        <h2>We appreciate your curiosity!</h2>
+        <img src="../img/logo.png" alt="Logo" style="height:60px;" class="u-paddingTop10">
+        <h2>We appreciate your feedback!</h2>
 
         <div id="sentence-feedback-btn" type="button" name="button" class="btn btn-default" v-on:click="submitFeedback(textcomp)">
-          Let us know if this isn't a main claim
+          This isn't a main claim
         </div>
         <transition name="slide-slow">
           <div v-bind:style="{display: textcomp.showThankYou}" class="u-sizeFullWidth u-paddingTop10 u-paddingBottom10">
-            <h4>Thanks for your feedback!</h4>
+            <h4>Thanks for letting us know</h4>
           </div>
         </transition>
         <br>
