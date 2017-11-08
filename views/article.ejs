@@ -291,13 +291,16 @@
               <div class="u-paddingRight10 u-paddingLeft10 u-paddingTop10 u-paddingBottom10 u-marginBottom25">
                 <h2 class="montserrat section-heading white-text">Welcome to Flipside!</h2>
                 <h3 class="montserrat white-text">A new way to share opinions</h3><br>
-                <h3 class="montserratLight white-text u-paddingBottom10">Join <b class="red-text">{{mapcomp.bubbleData[0].users.length}} </b>others on a discussion about graduate student unionization</h3>
+                <h3 class="montserratLight white-text u-paddingBottom10">Vote below to see what <b class="red-text">{{mapcomp.bubbleData[0].users.length}} </b>others think about grad student unions</h3>
                 <h4 class="montserratLight white-text"> or <a class="underline" href="mailto:submit@flipsidetalk.com?Subject=Discussion%20Idea" target="_top">send us an article</a> you'd like to discuss</h4>
               </div>
             </div>
 
             <!-- ARTICLE TEXT -->
             <div class="col-sm-offset-2 col-sm-8">
+              <div class="u-sizeFullWidth">
+                <i class="fa fa-3x fa-angle-down center" aria-hidden="true"></i>
+              </div>
               <br>
               <h2 class="section-heading center-heading margin-top-0 montserratLight" name="main">{{textcomp.article.title.title}}</h2>
               <p class="center-heading">by {{textcomp.article.authors[0].name}} of {{textcomp.article.publication.name}} on {{textcomp.article.formattedDate}}</p>
@@ -550,65 +553,65 @@ disagree because...
 <br><br>
 </div>
 
+<!--
+<div class="col-sm-offset-2 col-sm-8">
+  <div id="mapcompAnchor" v-if="mapcomp.bubbleData.length > 2">
+    <div v-if="textcomp.voteCounter > 4">
+      <button type="button" name="button" class="u-greenBackgroundButton keyButtons" onclick="location.reload()">See Yourself!</button>
+    </div>
 
-<!-- <div class="col-sm-offset-2 col-sm-8">
-<div id="mapcompAnchor" v-if="mapcomp.bubbleData.length > 2">
-<div v-if="textcomp.voteCounter > 4">
-<button type="button" name="button" class="u-greenBackgroundButton keyButtons" onclick="location.reload()">See Yourself!</button>
-</div>
+    <h2 class="margin-top-0 u-lighter" name="main">Welcome to Flipside!</h2><br>
+    <h3 class="u-lighter"><b>Click on Bubbles</b> to learn what different people think.</h3>
 
-<h2 class="margin-top-0 u-lighter" name="main">Welcome to Flipside!</h2><br>
-<h3 class="u-lighter"><b>Click on Bubbles</b> to learn what different people think.</h3>
+    <div class="cardBlock u-height350">
+      <div class="u-paddingTop10">
+        <div class="u-sizeFullWidth u-inlineBlock u-paddingLeft12 u-paddingRight20 u-marginLeft10">
+          <p class="u-paddingTop10 u-marginLeft10 u-fontSize25 gray-text u-marginTop0">The People's Opinion</p>
+        </div>
+        <map-comp :mapcomp="mapcomp"></map-comp>
 
-<div class="cardBlock u-height350">
-<div class="u-paddingTop10">
-<div class="u-sizeFullWidth u-inlineBlock u-paddingLeft12 u-paddingRight20 u-marginLeft10">
-<p class="u-paddingTop10 u-marginLeft10 u-fontSize25 gray-text u-marginTop0">The People's Opinion</p>
-</div>
-<map-comp :mapcomp="mapcomp"></map-comp>
+        <transition name='slide-fade'>
+          <div v-if="mapcomp.displayIndividual">
+            <div class="u-inlineBlock">
 
-<transition name='slide-fade'>
-<div v-if="mapcomp.displayIndividual">
-<div class="u-inlineBlock">
+              <div class="u-paddingRight20 u-paddingLeft20">
+                <hr>
+              </div>
+              <div class="u-padding10">
 
-<div class="u-paddingRight20 u-paddingLeft20">
-<hr>
-</div>
-<div class="u-padding10">
+                <div class="u-sizeFullWidth u-inlineBlock u-paddingLeft12 u-paddingRight20 u-marginLeft10 u-marginTop10 u-marginRight10">
 
-<div class="u-sizeFullWidth u-inlineBlock u-paddingLeft12 u-paddingRight20 u-marginLeft10 u-marginTop10 u-marginRight10">
+                  <button type="button u-marginRight10" class="close" v-on:click="mapcomp.displayIndividual = false;">
+                    <span class="u-fontSize45 u-lighter">&times;</span>
+                  </button>
+                  <p class="u-paddingTop10 u-marginLeft10 u-fontSize25 gray-text u-marginTop0">How this group voted:</p>
+                </div>
 
-<button type="button u-marginRight10" class="close" v-on:click="mapcomp.displayIndividual = false;">
-<span class="u-fontSize45 u-lighter">&times;</span>
-</button>
-<p class="u-paddingTop10 u-marginLeft10 u-fontSize25 gray-text u-marginTop0">How this group voted:</p>
-</div>
+                <div v-for="m in mapcomp.arrayClaim">
 
-<div v-for="m in mapcomp.arrayClaim">
+                  <div class="u-paddingLeft10">
 
-<div class="u-paddingLeft10">
+                    <div v-if="m.agreeable == 'agreeBlock'">
+                      <h4 class="agreeTeal u-fontSize20 u-paddingLeft20">{{(m.percent*100).toFixed(0)}}% agree with:</h4>
+                    </div>
+                    <div v-else>
+                      <h4 class="disagreeRed u-fontSize20 u-paddingLeft20">{{(m.percent*100).toFixed(0)}}% disagree with:</h4>
+                    </div>
+                    <div>
+                      <h5 class="georgiaCard u-paddingRight20 u-paddingLeft20 u-paddingBottom10">{{m.text}}</h5>
+                    </div>
 
-<div v-if="m.agreeable == 'agreeBlock'">
-<h4 class="agreeTeal u-fontSize20 u-paddingLeft20">{{(m.percent*100).toFixed(0)}}% agree with:</h4>
-</div>
-<div v-else>
-<h4 class="disagreeRed u-fontSize20 u-paddingLeft20">{{(m.percent*100).toFixed(0)}}% disagree with:</h4>
-</div>
-<div>
-<h5 class="georgiaCard u-paddingRight20 u-paddingLeft20 u-paddingBottom10">{{m.text}}</h5>
-</div>
-
-</div>
-</div>
+                  </div>
+                </div>
 
 
-</div>
-</div>
-</div>
-</transition>
-</div>
-</div>
-</div>
+              </div>
+            </div>
+          </div>
+        </transition>
+      </div>
+    </div>
+  </div>
 </div> -->
 </div>
 </div>
