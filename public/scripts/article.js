@@ -10,7 +10,8 @@ $.ajax({
         user: response.user
       },
       mounted: function() {
-        this.fetchSentenceData(this.textcomp)
+        this.fetchSentenceData(this.textcomp);
+        this.fetchComments(this.textcomp);
         jQueryFunctions();
 
       },
@@ -195,10 +196,10 @@ $.ajax({
           textcomp.displayDisagreeComments = [];
           textcomp.displayUnsureComments = [];
 
-
           for (var comment of textcomp.commentData) {
-            if (comment.sentenceId == placeholderId && comment.statement.length > 2) {
+            if (comment.statement.length > 2) {
               //append it to object
+
               textcomp.eachDisplayComment.agreeable = comment.reaction;
               textcomp.eachDisplayComment.text = comment.statement;
               textcomp.eachDisplayComment.username = comment.firstname;
@@ -220,7 +221,6 @@ $.ajax({
           textcomp.justVoted = true;
           console.log("agree comments" + JSON.stringify(textcomp.displayAgreeComments));
           console.log("disagree comments" + JSON.stringify(textcomp.displayDisagreeComments));
-
 
         },
         fetchSentenceData: function(textcomp) { //equivalent to fetchEveryone from Mapcomp

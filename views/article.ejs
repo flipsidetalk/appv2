@@ -351,6 +351,7 @@
 
 
                         <transition name="slide-fade">
+                        <div>
                           <div v-if="textcomp.lastReferenced == mindex && textcomp.justVoted" class="u-paddingLeft20 u-paddingRight20 montserratLight">
                             <div>
                               <h4 class="u-lighter"> I
@@ -380,25 +381,28 @@
                             <div v-bind:style="{display: textcomp.showUserResponse}" class="u-sizeFullWidth u-paddingTop10 u-paddingBottom10">
                               <h4>Thank you for sharing!</h4>
                             </div>
-
-
+                            </div>
                             <div v-for="(sentenceObj, sindex) in textcomp.arrayEveryone">
                               <div v-if="sentenceObj.sentenceId == mindex">
                                 <div v-if="(sentenceObj.agree*100).toFixed(0) != 0 && (sentenceObj.disagree*100).toFixed(0) != 0 " class="u-inlineBlock u-sizeFullWidth">
                                   <div class="col-xs-6 u-paddingRight0 grayBorderRB">
                                     <h4 class="agreeTeal u-paddingRight10 u-marginTop0 u-paddingBottom10">{{(sentenceObj.agree*100).toFixed(0)}}% agree</h4>
                                     <div v-for="(commentObj, mindex) in textcomp.displayAgreeComments">
-                                      <div class="u-paddingRight10 grayBorderTop">
-                                        <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>
+                                      <div v-if="mindex == sindex">
+                                        <div class="u-paddingRight10 grayBorderTop">
+                                          <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
                                   <div class="col-xs-6 u-paddingLeft0 grayBorderLB">
                                     <h4 class="disagreeRed u-paddingLeft10 u-marginTop0 u-paddingBottom10">{{(sentenceObj.disagree*100).toFixed(0)}}% disagree</h4>
-                                    <div v-for="commentObj in textcomp.displayDisagreeComments">
+                                    <div v-for="(commentObj, mindex) in textcomp.displayDisagreeComments">
+                                      <div v-if="mindex == sindex">
                                       <div class="u-paddingLeft10 grayBorderTop">
                                         <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>
                                       </div>
+                                    </div>
                                     </div>
                                   </div>
                                 </div>

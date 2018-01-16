@@ -1,6 +1,7 @@
 /* Constants and import statements */
 const PYTHON_SERVER_URL = 'http://54.236.205.41:80/';
-const CURRENT_SLUG = 'the-false-hope-of-graduate-student-unions'
+// const CURRENT_SLUG = 'the-false-hope-of-graduate-student-unions'
+const CURRENT_SLUG = 'a-letter-from-faculty-concerning-obama-center'
 const CURRENT_ID = 68;
 const NUM_FAKE_USERS = 10;
 const INIT_SPLIT = 0.8
@@ -423,7 +424,6 @@ app.post('/getArticleData', function(req, res) {
             data.textcomp.hasUserVoted = results.hasUserVoted;
             data.textcomp.article = results.article;
             data.textcomp.commentData = results.comments;
-            // console.log("COMMENTS: " + JSON.stringify(results.comments));
             console.log("HEY HEY HEY");
             console.log("\n\n\n\n\n")
             console.log(results)
