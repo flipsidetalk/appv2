@@ -388,7 +388,7 @@
                                   <div class="col-xs-6 u-paddingRight0 grayBorderRB">
                                     <h4 class="agreeTeal u-paddingRight10 u-marginTop0 u-paddingBottom10">{{(sentenceObj.agree*100).toFixed(0)}}% agree</h4>
                                     <div v-for="(commentObj, mindex) in textcomp.displayAgreeComments">
-                                      <div v-if="mindex == sindex">
+                                      <div v-if="commentObj.sentenceId == sentenceObj.sentenceId">
                                         <div class="u-paddingRight10 grayBorderTop">
                                           <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>
                                         </div>
@@ -398,7 +398,7 @@
                                   <div class="col-xs-6 u-paddingLeft0 grayBorderLB">
                                     <h4 class="disagreeRed u-paddingLeft10 u-marginTop0 u-paddingBottom10">{{(sentenceObj.disagree*100).toFixed(0)}}% disagree</h4>
                                     <div v-for="(commentObj, mindex) in textcomp.displayDisagreeComments">
-                                      <div v-if="mindex == sindex">
+                                      <div v-if="commentObj.sentenceId == sentenceObj.sentenceId">
                                       <div class="u-paddingLeft10 grayBorderTop">
                                         <p class="commentText u-paddingTop10 u-marginTop10 u-paddingBottom10 BorderRadius7">{{commentObj.text}}</p>
                                       </div>

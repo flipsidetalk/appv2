@@ -203,6 +203,7 @@ $.ajax({
               textcomp.eachDisplayComment.agreeable = comment.reaction;
               textcomp.eachDisplayComment.text = comment.statement;
               textcomp.eachDisplayComment.username = comment.firstname;
+              textcomp.eachDisplayComment.sentenceId = comment.sentenceId;
 
               if (comment.reaction == -1) {
                 textcomp.displayDisagreeComments.push(textcomp.eachDisplayComment);
