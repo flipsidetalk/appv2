@@ -310,8 +310,7 @@ circle:hover{
 /*landingSection styles*/
 
 .landingSection{
-  background: url(../img/ChicagoGrads.png);
-  background-position: center;
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(../img/obama.jpg);
 }
 
 .colorBar {
